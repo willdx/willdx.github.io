@@ -2,13 +2,13 @@
 <rss version="2.0">
 <channel>
     <title>Will Dx</title>
-    <link>http://willdx.github.io</link>
+    <link>http://blog.willdx.me</link>
     <description>willdx的在线博客</description>
     {% for word in words %}
     <item>
         <title>{{ word.title }}</title>
-        <link>http://willdx.github.io/words/{{ word.filename }}.html</link>
-        <guid>http://willdx.github.io/words/{{ word.filename }}.html</guid>
+        <link>http://blog.willdx.me/words/{{ word.filename }}.html</link>
+        <guid>http://blog.willdx.me/words/{{ word.filename }}.html</guid>
         <pubDate>{{ word.date.strftime('%B %m, %Y')}}</pubDate>
         <description>{{ word.title }}</description>
     </item>

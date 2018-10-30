@@ -1,0 +1,364 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Kibana的Lucene的查询语法 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Kibana的Lucene的查询语法</h1>
+        <h4>Posted April 07, 2017</h4>
+        <blockquote class="blockquote-normal">
+                <p>kibana在ELK阵营中用来查询展示数据 elasticsearch构建在Lucene之上，过滤器语法和Lucene相同</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14982329981508.jpg"></p>
+</p>
+
+<h1>1. 全文搜索</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14982331606729.jpg"></p>
+</p>
+
+<h1>2. 短语搜索</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14982332804101.jpg"></p>
+</p>
+
+<h1>3. 字段搜索</h1>
+
+<h2>3.1 按页面左侧显示的字段搜索</h2>
+
+<p>限定字段全文搜索：<code>field:value</code>
+精确搜索：关键字加上双引号 <code>filed:&quot;value&quot;</code>
+<code>http.code:404</code> 搜索http状态码为404的文档</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14982334339405.jpg"></p>
+</p>
+
+<p>或者:</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14982334888197.jpg"></p>
+</p>
+
+<h2>3.2 字段本身是否存在</h2>
+
+<p><code>_exists_:http</code>：返回结果中需要有http字段
+<code>_missing_:http</code>：不能含有http字段</p>
+
+<h1>4.通配符</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">?</span> <span class="err">匹配单个字符</span>
+<span class="o">*</span> <span class="err">匹配</span><span class="mi">0</span><span class="err">到多个字符</span>
+
+<span class="n">kiba</span><span class="err">?</span><span class="n">a</span><span class="p">,</span> <span class="n">el</span><span class="o">*</span><span class="n">search</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>? * 不能用作第一个字符，例如：?text *text</p></blockquote>
+<h1>5.正则</h1>
+
+<p><code>mesg:/mes{2}ages?/</code></p>
+
+<h1>6.模糊搜索</h1>
+
+<p><code>~</code>:在一个单词后面加上<code>~</code>启用模糊搜索, 例如: first~ 也能匹配到 frist</p>
+
+<p>还可以指定需要多少相似度:</p>
+
+<p><code>cromm~0.3</code> 会匹配到 <code>from 和 chrome</code>
+数值范围<code>0.0 ~ 1.0</code>，<code>默认0.5</code>，越大越接近搜索的原始值</p>
+
+<p>近似搜索和模糊搜索类似:在短语后面加上<code>~</code>, 例如
+<code>&quot;select where&quot;~3</code> 表示 select 和 where 中间隔着3个单词以内</p>
+
+<h1>7.范围搜索</h1>
+
+<p>数值和时间类型的字段可以对某一范围进行查询
+length:[100 TO 200]
+date:{<q>now-6h</q> TO <q>now</q>}
+<code>[ ]</code> 表示端点数值包含在范围内，<code>{ }</code>表示端点数值不包含在范围内</p>
+
+<h1>8.逻辑操作</h1>
+
+<p><code>AND</code>
+<code>OR</code></p>
+
+<p><code>+</code>：搜索结果中必须包含此项
+<code>-</code>：不能含有此项
+<code>+apache -jakarta test</code>：结果中必须存在apache，不能有jakarta，test可有可无</p>
+
+<h1>9.分组</h1>
+
+<p><code>(jakarta OR apache) AND jakarta</code></p>
+
+<h1>10.字段分组</h1>
+
+<p><code>title:(+return +&quot;pink panther&quot;)</code></p>
+
+<h1>11.转义特殊字符</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">+</span> <span class="o">-</span> <span class="o">&amp;&amp;</span> <span class="o">||</span> <span class="err">!</span> <span class="p">()</span> <span class="p">{}</span> <span class="p">[]</span> <span class="o">^</span><span class="s2">&quot; ~ * ? : </span><span class="se">\</span>
+<span class="s2">以上字符当作值搜索的时候需要用\转义</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Kibana数据分析',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

@@ -1,0 +1,582 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+        <title> willdx </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="entryMain">
+    <div id="entrys" class="ui container">
+        
+        <a href="/words/Bootstrap栅格系统.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Bootstrap栅格系统
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记16_Django 上下文渲染器.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记16_Django 上下文渲染器
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/我收藏的配色网站-你应该有需要.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    JS之点击按钮复制文本
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/阮一峰老师-git使用系列.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    阮一峰老师Git使用系列
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Kibana数据分析.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Kibana的Lucene的查询语法
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/logging模块封装.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    logging模块封装
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/设计模式专题-05-生产者消费者模式.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    设计模式专题-05-生产者消费者模式
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Elasticsearch DSL读书笔记.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Elasticsearch DSL读书笔记
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记18_Django的信号机制.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记18_Django的信号机制
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记14_Django Ajax使用及安全.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记14_Django Ajax使用及安全
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/python_执行字符串表示的函数_并为该函数提供全局变量.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    python_执行字符串表示的函数_并为该函数提供全局变量
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/工作小技巧_Mac快速从Finder进入命令行.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    工作小技巧_Mac快速从Finder进入命令行
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/爬取环法自行车赛的赔率信息.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    爬取环法自行车赛的赔率信息
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/macvim IDE环境搭建.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    vim ide折腾记
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/HashiCorp全家桶-Nomad.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    HashiCorp全家桶-Nomad
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记17_Django项目微信公众平台开发.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记17_Django 微信公众平台
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记04_路由系统.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记04_路由系统
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/设计模式专题-01-单例模式.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    设计模式专题-01-单例模式
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Docker compose network笔记.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Docker compose network笔记
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Django学习笔记01_web框架基础.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Django学习笔记01_web框架基础
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/python web开发测试驱动开发方法.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    python web开发测试驱动开发方法
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/Python使用glom处理嵌套数据.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    Python使用glom处理嵌套数据
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/js时间戳与日期格式之间的互转.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    js时间戳与日期格式之间的互转
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/基于用户位置的实时优惠券推送实现 .html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    基于用户位置的实时优惠券推送实现
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+        <a href="/words/MongoDB进阶教程.html" class="ui fluid card" style="border-radius: 0; margin-bottom: 3em;">
+            
+            <div class="content" style="padding: 2em; backgrund: rgba(0, 0,0,0);">
+                <div class="header cl">
+                    MongoDB进阶教程
+                </div>
+                <div class="date">
+                April 07, 2017
+                </div>
+            </div>
+        </a>
+        <div class="ui divider"></div>
+        
+
+        <div id="pagination">
+            <div class="ui buttons">
+                
+                    
+                        <a href="/page/2/"><button class="ui positive prev button">上一页</button></a>
+                    
+                
+                
+                <div class="or" data-text="3"></div>
+
+                
+                    <a href="/page/4/"><button class="ui positive next button">下一页</button></a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+</html>

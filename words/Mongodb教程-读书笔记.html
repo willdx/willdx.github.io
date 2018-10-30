@@ -1,0 +1,491 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Mongodb教程-读书笔记 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Mongodb教程-读书笔记</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="https://www.mongodb.com/">Mongodb主页</a>
+<a href="http://python.jobbole.com/87157/">文章来源1-伯乐在线</a>
+<a href="http://www.runoob.com/mongodb/mongodb-relationships.html">文章来源2-菜鸟教程</a></p>
+
+<h1>1. SQL vs NoSQL</h1>
+
+<h2>1.1 关系型数据库(RDBMS)遵循ACID规则</h2>
+
+<p>A (Atomicity) 原子性:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>原子性很容易理解，也就是说事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚;</pre></div></div>
+
+<p>C (Consistency) 一致性:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>一致性也比较容易理解，也就是说数据库要一直处于一致的状态，事务的运行不会改变数据库原本的一致性约束;</pre></div></div>
+
+<p>I (Isolation) 独立性:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>所谓的独立性是指并发的事务之间不会互相影响，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响;</pre></div></div>
+
+<p>D (Durability) 持久性:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>持久性是指一旦事务提交后，它所做的修改将会永久的保存在数据库上，即使出现宕机也不会丢失</pre></div></div>
+
+<h2>1.2 关系型数据库和nosql各自特点</h2>
+
+<h3>SQL</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>模型是关系型的；
+数据被存放在表中；
+适用于每条记录都是相同类型并具有相同属性的情况；
+存储规范需要预定义结构；
+添加新的属性意味着你必须改变整体架构；
+ACID事务支持；</pre></div></div>
+
+<h3>NoSQL</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>模型是非关系型的;
+可以存储Json、键值对等(决定于NoSQL数据库类型)；
+并不是每条记录都要有相同的结构；
+添加带有新属性的数据时，不会影响其他；
+支持ACID事务，根据使用的NoSQL的数据库而有所不同；
+一致性可以改变；
+横向扩展；</pre></div></div>
+
+<h2>1.3 MongoDB支持ACID事务么?</h2>
+
+<p>MongoDB的一个常见缺点是缺少对ACID事务的支持，MongoDB在特定场景下支持ACID事务，但不是在所有情况。在单文档级别，支持ACID事务（这是大多数事务发生的地方）。但是，由于MongoDB的分布式性质，不支持处理多个文档的事务;</p>
+
+<h1>2.使用PyMongo操作数据库</h1>
+
+<h2>2.1 安装</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pymongo</span>
+</pre></div>
+</div>
+<h2>2.1 连接</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">)</span> 
+<span class="err">或者</span><span class="p">:</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>2.2 访问数据库</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">pymongo_test</span>
+<span class="err">或者</span><span class="p">:</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="p">[</span><span class="s1">&#39;pymongo_test&#39;</span><span class="p">]</span>
+<span class="c1"># 如果数据库不存在, 它会自动创建</span>
+</pre></div>
+</div>
+<h2>2.3 插入文档</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 插入单条数据</span>
+<span class="n">posts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">posts</span>
+<span class="n">post_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Python and MongoDB&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;PyMongo is fun, you guys&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Scott&#39;</span>
+<span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="n">post_data</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;One post: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">inserted_id</span><span class="p">))</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 插入多条</span>
+<span class="n">post_1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Python and MongoDB&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;PyMongo is fun, you guys&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Scott&#39;</span>
+<span class="p">}</span>
+<span class="n">post_2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Virtual Environments&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Use virtual environments, you guys&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Scott&#39;</span>
+<span class="p">}</span>
+<span class="n">post_3</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Learning Python&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Learn Python, it is easy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bill&#39;</span>
+<span class="p">}</span>
+<span class="n">new_result</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="n">insert_many</span><span class="p">([</span><span class="n">post_1</span><span class="p">,</span> <span class="n">post_2</span><span class="p">,</span> <span class="n">post_3</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Multiple posts: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_result</span><span class="o">.</span><span class="n">inserted_ids</span><span class="p">))</span>
+</pre></div>
+</div>
+<h2>2.4 检索文档</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 检索文档可以使用find_one()方法</span>
+<span class="n">bills_post</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bill&#39;</span><span class="p">})</span>
+<span class="k">print</span><span class="p">(</span><span class="n">bills_post</span><span class="p">)</span>
+ 
+<span class="err">运行结果</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Bill&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Learning Python&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Learn Python, it is easy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s1">&#39;584c4afdea542a766d254241&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># 查询多条记录可以使用find()方法</span>
+<span class="n">scotts_posts</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Scott&#39;</span><span class="p">})</span>
+<span class="k">print</span><span class="p">(</span><span class="n">scotts_posts</span><span class="p">)</span>
+
+<span class="err">运行结果</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">pymongo</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">Cursor</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x109852f98</span><span class="o">&gt;</span>
+<span class="c1">## find()方法需要迭代对象,返回结果</span>
+<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">scotts_posts</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+</pre></div>
+</div>
+<h1>3. MongoEngine</h1>
+
+<ul>
+<li>MongoEngine是一个对象文档映射器(ODM)，它大致相当于一个基于SQL的对象关系映射器（ORM）</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 1. 安装</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">mongoengine</span>
+<span class="c1"># 2. 连接</span>
+<span class="c1">## 和pymongo不同的是, MongoEngine需要制定数据库名称</span>
+<span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">connect</span><span class="p">(</span><span class="s1">&#39;mongoengine_test&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27017</span><span class="p">)</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 3. 定义文档</span>
+<span class="err">我们将通过继承</span><span class="n">Document</span><span class="err">类，来定义我们想要的数据类型</span><span class="p">:</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+ 
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">published</span> <span class="o">=</span> <span class="n">DateTimeField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    
+<span class="n">required</span><span class="err">：设置必须；</span>
+<span class="n">default</span><span class="err">：如果没有其他值给出使用指定的默认值</span>
+<span class="n">unique</span><span class="err">：确保集合中没有其他</span><span class="n">document</span><span class="err">有此字段的值相同</span>
+<span class="n">choices</span><span class="err">：确保该字段的值等于数组中的给定值之一</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 4.保存文档</span>
+<span class="n">post_1</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sample Post&#39;</span><span class="p">,</span>
+    <span class="n">content</span><span class="o">=</span><span class="s1">&#39;Some engaging content&#39;</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="s1">&#39;Scott&#39;</span>
+<span class="p">)</span>
+<span class="n">post_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>       <span class="c1"># This will perform an insert</span>
+<span class="k">print</span><span class="p">(</span><span class="n">post_1</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="n">post_1</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;A Better Post Title&#39;</span>
+<span class="n">post_1</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>       <span class="c1"># This will perform an atomic edit on &quot;title&quot;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">post_1</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+
+<span class="err">调用</span><span class="n">save</span><span class="p">()</span><span class="err">的时候需要注意几点</span><span class="p">:</span>
+    <span class="n">PyMongo</span><span class="err">将在您调用</span><span class="o">.</span><span class="n">save</span><span class="p">()</span><span class="err">时执行验证</span><span class="p">,</span> <span class="err">这意味着它将根据您在类中声明的模式检查要保存的数据，如果违反模式</span><span class="p">(</span><span class="err">或约束</span><span class="p">),</span><span class="err">则抛出异常并且不保存数据</span><span class="p">;</span>
+    <span class="err">由于</span><span class="n">Mongo</span><span class="err">不支持真正的事务</span><span class="p">,</span> <span class="err">因此没有办法像在</span><span class="n">SQL</span><span class="err">数据库中那样“回滚”</span><span class="o">.</span><span class="n">save</span><span class="p">()</span><span class="err">的调用</span><span class="p">;</span>
+
+<span class="err">缺少</span><span class="n">title</span><span class="err">字段的例子</span><span class="p">:</span>
+<span class="n">post_2</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;Content goes here&#39;</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="s1">&#39;Michael&#39;</span><span class="p">)</span>
+<span class="n">post_2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">)</span>
+<span class="n">mongoengine</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">:</span>
+<span class="n">ValidationError</span> <span class="p">(</span><span class="n">Post</span><span class="p">:</span><span class="bp">None</span><span class="p">)</span> <span class="p">(</span><span class="n">Field</span> <span class="ow">is</span> <span class="n">required</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul>
+<li>面向对象特性, 支持在模型自定义方法</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">()</span>
+    <span class="n">published</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">()</span>
+ 
+    <span class="nd">@queryset_manager</span>
+    <span class="k">def</span> <span class="nf">live_posts</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">published</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li>模型之间可以有关联关系</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">()</span>
+ 
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">ReferenceField</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
+ 
+<span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<h1>4. 命令行下的数据操作</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-relationships.html">菜鸟教程有详尽的文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Mongodb教程-读书笔记',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

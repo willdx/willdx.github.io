@@ -1,0 +1,765 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> HashiCorp全家桶-Nomad </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>HashiCorp全家桶-Nomad</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="https://www.hashicorp.com/">HashiCorp官网</a></p>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>模块名称</th>
+<th>功能描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://www.terraform.io/">Terraform</a></td>
+<td>基础设施即代码, 创建，结合，和管理多个服务提供商的基础设施,例如:管理阿里云服务</td>
+</tr>
+<tr>
+<td><a href="https://www.vaultproject.io/docs/">Vault</a></td>
+<td>集中存储，安全，和控制分布式秘密访问</td>
+</tr>
+<tr>
+<td><a href="https://www.consul.io/">Consul</a></td>
+<td>分布式的服务发现、配置高可用的工具和流程</td>
+</tr>
+<tr>
+<td><a href="https://www.nomadproject.io/docs/">Nomad</a></td>
+<td>集群管理和调度应用程序部署在任何基础设施</td>
+</tr>
+<tr>
+<td><a href="https://www.packer.io/">Packer</a></td>
+<td>自动构建镜像</td>
+</tr>
+<tr>
+<td><a href="https://www.vagrantup.com/docs/index.html">Vagrant</a></td>
+<td>环境管理使得开发环境一致</td>
+</tr>
+</tbody>
+</table></div>
+<h1>1. 安装测试环境</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 创建合适的目录
+mkdir -p /Users/daixiang/hashicorp/vagrant
+# 2. 安装vagrant
+wget https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.dmg 并安装
+# 3. 获取vagrantfile
+wget https://raw.githubusercontent.com/hashicorp/nomad/master/demo/vagrant/Vagrantfile
+# 4. vagrant测试环境启动
+vagrant up
+# 5. 连接到测试环境
+vagrant ssh
+(PS: 此时环境下已经安装好了nomad)</pre></div></div>
+
+<h1>2. nomad</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 运行nomad命令我们能看到如下页面, 关于nomad的命令行管理
+vagrant@nomad:~$ nomad
+Usage: nomad [-version] [-help] [-autocomplete-(un)install] <command> [<args>]
+
+Available commands are:
+    acl                   Interact with ACL policies and tokens:与ACL策略和令牌进行交互
+    agent                 Runs a Nomad agent:运行一个nomad代理
+    agent-info            Display status information about the local agent:显示有关本地代理的状态信息
+    alloc-status          Display allocation status information and metadata: 显示分配状态信息和元数据
+    client-config         View or modify client configuration details: 查看或修改客户端配置细节。
+    deployment            Interact with deployments: 部署
+    eval-status           Display evaluation status and placement failure reasons:显示评估状态和放置失败的原因。
+    fs                    Inspect the contents of an allocation directory:检查分配目录的内容。
+    init                  Create an example job file: 创建一个示例作业文件。
+    inspect               Inspect a submitted job: 检查提交的工作
+    job                   Interact with jobs: 工作
+    keygen                Generates a new encryption key: 生成一个新的加密密钥。
+    keyring               Manages gossip layer encryption keys:管理加密密钥。
+    logs                  Streams the logs of a task.:记录任务的日志。
+    namespace             Interact with namespaces: 命名空间
+    node-drain            Toggle drain mode on a given node: 在给定节点上切换吸取模式。
+    node-status           Display status information about nodes: 显示节点的状态信息。
+    operator              Provides cluster-level tools for Nomad operators: 为游牧民提供集群级的工具。
+    plan                  Dry-run a job update to determine its effects: 进行一次作业更新以确定其效果。
+    quota                 Interact with quotas: 配额
+    run                   Run a new job or update an existing job: 运行新工作或更新现有的工作。
+    sentinel              Interact with Sentinel policies: 与哨兵政策
+    server-force-leave    Force a server into the 'left' state: 强制服务器进入“左”状态。
+    server-join           Join server nodes together: 一起加入服务器节点
+    server-members        Display a list of known servers and their status: 显示已知服务器的列表及其状态。
+    status                Display the status output for a resource: 显示资源的状态输出。
+    stop                  Stop a running job: 停止正在运行的作业
+    ui                    Open the Nomad Web UI: 打开Nomad Web UI。
+    validate              Checks if a given job specification is valid: 检查给定的作业规范是否有效。
+    version               Prints the Nomad version: 打印nomad版本
+    
+# 2. 启动代理
+sudo nomad agent -dev
+
+# 3. 新开页面查看状态
+vagrant@nomad:~$ nomad node-status
+ID        DC   Name   Class   Drain  Status
+02e1535f  dc1  nomad  <none>  false  ready
+
+vagrant@nomad:~$ nomad server-members
+Name          Address    Port  Status  Leader  Protocol  Build  Datacenter  Region
+nomad.global  127.0.0.1  4648  alive   true    2         0.7.0  dc1         global</pre></div></div>
+
+<p><a href="https://www.nomadproject.io/docs/agent/configuration/index.html">代理可以被配置支持优雅的中断信号</a></p>
+
+<h1>3. start job</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1.初始化配置文件
+$ nomad init
+Example job file written to example.nomad
+
+# 2.启动配置文件
+vagrant@nomad:~$ nomad run example.nomad
+==> Monitoring evaluation "dad1b471"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "caab06ab"
+    Allocation "041d0bd2" created: node "02e1535f", group "cache"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "dad1b471" finished with status "complete"
+
+# 3.检查job的状态
+vagrant@nomad:~$ nomad status example
+ID            = example
+Name          = example
+Submit Date   = 02/06/18 08:35:08 UTC
+Type          = service
+Priority      = 50
+Datacenters   = dc1
+Status        = running
+Periodic      = false
+Parameterized = false
+
+Summary
+Task Group  Queued  Starting  Running  Failed  Complete  Lost
+cache       0       0         1        0       0         0
+
+Latest Deployment
+ID          = caab06ab
+Status      = running
+Description = Deployment is running
+
+Deployed
+Task Group  Desired  Placed  Healthy  Unhealthy
+cache       1        1       0        0
+
+Allocations
+ID        Node ID   Task Group  Version  Desired  Status   Created At
+041d0bd2  02e1535f  cache       0        run      running  02/06/18 08:35:08 UTC
+
+# 4. 资源使用情况
+vagrant@nomad:~$ nomad alloc-status 041d0bd2
+ID                  = 041d0bd2
+Eval ID             = dad1b471
+Name                = example.cache[0]
+Node ID             = 02e1535f
+Job ID              = example
+Job Version         = 0
+Client Status       = running
+Client Description  = <none>
+Desired Status      = run
+Desired Description = <none>
+Created At          = 02/06/18 08:35:08 UTC
+Deployment ID       = caab06ab
+Deployment Health   = healthy
+
+Task "redis" is "running"
+Task Resources
+CPU        Memory           Disk     IOPS  Addresses
+3/500 MHz  6.3 MiB/256 MiB  300 MiB  0     db: 127.0.0.1:23912
+
+Task Events:
+Started At     = 02/06/18 08:36:05 UTC
+Finished At    = N/A
+Total Restarts = 0
+Last Restart   = N/A
+
+Recent Events:
+Time                   Type        Description
+02/06/18 08:36:05 UTC  Started     Task started by client
+02/06/18 08:35:08 UTC  Driver      Downloading image redis:3.2
+02/06/18 08:35:08 UTC  Task Setup  Building Task Directory
+02/06/18 08:35:08 UTC  Received    Task received by client
+
+# 5.查看任务的日志
+vagrant@nomad:~$ nomad logs 041d0bd2
+1:C 06 Feb 08:36:04.988 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+                _._
+           _.-``__ ''-._
+      _.-``    `.  `_.  ''-._           Redis 3.2.11 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1
+  `-._    `-._  `-./  _.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |           http://redis.io
+  `-._    `-._`-.__.-'_.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |
+  `-._    `-._`-.__.-'_.-'    _.-'
+      `-._    `-.__.-'    _.-'
+          `-._        _.-'
+              `-.__.-'
+
+1:M 06 Feb 08:36:04.994 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 06 Feb 08:36:04.994 # Server started, Redis version 3.2.11</pre></div></div>
+
+<h1>4. update job</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 编辑example.nomad文件以更新记数并将其设置为3
+count = 3
+
+# 2. 修改之后使用`plan`命令来更新
+vagrant@nomad:~$ nomad plan example.nomad
++/- Job: "example"
++/- Task Group: "cache" (2 create, 1 in-place update)
+  +/- Count: "1" => "3" (forces create)
+      Task: "redis"
+
+Scheduler dry-run:
+- All tasks successfully allocated.
+
+Job Modify Index: 15
+To submit the job with version verification run:
+
+nomad run -check-index 15 example.nomad
+
+When running the job with the check-index flag, the job will only be run if the
+server side version matches the job modify index returned. If the index has
+changed, another user has modified the job and the plan's results are
+potentially invalid.
+
+我们可以看到，调度检测计数的变化，并通知我们，这将导致创建2个新的实例. 
+
+# 3. check-index确保任务在你提交前没有被更改过
+vagrant@nomad:~$ nomad run -check-index 15 example.nomad
+==> Monitoring evaluation "46a3d9ef"
+    Evaluation triggered by job "example"
+    Allocation "143aa9a7" created: node "02e1535f", group "cache"
+    Allocation "b5b4df8c" created: node "02e1535f", group "cache"
+    Allocation "041d0bd2" modified: node "02e1535f", group "cache"
+    Evaluation within deployment: "73c2fe13"
+    Allocation "143aa9a7" status changed: "pending" -> "running"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "46a3d9ef" finished with status "complete"
+
+# 4. 再次尝试更改配置, 例如: 升级redis版本
+# Configure Docker driver with the image
+config {
+    image = "redis:4.0"
+}
+# 再次运行
+vagrant@nomad:~$ nomad plan example.nomad
++/- Job: "example"
++/- Task Group: "cache" (1 create/destroy update, 2 ignore)
+  +/- Task: "redis" (forces create/destroy update)
+    +/- Config {
+      +/- image:           "redis:3.2" => "redis:4.2"
+          port_map[0][db]: "6379"
+        }
+
+Scheduler dry-run:
+- All tasks successfully allocated.
+
+Job Modify Index: 40
+To submit the job with version verification run:
+
+nomad run -check-index 40 example.nomad
+
+When running the job with the check-index flag, the job will only be run if the
+server side version matches the job modify index returned. If the index has
+changed, another user has modified the job and the plan's results are
+potentially invalid.
+(PS: 可以看到1个被更新, 2个被忽略, 这是由于max_parallel参数被设置为1, 表示每次执行单一的变化)
+
+# 准备就绪后我们run最新的规范
+vagrant@nomad:~$ nomad run example.nomad
+==> Monitoring evaluation "1e7876d5"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "9efc3833"
+    Allocation "aced7654" created: node "02e1535f", group "cache"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "1e7876d5" finished with status "complete"</pre></div></div>
+
+<h1>5. 停止作业</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 停止作业
+vagrant@nomad:~$ nomad stop example
+==> Monitoring evaluation "529c7a07"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "9efc3833"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "529c7a07" finished with status "complete"
+
+# 2.停止后查看状态(PS: 此时的状态是dead)
+vagrant@nomad:~$ nomad status example
+ID            = example
+Name          = example
+Submit Date   = 02/06/18 08:57:04 UTC
+Type          = service
+Priority      = 50
+Datacenters   = dc1
+Status        = dead (stopped)
+Periodic      = false
+Parameterized = false
+
+Summary
+Task Group  Queued  Starting  Running  Failed  Complete  Lost
+cache       0       0         0        0       4         0
+
+Latest Deployment
+ID          = 9efc3833
+Status      = cancelled
+Description = Cancelled because job is stopped
+
+Deployed
+Task Group  Desired  Placed  Healthy  Unhealthy
+cache       3        1       0        0
+
+Allocations
+ID        Node ID   Task Group  Version  Desired  Status    Created At
+aced7654  02e1535f  cache       2        stop     complete  02/06/18 08:57:04 UTC
+143aa9a7  02e1535f  cache       1        stop     complete  02/06/18 08:49:38 UTC
+b5b4df8c  02e1535f  cache       1        stop     complete  02/06/18 08:49:38 UTC
+041d0bd2  02e1535f  cache       1        stop     complete  02/06/18 08:35:08 UTC</pre></div></div>
+
+<h1>6. 创建集群</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 在vagrant ssh环境中配置nomad服务端
+wget https://raw.githubusercontent.com/hashicorp/nomad/master/demo/vagrant/server.hcl
+vagrant@nomad:~$ nomad agent -config server.hcl
+==> WARNING: Bootstrap mode enabled! Potentially unsafe operation.
+    Loaded configuration from server.hcl
+==> Starting Nomad agent...
+==> Nomad agent configuration:
+
+                Client: false
+             Log Level: DEBUG
+                Region: global (DC: dc1)
+                Server: true
+               Version: 0.7.0
+我们可以看到上面的客户端模式被禁止，而我们只运行作为服务器。这意味着，该服务器将管理状态，并做出调度决策，但不会运行任何任务。现在，我们需要一些代理运行的任务！
+
+# 2. 启动客户端, 分别创建2个文件client1.hcl和client2.hcl
+
+- client1.hcl的配置文件如下 
+
+# Increase log verbosity
+log_level = "DEBUG"
+
+# Setup data dir
+data_dir = "/tmp/client1"
+
+# Enable the client
+client {
+    enabled = true
+
+    # For demo assume we are talking to server1. For production,
+    # this should be like "nomad.service.consul:4647" and a system
+    # like Consul used for service discovery.
+    servers = ["127.0.0.1:4647"]
+}
+
+- client2.hcl的配置文件如下 
+
+# Modify our port to avoid a collision with server1
+ports {
+    http = 5656
+}
+
+# Increase log verbosity
+log_level = "DEBUG"
+
+# Setup data dir
+data_dir = "/tmp/client2"
+
+# Enable the client
+client {
+    enabled = true
+
+    # For demo assume we are talking to server1. For production,
+    # this should be like "nomad.service.consul:4647" and a system
+    # like Consul used for service discovery.
+    servers = ["127.0.0.1:4647"]
+}
+
+# Modify our port to avoid a collision with server1
+ports {
+    http = 5657
+}
+
+# 3.启动client1和client2
+sudo nomad agent -config client1.hcl
+sudo nomad agent -config client2.hcl
+
+
+# 4.查看节点状态
+vagrant@nomad:~$ nomad node-status
+ID        DC   Name   Class   Drain  Status
+c23a265d  dc1  nomad  <none>  false  ready
+9c59eb84  dc1  nomad  <none>  false  ready
+(PS: 我们可以看到有2个节点准备好了)</pre></div></div>
+
+<h1>7. 将任务跑在集群上</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1.启动任务
+vagrant@nomad:~$ nomad run example.nomad
+==> Monitoring evaluation "a2ed1c35"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "214b2685"
+    Allocation "1cb8043c" created: node "9c59eb84", group "cache"
+    Allocation "4e5cd868" created: node "9c59eb84", group "cache"
+    Allocation "b8feecf4" created: node "c23a265d", group "cache"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "a2ed1c35" finished with status "complete"
+
+# 2.查看任务运行在集群的那台机器上
+nomad status example
+Allocations
+ID        Node ID   Task Group  Version  Desired  Status   Created At
+1cb8043c  9c59eb84  cache       0        run      pending  02/06/18 09:19:38 UTC
+4e5cd868  9c59eb84  cache       0        run      pending  02/06/18 09:19:38 UTC
+b8feecf4  c23a265d  cache       0        run      pending  02/06/18 09:19:38 UTC
+(PS: 我们可以发现有2个任务跑在了节点9c59eb84, 另外个任务跑在了节点c23a265d)
+
+# 3.停止服务
+vagrant@nomad:~$ nomad stop example
+==> Monitoring evaluation "012cdac0"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "214b2685"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "012cdac0" finished with status "complete"</pre></div></div>
+
+<h1>8. Nomad Web UI</h1>
+
+<p>http://localhost:4646/ui/jobs</p>
+
+<h1>9.使用ansible管理Nomad</h1>
+
+<h2>9.1 安装sshpass</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb</pre></div></div>
+
+<h2>9.2 忽略ssh连接时的人机交互过程</h2>
+
+<p>Facts 是用来采集目标系统信息的，具体是用setup模块来采集得</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 修改ansible.cfg配置文件
+[defaults]
+host_key_checking = False  # 忽略ssh连接时的人机交互过程
+fact_caching = jsonfile  # Facts 使用文件作为缓存
+fact_caching_connection = ./facts.d/ # Facts 缓存目录
+fact_caching_timeout = 86400  # Facts 缓存超时时间
+inventory = ./inventory/</pre></div></div>
+
+<h2>9.3 ansible管理Nomad Server</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 执行一些nomad命令
+ansible all -m ping
+ansible backend-release -m shell -a "pwd"
+ansible backend-release -m shell -a "nomad init"
+ansible backend-release -m shell -a "cat example.nomad"
+ansible backend-release -m shell -a "nomad run"
+ansible backend-release -m shell -a "nomad run example.nomad"
+ansible backend-release -m shell -a "nomad status"
+ansible backend-release -m shell -a "nomad stop -purge example"</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 生成ansible的主机资源概览
+ansible-vault view vars/vault-secret.yml
+pip install  ansible-cmdb
+ansible-cmdb -f facts.d > 1.html</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'HashiCorp全家桶-Nomad',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

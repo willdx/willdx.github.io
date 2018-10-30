@@ -1,0 +1,779 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> ELK设计与实现 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>ELK设计与实现</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p>[TOC]</p>
+
+<h1>0.ELK?</h1>
+
+<p>You Know, For Search!</p>
+
+<p>1.全文搜索
+2.结构化数据实时统计
+3.数据分析
+4.复杂语言处理
+5.地理位置
+6.对象间关联关系等
+7.甚至还可以数据建模
+等功能....</p>
+
+<p>基于对日志的实时分析，可以随时掌握服务的运行状况、统计 PV/UV、发现异常流量、分析用户行为、查看热门站内搜索关键词等</p>
+
+<h1>1.How To ELK?</h1>
+
+<p><code>本文基于ELK stack 5.4版本</code></p>
+
+<h1>2.从官方架构图开始</h1>
+<blockquote class="blockquote-normal">
+                <p>官方ELK架构图</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953425865573.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>官方ELK架构图</p></p>
+<blockquote class="blockquote-normal">
+                <p><code>Beats</code>: 日志收集器的统称, 其中FileBeat用于收集文件日志;<br/><code>Logstash</code>: 日志收集、过滤、转发的中间件，各类日志统一收集/过滤/转发Elasticsearch<br/><code>Elasticsearch</code>: 分布式、可扩展、实时的搜索与数据分析引擎;<br/><code>Kibana</code>: 是一个可视化工具，主要负责查询 Elasticsearch 的数据并以可视化的方式展现给业务方，比如各类饼图、直方图、区域图等;</p></blockquote>
+<h2>2.1 简单了解各个业务组件</h2>
+
+<h3>2.1.1 FileBeat</h3>
+
+<p><a href="https://www.elastic.co/downloads/beats/filebeat">下载链接</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 使用方法
+
+1. 下载-解压-进入解压缩目录.
+2. 编辑 `filebeat.yml`, filebeat.full.yml为完整版的配置文件.
+3. 启动方式 `sudo ./filebeat -e -c filebeat.yml`.</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 解析Nginx访问日志: 获取日志-存储到redis
+
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /track/nginx/logs/sx3/access.log # `日志文件地址`
+  encoding: utf-8
+  document_type: sx3_nginx_access  # `打标签`
+  scan_frequency: 10s
+  harvester_buffer_size: 16384
+  #multiline:
+  #  pattern: '^\d'
+  #  match: after
+
+tags: ["sx3"]
+ignore_older: 24
+
+output.redis:
+  enabled: true
+  hosts: ["xxxxxx:6379"] # `redis地址`
+  port: 6379
+  key: sx3_nginx_access
+  #password:
+  db: 0
+  datatype: list
+  worker: 1
+  loadbalance: true # `负载均衡`
+  timeout: 5s
+  max_retries: 3
+  bulk_max_size: 2048
+
+  #ssl.enabled: true
+  #ssl.verification_mode: full
+  #ssl.supported_protocols: [TLSv1.0, TLSv1.1, TLSv1.2]
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+  #ssl.key: "/etc/pki/client/cert.key"
+  #ssl.key_passphrase: ''
+  #ssl.cipher_suites: []
+  #ssl.curve_types: []
+
+logging.to_files: true
+logging.files:
+  path: /docker_data/elk_data/filebeat
+  name: filebeat
+  rotateeverybytes: 80485760
+  keepfiles: 7</pre></div></div>
+
+<h3>2.1.2 LogStash</h3>
+
+<p><a href="https://artifacts.elastic.co/downloads/logstash/logstash-5.4.0.tar.gz">下载链接</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 使用方法
+1. 下载-解压-进入解压缩目录
+2. `mkdir conf&& cd conf&& touch logstash-simple.conf`
+3. vim logstash-simple.conf
+    添加: 标准输入-标准输出测试
+input { stdin { } }
+output {
+  #elasticsearch { hosts => ["localhost:9200"] }
+  stdout { codec => rubydebug }
+}
+4. 启动方式 `bin/logstash -f logstash-simple.conf`</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># LogStash常用函数
+
+filter{} 常用函数解析
+grok{} 是一个解析日志数据的好插件
+mutate{} 可以用于处理数据类型相关的转换
+geoip{} 可以根据日志中的 IP 数据直接解析出更加详细直观的位置数据
+date{} 用于将日期解析为 @timestamp
+useragent{} 可以更佳的获得用户浏览器的属性</pre></div></div>
+<blockquote class="blockquote-normal">
+                <p>Logstash语法会有一些坑, 特别是如果你线上的Nginx日志还不是默认格式的时候</p></blockquote>
+<p><a href="http://grokdebug.herokuapp.com/">推荐使用grokdebug在线测试</a></p>
+
+<p><a href="https://github.com/elastic/logstash/blob/v1.4.2/patterns/grok-patterns">默认logstash Grok全局变量</a></p>
+
+<p><a href="http://udn.yyuap.com/doc/logstash-best-practice-cn/filter/grok.html">如何自定义logstash模式</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 自己写的几个例子, 可能有错, 欢迎指正, 后续更新
+
+# 1.To redis 
+# 推荐使用`FileBeat`, 它更轻量级并且速度更快
+# 但是,平常开发类的需求可以直接使用`logstash`搞定, 感觉会更方便
+
+input {
+  stdin { }
+  file {
+    type => "sx3_nginx_access"
+    path => "/home/will/elk/logstash/access.log"
+    start_position => beginning
+    codec =>  multiline {
+      'negate' => true
+      'pattern' => '^\d'
+      'what' => 'previous'
+    }
+  }
+}
+
+output {
+  stdout { codec => rubydebug }
+  if [type] == "sx3_nginx_access" {
+    redis {
+      host => "localhost"
+      data_type => "list"
+      key => "sx3_nginx_access"
+    }
+  }
+}
+
+
+# 2.Nginx access log to elastic (PS: 获取`redis`的数据, 格式化后导入`ElasticSearch`)
+input {
+  redis {
+    host => "10.117.44.44"
+    type => "sx3_nginx_access"
+    data_type => "list"
+    key => "sx3_nginx_access"
+  }
+}
+
+filter {
+  if [type] == "sx3_nginx_access" {
+        grok {
+          match => {
+            "message" => [
+              "%{BASE16FLOAT:upstream_response_time} \| %{COMBINEDAPACHELOG} %{GREEDYDATA:request_time}",
+              "%{NGINXCOMBINEDAPACHELOG}"
+            ]
+          }
+          patterns_dir => ["/home/will/elk_stack/logstash/patterns"] # 自定义的模式匹配变量Dir
+          remove_field => [ "message" ]
+        }
+
+        mutate {
+          convert => ["response", "integer"]
+          convert => ["bytes", "integer"]
+          convert => ["responsetime", "float"]
+          convert => ["upstream_response_time", "float"]
+          convert => ["request_time", "float"]
+          gsub => ["referrer", "[\"]", ""]
+          gsub => ["agent", "[\"]", ""]
+        }
+
+        geoip {
+          source => "clientip"
+          target => "geoip"
+          add_tag => [ "sx3-geoip" ]
+        }
+
+        useragent {
+          source => "agent"
+    }
+
+    #date {
+    #  match => [ "timestamp" , "yyyy/MM/dd HH:mm:ss" ]
+    #  timezone => 'UTC'
+    #}
+
+  }
+}
+
+# 3. nginx_error_log模式匹配
+
+cat nginx_error_log_format.conf
+input {
+  redis {
+    host => "10.117.44.44"
+    type => "sx3_nginx_error"
+    data_type => "list"
+    key => "sx3_nginx_error"
+  }
+}
+
+filter{
+  if [type] == "sx3_nginx_error" {
+    grok {
+      match => {
+        "message" => [
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath}%{URIPARAM:urlparam} HTTP/%{NUMBER:httpversion})\")(?:, host: %{QS:hostname})(?:, referrer: \"%{URI:referrer}\")",
+
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath}%{URIPARAM:urlparam} HTTP/%{NUMBER:httpversion})\")(?:, upstream: \"%{URI:upstream}\")",
+
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath}%{URIPARAM:urlparam} HTTP/%{NUMBER:httpversion})\")",
+
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath} HTTP/%{NUMBER:httpversion})\")(?:, referrer: \"%{URI:referrer}\")",
+
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath} HTTP/%{NUMBER:httpversion})\")(?:, upstream: \"%{URI:upstream}\")",
+
+          "(?<timestamp>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[%{DATA:err_severity}\] (%{NUMBER:pid:int}#%{NUMBER}: \*%{NUMBER}|\*%{NUMBER}) %{DATA:err_message}(?:, client: (?<client_ip>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: \"%{WORD:verb} (%{URIPATH:urlpath} HTTP/%{NUMBER:httpversion})\")"
+        ]
+      }
+    remove_field => [ "message" ]
+    }
+    date {
+      match => [ "timestamp" , "yyyy/MM/dd HH:mm:ss" ]
+      timezone => 'UTC'
+    }
+  }
+}
+
+output {
+  elasticsearch { hosts => ["xxx:9200"] index => "logstash-nginx-error-%{+YYYY.MM.dd}"}
+  stdout { codec => rubydebug }
+}</pre></div></div>
+
+<h2>patterns解释</h2>
+
+<ul>
+<li>logstash 提供的默认的正则表达式, 但是不一定满足我们的需求</li>
+<li>当遇到其他需要自定义的时候:</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>grok {
+        match => { "request" => '"%{WORD:verb} %{URIPATH:urlpath}(?:\?%{NGX_URIPARAM:urlparam})?(?: HTTP/%{NUMBER:httpversion})"' }
+        patterns_dir => ["/etc/logstash/patterns"]  # 定义模式匹配的位置
+        remove_field => [ "message", "errinfo", "request" ]
+    }
+}</pre></div></div>
+
+<ul>
+<li>模式匹配使用规则</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>%{PATTERN_NAME:capture_name:data_type}</pre></div></div>
+
+<ul>
+<li>patterns内容</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>cat /home/will/elk_stack/logstash/patterns/grok_patterns_extend
+EMAIL [a-z_0-9.-]{1,64}@([a-z0-9-]{1,200}.){1,5}[a-z]{1,6}
+NGINXCOMBINEDAPACHELOG %{BASE16FLOAT:upstream_response_time} \| %{IPORHOST:clientip} %{USER:ident} %{EMAIL:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest})" %{NUMBER:response} (?:%{NUMBER:bytes}|-) %</pre></div></div>
+
+<h3>2.1.3 ElasticSearch</h3>
+
+<p><a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.zip">下载链接</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 使用方法</span>
+
+<span class="m">1</span>. 下载-解压-进入目录
+<span class="m">2</span>. vim config/elasticsearch.yml 更改配置文件
+
+配置例子: grep -n <span class="s1">&#39;^[a-Z]&#39;</span> config/elasticsearch.yml
+custer.name: xzelk
+node.name: master
+node.master: <span class="nb">true</span>
+node.data: <span class="nb">true</span>
+node.attr.rack: r1
+path.data: /docker_data/elk_data/elastic/data
+path.logs: /docker_data/elk_data/elastic/logs
+network.host: <span class="m">0</span>.0.0.0
+http.port: <span class="m">9200</span>
+discovery.zen.ping.unicast.hosts: <span class="o">[</span><span class="s2">&quot;10.117.44.44:9300&quot;</span><span class="o">]</span>
+
+<span class="m">3</span>.启动 ./bin/elasticsearch
+<span class="m">4</span>.检查 curl http://localhost:9200/
+</pre></div>
+</div>
+<h3>2.1.4 Kibana</h3>
+
+<p><a href="https://artifacts.elastic.co/downloads/kibana/kibana-5.4.0-linux-x86_64.tar.gz">下载链接</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 使用方法</span>
+
+<span class="m">1</span>. 下载-解压-进入目录-打开配置编辑器中的kibana.yml
+<span class="m">2</span>. 配置elasticsearch.url指向你的ElasticSearch实例
+<span class="m">3</span>. 启动: bin/kibana
+<span class="m">4</span>. 检查: http://localhost:5601
+</pre></div>
+</div>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953885310695.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>kibana简单分析</p></p>
+
+<h3>2.1.4 x-pack</h3>
+
+<p><a href="https://www.elastic.co/cn/products/x-pack">x-pack</a></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953890510638.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>x-park提供以下功能-除了Monitor组件(需要到官方注册s申请), 其它的都需要收费</p></p>
+
+<p><a href="https://www.elastic.co/guide/en/x-pack/current/installing-license.html">更新license</a></p>
+<blockquote class="blockquote-normal">
+                <p>由于认证收费, 所以曲线救国, Nginx上配置简单密码认证</p></blockquote>
+<p><a href="https://kibana.logstash.es/content/kibana/v5/production.html">配置地址</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>upstream kibana5 {
+    server 127.0.0.1:5601 fail_timeout=0;
+}
+server {
+    listen               *:80;
+    server_name          kibana_server;
+    access_log           /var/log/nginx/kibana.srv-log-dev.log;
+    error_log            /var/log/nginx/kibana.srv-log-dev.error.log;
+
+    ssl                  on;
+    ssl_certificate      /etc/nginx/ssl/all.crt;
+    ssl_certificate_key  /etc/nginx/ssl/server.key;
+
+    location / {
+        root   /var/www/kibana;
+        index  index.html  index.htm;
+    }
+
+    location ~ ^/kibana5/.* {
+        proxy_pass           http://kibana5;
+        rewrite              ^/kibana5/(.*)  /$1 break;
+        proxy_set_header     X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header     Host            $host;
+        auth_basic           "Restricted";
+        auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+    }
+}
+如果用户够多，当然你可以单独跑一个 kibana5 集群，然后在 upstream 配置段中添加多个代理地址做负载均衡。</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>htpasswd -c /$path/.htpasswd $username</pre></div></div>
+
+<h1>3. 实践架构</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953863776685.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>行者ELK架构</p></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 为了尽量保证数据完整性, 中间加了缓存
+
+1. Filebeat 获取Nginx日志, 导入kafka 或者 redis
+2. Logstash 获取对应redis队列中的数据format, 导入Elasticsearch
+3. Kibana 设定到Elasticsearch的连接, 实时查询和可视化分析
+
+整个架构可以横向扩展, redis/logstash/elasticsearch/kibana 都可以做集群</pre></div></div>
+
+<h2>3.1 Elasticsearch集群配置</h2>
+
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html">官方文档</a></p>
+
+<h2>3.2 ELK 集群管理</h2>
+
+<h3>3.2.1 集群管理API</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 集群健康状态
+curl 'http://10.117.44.44:9200/_cat/health?v'
+
+# 获取集群的一系列节点
+curl 'http://10.117.44.44:9200/_cat/nodes?v'
+
+# 列出所有的索引
+curl 'http://10.117.44.44:9200/_cat/indices?v'
+
+# 创建一个索引
+curl -XPUT 'http://10.117.44.44:9200/customer?pretty'
+
+# 往索引的某个类型中添加内容
+# customer索引的external类型添加一个字典
+curl -XPUT 'http://10.117.44.44:9200/customer/external/1?pretty' -d '
+{
+  "name": "John Doe"
+}'
+{
+  "_index" : "customer",
+  "_type" : "external",
+  "_id" : "1",
+  "_version" : 1,
+  "created" : true
+}
+
+# 查找刚刚创建的数据
+curl -XGET 'http://10.117.44.44:9200/customer/external/1?pretty'
+{
+  "_index" : "customer",
+  "_type" : "external",
+  "_id" : "1",
+  "_version" : 1,
+  "found" : true,
+  "_source" : { "name": "John Doe" }
+}
+
+# 更新文档
+curl -XPUT 'localhost:9200/customer/external/1?pretty' -d '
+{
+  "name": "Jane Doe"
+}'
+
+# 删除文档
+curl -XDELETE 'localhost:9200/customer/external/2?pretty'
+
+# 批处理
+# 删除只要求要删除的文件的ID，然后，相应的源文件也就没有了
+
+curl -XPOST 'localhost:9200/customer/external/_bulk?pretty' -d '
+{"update":{"_id":"1"}}
+{"doc": { "name": "John Doe becomes Jane Doe" } }
+{"delete":{"_id":"2"}}
+'</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>总结: ElasticSearch的restful语法大致如下
+curl -X<REST Verb> <Node>:<Port>/<Index>/<Type>/<ID></pre></div></div>
+
+<h3>3.2.1 集群管理第三发库-cerebro</h3>
+
+<p><a href="https://github.com/lmenezes/cerebro">Github地址</a></p>
+<blockquote class="blockquote-normal">
+                <p>Cerebro 是一个第三方的 Elasticsearch 集群管理软件,可以方便地查看集群状态, 以及一些集群管理工作</p></blockquote><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 使用方法
+1. 下载-解压-进入目录
+2. 运行 bin/cerebro -Dhttp.port=1234 -Dhttp.address=127.0.0.1</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953887822023.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>管理界面</p></p>
+
+<h1>安装后报错: max file limit</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>vim /etc/security/limits.conf
+* hard nofile 655360
+* soft nofile 655360</pre></div></div>
+
+<h1>安装后报错: vm bala bala bala....</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>vim /etc/sysctl.conf
+vm.max_map_count=2621440  #添加这一行</pre></div></div>
+
+<h1>科普小知识-网站流量统计</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>UV（Unique visitor): 用户唯一性, 一天内同个访客多次访问仅计算一个UV;
+IP（Internet Protocol): IP唯一性, 一天内相同的IP地址多次仅被计算一次IP;
+PV（Page View):页面的浏览次数累计;
+VV（Visit View): 访问网站的次数累计;</pre></div></div>
+
+<h1>ELK典故-这个程序员跑偏了啊!</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14953816260996.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>程序员的故事</p></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'ELK设计与实现',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

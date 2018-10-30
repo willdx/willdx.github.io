@@ -1,0 +1,463 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> JavaScript  Ajax JSON数据处理 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>JavaScript  Ajax JSON数据处理</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>1.JSON.stringfy与JSON.parse</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901734657655.jpg"></p>
+</p>
+
+<h2>2.一个简单交互界面代码,备忘</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s2">&quot;root_admin.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">css</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">link</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/static/dist/css/add_medal.css&quot;</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">container</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">filters</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">header</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">h1</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;page-header&quot;</span><span class="o">&gt;</span><span class="err">勋章列表</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">ol</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;breadcrumb&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/adm/&quot;</span><span class="o">&gt;</span><span class="err">后台首页</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span><span class="o">&gt;</span><span class="err">勋章管理</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="o">&gt;&lt;</span><span class="n">i</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;fa fa-edit&quot;</span><span class="o">&gt;&lt;/</span><span class="n">i</span><span class="o">&gt;</span><span class="err">勋章列表</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">ol</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">header</span><span class="o">&gt;</span>
+
+
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;block-shadow&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">table</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;table table-hover&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="n">ID</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">标题</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">勋章描述</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">勋章图片</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">开始时间</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">结束时间</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">类型</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">操作</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+                <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">medal</span> <span class="ow">in</span> <span class="n">medals</span> <span class="o">%</span><span class="p">}</span>
+                    <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">id</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">medal_title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">medal_desc</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{{ medal.pic }}!avatar&quot;</span><span class="o">&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">start_time</span> <span class="o">|</span> <span class="n">to_data_time_hour</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">end_time</span> <span class="o">|</span> <span class="n">to_data_time_hour</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">medal</span><span class="o">.</span><span class="n">mtype</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;btn btn-default btn-delete&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/adm/medal_delete/{{ medal.id }}/&quot;</span><span class="o">&gt;</span><span class="err">删除</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;modify&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">toggle</span><span class="o">=</span><span class="s2">&quot;modal&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;#myModal&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;btn btn-sm btn-warning&quot;</span><span class="o">&gt;</span><span class="err">修改</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+                <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+
+
+
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;myModal&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal fade in&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;display: none;&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal-dialog&quot;</span> <span class="n">role</span><span class="o">=</span><span class="s2">&quot;document&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal-content&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal-header&quot;</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">h4</span><span class="o">&gt;&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;glyphicon glyphicon-warning-sign&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">修改勋章信息</span><span class="o">&lt;/</span><span class="n">h4</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal-body&quot;</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">勋章</span><span class="n">ID</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_id&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="n">readonly</span><span class="o">=</span><span class="s2">&quot;readonly&quot;</span><span class="o">/&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">勋章标题</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_title&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">/&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">勋章描述</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_desc&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">&gt;&lt;/</span><span class="nb">input</span><span class="o">&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">开始时间</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_start_time&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">/&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">结束时间</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_end_time&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">/&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;control-group&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">label</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-info&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Info&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span><span class="err">勋章类型</span><span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nb">input</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;input span6&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;medal_type&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="o">/&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;modal-footer&quot;</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">button</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;btn btn-secondary&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">dismiss</span><span class="o">=</span><span class="s2">&quot;modal&quot;</span><span class="o">&gt;</span><span class="err">取消</span><span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">button</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;confirm&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;btn btn-primary&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">dismiss</span><span class="o">=</span><span class="s2">&quot;modal&quot;</span>
+                                <span class="n">data</span><span class="o">-</span><span class="n">loading</span><span class="o">-</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Loading...&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span><span class="err">确认</span>
+                        <span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+
+
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">js</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
+        <span class="n">var</span> <span class="n">deleteBtn</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s2">&quot;.btn-delete&quot;</span><span class="p">);</span>
+
+        <span class="n">deleteBtn</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">preventDefault</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">URL</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="n">this</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+            <span class="n">var</span> <span class="n">r</span> <span class="o">=</span> <span class="n">confirm</span><span class="p">(</span><span class="s2">&quot;真的要删除？&quot;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">===</span> <span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+                <span class="err">$</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">window</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">href</span> <span class="o">=</span> <span class="s1">&#39;/adm/medal_list/&#39;</span><span class="p">;</span>
+                <span class="p">});</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+
+        <span class="o">//</span><span class="err">修改按钮点击事件</span>
+        <span class="err">$</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;[name=&#39;modify&#39;]&quot;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="n">var</span> <span class="err">$</span><span class="n">td</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="n">this</span><span class="p">)</span><span class="o">.</span><span class="n">parents</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">);</span>
+            <span class="o">//</span><span class="n">var</span> <span class="err">$</span><span class="n">th</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="n">this</span><span class="p">)</span><span class="o">.</span><span class="n">parents</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="s1">&#39;th&#39;</span><span class="p">);</span>
+            <span class="n">var</span> <span class="n">medal_id</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_title</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_desc</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_start_time</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_end_time</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_type</span> <span class="o">=</span> <span class="err">$</span><span class="n">td</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">();</span>
+
+            <span class="o">//</span> <span class="err">将表格中的值赋值给模态框</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_id</span><span class="p">);</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_title</span><span class="p">);</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_desc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_desc</span><span class="p">);</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_start_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_start_time</span><span class="p">);</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_end_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_end_time</span><span class="p">);</span>
+            <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">medal_type</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#confirm&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="o">//</span> <span class="err">获取修改过的值</span>
+            <span class="n">var</span> <span class="n">medal_id</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_title</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_desc</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_desc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_start_time</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_start_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_end_time</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_end_time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">medal_type</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#medal_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">();</span>
+
+            <span class="n">var</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">(</span><span class="n">medal_start_time</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/-/</span><span class="n">g</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">valueOf</span><span class="p">();</span>
+            <span class="n">var</span> <span class="n">end_time</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">(</span><span class="n">medal_end_time</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/-/</span><span class="n">g</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">valueOf</span><span class="p">();</span>
+
+
+            <span class="err">$</span><span class="o">.</span><span class="n">ajax</span><span class="p">({</span>
+                <span class="n">url</span><span class="p">:</span> <span class="s1">&#39;/adm/api/medal/modify/&#39;</span> <span class="o">+</span> <span class="n">medal_id</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+                <span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+                <span class="n">contentType</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+                <span class="n">data</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">({</span>
+                    <span class="s2">&quot;medal_title&quot;</span><span class="p">:</span> <span class="n">medal_title</span><span class="p">,</span>
+                    <span class="s2">&quot;medal_desc&quot;</span><span class="p">:</span> <span class="n">medal_desc</span><span class="p">,</span>
+                    <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
+                    <span class="s2">&quot;end_time&quot;</span><span class="p">:</span> <span class="n">end_time</span>
+                <span class="p">}),</span>
+                <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="o">//</span><span class="err">请求成功</span>
+                    <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#myModal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">modal</span><span class="p">(</span><span class="s1">&#39;hide&#39;</span><span class="p">);</span>
+                    <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#myModal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s2">&quot;aria-hidden&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="n">error</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="o">//</span><span class="err">请求出错</span>
+                    <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#myModal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">modal</span><span class="p">(</span><span class="s1">&#39;hide&#39;</span><span class="p">);</span>
+                    <span class="err">$</span><span class="p">(</span><span class="s1">&#39;#myModal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s2">&quot;aria-hidden&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">);</span>
+                <span class="p">},</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'JavaScript  Ajax JSON数据处理',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

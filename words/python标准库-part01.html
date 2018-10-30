@@ -1,0 +1,656 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> python标准库-part01 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>python标准库-part01</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>代码来源</h2>
+
+<p><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001407499098340324a6232bfee42348849d53c90576747000">廖雪峰老师</a>
+<a href="http://book.pythontips.com/en/latest/one_liners.html">pythontips</a></p>
+
+<h2>1.collections内建集合模块</h2>
+
+<h3>namedtuple用元组抽象数据</h3>
+<blockquote class="blockquote-normal">
+                <p>namedtuple是一个函数,它用来创建一个自定义的tuple对象,并且规定了tuple元素的个数,并可以用属性而不是索引来引用tuple的某个元素;这样一来,我们用namedtuple可以很方便地定义一种数据类型,它具备tuple的不变性,又可以根据属性来引用,使用十分方便;</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 模拟二维坐标</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Point&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">1</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">2</span>
+
+<span class="c1"># 使用坐标和半径模拟一个圆</span>
+<span class="n">Circle</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Circle&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<h3>补充01:枚举类型 python3.4+</h3>
+<blockquote class="blockquote-normal">
+                <p>Enum可以把一组相关常量定义在一个class中,且class不可变,而且成员可以直接比较</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">➜</span>  <span class="o">~</span> <span class="n">python</span>
+<span class="n">Python</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Jun</span> <span class="mi">28</span> <span class="mi">2016</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">26</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">7.3</span><span class="o">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">703.0</span><span class="o">.</span><span class="mi">31</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">unique</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Month</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span><span class="p">,</span> <span class="s1">&#39;Jun&#39;</span><span class="p">,</span> <span class="s1">&#39;Jul&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Sep&#39;</span><span class="p">,</span> <span class="s1">&#39;Oct&#39;</span><span class="p">,</span> <span class="s1">&#39;Nov&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Month</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">odict_items</span><span class="p">([(</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Jan</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Feb</span><span class="p">:</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Mar</span><span class="p">:</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Apr</span><span class="p">:</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;May&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">May</span><span class="p">:</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Jun&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Jun</span><span class="p">:</span> <span class="mi">6</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Jul&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Jul</span><span class="p">:</span> <span class="mi">7</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Aug</span><span class="p">:</span> <span class="mi">8</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Sep&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Sep</span><span class="p">:</span> <span class="mi">9</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Oct&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Oct</span><span class="p">:</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Nov&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Nov</span><span class="p">:</span> <span class="mi">11</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Dec&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Month</span><span class="o">.</span><span class="n">Dec</span><span class="p">:</span> <span class="mi">12</span><span class="o">&gt;</span><span class="p">)])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">Month</span><span class="o">.</span><span class="n">Jan</span><span class="p">)</span>
+<span class="n">Month</span><span class="o">.</span><span class="n">Jan</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">Month</span><span class="o">.</span><span class="n">Jan</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">Month</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">Month</span><span class="o">.</span><span class="n">Jan</span>
+</pre></div>
+</div>
+<h3>补充02:Enumerate带index的可迭代对象</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">some_list</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>deque双向列表</h3>
+<blockquote class="blockquote-normal">
+                <p>使用list存储数据时,按索引访问元素很快,但是插入和删除元素就很慢了,因为list是线性存储,数据量大的时候,插入和删除效率很低;</p><br/><p>deque是为了高效实现插入和删除操作的双向列表,适合用于队列和栈;</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">q</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="nb">type</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">q</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">deque</span><span class="p">([</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<h3>defaultdict字典功能增强</h3>
+<blockquote class="blockquote-normal">
+                <p>注意defaultdict接收一个函数作为参数</p><br/><p>使用dict时,如果引用的Key不存在,就会抛出KeyError. 如果希望key不存在时,返回一个默认值,就可以用defaultdict</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># defaultdict给字典添加默认值</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">dd</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">dd</span><span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;value1&quot;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">dd</span><span class="p">[</span><span class="s2">&quot;key1&quot;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="s1">&#39;value1&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">dd</span><span class="p">[</span><span class="s2">&quot;key2&quot;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="s1">&#39;default&#39;</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># defaultdict实现将相同key的value合并</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;Yasoob&#39;</span><span class="p">,</span> <span class="s1">&#39;Yellow&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Ali&#39;</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Arham&#39;</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Ali&#39;</span><span class="p">,</span> <span class="s1">&#39;Black&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Yasoob&#39;</span><span class="p">,</span> <span class="s1">&#39;Red&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Ahmed&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">favourite_colours</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">colour</span> <span class="ow">in</span> <span class="n">colours</span><span class="p">:</span>
+    <span class="n">favourite_colours</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colour</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">favourite_colours</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span>
+<span class="c1"># 结果</span>
+<span class="n">Arham</span> <span class="p">[</span><span class="s1">&#39;Green&#39;</span><span class="p">]</span>
+<span class="n">Yasoob</span> <span class="p">[</span><span class="s1">&#39;Yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;Red&#39;</span><span class="p">]</span>
+<span class="n">Ahmed</span> <span class="p">[</span><span class="s1">&#39;Silver&#39;</span><span class="p">]</span>
+<span class="n">Ali</span> <span class="p">[</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Black&#39;</span><span class="p">]</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 解决多层嵌套字典keyError问题</span>
+<span class="c1">## Problem:</span>
+<span class="n">some_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">some_dict</span><span class="p">[</span><span class="s1">&#39;colours&#39;</span><span class="p">][</span><span class="s1">&#39;favourite&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
+<span class="c1"># Raises KeyError: &#39;colours&#39;</span>
+
+<span class="c1">## Solution:</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="c1"># 递归调用tree</span>
+<span class="n">some_dict</span> <span class="o">=</span> <span class="n">tree</span><span class="p">()</span> <span class="c1"># some_dict是一个defaultdict的递归函数</span>
+<span class="n">some_dict</span><span class="p">[</span><span class="s1">&#39;colours&#39;</span><span class="p">][</span><span class="s1">&#39;favourite&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span> <span class="c1"># defaultdict和dict操作类似</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="k">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">some_dict</span><span class="p">))</span>
+<span class="c1"># Output: {&quot;colours&quot;: {&quot;favourite&quot;: &quot;yellow&quot;}}</span>
+</pre></div>
+</div>
+<h3>OrderedDict实现有序字典</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">24</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">26</span><span class="p">]:</span> <span class="n">d</span> <span class="c1"># 会按照key进行一次默认排序后输出</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">26</span><span class="p">]:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">27</span><span class="p">]:</span>  <span class="n">od</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="n">od</span> <span class="c1"># 按照输入的顺序输出</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 使用OrderDict实现一个FIFO的字典</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="k">class</span> <span class="nc">LastUpdatedOrderedDict</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LastUpdatedOrderedDict</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">containsKey</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="n">containsKey</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span><span class="p">:</span>
+            <span class="c1"># popitem默认删除最后一个元素,last=False则相反</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s1">&#39;remove:&#39;</span><span class="p">,</span><span class="n">last</span>
+        <span class="k">if</span> <span class="n">containsKey</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">print</span> <span class="s1">&#39;set:&#39;</span><span class="p">,(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s1">&#39;add:&#39;</span><span class="p">,(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">OrderedDict</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">LastUpdatedOrderedDict</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;d&quot;</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;c&quot;</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;b&quot;</span>
+    <span class="k">print</span> <span class="n">d</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;a&quot;</span>
+</pre></div>
+</div>
+<h3>Counter 简单计数器</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">29</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">30</span><span class="p">]:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">31</span><span class="p">]:</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="s1">&#39;programming&#39;</span><span class="p">:</span>
+   <span class="o">....</span><span class="p">:</span>     <span class="n">c</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">32</span><span class="p">]:</span> <span class="n">c</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">32</span><span class="p">]:</span> <span class="n">Counter</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</pre></div>
+</div>
+<h2>2.base64</h2>
+<blockquote class="blockquote-normal">
+                <p>Base64是一种用64个字符来表示任意二进制数据的方法,如果源数据不是二进制,那么需要先转化为二进制,每3个原始字符经Base64编码成4个字符,如果源字符串不能被3整除那么用0补齐,补齐部分会被转化为A,此时的A是自动补全的,没有实际含义,所以标准Base64编码通常用 = 字符来替换最后的 A;</p><br/><p>解码时如果发现Base64编码字符串长度不能被4整除，则先补充 = 字符，再解码即可</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/base64%E7%BC%96%E7%A0%81%E5%8E%9F%E7%90%86.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>base64编码原理图解</p></p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># Python内置的base64可以直接进行base64的编解码</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">33</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">base64</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">34</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">34</span><span class="p">]:</span> <span class="s1">&#39;ZGFpeGlhbmc=&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">35</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="s2">&quot;ZGFpeGlhbmc=&quot;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">35</span><span class="p">]:</span> <span class="s1">&#39;daixiang&#39;</span>
+
+<span class="c1"># 由于标准的Base64编码后可能出现字符+和/，在URL中就不能直接作为参数，所以又有一种&quot;url safe&quot;的base64编码，其实就是把字符+和/分别变成-和_</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="s1">&#39;i</span><span class="se">\xb7\x1d\xfb\xef\xff</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="s1">&#39;abcd++//&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="s1">&#39;i</span><span class="se">\xb7\x1d\xfb\xef\xff</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="s1">&#39;abcd--__&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64decode</span><span class="p">(</span><span class="s1">&#39;abcd--__&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="s1">&#39;i</span><span class="se">\xb7\x1d\xfb\xef\xff</span><span class="s1">&#39;</span>
+
+<span class="c1"># 实现一个去掉＝解码解码的方法</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">45</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">safe_b64decode</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+   <span class="o">....</span><span class="p">:</span>     <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="nb">str</span><span class="o">+</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">46</span><span class="p">]:</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="s1">&#39;YWJjZA==&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">46</span><span class="p">]:</span> <span class="s1">&#39;abcd&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="n">safe_b64decode</span><span class="p">(</span><span class="s2">&quot;YWJjZA&quot;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="s1">&#39;abcd&#39;</span>
+</pre></div>
+</div>
+<h2>3.struct</h2>
+<blockquote class="blockquote-normal">
+                <p>解决str和其他二进制数据类型的转换</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># struct的pack函数把任意数据类型变成字符串</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span>  <span class="kn">import</span> <span class="nn">struct</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s1">&#39;&gt;I&#39;</span><span class="p">,</span> <span class="mi">10240099</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="s1">&#39;</span><span class="se">\x00\x9c</span><span class="s1">@c&#39;</span>
+<span class="c1"># unpack把str变成相应的数据类型</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">58</span><span class="p">]:</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;IH&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\xf0\xf0\xf0\xf0\x80\x80</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">58</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4042322160</span><span class="p">,</span> <span class="mi">32896</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a href="https://docs.python.org/2/library/struct.html#format-characters">Struct模块定义的数据类型</a></p>
+
+<h2>4.hashlib</h2>
+<blockquote class="blockquote-normal">
+                <p>Python的hashlib提供了常见的摘要算法;如MD5,SHA1等等;<br/>什么是摘要算法呢?摘要算法又称<strong>哈希算法/散列算法</strong>;它通过一个函数,把任意长度的数据转换为一个长度固定的数据串(通常用16进制的字符串表示);<br/>摘要算法就是通过摘要函数f()对任意长度的数据data计算出固定长度的摘要digest,目的是为了发现原始数据是否被人篡改过;<br/>摘要算法之所以能指出数据是否被篡改过,就是因为<strong>摘要函数是一个单向函数</strong>,计算f(data)很容易,但通过digest反推data却非常困难;而且,对原始数据做一个bit的修改,都会导致计算出的摘要完全不同;</p></blockquote>
+<h3>md5</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 摘要算法MD5为例,计算出一个字符串的MD5值</span>
+<span class="c1"># MD5是最常见的摘要算法,速度很快,生成结果是固定的128bit字节,通常用一个32位的16进制字符串表示</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="n">md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+<span class="n">md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;how to use md5 in python hashlib?&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">md5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="c1"># 计算结果如下：</span>
+<span class="n">d26a53750bc40b38b65a520292f69306</span>
+
+<span class="c1"># 如果数据量大的话,分块多次调用update()，最后计算的结果是一样的</span>
+<span class="n">md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+<span class="n">md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;how to use md5 in &#39;</span><span class="p">)</span>
+<span class="n">md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;python hashlib?&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">md5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>SHA1</h3>
+<blockquote class="blockquote-normal">
+                <p>摘要算法SHA1，调用SHA1和调用MD5完全类似<br/>比SHA1更安全的算法是SHA256和SHA512，不过越安全的算法越慢，而且摘要长度更长</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="n">sha1</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+<span class="n">sha1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;how to use sha1 in &#39;</span><span class="p">)</span>
+<span class="n">sha1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;python hashlib?&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">sha1</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>5.itertools</h2>
+<blockquote class="blockquote-normal">
+                <p>itertools提供了非常有用的用于操作迭代对象的函数;<br/>itertools模块提供的全部是处理迭代功能的函数,它们的返回值不是list,而是迭代对象,只有用for循环迭代的时候才真正计算;</p></blockquote>
+<h3>无限迭代</h3>
+<blockquote class="blockquote-normal">
+                <p>itertools.count(1) 会创建无限迭代的自然数序列</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="n">natuals</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">natuals</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>itertools.cycle()会把传入的一个序列无限重复下去</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">)</span> <span class="c1"># 注意字符串也是序列的一种</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">c</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>itertools.repeat()负责把一个元素无限重复下去，不过如果提供第二个参数就可以限定重复次数</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">#打印10次&#39;A&#39;</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>itertools.takewhile()等函数根据条件判断来从序列中截取出一个有限的序列</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">natuals</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">natuals</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ns</span> <span class="k">if</span> <span class="n">i</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">res</span>
+</pre></div>
+</div>
+<h3>操作迭代器函数</h3>
+
+<h4>itertools.chain()</h4>
+<blockquote class="blockquote-normal">
+                <p>itertools.chain()可以把一组迭代对象串联起来,形成一个更大的迭代器 </p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># F1:</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">,</span> <span class="s1">&#39;XYZ&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">c</span>
+<span class="c1"># 迭代效果：&#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;X&#39; &#39;Y&#39; &#39;Z&#39;</span>
+
+<span class="c1"># F2:</span>
+<span class="n">a_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">a_list</span><span class="p">)))</span>
+<span class="c1"># Output: [1, 2, 3, 4, 5, 6]</span>
+</pre></div>
+</div>
+<h4>itertools.groupby()</h4>
+<blockquote class="blockquote-normal">
+                <p>itertools.groupby()把迭代器中相邻的重复元素挑出来放在一起</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;AAABBB&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">key</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="c1"># 结果</span>
+<span class="n">A</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">]</span>
+<span class="n">B</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<h4>itertools.imap()</h4>
+<blockquote class="blockquote-normal">
+                <p>itertools.imap()和itertools.map()的区别在于,imap()可以作用于无穷序列,并且,如果两个序列的长度不一致,以短的那个为准</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">x</span>
+<span class="c1"># 结果</span>
+<span class="mi">10</span>
+<span class="mi">40</span>
+<span class="mi">90</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>itertools.ifilter()就是itertools.filter()的惰性实现</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_odd</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">ifilter</span><span class="p">(</span><span class="n">is_odd</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="k">print</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span> <span class="p">]</span>
+<span class="c1"># 结果</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<h2>6.初始化类时将传递参数添加到self.<strong>dict</strong>中</h2>
+<blockquote class="blockquote-normal">
+                <p>locals().items()获取局部命名空间</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<h2>7.sort or sorted 排序</h2>
+<blockquote class="blockquote-normal">
+                <p>sorted:不影响原始数据<br/>sort:直接在原始数据中更改</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 语法</span>
+<span class="c1">## 注意: python3.x 后cmp已经被去除,key值为排序函数,reverse为是否倒叙</span>
+<span class="n">sort</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="nb">cmp</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="o">--</span> <span class="n">stable</span> <span class="n">sort</span> <span class="o">*</span><span class="n">IN</span> <span class="n">PLACE</span><span class="o">*</span><span class="p">;</span>
+    <span class="nb">cmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+
+<span class="nb">sorted</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="nb">sorted</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="nb">cmp</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">new</span> <span class="nb">sorted</span> <span class="nb">list</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 任意列表求元素出现次数最多的前10个</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="n">lis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">44</span><span class="p">]</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">lis</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span><span class="n">key</span> <span class="o">=</span> <span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+<h2>8.Context managers上下文管理</h2>
+
+<h3>最广泛使用的上下文管理器的例子是with语句</h3>
+
+<h4>python file和open有什么区别</h4>
+<blockquote class="blockquote-normal">
+                <p>Python2.x里,file返回文件对象,open是返回新创建的文件对象的内建函数<br/>Python3.x里取消了file</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some_file&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">opened_file</span><span class="p">:</span>
+    <span class="n">opened_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hola!&#39;</span><span class="p">)</span>
+
+<span class="c1"># 类似于</span>
+<span class="c1">## 尝试操作文件,执行完成后关闭文件</span>
+<span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some_file&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hola!&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>自定义可用于上下文管理的类</h3>
+<blockquote class="blockquote-normal">
+                <p>上下文管理器(context manager)是Python2.5开始支持的一种语法,用于规定某个对象的使用范围,一旦进入或者离开该使用范围,会有特殊操作被调用[比如为对象分配或者释放内存]它的语法形式是with func() as f:</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">File</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;任何定义了__enter__()和__exit__()方法的对象都可以用于上下文管理器&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_obj</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_obj</span>
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="c1">#print(&quot;Exception has been handled&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_obj</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<span class="c1"># 方法一:普通方式</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="s2">&quot;demo.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">fi</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="fm">__enter__</span><span class="p">()</span>
+<span class="n">fi</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="fm">__exit__</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="c1"># 方法二:上下文管理方式</span>
+<span class="k">with</span> <span class="n">File</span><span class="p">(</span><span class="s2">&quot;demo.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="c1"># 当执行with as时自动执行__enter__</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;test with&quot;</span><span class="p">)</span> <span class="c1"># 写入完成后自动执行__exit__</span>
+</pre></div>
+</div>
+<h3>标准库装饰器基于函数级别的上下文操作</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="nd">@contextmanager</span>
+<span class="c1"># open_file使用contextmanager装饰</span>
+<span class="c1"># 返回GeneratorContextManager(func(*args, **kwds))的实例化对象</span>
+<span class="c1"># GeneratorContextManager类中定义好了__enter__和__exit__语法</span>
+<span class="k">def</span> <span class="nf">open_file</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">f</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">open_file</span><span class="p">(</span><span class="s1">&#39;some_file&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="c1"># 所以当使用with as语法的时候会自动进行__enter__和__exit__函数的执行</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;contextmanager test!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python标准库-part01',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

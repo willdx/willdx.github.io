@@ -1,0 +1,757 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记扩展01_自定义日志handle </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记扩展01_自定义日志handle</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p>在Django使用Logging模块作为日志输出的媒介, 使用它的配置我们可以在settings.py文件中自定义日志输出的方式, 例如, 输出到文件, 输出到终端, 同时输出文件和终端, 甚至输出到队列(最终写入日志系统);</p>
+
+<p>配置文件主要分为几个部分:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>* formatters: 传入日志, 格式化日志, `所以日志格式化为JSON在这里处理`;
+* filters: 对日志进行过滤;
+* handlers: 调用formatters, 并设定输出, `将日志写入队列在这里处理`;
+* loggers: 日志对象, 定义输出日志级别, 使用一个或多个handler, 那么就可以做到将日志写入不同的地方;</pre></div></div>
+
+<h2>1.以输出JSON内容到队列为例子</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">LOGGING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s1">&#39;formatters&#39;</span><span class="p">:{</span>
+        <span class="s1">&#39;standard&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span>    
+        <span class="p">},</span>
+        <span class="s1">&#39;standard_2&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(filename)s</span><span class="s1"> [line:</span><span class="si">%(lineno)d</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;json_format&#39;</span><span class="p">:</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;()&#39;</span><span class="p">:</span> <span class="s1">&#39;web.aliyun_mq_log.log_helper.LogstashFormatterV1&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;require_debug_false&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;()&#39;</span><span class="p">:</span> <span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;require_debug_true&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;()&#39;</span><span class="p">:</span> <span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;mail_admins&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_false&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;django.utils.log.AdminEmailHandler&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;require_debug_true&#39;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;file_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/debug&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;default_rq_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/rq_default&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;topic_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/debugtopic&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;qq_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/fixopenid&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;workout_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/workout&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;challenge_credits_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/challenge_credits&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;credits_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/credits&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;activity_hanlder&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/activity&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">20971520</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;huanxin_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">HOME_PATH</span> <span class="o">+</span> <span class="s1">&#39;/logs/huanxin&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;when&#39;</span><span class="p">:</span> <span class="s1">&#39;W0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard_2&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;aliyun_mq_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+            <span class="c1"># &#39;filters&#39;: [&#39;require_debug_false&#39;],</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;web.aliyun_mq_log.log_helper.AliMQLoggerHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;json_format&#39;</span><span class="p">,</span>
+
+        <span class="p">}</span>
+
+    <span class="p">},</span>
+    <span class="s1">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;django.request&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mail_admins&#39;</span><span class="p">,</span> <span class="s1">&#39;console&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;xingzhe_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;file_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;topic_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;topic_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;fix_qq_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;qq_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;workout_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;workout_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;default_rq_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;default_rq_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;challenge_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;challenge_credits_handler&#39;</span><span class="p">],</span>
+           <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> 
+        <span class="p">},</span>
+        <span class="s1">&#39;credits_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;credits_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;activity_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;activity_hanlder&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;huanxin_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;huanxin_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;aliyun_mq_log&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;aliyun_mq_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<h2>2. 自定义Formatter 和 Handler</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># encoding:utf-8</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">http_prodecer</span> <span class="kn">import</span> <span class="n">HttpProducer</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">traceback</span> <span class="kn">as</span> <span class="nn">tb</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">def</span> <span class="nf">_default_json_default</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Coerce everything to strings.</span>
+<span class="sd">    All objects representing time get output as ISO8601.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">LogstashFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A custom formatter to prepare logs to be</span>
+<span class="sd">    shipped out to logstash.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">fmt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">datefmt</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">style</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="p">,</span>
+                 <span class="n">json_cls</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">json_default</span><span class="o">=</span><span class="n">_default_json_default</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param fmt: Config as a JSON string, allowed fields;</span>
+<span class="sd">               extra: provide extra fields always present in logs</span>
+<span class="sd">               source_host: override source host name</span>
+<span class="sd">        :param datefmt: Date format to use (required by logging.Formatter</span>
+<span class="sd">            interface but not used)</span>
+<span class="sd">        :param json_cls: JSON encoder to forward to json.dumps</span>
+<span class="sd">        :param json_default: Default JSON representation for unknown types,</span>
+<span class="sd">                             by default coerce everything to a string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">fmt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_default</span> <span class="o">=</span> <span class="n">json_default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_cls</span> <span class="o">=</span> <span class="n">json_cls</span>
+        <span class="k">if</span> <span class="s1">&#39;extra&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span><span class="p">[</span><span class="s1">&#39;extra&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;source_host&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt</span><span class="p">[</span><span class="s1">&#39;source_host&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_host</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_host</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format a log record to JSON, if the message is a dict</span>
+<span class="sd">        assume an empty message and use the dict as additional</span>
+<span class="sd">        fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">fields</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="s1">&#39;msg&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;exc_info&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_info&#39;</span><span class="p">]:</span>
+                <span class="n">formatted</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_info&#39;</span><span class="p">])</span>
+                <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exception&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatted</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exc_info&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;exc_text&#39;</span> <span class="ow">in</span> <span class="n">fields</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_text&#39;</span><span class="p">]:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exc_text&#39;</span><span class="p">)</span>
+
+        <span class="n">logr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">logr</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;@message&#39;</span><span class="p">:</span> <span class="n">msg</span><span class="p">,</span>
+                     <span class="s1">&#39;@timestamp&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">Z&#39;</span><span class="p">),</span>
+                     <span class="s1">&#39;@source_host&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_host</span><span class="p">,</span>
+                     <span class="s1">&#39;@fields&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_fields</span><span class="p">(</span><span class="n">logr</span><span class="p">,</span> <span class="n">fields</span><span class="p">)})</span>
+
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">logr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_default</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_cls</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">defaults</span><span class="p">,</span> <span class="n">fields</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return provided fields including any in defaults</span>
+
+<span class="sd">        &gt;&gt;&gt; f = LogstashFormatter()</span>
+<span class="sd">        # Verify that ``fields`` is used</span>
+<span class="sd">        &gt;&gt;&gt; f._build_fields({}, {&#39;foo&#39;: &#39;one&#39;}) == \</span>
+<span class="sd">                {&#39;foo&#39;: &#39;one&#39;}</span>
+<span class="sd">        True</span>
+<span class="sd">        # Verify that ``@fields`` in ``defaults`` is used</span>
+<span class="sd">        &gt;&gt;&gt; f._build_fields({&#39;@fields&#39;: {&#39;bar&#39;: &#39;two&#39;}}, {&#39;foo&#39;: &#39;one&#39;}) == \</span>
+<span class="sd">                {&#39;foo&#39;: &#39;one&#39;, &#39;bar&#39;: &#39;two&#39;}</span>
+<span class="sd">        True</span>
+<span class="sd">        # Verify that ``fields`` takes precedence</span>
+<span class="sd">        &gt;&gt;&gt; f._build_fields({&#39;@fields&#39;: {&#39;foo&#39;: &#39;two&#39;}}, {&#39;foo&#39;: &#39;one&#39;}) == \</span>
+<span class="sd">                {&#39;foo&#39;: &#39;one&#39;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;@fields&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+<span class="k">class</span> <span class="nc">LogstashFormatterV1</span><span class="p">(</span><span class="n">LogstashFormatter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A custom formatter to prepare logs to be</span>
+<span class="sd">    shipped out to logstash V1 format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format a log record to JSON, if the message is a dict</span>
+<span class="sd">        assume an empty message and use the dict as additional</span>
+<span class="sd">        fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s1">&#39;msg&#39;</span> <span class="ow">in</span> <span class="n">fields</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="s1">&#39;msg&#39;</span> <span class="ow">in</span> <span class="n">fields</span> <span class="ow">and</span> <span class="s1">&#39;message&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">fields</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
+
+        <span class="k">if</span> <span class="s1">&#39;exc_info&#39;</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_info&#39;</span><span class="p">]:</span>
+                <span class="n">formatted</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_info&#39;</span><span class="p">])</span>
+                <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exception&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatted</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exc_info&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;exc_text&#39;</span> <span class="ow">in</span> <span class="n">fields</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fields</span><span class="p">[</span><span class="s1">&#39;exc_text&#39;</span><span class="p">]:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exc_text&#39;</span><span class="p">)</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+        <span class="n">base_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">:</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span> <span class="o">+</span>
+                    <span class="s2">&quot;.</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">now</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;@version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;source_host&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_host</span><span class="p">}</span>
+        <span class="n">base_log</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+
+        <span class="n">logr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">logr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">base_log</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">logr</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_default</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_cls</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AliMQLoggerHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">producer</span> <span class="o">=</span> <span class="n">HttpProducer</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">producer</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="c1"># 这里是最后的输出逻辑</span>
+</pre></div>
+</div>
+<h2>3. MQ 生产者代码</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#encoding:utf-8</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">ConfigParser</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">httplib</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">Util</span> <span class="kn">import</span> <span class="n">parseURL</span><span class="p">,</span><span class="n">calSignature</span>
+
+<span class="n">CONFIG_PATH</span><span class="o">=</span><span class="s2">&quot;web/aliyun_mq_log/user.properties&quot;</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">消息发布者</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">HttpProducer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;签名值&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signature</span> <span class="o">=</span> <span class="s2">&quot;Signature&quot;</span>
+        <span class="sd">&quot;&quot;&quot;ProducerID&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">producerid</span> <span class="o">=</span> <span class="s2">&quot;ProducerID&quot;</span>
+        <span class="sd">&quot;&quot;&quot;消息主题&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="s2">&quot;Topic&quot;</span>
+        <span class="sd">&quot;&quot;&quot;访问码&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ak</span> <span class="o">=</span> <span class="s2">&quot;AccessKey&quot;</span>
+        <span class="sd">&quot;&quot;&quot;配置文件解析器&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cf</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;MD5对象&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    发布消息主流程</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">json_data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;读取配置文件&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;读取消息主题&quot;&quot;&quot;</span>
+        <span class="n">topic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="s2">&quot;Topic&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;存储消息URL路径&quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="s2">&quot;URL&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;访问码&quot;&quot;&quot;</span>
+        <span class="n">ak</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="s2">&quot;Ak&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;密钥&quot;&quot;&quot;</span>
+        <span class="n">sk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="s2">&quot;Sk&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Producer ID&quot;&quot;&quot;</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;property&quot;</span><span class="p">,</span><span class="s2">&quot;ProducerID&quot;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;HTTP请求主体内容&quot;&quot;&quot;</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">json_data</span> <span class="k">if</span> <span class="n">json_data</span> <span class="k">else</span>  <span class="sa">U</span><span class="s2">&quot;中文&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;分隔符&quot;&quot;&quot;</span>
+        <span class="n">newline</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sd">&quot;&quot;&quot;获取URL域名地址&quot;&quot;&quot;</span>
+        <span class="n">urlname</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">hostname</span>
+        <span class="sd">&quot;&quot;&quot;根据HTPP主体内容计算MD5值&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;建立HTTP连接对象&quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">parseURL</span><span class="p">(</span><span class="n">urlname</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;时间戳&quot;&quot;&quot;</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+            <span class="sd">&quot;&quot;&quot;构造签名字符串&quot;&quot;&quot;</span>
+            <span class="n">signString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">topic</span> <span class="o">+</span> <span class="n">newline</span> <span class="o">+</span> <span class="n">pid</span> <span class="o">+</span> <span class="n">newline</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">md5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span> <span class="o">+</span> <span class="n">newline</span> <span class="o">+</span> <span class="n">date</span><span class="p">)</span>
+            <span class="sd">&quot;&quot;&quot;计算签名&quot;&quot;&quot;</span>
+            <span class="n">sign</span> <span class="o">=</span> <span class="n">calSignature</span><span class="p">(</span><span class="n">signString</span><span class="p">,</span><span class="n">sk</span><span class="p">)</span>
+            <span class="sd">&quot;&quot;&quot;内容类型&quot;&quot;&quot;</span>
+            <span class="n">contentFlag</span> <span class="o">=</span><span class="s2">&quot;Content-type&quot;</span>
+            <span class="sd">&quot;&quot;&quot;HTTP请求头部对象&quot;&quot;&quot;</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">signature</span> <span class="p">:</span> <span class="n">sign</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ak</span> <span class="p">:</span> <span class="n">ak</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">producerid</span> <span class="p">:</span> <span class="n">pid</span><span class="p">,</span>
+                <span class="n">contentFlag</span> <span class="p">:</span> <span class="s2">&quot;text/html;charset=UTF-8&quot;</span>
+        <span class="p">}</span>
+            <span class="sd">&quot;&quot;&quot;开始发送HTTP请求消息&quot;&quot;&quot;</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="n">url</span><span class="o">=</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/message/?topic=&quot;</span><span class="o">+</span><span class="n">topic</span><span class="o">+</span><span class="s2">&quot;&amp;time=&quot;</span><span class="o">+</span><span class="n">date</span><span class="o">+</span><span class="s2">&quot;&amp;tag=http&amp;key=http&quot;</span><span class="p">,</span>
+                         <span class="n">body</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+                         <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+            <span class="sd">&quot;&quot;&quot;获取HTTP应答消息&quot;&quot;&quot;</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+            <span class="sd">&quot;&quot;&quot;读取HTTP应答内容&quot;&quot;&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s2">&quot;response:&quot;</span><span class="o">+</span><span class="n">msg</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span><span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span> <span class="n">e</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1"># print msg</span>
+<span class="sd">&quot;&quot;&quot;流程入口&quot;&quot;&quot;</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;创建消息发布者&quot;&quot;&quot;</span>
+    <span class="n">producer</span> <span class="o">=</span> <span class="n">HttpProducer</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;开启消息发布者&quot;&quot;&quot;</span>
+    <span class="n">producer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul>
+<li>最后我把mq生产者和消费者封装到了godbox, 最终的结构可以这样优化:</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="err">将生产者部分的代码省略直接调用</span><span class="n">godbox</span><span class="err">的生产者代码</span><span class="p">,</span> <span class="err">当然使用项目内部的文件也可</span><span class="p">;</span>
+<span class="mf">2.</span> <span class="err">消费者部分写统一的入口函数</span><span class="p">,</span> <span class="err">不同的</span><span class="n">MQ</span><span class="err">队列的日志写入不同的</span><span class="n">ELK</span><span class="err">的</span><span class="n">index</span><span class="p">,</span> <span class="err">并且内部做处理</span><span class="p">;</span>
+<span class="mf">3.</span> <span class="err">当日志消费失败</span><span class="p">,</span> <span class="err">可以重新把日志写入到队列</span><span class="p">,</span> <span class="err">保证数据的完整性</span><span class="p">;</span>
+</pre></div>
+</div>
+<h2>4.使用Logger</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># import the logging library</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+ 
+<span class="c1"># Get an instance of a logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;huanxin_log&#39;</span><span class="p">)</span>
+ 
+<span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+        <span class="c1"># Log an error message</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Something went wrong!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a href="http://www.tuicool.com/articles/IV3meeE">参考文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记扩展01_自定义日志handle',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

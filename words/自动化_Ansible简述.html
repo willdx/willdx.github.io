@@ -1,0 +1,566 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 自动化_Ansible简述 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>自动化_Ansible简述</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1.简介&amp;架构图&amp;流程图</h1>
+
+<p>Ansible是一个综合的强大的管理工具,他可以对多台主机安装操作系统,并为这些主机安装不同的应用程序,也可以通知指挥这些主机完成不同的任务.查看多台主机的各种信息的状态等,ansible都可以通过模块的方式来完成;</p>
+
+<p><a href="http://breezey.blog.51cto.com/2400275/1555530">文档来源</a></p>
+
+<ul>
+<li>架构图</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15025194799130.jpg"></p>
+</p>
+
+<ul>
+<li>流程图</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15025196098962.jpg"></p>
+</p>
+
+<h1>2 ansible 环境配置</h1>
+
+<h2>2.1 配置文件查找顺序</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1. ANSIBLE_CONFIG: 首先，ansible命令会检查环境变量，及这个环境变量将指向的配置文件。可以通过导入环境变量的方式来做修改，例如：export ANSIBLE_CONFIG=/directory_path
+2. ./ansible.cfg：其次，将会检查当前目录下的ansible.cfg配置文件
+3. ~/.ansible.cfg：再次，将会检查当前用户home目录下的.ansible.cfg配置文件
+4. /etc/ansible/ansible.cfg：最后，将会检查在用软件包管理工具安装ansible时自动产生的配置文件</pre></div></div>
+
+<p>如果是yum安装, 默认配置文件应该在/etc/ansible/ansible.cfg; 
+我在mac上通过pip安装找了半天没有找到ansible.cfg在哪里, 我是直接去GitHub上找到ansible项目, 复制ansible/examples/ansible.cfg到当前目录,做了一些需要的更改:</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">➜</span>  <span class="n">ansible</span> <span class="n">grep</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;^[\[a-z]&#39;</span> <span class="n">ansible</span><span class="o">.</span><span class="n">cfg</span>
+<span class="p">[</span><span class="n">defaults</span><span class="p">]</span>
+<span class="n">inventory</span>      <span class="o">=</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">hosts</span>  <span class="c1"># 默认的主机文件</span>
+<span class="n">remote_tmp</span>     <span class="o">=</span> <span class="o">~/.</span><span class="n">ansible</span><span class="o">/</span><span class="n">tmp</span>
+<span class="n">local_tmp</span>      <span class="o">=</span> <span class="o">~/.</span><span class="n">ansible</span><span class="o">/</span><span class="n">tmp</span>
+<span class="n">sudo_user</span>      <span class="o">=</span> <span class="n">root</span>
+<span class="n">transport</span>      <span class="o">=</span> <span class="n">smart</span>
+<span class="n">remote_port</span>    <span class="o">=</span> <span class="mi">22</span>  <span class="c1"># 默认ssh端口</span>
+<span class="n">host_key_checking</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># 关闭ssh连接提示yes/no</span>
+<span class="n">log_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">ansible</span><span class="o">.</span><span class="n">log</span>  <span class="c1"># 开启日志记录</span>
+<span class="n">system_warnings</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># 关闭系统升级等提示信息</span>
+<span class="n">action_plugins</span>     <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">action</span>
+<span class="n">cache_plugins</span>      <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">cache</span>
+<span class="n">callback_plugins</span>   <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">callback</span>
+<span class="n">connection_plugins</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">connection</span>
+<span class="n">lookup_plugins</span>     <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">lookup</span>
+<span class="n">inventory_plugins</span>  <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">inventory</span>
+<span class="n">vars_plugins</span>       <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="nb">vars</span>
+<span class="n">filter_plugins</span>     <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="nb">filter</span>
+<span class="n">test_plugins</span>       <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">test</span>
+<span class="n">terminal_plugins</span>   <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">terminal</span>
+<span class="n">strategy_plugins</span>   <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">strategy</span>
+<span class="n">fact_caching</span> <span class="o">=</span> <span class="n">memory</span>
+<span class="p">[</span><span class="n">accelerate</span><span class="p">]</span>
+<span class="n">accelerate_port</span> <span class="o">=</span> <span class="mi">5099</span>
+<span class="n">accelerate_timeout</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">accelerate_connect_timeout</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="n">accelerate_daemon_timeout</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<h2>2.2 主机配置</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">rundeck</span><span class="p">]</span>
+<span class="mf">120.43</span><span class="o">.</span><span class="mf">103.126</span><span class="p">:</span><span class="mi">22</span> <span class="n">ansible_ssh_user</span><span class="o">=</span><span class="n">will</span>
+
+<span class="p">[</span><span class="n">localhost</span><span class="p">]</span>
+<span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">ansible_ssh_user</span><span class="o">=</span><span class="n">willdx</span>
+
+<span class="p">[</span><span class="n">test_server</span><span class="p">]</span>
+<span class="mf">121.40</span><span class="o">.</span><span class="mf">104.230</span><span class="p">:</span><span class="mi">22</span> <span class="n">ansible_ssh_user</span><span class="o">=</span><span class="n">xxx</span>
+</pre></div>
+</div>
+<h2>2.3 ansible 简单使用</h2>
+
+<ul>
+<li><p>项目目录: /Users/daixiang/ansible</p></li>
+<li><p>管理主机: Inventory</p></li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># vim hosts
+[local]
+127.0.0.1 ansible_ssh_user=daixiang
+
+[rundeck]
+120.43.103.126:22 ansible_ssh_user=will</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 命令模式</span>
+<span class="n">ansible</span> <span class="o">-</span><span class="n">i</span> <span class="err">主机文件</span> <span class="err">主机或组</span> <span class="o">-</span><span class="n">m</span> <span class="err">模块名</span> <span class="o">-</span><span class="n">a</span> <span class="s1">&#39;模块参数&#39;</span>  <span class="n">ansible</span><span class="err">参数</span>
+    <span class="sb">``</span><span class="err">`</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="err">➜</span>  <span class="n">ansible</span> <span class="n">ansible</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span> <span class="n">local</span> <span class="o">-</span><span class="n">m</span> <span class="n">ping</span> <span class="o">-</span><span class="n">k</span>
+<span class="n">SSH</span> <span class="n">password</span><span class="p">:</span>
+<span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span>
+<span class="p">}</span>
+<span class="err">➜</span>  <span class="n">ansible</span> <span class="n">ansible</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span> <span class="n">rundeck</span> <span class="o">-</span><span class="n">m</span> <span class="n">ping</span> <span class="o">-</span><span class="n">k</span>
+<span class="n">SSH</span> <span class="n">password</span><span class="p">:</span>
+<span class="mf">120.43</span><span class="o">.</span><span class="mf">103.126</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># SSH免密登录后不需要输入密码即可执行命令</span>
+<span class="err">➜</span>  <span class="n">ansible</span> <span class="n">ssh</span><span class="o">-</span><span class="n">copy</span><span class="o">-</span><span class="nb">id</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span> <span class="s2">&quot;-p 2233 xxx@120.43.103.126&quot;</span> 
+<span class="err">➜</span>  <span class="n">ansible</span> <span class="n">ansible</span> <span class="o">-</span><span class="n">i</span> <span class="n">hosts</span> <span class="n">rundeck</span> <span class="o">-</span><span class="n">m</span> <span class="n">ping</span>
+<span class="mf">120.43</span><span class="o">.</span><span class="mf">103.126</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<h2>2.4 常用模块</h2>
+
+<p>模块按功能分类为：云模块、命令模块、数据库模块、文件模块、资产模块、消息模块、监控模块、网络模块、通知模块、包管理模块、源码控制模块、系统模块、单元模块、web设施模块、windows模块;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="nb">file</span><span class="p">:</span><span class="err">用于配置文件属性</span>
+<span class="n">yum</span><span class="err">：用于安装软件包</span>
+<span class="n">cron</span><span class="err">：配置计划任务</span>
+<span class="n">copy</span><span class="err">：复制文件到远程主机</span>
+<span class="n">command</span><span class="err">：在远程主机上执行命令</span>
+<span class="n">raw</span><span class="err">：类似于</span><span class="n">command</span><span class="err">模块，支持管道</span>
+<span class="n">user</span><span class="err">：配置用户</span>
+<span class="n">group</span><span class="err">：配置用户组</span>
+<span class="n">service</span><span class="err">：用于管理服务</span>
+<span class="n">ping</span><span class="err">：用于检测远程主机是否存活</span>
+<span class="n">setup</span><span class="err">：查看远程主机的基本信息</span>
+<span class="n">mount</span><span class="err">：配置挂载点</span>
+</pre></div>
+</div>
+<h1>3. PlayBook</h1>
+
+<p>ansbile-playbook是一系列ansible命令的集合，利用yaml 语言编写。playbook命令根据自上而下的顺序依次执行。同时，playbook开创了很多特性,它可以允许你传输某个命令的状态到后面的指令,如你可以从一台机器的文件中抓取内容并附为变量,然后在另一台机器中使用,这使得你可以实现一些复杂的部署机制,这是ansible命令无法实现的;</p>
+
+<p>playbook通过ansible-playbook命令使用,它的参数和ansible命令类似,如参数-k(–ask-pass) 和 -K (–ask-sudo) 来询问ssh密码和sudo密码,-u指定用户,这些指令也可以通过规定的单元写在playbook;</p>
+
+<p>ansible-playbook的简单使用方法: ansible-playbook example-play.yml;</p>
+
+<h2>3.1 简单Playbook实例</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># cat user.yml</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">create</span> <span class="n">user</span>
+  <span class="n">hosts</span><span class="p">:</span> <span class="nb">all</span>  <span class="c1"># 指定主机</span>
+  <span class="n">user</span><span class="p">:</span> <span class="n">root</span>  <span class="c1"># 指定用户</span>
+  <span class="n">gather_facts</span><span class="p">:</span> <span class="n">false</span> <span class="c1"># 是否执行setup模块获取主机相关信息,以便于task使用到setup获取的信息</span>
+  <span class="nb">vars</span><span class="p">:</span> <span class="c1"># 指定变量</span>
+    <span class="n">user</span><span class="p">:</span><span class="s2">&quot;test&quot;</span>
+  <span class="n">tasks</span><span class="p">:</span> <span class="c1"># 设定任务</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">create</span>  <span class="n">user</span>  <span class="c1"># 任务名称</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;{{ user }}&quot;</span> <span class="c1"># 调用user模块, name是user模块里的一个参数，而增加的用户名字调用了上面user变量的值</span>
+      
+<span class="err">注释</span><span class="p">:</span> <span class="err">若是删除用户可改为</span>
+<span class="n">user</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;{{ user }}&quot;</span> <span class="n">state</span><span class="o">=</span><span class="n">absent</span> <span class="n">remove</span><span class="o">=</span><span class="n">yes</span>
+</pre></div>
+</div>
+<h2>3.2 include&amp;roles&amp;when&amp;with_items循环</h2>
+
+<h3>3.2.1 include&amp;when</h3>
+
+<ul>
+<li>参考ansible集成rundeck例子</li>
+</ul>
+
+<h3>3.2.2 roles</h3>
+
+<ul>
+<li>参考华仔写的Playbook目录下的多个角色</li>
+</ul>
+
+<p>以角色的方式分割任务, 每一个具体的任务可以作为一个角色, 角色里面有配置文件,环境变量,模板,任务等文件夹, 用这种方式来规范整理越来越多的palybook;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">XINGZHE_XACCOUNT</span> <span class="n">Deploy</span>
+  <span class="n">vars_prompt</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;release_version&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;release version?&#39;</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;0.0.1&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;hosts&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;launch to host&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;xingzhe_workout&#39;</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;project_branch&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;branch?&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;develop&#39;</span>
+  <span class="n">hosts</span><span class="p">:</span> <span class="s2">&quot;{{ hosts }}&quot;</span>
+  <span class="n">become</span><span class="p">:</span> <span class="n">yes</span>
+  <span class="n">become_user</span><span class="p">:</span> <span class="n">root</span>
+  <span class="c1">#serial: 2</span>
+
+  <span class="n">pre_tasks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">include_vars</span><span class="p">:</span> <span class="s1">&#39;./vars/main.yml&#39;</span>
+
+  <span class="n">roles</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">{</span> <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;project_deploy&#39;</span><span class="p">,</span> <span class="s1">&#39;project_release&#39;</span><span class="p">:</span> <span class="s2">&quot;{{ release_version }}&quot;</span><span class="p">,</span> <span class="n">project_version</span><span class="p">:</span> <span class="s1">&#39;{{project_branch}}&#39;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li>ansible Galaxy 角色共享平台</li>
+</ul>
+
+<p>ansible的galaxy是ansible官方一个分享role的功能平台, 网址是<a href="https://galaxy.ansible.com/list#/roles?page=1&amp;page_size=10">galaxy.ansible.com</a></p>
+
+<p>可以把你编写的role通过ansible-galaxy上传到galaxy网站供其他人下载和使用。也可以通过ansible-galaxy命令很简单地实现role的分享和安装，当然ansible也支持直接从github上下载role</p>
+
+<p>在我们使用ansible-galaxy命令下载role的时候需要了解role的运行平台和ansible依赖版本以及相关依赖。日常工作中我们使用<code>ansible-galaxy install</code>就可以，默认会安装到<code>/etc/ansible/roles/</code>目录下，其引用跟我们自己写的role的方式一样;</p>
+
+<h3>3.2.3 with_items循环</h3>
+
+<ul>
+<li>就是对items中的每一个item执行命令</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">XINGZHE_WORKOUT</span> <span class="n">Docker</span> <span class="n">Image</span> <span class="n">pull</span>
+  <span class="n">gather_facts</span><span class="p">:</span> <span class="n">no</span>
+  <span class="n">vars_prompt</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;hosts&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;launch to hosts&#39;</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;xingzhe_workout&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;version&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;pull version&#39;</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;0.1.0&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;version_to_latest&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;version tag to latest [no, yes]&#39;</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;no&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;type&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;Environment type to pull: [dev, prod, test]&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;dev&#39;</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;base_image_version&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;base image version&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;latest&#39;</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;base_image_name&#39;</span>
+      <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;base image name&#39;</span>
+      <span class="n">private</span><span class="p">:</span> <span class="n">no</span>
+      <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;xingzhe_workout&#39;</span>
+  <span class="n">hosts</span><span class="p">:</span> <span class="s2">&quot;{{hosts}}&quot;</span>
+  <span class="nb">vars</span><span class="p">:</span>
+    <span class="n">namespace_slug</span><span class="p">:</span> <span class="n">xingzhe_server</span>
+    <span class="n">django_image_name</span><span class="p">:</span> <span class="s2">&quot;{{base_image_name|replace(&#39;_&#39;, &#39;&#39;)}}_django&quot;</span>
+
+  <span class="n">pre_tasks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">include_vars</span><span class="p">:</span> <span class="s1">&#39;./vars/asset.yml&#39;</span>
+    <span class="o">-</span> <span class="n">include_vars</span><span class="p">:</span> <span class="s1">&#39;./vars/main.yml&#39;</span>
+
+  <span class="n">tasks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Get</span> <span class="n">Project</span> <span class="n">Root</span>
+      <span class="n">shell</span><span class="p">:</span> <span class="n">dirname</span> <span class="sb">`pwd`</span>
+      <span class="n">register</span><span class="p">:</span> <span class="n">cmd</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Pull</span> <span class="n">an</span> <span class="n">base</span> <span class="n">image</span>
+      <span class="n">docker_image</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{base_image_name}}&quot;</span>
+        <span class="n">tag</span><span class="p">:</span> <span class="s2">&quot;{{base_image_version}}&quot;</span>
+        <span class="n">pull</span><span class="p">:</span> <span class="n">yes</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Pull</span> <span class="n">an</span> <span class="n">django</span> <span class="n">image</span>
+      <span class="n">docker_image</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{django_image_name}}&quot;</span>
+        <span class="n">tag</span><span class="p">:</span> <span class="s2">&quot;{{version}}-{{type}}&quot;</span>
+        <span class="n">pull</span><span class="p">:</span> <span class="n">yes</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Retag</span> <span class="n">repository</span> <span class="n">image</span> <span class="n">to</span> <span class="n">local</span>
+      <span class="n">shell</span><span class="p">:</span> <span class="n">docker</span> <span class="n">tag</span> <span class="p">{{</span><span class="n">item</span><span class="o">.</span><span class="n">repo_name</span><span class="p">}}</span> <span class="p">{{</span><span class="n">item</span><span class="o">.</span><span class="n">local_name</span><span class="p">}}</span>
+      <span class="n">with_items</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">repo_name</span><span class="p">:</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{django_image_name}}:{{version}}-{{type}}&quot;</span>
+          <span class="n">local_name</span><span class="p">:</span> <span class="s2">&quot;{{django_image_name}}:{{version}}-{{type}}&quot;</span>
+        <span class="o">-</span> <span class="n">repo_name</span><span class="p">:</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{base_image_name}}:{{base_image_version}}&quot;</span>
+          <span class="n">local_name</span><span class="p">:</span> <span class="s2">&quot;{{base_image_name}}:{{base_image_version}}&quot;</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Untag</span> <span class="n">repository</span> <span class="n">image</span>
+      <span class="n">shell</span><span class="p">:</span> <span class="n">docker</span> <span class="n">rmi</span> <span class="p">{{</span><span class="n">item</span><span class="p">}}</span>
+      <span class="n">with_items</span><span class="p">:</span>
+        <span class="o">-</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{django_image_name}}:{{version}}-{{type}}&quot;</span>
+        <span class="o">-</span> <span class="s2">&quot;{{docker_registry_domain}}/{{namespace_slug}}/{{base_image_name}}:{{base_image_version}}&quot;</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Tag</span> <span class="n">django</span> <span class="n">image</span> <span class="n">to</span> <span class="n">latest</span>
+      <span class="n">shell</span><span class="p">:</span> <span class="n">docker</span> <span class="n">tag</span> <span class="p">{{</span><span class="n">django_image_name</span><span class="p">}}:{{</span><span class="n">version</span><span class="p">}}</span><span class="o">-</span><span class="p">{{</span><span class="nb">type</span><span class="p">}}</span> <span class="p">{{</span><span class="n">django_image_name</span><span class="p">}}:</span><span class="n">latest</span><span class="o">-</span><span class="p">{{</span><span class="nb">type</span><span class="p">}}</span>
+      <span class="n">when</span><span class="p">:</span> <span class="n">version_to_latest</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span>
+</pre></div>
+</div>
+<h1>4. 总结</h1>
+
+<p>Ansible的牛逼之处在于它对企业后台管理的整个生态系统中需要管理的内容都封装成了模块, 依赖于这些模块,我们就不需要去写常规的管理脚本(例如, 登录机器,启/停服务), 它都通过模块来实现; </p>
+
+<p>Playbook类似于docker的docker-compose, 它用于将任务关联起来组合成功能强大的服务; 它支持变量,模板,条件判断,循环,继承, 使用灵活且功能强大;</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: '自动化_Ansible简述',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

@@ -1,0 +1,376 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记18_Django的信号机制 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记18_Django的信号机制</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="https://wizardforcel.gitbooks.io/django-chinese-docs-18/content/14_5_Signals.html">django-chinese-docs-18</a></p>
+
+<p><a href="http://wiki.jikexueyuan.com/project/django-chinese-docs-18/">极客学院wiki</a></p>
+
+<p><a href="http://www.python88.com/topic/151/">这篇文章比较通俗易懂</a></p>
+
+<h1>1. Django信号概述</h1>
+
+<p>Django 提供一个“信号分发器”，允许解耦的应用在框架的其它地方发生操作时会被通知到。简单来说，信号允许特定的sender通知一组receiver某些操作已经发生。这在多处代码和同一事件有关联的情况下很有用;</p>
+
+<p>django中已经内置了一些singals，在django/db/models/signal.py中，如:</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">Model</span> <span class="n">signals</span>
+<span class="n">pre_init</span>                    <span class="c1"># django的modal执行其构造方法前，自动触发</span>
+<span class="n">post_init</span>                   <span class="c1"># django的modal执行其构造方法后，自动触发</span>
+<span class="n">pre_save</span>                    <span class="c1"># django的modal对象保存前，自动触发</span>
+<span class="n">post_save</span>                   <span class="c1"># django的modal对象保存后，自动触发</span>
+<span class="n">pre_delete</span>                  <span class="c1"># django的modal对象删除前，自动触发</span>
+<span class="n">post_delete</span>                 <span class="c1"># django的modal对象删除后，自动触发</span>
+<span class="n">m2m_changed</span>                 <span class="c1"># django的modal中使用m2m字段操作第三张表（add,remove,clear）前后，自动触发</span>
+<span class="n">class_prepared</span>              <span class="c1"># 程序启动时，检测已注册的app中modal类，对于每一个类，自动触发</span>
+<span class="n">Management</span> <span class="n">signals</span>
+<span class="n">pre_migrate</span>                 <span class="c1"># 执行migrate命令前，自动触发</span>
+<span class="n">post_migrate</span>                <span class="c1"># 执行migrate命令后，自动触发</span>
+<span class="n">Request</span><span class="o">/</span><span class="n">response</span> <span class="n">signals</span>
+<span class="n">request_started</span>             <span class="c1"># 请求到来前，自动触发</span>
+<span class="n">request_finished</span>            <span class="c1"># 请求结束后，自动触发</span>
+<span class="n">got_request_exception</span>       <span class="c1"># 请求异常后，自动触发</span>
+<span class="n">Test</span> <span class="n">signals</span>
+<span class="n">setting_changed</span>             <span class="c1"># 使用test测试修改配置文件时，自动触发</span>
+<span class="n">template_rendered</span>           <span class="c1"># 使用test测试渲染模板时，自动触发</span>
+<span class="n">Database</span> <span class="n">Wrappers</span>
+<span class="n">connection_created</span>          <span class="c1"># 创建数据库连接时，自动触发</span>
+</pre></div>
+</div>
+<p><a href="https://www.processon.com/diagraming/597ee45fe4b06e43d2d6f9ae">ProcessOn图解</a></p>
+
+<h1>2. 自定义信号</h1>
+
+<h2>2.1 信号</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 创建信号模块, 创建测试信号模块</span>
+<span class="nb">cd</span> accouting_app
+mkdir signals
+touch __init__.py
+touch signal_test.py
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">vim</span>  <span class="n">signal_test</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">信号: 测试自定义信号</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">django.dispatch</span>
+<span class="kn">from</span> <span class="nn">django.dispatch</span> <span class="kn">import</span> <span class="n">receiver</span>
+
+
+<span class="c1"># 自定义信号测试</span>
+<span class="n">signal_test</span> <span class="o">=</span> <span class="n">django</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="n">providing_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;request&quot;</span><span class="p">])</span>
+<span class="c1"># 注册信号,绑定消费者</span>
+
+<span class="nd">@receiver</span><span class="p">(</span><span class="n">signal_test</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">single_callback_test</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;自定义信号回调函数&quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+
+<span class="o">&gt;</span> <span class="n">vim</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">初始化信号模块</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.signal_test</span> <span class="kn">import</span> <span class="n">signal_test</span><span class="p">,</span> <span class="n">single_callback_test</span>
+</pre></div>
+</div>
+<h2>2.2 发送信号</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">accouting_app.signals</span> <span class="kn">import</span> <span class="n">signal_test</span>
+
+<span class="k">def</span> <span class="nf">course_page</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;课程页视图&quot;&quot;&quot;</span>
+    <span class="n">signal_test</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">Course</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;accouting_app/course/courses.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>2.4 将自定义信号和消费者导入</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">vim</span> <span class="n">views</span><span class="o">.</span><span class="n">py</span>
+
+<span class="kn">from</span> <span class="nn">accouting_app.signals</span> <span class="kn">import</span> <span class="n">signal_test</span>
+
+<span class="k">def</span> <span class="nf">course_page</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;课程页视图&quot;&quot;&quot;</span>
+    <span class="n">signal_test</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="s1">&#39;signal_sender_test&#39;</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;accouting_app/course/courses.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>结果</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15015077612637.jpg"></p>
+</p>
+
+<p>讲道理, 信号方便做一些触发类的操作, 例如, 记录详细的业务日志, 请求完成后触发队列消费之类;</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记18_Django的信号机制',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

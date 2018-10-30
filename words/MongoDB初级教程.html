@@ -1,0 +1,1082 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> MongoDB初级教程 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>MongoDB初级教程</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="http://www.runoob.com/mongodb/mongodb-linux-install.html">copy from</a></p>
+
+<p>MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。</p>
+
+<p>MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
+
+<h1>1.Nosql概念</h1>
+
+<p>NoSQL的概念, 主要指<strong>非关系型</strong>、<strong>分布式</strong>、<strong>不提供ACID的数据库设计模式</strong>, 这些概念都是相对于<code>RDBMS</code>(关系型数据库)的;</p>
+
+<h2>1.关系型or非关系型的含义</h2>
+
+<p>关系型: 在设计表结构的时候表与表之间有关联关系, 例如: 主键/外键, 一对一/一对多/多对多关系等;</p>
+
+<p>非关系型: 没有关联关系</p>
+
+<h2>2.分布式(distributed system)的含义</h2>
+
+<p>分布式系统, 是建立在网络之上的软件系统; </p>
+
+<h2>3.RDBMS的ACID规则</h2>
+
+<p>关系型数据库管理系统(RDBMS)遵循ACID规则</p>
+
+<p>事务在英文中是transaction，和现实世界中的交易很类似，它有如下四个特性:</p>
+
+<h3>1. A (Atomicity) 原子性</h3>
+
+<p>事务里的所有操作看做一个整体, 整体成功或者整体失败, 若失败, 需要回滚;</p>
+
+<h3>2. C (Consistency) 一致性</h3>
+
+<p>一致性也比较容易理解，也就是说数据库要一直处于一致的状态，事务的运行不会改变数据库原本的一致性约束。</p>
+
+<p>例如: 现有完整性约束a+b=10，如果一个事务改变了a，那么必须得改变b，使得事务结束后依然满足a+b=10，否则事务失败</p>
+
+<h3>3. I (Isolation) 独立性</h3>
+
+<p>所谓的独立性是指并发的事务之间不会互相影响，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响。</p>
+
+<p>比如: 现在有个交易是从A账户转100元至B账户，在这个交易还未完成的情况下，如果此时B查询自己的账户，是看不到新增加的100元的。</p>
+
+<h3>4. D (Durability) 持久性</h3>
+
+<p>持久性是指一旦事务提交后，它所做的修改将会永久的保存在数据库上，即使出现宕机也不会丢失。</p>
+
+<h2>4.NoSQL Vs RDBMS</h2>
+
+<h3>1. RDBMS</h3>
+
+<ul>
+<li>高度组织化结构化数据 </li>
+<li>结构化查询语言（SQL） (SQL) </li>
+<li>数据和关系都存储在单独的表中。 </li>
+<li>数据操纵语言，数据定义语言 </li>
+<li>严格的一致性</li>
+<li>基础事务</li>
+</ul>
+
+<h3>2. NoSQL</h3>
+
+<ul>
+<li>代表着不仅仅是SQL</li>
+<li>没有声明性查询语言</li>
+<li>没有预定义的模式</li>
+<li>键-值对存储，列存储，文档存储，图形数据库</li>
+<li><strong>最终一致性，而非ACID属性</strong></li>
+<li>非结构化和不可预知的数据</li>
+<li><strong>CAP定理</strong> </li>
+<li>高性能，高可用性和可伸缩性</li>
+</ul>
+
+<p><p class="hassubimage"><img src=""></p>
+</p>
+
+<h2>5. [重要]CAP定理</h2>
+
+<p><strong>CAP定理（CAP theorem）</strong>, 又被称作 布鲁尔定理（Brewer&#39;s theorem）, 它指出对于一个分布式计算系统来说，不可能同时满足以下三点(最多只能同时较好的满足两个):</p>
+
+<ol>
+<li>一致性(Consistency) (所有节点在同一时间具有相同的数据)</li>
+<li>可用性(Availability) (保证每个请求不管成功或者失败都有响应)</li>
+<li>分隔容忍(Partition tolerance) (系统中任意信息的丢失或失败不会影响系统的继续运作)</li>
+</ol>
+
+<p>因此，根据 CAP 原理将 NoSQL 数据库分成了满足<strong>CA原则</strong>、满足<strong>CP原则</strong> 和满足<strong>AP原则</strong>三大类(查看下图):</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15198972782088.png"></p>
+</p>
+
+<p>CA - 单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大。
+CP - 满足一致性，分区容忍性的系统，通常性能不是特别高。
+AP - 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。</p>
+
+<h2>6.[重要]ACID VS BASE</h2>
+
+<p>BASE：Basically Available, Soft-state, Eventually Consistent。 由 Eric Brewer 定义。</p>
+
+<p>BASE是NoSQL数据库通常对可用性及一致性的弱要求原则:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1. Basically Availble --基本可用
+2. Soft-state --软状态/柔性事务。 "Soft state" 可以理解为"无连接"的, 而 "Hard state" 是"面向连接"的
+3. Eventual Consistency --最终一致性 最终一致性， 也是 ACID 的最终目的</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15199588496853.jpg"></p>
+</p>
+
+<h2>7.Nosql数据库分类</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15199590398856.jpg"></p>
+</p>
+
+<h1>2.MongoDB简介</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-intro.html">MongoDB简介</a></p>
+
+<h1>3.MongoDB安装</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-window-install.html">Windows</a></p>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-linux-install.html">Linux</a></p>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-osx-install.html">OSX</a></p>
+
+<h1>4.MongoDB概念</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15199597962649.jpg"></p>
+</p>
+
+<h2>[有用]capped collections</h2>
+
+<p>固定大小, 高性能, 队列过期, 用来记录一段时间的日志非常合适</p>
+
+<p>创建方式:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.createCollection("mycoll", {capped:true, size:100000})</pre></div></div>
+
+<h2>MongoDB 数据类型</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15199627910503.jpg"></p>
+</p>
+
+<h1>4.MongoDB安装与启动</h1>
+
+<h2>4.1 Linux平台安装MongoDB</h2>
+
+<p><a href="https://www.mongodb.com/download-center#community">下载地址</a></p>
+
+<h3>4.1.2 安装和启动</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 下载
+curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz    
+
+# 解压
+tar -zxvf mongodb-linux-x86_64-3.0.6.tgz                                   
+
+# 将解压包拷贝到指定目录
+mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb                         
+
+# 添加到PATH
+export PATH=<mongodb-install-directory>/bin:$PATH
+
+# 创建数据库目录
+mkdir -p /data/db
+# 命令行中运行 MongoDB 服务
+ ./mongod 
+ 
+注意：/data/db 是 MongoDB 默认的启动的数据库路径, 我们也可以使用 --dbpath 参数指定数据存储路径;</pre></div></div>
+
+<h3>4.1.3 MongoDB后台管理 Shell</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># MongoDB后台管理 Shell
+MongoDB Shell是MongoDB自带的交互式Javascript shell,用来对MongoDB进行操作和管理的交互式环境
+
+当你进入mongoDB后台后，它默认会链接到 test 文档（数据库):
+
+$ cd /usr/local/mongodb/bin
+$ ./mongo
+MongoDB shell version: 3.0.6
+connecting to: test
+Welcome to the MongoDB shell.
+
+# 插入数据
+db.runoob.insert({x:10})
+# 查找数据
+db.runoob.find()</pre></div></div>
+
+<h3>4.1.4 MongoDb web 用户界面</h3>
+
+<p>MongoDB 提供了简单的 HTTP 用户界面。 如果你想启用该功能，需要在启动的时候指定参数 --rest</p>
+
+<p>MongoDB 的 Web 界面访问端口比服务的端口多1000
+如果你的MongoDB运行端口使用默认的27017，你可以在端口号为28017访问web用户界面，即地址为：http://localhost:28017</p>
+
+<p><p class="hassubimage"><img src="media/15201295610658.jpg"></p>
+</p>
+
+<h2>4.2 MacOS平台安装MongoDB</h2>
+
+<p><a href="https://www.mongodb.com/download-center#community">下载地址</a></p>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-osx-install.html">安装参考</a></p>
+
+<p><p class="hassubimage"><img src="media/15201301530915.jpg"></p>
+</p>
+
+<h1>5.MongoDB连接</h1>
+
+<h2>5.1 标准 URI 连接语法</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 语法
+mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 参数说明
+mongodb:// 这是固定的格式，必须要指定。
+username:password@ 可选项，如果设置，在连接数据库服务器之后，驱动都会尝试登陆这个数据库
+host1 必须的指定至少一个host, host1 是这个URI唯一要填写的。它指定了要连接服务器的地址。如果要连接复制集，请指定多个主机地址。
+portX 可选的指定端口，如果不填，默认为27017
+/database 如果指定username:password@，连接并验证登陆指定数据库。若不指定，默认打开 test 数据库
+?options 是连接选项。如果不使用/database，则前面需要加上/。所有连接选项都是键值对name=value，键值对之间通过&或;（分号）隔开</pre></div></div>
+
+<p><p class="hassubimage"><img src="media/15201301315538.jpg"></p>
+</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 连接 replica set 三台服务器, 写入操作应用在主服务器 并且分布查询到从服务器。
+mongodb://host1,host2,host3/?slaveOk=true
+
+# 安全模式连接到localhost:
+mongodb://localhost/?safe=true
+
+# 以安全模式连接到replica set，并且等待至少两个复制服务器成功写入，超时时间设置为2秒。
+mongodb://host1,host2,host3/?safe=true;w=2;wtimeoutMS=2000</pre></div></div>
+
+<h1>6. MongoDB 创建数据库</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 切换数据库
+> use runoob
+switched to db runoob
+
+# 查看当前数据库
+> db
+runoob
+
+# 查看所有有数据的数据库
+> show dbs
+local  0.078GB
+test   0.078GB
+
+# 往数据库中插入数据
+> db.runoob.insert({"name":"菜鸟教程"})
+WriteResult({ "nInserted" : 1 })
+
+# 再次查看数据库
+> show dbs
+local   0.078GB
+runoob  0.078GB
+test    0.078GB
+
+注: MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中</pre></div></div>
+
+<h1>7. MongoDB 删除数据库和集合</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 删除数据库
+> db
+runoob
+> runoob.dropDatabase()
+{ "dropped" : "runoob", "ok" : 1 }
+> show dbs
+local  0.078GB
+test   0.078GB</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 删除集合
+db.$collection.drop()
+
+# 删除集合例子
+> use runoob
+switched to db runoob
+> show dbs
+local  0.078GB
+test   0.078GB
+# 向集合中插入内容
+> db.runoob.insert({"name":"菜鸟教程"})
+WriteResult({ "nInserted" : 1 })
+> show dbs
+local   0.078GB
+runoob  0.078GB
+test    0.078GB
+> show tables
+runoob
+system.indexes
+> db.runoob.drop()
+true</pre></div></div>
+
+<h1>8.[重点]MongoDB 插入文档</h1>
+
+<p>文档的数据结构和JSON基本一样。</p>
+
+<p>所有存储在集合中的数据都是BSON格式。</p>
+
+<p>BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 语法
+db.COLLECTION_NAME.insert(document) 或 db.COLLECTION_NAME.save(document)
+
+注: 可以自定义_id 字段</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 例子
+>db.col.insert({title: 'MongoDB 教程', 
+    description: 'MongoDB 是一个 Nosql 数据库',
+    by: '菜鸟教程',
+    url: 'http://www.runoob.com',
+    tags: ['mongodb', 'database', 'NoSQL'],
+    likes: 100
+})</pre></div></div>
+
+<h1>9.[重点]MongoDB 更新文档</h1>
+
+<p>MongoDB 使用 update() 和 save() 方法来更新集合中的文档</p>
+
+<h2>9.1 update方法</h2>
+
+<p>update() 方法用于更新已存在的文档。语法格式如下：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 更新单条记录
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
+
+# 参数说明
+query : update的查询条件，类似sql update查询内where后面的。
+update : update的对象和一些更新的操作符（如$,$inc...）等，也可以理解为sql update查询内set后面的
+upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。
+multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
+writeConcern :可选，抛出异常的级别。
+
+# 更新多条记录
+db.col.update({'title':'MongoDB 教程'},{$set:{'title':'MongoDB'}},{multi:true})
+
+
+# 在3.2版本开始，MongoDB提供以下更新集合文档的方法：
+db.collection.updateOne() 向指定集合更新单个文档
+db.collection.updateMany() 向指定集合更新多个文档</pre></div></div>
+
+<p><p class="hassubimage"><img src="media/15201418054791.jpg"></p>
+</p>
+
+<h2>9.2 save方法</h2>
+
+<p>save() 方法通过传入的文档来替换已有文档。语法格式如下:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># <document>中药包含id数据
+db.collection.save(
+   <document>,
+   {
+     writeConcern: <document>
+   }
+)
+
+# 参数说明
+document : 文档数据。
+writeConcern :可选，抛出异常的级别。
+
+# 例子
+>db.col.save({
+    "_id" : ObjectId("56064f89ade2f21f36b03136"),
+    "title" : "MongoDB",
+    "description" : "MongoDB 是一个 Nosql 数据库",
+    "by" : "Runoob",
+    "url" : "http://www.runoob.com",
+    "tags" : [
+            "mongodb",
+            "NoSQL"
+    ],
+    "likes" : 110
+})</pre></div></div>
+
+<h2>9.3 update方法 与 save方法的区别</h2>
+
+<p>update方法: 支持update 或 update<em>or</em>create, 支持更新单条多多条, 支持抛出日志
+save方法: 支持create, 如果要用update功能需要在document内写明具体的_id值</p>
+
+<h2>9.4 writeConcern异常级别</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>WriteConcern.NONE:没有异常抛出
+WriteConcern.NORMAL:仅抛出网络错误异常，没有服务器错误异常
+WriteConcern.SAFE:抛出网络错误异常、服务器错误异常；并等待服务器完成写操作。
+WriteConcern.MAJORITY: 抛出网络错误异常、服务器错误异常；并等待一个主服务器完成写操作。
+WriteConcern.FSYNC_SAFE: 抛出网络错误异常、服务器错误异常；写操作等待服务器将数据刷新到磁盘。
+WriteConcern.JOURNAL_SAFE:抛出网络错误异常、服务器错误异常；写操作等待服务器提交到磁盘的日志文件。
+WriteConcern.REPLICAS_SAFE:抛出网络错误异常、服务器错误异常；等待至少2台服务器完成写操作。</pre></div></div>
+
+<h1>10.[重点]MongoDB 删除文档</h1>
+
+<p>MongoDB数据更新可以使用update()函数。
+在执行remove()函数前先执行find()命令来判断执行的条件是否正确，这是一个比较好的习惯。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># [官方推荐语法]
+# 删除 status 等于 A 的全部文档：
+db.inventory.deleteMany({ status : "A" })
+# 删除 status 等于 D 的一个文档：
+db.inventory.deleteOne( { status: "D" } )
+# 如删除集合下全部文档
+db.inventory.deleteMany({})
+
+# [过时语法]
+db.collection.remove(
+   <query>,
+   <justOne>
+)
+# 例子
+db.col.remove({'title':'MongoDB 教程'})
+# (谨慎使用)删除所有数据,可以使用以下方式（类似常规 SQL 的 truncate 命令)
+>db.col.remove({})</pre></div></div>
+
+<h1>11.[重点]MongoDB 查询文档</h1>
+
+<p>MongoDB 查询文档使用 find() 方法。
+find() 方法以非结构化的方式来显示所有文档。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 语法
+query ：可选，使用查询操作符指定查询条件
+projection ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省略）
+
+如果你需要以易读的方式来读取数据，可以使用 pretty() 方法，语法格式如下：
+>db.col.find().pretty()
+{
+    "_id" : ObjectId("5963029eda1bd4668e864dbe"),
+    "title" : "MongoDB 教程",
+    "description" : "MongoDB 是一个 Nosql 数据库",
+    "by" : "菜鸟教程",
+    "url" : "http://www.runoob.com",
+    "tags" : [
+        "mongodb",
+        "database",
+        "NoSQL"
+    ],
+    "likes" : 100
+}
+除了 find() 方法之外，还有一个 findOne() 方法，它只返回一个文档。</pre></div></div>
+
+<h2>11.1 MongoDB 与 RDBMS Where 语句比较</h2>
+
+<p><p class="hassubimage"><img src="media/15201432305222.jpg"></p>
+</p>
+
+<h2>11.2 MongoDB AND条件</h2>
+
+<h3>AND</h3>
+
+<p>MongoDB 的 find() 方法可以传入多个键(key)，每个键(key)以逗号隔开，即常规 SQL 的 AND 条件。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>>db.col.find({key1:value1, key2:value2}).pretty()</pre></div></div>
+
+<h3>OR</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>>db.col.find(
+   {
+      $or: [
+         {key1: value1}, {key2:value2}
+      ]
+   }
+).pretty()</pre></div></div>
+
+<h3>AND 和 OR 连用</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>>db.col.find({"likes": {$gt:50}, $or: [{"by": "菜鸟教程"},{"title": "MongoDB 教程"}]}).pretty()</pre></div></div>
+
+<p><p class="hassubimage"><img src="media/15201434820558.jpg"></p>
+</p>
+
+<h1>12. MongoDB 条件操作符</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-operators.html">和Django是一样的</a></p>
+
+<h1>13. MongoDB $type操作符</h1>
+
+<p>$type操作符是基于BSON类型来检索集合中匹配的数据类型，并返回结果。</p>
+
+<p><p class="hassubimage"><img src="media/15201436610832.jpg"></p>
+</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 例子: 如果想获取 "col" 集合中 title 为 String 的数据，你可以使用以下命令：
+db.col.find({"title" : {$type : 2}})</pre></div></div>
+
+<h1>14. MongoDB Limit与Skip方法</h1>
+
+<p>skip 和 limit 结合就能实现分页, 但是不推荐使用, 百万级别之后性能下降</p>
+
+<p>当查询时同时使用sort,skip,limit，无论位置先后，最先执行顺序 sort再skip再limit</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 用gt代替skip方案更优
+b.test.sort({"amount":1}).skip(100000).limit(10)  //183ms
+db.test.find({amount:{$gt:2399927}}).sort({"amount":1}).limit(10)  //53ms</pre></div></div>
+
+<h2>Limit</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.COLLECTION_NAME.find().limit(NUMBER)
+
+# 例子
+db.col.find({},{"title":1,_id:0}).limit(2)</pre></div></div>
+
+<h2>Skip</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.COLLECTION_NAME.find().limit(NUMBER).skip(NUMBER)
+
+# 例子
+db.col.find({},{"title":1,_id:0}).limit(1).skip(1)</pre></div></div>
+
+<h1>14. MongoDB short</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>以下实例演示了 col 集合中的数据按字段 likes 的降序排列：
+
+>db.col.find({},{"title":1,_id:0}).sort({"likes":-1})
+{ "title" : "PHP 教程" }
+{ "title" : "Java 教程" }
+{ "title" : "MongoDB 教程" }
+></pre></div></div>
+
+<h1>15. MongoDB 索引</h1>
+
+<p>索引通常能够极大的提高查询的效率，如果没有索引，MongoDB在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。</p>
+
+<p>这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。</p>
+
+<p>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 语法
+db.COLLECTION_NAME.ensureIndex({KEY:1})
+注: 语法中 Key 值为你要创建的索引字段，1为指定按升序创建索引，如果你想按降序来创建索引指定为-1即可。
+
+# 复合索引
+db.col.ensureIndex({"title":1,"description":-1})</pre></div></div>
+
+<p><p class="hassubimage"><img src="media/15201447759855.jpg"></p>
+</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 通过在创建索引时加background:true 的选项，让创建工作在后台执行
+db.values.ensureIndex({open: 1, close: 1}, {background: true})</pre></div></div>
+
+<h1>16. MongoDB聚合</h1>
+
+<h2>基本使用</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 语法
+db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 例子1
+
+# 数据
+{
+   _id: ObjectId(7df78ad8902c)
+   title: 'MongoDB Overview', 
+   description: 'MongoDB is no sql database',
+   by_user: 'runoob.com',
+   url: 'http://www.runoob.com',
+   tags: ['mongodb', 'database', 'NoSQL'],
+   likes: 100
+},
+{
+   _id: ObjectId(7df78ad8902d)
+   title: 'NoSQL Overview', 
+   description: 'No sql database is very fast',
+   by_user: 'runoob.com',
+   url: 'http://www.runoob.com',
+   tags: ['mongodb', 'database', 'NoSQL'],
+   likes: 10
+},
+{
+   _id: ObjectId(7df78ad8902e)
+   title: 'Neo4j Overview', 
+   description: 'Neo4j is no sql database',
+   by_user: 'Neo4j',
+   url: 'http://www.neo4j.com',
+   tags: ['neo4j', 'database', 'NoSQL'],
+   likes: 750
+},
+
+
+# 每个作者写的文章数
+> db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : 1}}}])
+{
+   "result" : [
+      {
+         "_id" : "runoob.com",
+         "num_tutorial" : 2
+      },
+      {
+         "_id" : "Neo4j",
+         "num_tutorial" : 1
+      }
+   ],
+   "ok" : 1
+}</pre></div></div>
+
+<h2>聚合表达式</h2>
+
+<p><p class="hassubimage"><img src="media/15201451533496.jpg"></p>
+</p>
+
+<h2>管道的概念</h2>
+
+<p>管道在Unix和Linux中一般用于将当前命令的输出结果作为下一个命令的参数。</p>
+
+<p>MongoDB的聚合管道将MongoDB文档在一个管道处理完毕后将结果传递给下一个管道处理。管道操作是可以重复的。</p>
+
+<h3>管道操作符</h3>
+
+<p>处理输入文档并输出。表达式是无状态的，只能用于计算当前聚合管道的文档，不能处理其它的文档。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>这里我们介绍一下聚合框架中常用的几个操作：
+
+$project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。
+$match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。
+$limit：用来限制MongoDB聚合管道返回的文档数。
+$skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。
+$unwind：将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。
+$group：将集合中的文档分组，可用于统计结果。
+$sort：将输入文档排序后输出。
+$geoNear：输出接近某一地理位置的有序文档。</pre></div></div>
+
+<h4>1. $project实例</h4>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.article.aggregate(
+    { $project : {
+        title : 1 ,
+        author : 1 ,
+    }}
+ );</pre></div></div>
+
+<p>这样的话结果中就只还有<em>id,tilte和author三个字段了，默认情况下</em>id字段是被包含的，如果要想不包含_id话可以这样:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.article.aggregate(
+    { $project : {
+        _id : 0 ,
+        title : 1 ,
+        author : 1
+    }});</pre></div></div>
+
+<h4>2. $match实例</h4>
+
+<p>$match用于获取分数大于70小于或等于90记录，然后将符合条件的记录送到下一阶段$group管道操作符进行处理。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.articles.aggregate( [
+                        { $match : { score : { $gt : 70, $lte : 90 } } },
+                        { $group: { _id: null, count: { $sum: 1 } } }
+                       ] );</pre></div></div>
+
+<h4>3.$skip实例</h4>
+
+<p>经过$skip管道操作符处理后，前五个文档被<q>过滤</q>掉。</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>db.article.aggregate({ $skip : 5 });</pre></div></div>
+
+<h4>4. 综合例子: 按时间聚合数据</h4>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>按日、按月、按年、按周、按小时、按分钟聚合操作如下：
+
+db.getCollection('m_msg_tb').aggregate(
+[
+    {$match:{m_id:10001,mark_time:{$gt:new Date(2017,8,0)}}},
+    {$group: {
+       _id: {$dayOfMonth:'$mark_time'},
+        pv: {$sum: 1}
+        }
+    },
+    {$sort: {"_id": 1}}
+])
+
+时间关键字如下：
+
+ $dayOfYear: 返回该日期是这一年的第几天（全年 366 天）。
+ $dayOfMonth: 返回该日期是这一个月的第几天（1到31）。
+ $dayOfWeek: 返回的是这个周的星期几（1：星期日，7：星期六）。
+ $year: 返回该日期的年份部分。
+ $month： 返回该日期的月份部分（ 1 到 12）。
+ $week： 返回该日期是所在年的第几个星期（ 0 到 53）。
+ $hour： 返回该日期的小时部分。
+ $minute: 返回该日期的分钟部分。
+ $second: 返回该日期的秒部分（以0到59之间的数字形式返回日期的第二部分，但可以是60来计算闰秒）。
+ $millisecond：返回该日期的毫秒部分（ 0 到 999）。
+ $dateToString： { $dateToString: { format: , date: } }。</pre></div></div>
+
+<h1>17. MongoDB分布式环境数据同步</h1>
+
+<p>MongoDB复制是将数据同步在多个服务器的过程。</p>
+
+<p>复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。</p>
+
+<p>复制还允许您从硬件故障和服务中断中恢复数据。</p>
+
+<h2>MongoDB复制原理</h2>
+
+<p>mongodb的复制至少需要两个节点。其中一个是主节点，负责处理客户端请求，其余的都是从节点，负责复制主节点上的数据。</p>
+
+<p>mongodb各个节点常见的搭配方式为：一主一从、一主多从。</p>
+
+<p>主节点记录在其上的所有操作oplog，从节点定期轮询主节点获取这些操作，然后对自己的数据副本执行这些操作，从而保证从节点的数据与主节点一致。</p>
+
+<p><p class="hassubimage"><img src="media/15201469160527.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>结构图中，客户端从主节点读取数据，在客户端写入数据到主节点时， 主节点与从节点进行数据交互保障数据的一致性</p></p>
+
+<h2>MongoDB副本集: 互为主备</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 启动副本集语法
+mongod --port "PORT" --dbpath "YOUR_DB_DATA_PATH" --replSet "REPLICA_SET_INSTANCE_NAME"
+
+# 例子
+mongod --port 27017 --dbpath "D:\set up\mongodb\data" --replSet rs0
+
+# 添加副本集的
+>rs.add(HOST_NAME:PORT)</pre></div></div>
+
+<h1>18. MongoDB 分片</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-sharding.html">分片</a></p>
+
+<h1>19. MongoDB 备份与恢复</h1>
+
+<p><a href="http://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html">备份与恢复</a></p>
+
+<h1>20. MongoDB 监控: mongostat与mongotop</h1>
+
+<p>mongotop --locks</p>
+
+<p>1.html  <script>var s = 3<script>
+2.html  <script>var s = 4<script></p>
+
+<p>a.js let str = s || 0</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'MongoDB初级教程',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

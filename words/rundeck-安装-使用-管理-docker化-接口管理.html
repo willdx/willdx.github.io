@@ -1,0 +1,938 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> rundeck-安装-使用-管理-docker化-接口管理 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>rundeck-安装-使用-管理-docker化-接口管理</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="http://rundeck.org/docs/administration/index.html">官方管理员手册</a></p>
+
+<h1>1. 遇到的坑-以及解决</h1>
+
+<h2>1.1 坑爹的中文乱码问题</h2>
+<blockquote class="blockquote-normal">
+                <p>问题描述:  rundeck能够正常使用,但是执行命令中文乱码<br/>问题现象:  Ubuntu14.04终端无法输入中文,vim也无法输入中文</p></blockquote>
+<h3>1.1.1 rundeck所在ubuntu机器配置中文环境</h3>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>解决方案:
+<span class="m">1</span>.安装中文语言包
+    sudo apt-get -y install language-pack-zh-hans language-pack-zh-hans-base
+
+<span class="m">2</span>.在~/.bashrc 或者 ~/.zshrc文件设定编码
+<span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>zh_CN.UTF-8
+<span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>zh_CN.UTF-8
+
+<span class="m">3</span>.再执行locale命令设置当前locale环境:
+sudo dpkg-reconfigure locales
+sudo locale
+
+<span class="m">4</span>.重开一个终端
+讲道理的话,终端和vim都能输入中文了
+
+<span class="m">5</span>.如果数据不重要可以先删除所有rundeck的文件,然后重新生成
+例如我是在 /data/rundeck/目录下启动
+<span class="nb">cd</span> /data/rundeck<span class="p">;</span>rm -rf *<span class="p">;</span>
+</pre></div>
+</div>
+<h3>1.1.2 rundeck的mysql数据库中文支持</h3>
+
+<h4>自建数据库</h4>
+
+<p><a href="http://www.imooc.com/article/4425">参考链接</a>
+<a href="https://app.yinxiang.com/Home.action#n=0f3da369-993d-4d54-b397-a6f64ac71e4a&amp;ses=4&amp;sh=2&amp;sds=5&amp;">印象笔记链接</a></p>
+
+<h4>使用docker</h4>
+
+<p>[参考github的项目]https://github.com/dnhsoft/docker-mysql-utf8</p>
+
+<h2>1.2 启动命令编码</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>其中-Dfile.encoding=UTF-8是用来指明输出日志使用的编码格式
+
+exec java -Xmx${mem}m \
+  -XX:MaxPermSize=${perm}m \
+  -Drundeck.jetty.connector.forwarded=true \
+  -Dserver.http.host=0.0.0.0 \
+  -Dserver.hostname=$(hostname) \
+  -Dserver.http.port=${SERVER_PORT:-4440} \
+  -Dfile.encoding=UTF-8 \
+  -jar $RDECK_JAR --skipinstall &</pre></div></div>
+
+<h2>1.3 rundeck正在执行的任务过多,后续任务无法执行</h2>
+<blockquote class="blockquote-normal">
+                <p>&lt;场景&gt;<br/>执行了10个以上的后台任务,后续任务启动任务一直running,但是实际上并没有在目标机器调起来<br/>kill几个任务, 没有调起来的任务数量</p></blockquote><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><问题定位>
+进入docker环境
+1. 假设, 多个后台进程资源消耗过高
+测试: 尝试增加多个后台任务, htop观察后台的CPU和内存使用情况, 发现并没有异常
+结论: 多个后台执行的任务(大量输出日志的除外), 不会占用过多的系统资源, 所以瓶颈不在这里.
+
+2. 假设是服务器连接数限定
+
+> 服务器限定
+ulimit -n
+1048576
+
+> 服务器实际
+netstat -n | awk '/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}'
+TIME_WAIT 128
+ESTABLISHED 10
+
+即使我在rundeck上超过10个的后台任务, 发现得到的ESTABLISHED的链接只有10
+
+总结: rundeck的ESTABLISHED最大连接数只有10, 必定是rundeck自身的限定值
+
+<解决>
+打开rundeck-config.properties 添加一行:
+vim /docker_data/rundeck/server/config/rundeck-config.properties 
+quartz.props.threadPool.threadCount
+重启rundeck
+再次查看连接数
+netstat -n | awk '/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}'
+TIME_WAIT 399
+ESTABLISHED 15</pre></div></div>
+
+<h1>2.rundeck简单使用</h1>
+
+<h2>2.1启动停止</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 方法1: 直接调用java包</span>
+java -jar rundeck-launcher-2.8.2.jar
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 方法2: 从启动脚本启动</span>
+vim /etc/profile 
+<span class="nb">export</span> <span class="nv">RDECK_BASE</span><span class="o">=</span>/home/jacky007wang/rundeck/
+在初始化jar包之后，下一次启动和关闭可以进行如下操作：
+Startup
+<span class="nv">$RDECK_BASE</span>/server/sbin/rundeckd start
+Shutdown
+<span class="nv">$RDECK_BASE</span>/server/sbin/rundeckd stop
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 方法3: 调用Java包, 但是添加一些配置参数</span>
+java -Xmx3096m -XX:MaxPermSize<span class="o">=</span>774m -Drundeck.jetty.connector.forwarded<span class="o">=</span><span class="nb">true</span> -Dserver.http.host<span class="o">=</span><span class="m">0</span>.0.0.0 -Dserver.hostname<span class="o">=</span>10ec642ea1ff -Dserver.http.port<span class="o">=</span><span class="m">4440</span> -Dfile.encoding<span class="o">=</span>UTF-8 -Duser.timezone<span class="o">=</span>Asia/Shanghai -jar /data/rundeck/app.jar --skipinstall
+</pre></div>
+</div>
+<h2>2.2添加用户与更改密码</h2>
+
+<p><a href="http://rundeck.org/docs/administration/authenticating-users.html">rundeck认证方式</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1"># 这里我们使用默认的认证方式PropertyFileLoginModule</span>
+Location: /*jar包启动和rpm安装 配置文件路径*/
+    Launcher: <span class="nv">$RDECK_BASE</span>/server/config/realm.properties 
+    RPM/DEB: /etc/rundeck/realm.properties
+</pre></div>
+</div>
+<h2>2.3将密码加密存储</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="err">$</span><span class="n">RDECK_BASE</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+<span class="n">java</span> <span class="o">-</span><span class="n">cp</span> <span class="n">jetty</span><span class="o">-</span><span class="nb">all</span><span class="o">-</span><span class="mf">7.6</span><span class="o">.</span><span class="mf">0.</span><span class="n">v20120127</span><span class="o">.</span><span class="n">jar</span> <span class="n">org</span><span class="o">.</span><span class="n">eclipse</span><span class="o">.</span><span class="n">jetty</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">security</span><span class="o">.</span><span class="n">Password</span> <span class="n">daixiang</span> <span class="n">daixiang</span>
+<span class="n">vim</span> <span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">realm</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">daixiang</span><span class="p">:</span> <span class="n">MD5</span><span class="p">:</span><span class="n">deb8235d78bd806f2f8972f3dc7970e8</span><span class="p">,</span><span class="n">user</span><span class="p">,</span><span class="n">admin</span>
+</pre></div>
+</div>
+<h2>2.4脚本方式</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">DEFAULT_ADMIN_USER</span><span class="o">=</span><span class="n">xingzhe</span>
+<span class="n">export</span> <span class="n">DEFAULT_ADMIN_PASSWORD</span><span class="o">=</span><span class="n">xxxxxx</span>
+<span class="n">export</span> <span class="n">DEFAULT_USER</span><span class="o">==</span><span class="n">will</span>
+<span class="n">export</span> <span class="n">DEFAULT_PASSWORD</span><span class="o">=</span><span class="n">xxxxx</span>
+<span class="n">echo</span> <span class="s2">&quot;${DEFAULT_ADMIN_USER:-docker}:${DEFAULT_ADMIN_PASSWORD:-docker},user,admin&quot;</span> <span class="err">$</span><span class="n">RDECK_BASE</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">realm</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">echo</span> <span class="s2">&quot;${DEFAULT_USER:-docker}:${DEFAULT_PASSWORD:-docker},user&quot;</span> <span class="err">$</span><span class="n">RDECK_BASE</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">realm</span><span class="o">.</span><span class="n">properties</span>
+</pre></div>
+</div>
+<h1>3.修改数据存储</h1>
+
+<p><a href="http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html">修改数据存储01</a>
+<a href="http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html#mysql-setup-guide">修改数据存储02</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#修改数据存储文件:</span>
+<span class="nv">config_properties</span><span class="o">=</span><span class="nv">$RDECK_BASE</span>/server/config/rundeck-config.properties
+<span class="c1">#注意rundeck支持mysql和h2的JDBC驱动,官方文档如下描述:</span>
+
+Rundeck includes a JDBC driver <span class="k">for</span> Mysql and H2. If you are using another database copy the appropriate JDBC driver, such as <span class="s2">&quot;ojdbc14.jar&quot;</span> <span class="k">for</span> Oracle into the server lib dir:
+<span class="sb">`</span>cp ojdbc14.jar <span class="nv">$RDECK_BASE</span>/server/lib<span class="sb">`</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#脚本设定</span>
+<span class="k">function</span> config_mysql<span class="o">()</span> <span class="o">{</span>
+    <span class="nv">sql_datasource</span><span class="o">=</span><span class="s2">&quot;dataSource.url = jdbc:mysql://</span><span class="si">${</span><span class="nv">MYSQL_ADDR</span><span class="k">:-</span><span class="nv">mysql</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">MYSQL_DB</span><span class="k">:-</span><span class="nv">rundeck</span><span class="si">}</span><span class="s2">?autoReconnect=true&quot;</span>
+    <span class="nv">sql_un</span><span class="o">=</span><span class="s2">&quot;dataSource.username = </span><span class="si">${</span><span class="nv">MYSQL_USER</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nv">sql_pw</span><span class="o">=</span><span class="s2">&quot;dataSource.password = </span><span class="si">${</span><span class="nv">MYSQL_PASSWORD</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nv">extra_crap_for_sql</span><span class="o">=</span><span class="s2">&quot;rundeck.projectsStorageType=db\nrundeck.storage.provider.1.type=db\nrundeck.storage.provider.1.path=keys&quot;</span>
+    sed -i <span class="s2">&quot;s,^dataSource\.url.*\$,</span><span class="si">${</span><span class="nv">sql_datasource</span><span class="si">}</span><span class="s2">,&quot;</span> <span class="nv">$config_properties</span>
+    <span class="nb">echo</span> <span class="nv">$sql_un</span> &gt;&gt; <span class="nv">$config_properties</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$sql_pw</span> &gt;&gt; <span class="nv">$config_properties</span>
+    <span class="nb">echo</span> -e <span class="nv">$extra_crap_for_sql</span> &gt;&gt; <span class="nv">$config_properties</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<h1>4.添加项目readme</h1>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#readme.md地址:markdown格式语法即可</span>
+launcher: <span class="nv">$RDECK_BASE</span>/projects/<span class="o">{</span>project<span class="o">}</span>/readme.md
+rpm/deb: /var/rundeck/projects/<span class="o">{</span>project<span class="o">}</span>/readme.md
+</pre></div>
+</div>
+<h1>5.配置节点</h1>
+
+<p><a href="http://rundeck.org/docs/administration/project-setup.html">配置节点-官网地址</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#例子</span>
+&lt;project&gt;&lt;<span class="nv">nodename</span><span class="o">=</span><span class="s2">&quot;orion&quot;</span><span class="nv">description</span><span class="o">=</span><span class="s2">&quot;a foodazzler service host&quot;</span><span class="nv">tags</span><span class="o">=</span><span class="s2">&quot;staging,us-east&quot;</span><span class="nv">osFamily</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="nv">osName</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="nv">hostname</span><span class="o">=</span><span class="s2">&quot;orion&quot;</span><span class="nv">username</span><span class="o">=</span><span class="s2">&quot;alexh&quot;</span>/&gt;&lt;/project&gt;
+
+&lt;project&gt;&lt;<span class="nv">nodename</span><span class="o">=</span><span class="s2">&quot;orion&quot;</span><span class="nv">description</span><span class="o">=</span><span class="s2">&quot;a foodazzler service host&quot;</span><span class="nv">tags</span><span class="o">=</span><span class="s2">&quot;staging,us-east&quot;</span><span class="nv">osFamily</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="nv">osName</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="nv">hostname</span><span class="o">=</span><span class="s2">&quot;orion&quot;</span><span class="nv">username</span><span class="o">=</span><span class="s2">&quot;alexh&quot;</span>/&gt;&lt;<span class="nv">nodename</span><span class="o">=</span><span class="s2">&quot;homestar&quot;</span><span class="nv">description</span><span class="o">=</span><span class="s2">&quot;a humdinger&quot;</span><span class="nv">tags</span><span class="o">=</span><span class="s2">&quot;integration,us-west&quot;</span><span class="nv">osFamily</span><span class="o">=</span><span class="s2">&quot;unix&quot;</span><span class="nv">hostname</span><span class="o">=</span><span class="s2">&quot;192.168.1.02&quot;</span><span class="nv">username</span><span class="o">=</span><span class="s2">&quot;alexh&quot;</span>&gt;&lt;<span class="nv">attributename</span><span class="o">=</span><span class="s2">&quot;flavor&quot;</span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span>/&gt;&lt;<span class="nv">attributename</span><span class="o">=</span><span class="s2">&quot;package:version&quot;</span><span class="nv">value</span><span class="o">=</span><span class="s2">&quot;2.0&quot;</span>/&gt;&lt;/node&gt;&lt;/project&gt;
+
+<span class="c1">#注意:需要设定rundeck-server免密登录client才能在client上执行命令</span>
+<span class="c1">#注意:有的ssh端口开放在非22端口,在添加节点和做免密登录的时候都需要添加端口</span>
+
+<span class="c1">#端口问题</span>
+<span class="nv">hostname</span><span class="o">=</span><span class="s2">&quot;192.168.1.02:port&quot;</span>
+<span class="c1">#可以使用ssh-copy-id命令做免密登录</span>
+ssh-copy-id -i ~/.ssh/id_rsa.pub -p <span class="m">2380</span> <span class="s2">&quot;ill@120.55.74.101&quot;</span>
+</pre></div>
+</div>
+<h1>6.权限控制</h1>
+
+<p><a href="http://rundeck.org/docs/administration/access-control-policy.html">权限控制</a>
+<a href="http://rundeck.org/docs/man1/rd-acl.html">权限控制命令行工具rd-acl</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#官方描述</span>
+All *.aclpolicy files found in the rundeck etc dir, which is either /etc/rundeck <span class="o">(</span>rpm and debian install defaults<span class="o">)</span>, or <span class="nv">$RDECK_BASE</span>/etc <span class="o">(</span>launcher/war configuration<span class="o">)</span>.
+
+<span class="c1">#位置</span>
+<span class="nv">$RDECK_BASE</span>/etc/xx.aclpolicy
+
+<span class="c1">#以admin.aclpolicy为例子,解释ACL权限控制</span>
+
+<span class="c1">## 1.admin 项目级别的权限</span>
+description: Admin, all access.  <span class="c1">#完全控制</span>
+context:
+  project: <span class="s1">&#39;.*&#39;</span> <span class="c1"># 所有项目</span>
+<span class="k">for</span>:
+  resource:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># 所有的读取/创建权限</span>
+  adhoc:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow read/running/killing adhoc jobs</span>
+  job:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow read/write/delete/run/kill of all jobs</span>
+  node:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow read/run for all nodes</span>
+by:
+  group: admin
+
+---
+<span class="c1">## 2.admin 应用级别的权限</span>
+description: Admin, all access.
+context:
+  application: <span class="s1">&#39;rundeck&#39;</span>
+<span class="k">for</span>:
+  resource:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow create of projects</span>
+  project:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow view/admin of all projects</span>
+  project_acl:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow admin of all project-level ACL policies</span>
+  storage:
+    - allow: <span class="s1">&#39;*&#39;</span> <span class="c1"># allow read/create/update/delete for all /keys/* storage content</span>
+by:
+  group: admin
+</pre></div>
+</div>
+<h2>6.1添加一个限制用户的acl例子</h2>
+
+<h3>6.1.1需要先添加好账号和组别</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">realm</span><span class="o">.</span><span class="n">properties</span>
+<span class="err">例如</span><span class="p">:</span>
+<span class="n">test</span><span class="p">:</span><span class="n">xxxx</span><span class="p">,</span><span class="n">user</span><span class="p">,</span><span class="n">product</span>
+</pre></div>
+</div>
+<h3>6.1.2然后对设定的组别进行权限设定</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># vim etc/product.aclpolicy</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">sp</span> <span class="n">project</span> <span class="n">acl</span>
+<span class="n">context</span><span class="p">:</span>
+  <span class="n">project</span><span class="p">:</span> <span class="s1">&#39;operate&#39;</span>
+<span class="k">for</span><span class="p">:</span>
+  <span class="n">resource</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">job</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">run</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">node</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">event</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">create</span><span class="p">]</span>
+  <span class="n">adhoc</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">]</span>
+  <span class="n">job</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;车店-工具&#39;</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;xz_servie_point_checked&#39;</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">run</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;车店-工具&#39;</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;xz_servie_point_comment_manage&#39;</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">run</span><span class="p">]</span>
+  <span class="n">node</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">run</span><span class="p">]</span>
+<span class="n">by</span><span class="p">:</span>
+  <span class="n">group</span><span class="p">:</span> <span class="n">sp</span>
+
+<span class="o">---</span>
+
+<span class="n">description</span><span class="p">:</span> <span class="n">sp</span> <span class="n">system</span> <span class="n">acl</span>
+<span class="n">context</span><span class="p">:</span>
+  <span class="n">application</span><span class="p">:</span> <span class="s1">&#39;rundeck&#39;</span>
+<span class="k">for</span><span class="p">:</span>
+  <span class="n">resource</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">project</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span> <span class="n">run</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">system</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span><span class="n">enable_executions</span><span class="p">,</span><span class="n">disable_executions</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">system_acl</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">]</span>
+    <span class="o">-</span> <span class="n">equals</span><span class="p">:</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">user</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">]</span>
+  <span class="n">project</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;operate&#39;</span>
+      <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">]</span>
+  <span class="n">project_acl</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">allow</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span> <span class="c1"># allow admin of all project-level ACL policies</span>
+  <span class="n">storage</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">allow</span><span class="p">:</span> <span class="p">[</span><span class="n">read</span><span class="p">,</span><span class="n">create</span><span class="p">,</span><span class="n">update</span><span class="p">]</span> <span class="c1"># allow read/create/update/delete for all /keys/* storage content</span>
+<span class="n">by</span><span class="p">:</span>
+  <span class="n">group</span><span class="p">:</span> <span class="n">sp</span>
+</pre></div>
+</div>
+<h3>6.1.3按照角色分类设定acl权限</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>TODO: 待补充</pre></div></div>
+
+<h1>7.邮件告警-测试不通过-任务一直处于running状态(求高手指导)</h1>
+
+<p><a href="http://rundeck.org/docs/administration/email-settings.html">邮件告警</a>
+<a href="http://gpc.github.io/grails-mail/guide/2.%20Configuration.html#2.1%20SMTP%20Server%20Configuration">参考文档</a></p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vim</span> <span class="o">/</span><span class="n">docker_data</span><span class="o">/</span><span class="n">rundeck</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">rundeck</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">properties</span>
+<span class="err">添加</span><span class="p">:</span>
+<span class="c1"># email</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">host</span><span class="o">=</span><span class="n">smtp</span><span class="o">.</span><span class="n">qq</span><span class="o">.</span><span class="n">com</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">25</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="mi">1426409836</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">password</span><span class="o">=</span><span class="n">xxxxxxxxxxx</span>  <span class="sb">`#这里是你的授权码`</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="n">from</span><span class="o">=</span><span class="mi">1426409836</span><span class="nd">@qq.com</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">overrideAddress</span> <span class="o">=</span> <span class="s2">&quot;1426409836@qq.com&quot;</span>
+<span class="n">grails</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">props</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mail.smtp.starttls.enable&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">,</span><span class="s2">&quot;mail.smtp.port&quot;</span><span class="p">:</span><span class="s2">&quot;465&quot;</span><span class="p">]</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">grails</span> <span class="p">{</span>
+    <span class="n">mail</span> <span class="p">{</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;smtp.gmail.com&quot;</span>
+        <span class="s1">&#39;default&#39;</span> <span class="p">{</span>
+            <span class="kn">from</span> <span class="o">=</span> <span class="s2">&quot;&lt;username&gt;@gmail.com&quot;</span>
+        <span class="p">}</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="mi">465</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;&lt;username&gt;@gmail.com&quot;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;&lt;password&gt;&quot;</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mail.smtp.auth&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">,</span>                      
+          <span class="s2">&quot;mail.smtp.socketFactory.port&quot;</span><span class="p">:</span><span class="s2">&quot;465&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;mail.smtp.socketFactory.class&quot;</span><span class="p">:</span><span class="s2">&quot;javax.net.ssl.SSLSocketFactory&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;mail.smtp.socketFactory.fallback&quot;</span><span class="p">:</span><span class="s2">&quot;false&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>附QQ邮箱授权码位置, 邮箱设置-账户-POP3服务</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901097317831.jpg"></p>
+</p>
+
+<h1>8.基本使用</h1>
+
+<h2>8.1.任务管理界面</h2>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/05bd4b9c-d329-4aa0-826e-001f42741a86.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<h2>8.2.创建一个任务</h2>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/d108141d-def9-438b-91aa-1fcc8d3da487.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/2754aed6-188d-4791-b09e-1f2e5cefbb09.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/ec53d12c-e45c-4a45-9002-e33530e30340.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/649e16fe-3ea2-4d5a-8968-60986a853db5.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/52c16127-5e27-4d35-b691-98dadfd1ff5b.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/f2203034-c546-44e6-93e2-c165eacfeef0.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p> </p>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/e8cd7d2c-f6f8-498f-8a11-6e134beae1e7.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p></p>
+
+<h2>8.3.常用计划任务表</h2>
+
+<p><p class="hassubimage"><img src="https://dn-coding-net-production-pp.qbox.me/6e0e134e-bfc5-4a72-bedc-aaa2f21fb09d.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>常用计划任务表</p></p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="mi">0</span> <span class="mi">59</span> <span class="mi">23</span> <span class="mi">1</span> <span class="o">*</span> <span class="err">?</span> <span class="o">*</span>    <span class="c1"># 每月1号的23点59分执行</span>
+<span class="mi">0</span> <span class="mo">00</span> <span class="mi">8</span><span class="p">,</span><span class="mi">18</span> <span class="err">?</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>  <span class="c1"># 每天的8点和18点整执行</span>
+</pre></div>
+</div>
+<h1>9.rundeck docker化</h1>
+<blockquote class="blockquote-normal">
+                <p>目的: 让rundeck平台的配置数据不丢失 并且 在任何机器都能很快速的启动 </p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 条件反射: </span>
+    <span class="n">docker</span><span class="err">来解决</span><span class="p">,</span><span class="err">镜像放到阿里云镜像仓库</span><span class="p">,</span><span class="err">数据存储到云磁盘</span><span class="p">;</span> 
+
+<span class="c1"># 理想状态: </span>
+    <span class="err">若容器挂掉</span><span class="p">,</span><span class="err">则使用构建好的镜像重新</span><span class="n">run</span><span class="err">一个容器</span><span class="p">;</span>
+    <span class="err">若镜像挂掉</span><span class="p">,</span><span class="err">则使用</span><span class="n">Dockerfile</span><span class="err">重新打一个镜像</span><span class="p">,</span><span class="err">再</span><span class="n">run</span><span class="err">一个容器</span><span class="p">;</span>
+    <span class="err">若物理机器挂掉</span><span class="p">,</span><span class="err">则重开一台机器</span><span class="p">,</span><span class="err">挂载云磁盘</span><span class="p">,</span><span class="n">pull</span><span class="err">镜像</span><span class="p">,</span><span class="n">run</span><span class="err">容器</span><span class="p">;</span>
+
+<span class="c1"># docker服务化理解:</span>
+    <span class="p">(</span><span class="err">个人理解</span><span class="p">)</span><span class="n">docker</span><span class="err">的常规使用场景来说</span><span class="p">,</span><span class="n">docker</span><span class="err">一般会将服务和数据分离</span><span class="p">(</span><span class="err">分别创建</span><span class="n">docker</span><span class="err">容器</span><span class="p">),</span>
+<span class="err">其中服务相关的配置一般来说是不变的</span><span class="p">,</span><span class="err">如果改变则需要更新到镜像中</span><span class="p">,</span><span class="err">来保证公全网的服务统一性</span><span class="p">,</span>
+<span class="err">并方便移植</span><span class="p">;</span>
+
+<span class="c1"># 那么解决方法(亲测可行):</span>
+    <span class="mf">1.</span><span class="err">将安装文件放到共享磁盘</span>
+    <span class="mf">2.</span><span class="err">在</span><span class="n">Docker</span> <span class="n">run</span> <span class="err">或者</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="err">文件中挂载共享磁盘到</span><span class="n">rundeck</span>
+    <span class="mf">3.</span><span class="err">然后</span><span class="n">rundeck</span><span class="err">的</span><span class="n">Dockerfile</span><span class="err">的入口</span><span class="n">shell</span><span class="err">脚本进行数据库连接</span><span class="p">,</span><span class="err">初始化安装</span><span class="n">rundeck</span><span class="p">,</span><span class="err">并启动</span><span class="p">;</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 讲道理的话, 其实直接在云磁盘运行, 同样能满足需求, 而且更简单!</span>
+<span class="c1"># 有时候感觉整个docker平台没有开始之前, 上docker这是有点找罪受啊!(不喜勿喷)</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># Dockerfile</span>
+<span class="n">FROM</span> <span class="n">registry</span><span class="o">.</span><span class="n">cn</span><span class="o">-</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">aliyuncs</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">xingzhe_server</span><span class="o">/</span><span class="n">ubuntu_java</span><span class="p">:</span><span class="n">latest</span>
+<span class="n">COPY</span>    <span class="n">run</span><span class="o">.</span><span class="n">sh</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">rundeck</span>
+<span class="n">WORKDIR</span> <span class="o">/</span><span class="n">data</span>
+<span class="n">EXPOSE</span>  <span class="mi">4440</span>
+<span class="n">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&quot;rundeck&quot;</span><span class="p">]</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># docker-compose.yml</span>
+<span class="n">mysql</span><span class="p">:</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">cn</span><span class="o">-</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">aliyuncs</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">xingzhe_server</span><span class="o">/</span><span class="n">mysql</span><span class="p">:</span><span class="n">latest</span>
+  <span class="n">environment</span><span class="p">:</span>
+    <span class="n">MYSQL_ROOT_PASSWORD</span><span class="p">:</span> <span class="n">rundeck</span>
+    <span class="n">MYSQL_DATABASE</span><span class="p">:</span> <span class="n">rundeck</span>
+    <span class="n">MYSQL_USER</span><span class="p">:</span> <span class="n">xz</span>
+    <span class="n">MYSQL_PASSWORD</span><span class="p">:</span> <span class="n">xz</span>
+  <span class="n">volumes</span><span class="p">:</span>
+     <span class="o">-</span> <span class="o">/</span><span class="n">docker_data</span><span class="o">/</span><span class="n">rundeck_mariadb</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mysql</span>
+
+<span class="n">rundeck</span><span class="p">:</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">cn</span><span class="o">-</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">aliyuncs</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">xingzhe_server</span><span class="o">/</span><span class="n">rundeck</span><span class="p">:</span><span class="n">latest</span>
+  <span class="n">environment</span><span class="p">:</span>
+    <span class="n">MYSQL_USER</span><span class="p">:</span> <span class="n">xz</span>
+    <span class="n">MYSQL_PASSWORD</span><span class="p">:</span> <span class="n">xz</span>
+    <span class="c1">#DEFAULT_ADMIN_USER: admin</span>
+    <span class="c1">#DEFAULT_ADMIN_PASSWORD: admin</span>
+    <span class="n">RDECK_BASE</span><span class="p">:</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">rundeck</span>
+    <span class="n">RDECK_JAR</span><span class="p">:</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">rundeck</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">jar</span>
+    <span class="n">USE_INTERNAL_IP</span><span class="p">:</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.106</span>
+  <span class="n">links</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">mysql</span><span class="p">:</span><span class="n">mysql</span>
+  <span class="n">volumes</span><span class="p">:</span>
+     <span class="o">-</span> <span class="o">/</span><span class="n">docker_data</span><span class="o">/</span><span class="n">rundeck</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">rundeck</span>
+  <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">4440</span><span class="p">:</span><span class="mi">4440</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>java启动rundeck程序时区参数需要注意,否则实际使用过程中时间总是不对<br/>-Duser.timezone=Asia/Shanghai</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># run.sh</span>
+<span class="c1">#!/bin/bash</span>
+
+<span class="c1"># OPTIONS:</span>
+<span class="c1">#   DEFAULT_ADMIN_USER          Set the default admin user (defaults to &quot;admin&quot;)</span>
+<span class="c1">#   DEFAULT_ADMIN_PASSWORD      Set the default admin&#39;s password (defaults to &quot;admin&quot;)</span>
+<span class="c1">#   DEFAULT_USER                Set the default user (defaults to &quot;docker&quot;)</span>
+<span class="c1">#   DEFAULT_PASSWORD            Set the default user&#39;s password (defaults to &quot;docker&quot;)</span>
+<span class="c1">#   SERVER_MEMORY               Because Java is stupid</span>
+<span class="c1">#   SERVER_PORT                 Sets Rundeck&#39;s listening port (defaults to &quot;4440&quot;)</span>
+<span class="c1">#   SERVER_URL                  Sets Rundeck&#39;s grails.serverURL</span>
+<span class="c1">#   MYSQL_USER                  MySQL username</span>
+<span class="c1">#   MYSQL_PASSWORD              MySQL password</span>
+<span class="c1">#   MYSQL_ADDR                  MySQL address (defaults to &quot;mysql&quot;)</span>
+<span class="c1">#   MYSQL_DB                    MySQL database name (defaults to &quot;rundeck&quot;)</span>
+<span class="c1">#   USE_INTERNAL_IP             When SERVER_URL is undefined, use the container&#39;s eth0 address (otherwise try to guess external)</span>
+
+<span class="n">config_properties</span><span class="o">=</span><span class="err">$</span><span class="n">RDECK_BASE</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">rundeck</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">properties</span>
+<span class="n">mem</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">SERVER_MEMORY</span><span class="p">:</span><span class="o">-</span><span class="mi">1024</span><span class="p">}</span>
+<span class="n">perm</span><span class="o">=</span><span class="err">$</span><span class="p">((</span><span class="err">$</span><span class="n">mem</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">function</span> <span class="n">install_rundeck</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="err">$</span><span class="n">RDECK_JAR</span> <span class="o">--</span><span class="n">installonly</span>
+    <span class="c1">#echo &quot;${DEFAULT_ADMIN_USER:-docker}:${DEFAULT_ADMIN_PASSWORD:-docker},user,admin&quot; &gt; $RDECK_BASE/server/config/realm.properties</span>
+    <span class="c1">#echo &quot;${DEFAULT_USER:-docker}:${DEFAULT_PASSWORD:-docker},user&quot; &gt;&gt; $RDECK_BASE/server/config/realm.properties</span>
+<span class="p">}</span>
+
+<span class="n">function</span> <span class="n">config_grails_url</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">## Get eth0&#39;s IP</span>
+    <span class="c1">#if [ -z ${SERVER_URL} ]; then</span>
+    <span class="c1">#    ext_ip=$(curl --silent http://ipv4bot.whatismyipaddress.com)</span>
+    <span class="c1">#    int_ip=$(ip -4 -o addr show scope global eth0 | awk &#39;{gsub(/\/.*/,&quot;&quot;,$4); print $4}&#39;)</span>
+    <span class="c1">#    if [ -z ${USE_INTERNAL_IP} ]; then</span>
+    <span class="c1">#        SERVER_URL=http://${ext_ip}:${SERVER_PORT:-4440}</span>
+    <span class="c1">#    else</span>
+    <span class="c1">#        SERVER_URL=http://${int_ip}:${SERVER_PORT:-4440}</span>
+    <span class="c1">#    fi</span>
+    <span class="c1">#fi</span>
+    <span class="n">SERVER_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="p">{</span><span class="n">USE_INTERNAL_IP</span><span class="p">}:</span><span class="err">$</span><span class="p">{</span><span class="n">SERVER_PORT</span><span class="p">:</span><span class="o">-</span><span class="mi">4440</span><span class="p">}</span>
+    <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s2">&quot;s,^grails\.serverURL.*\$,grails\.serverURL=${SERVER_URL},&quot;</span> <span class="err">$</span><span class="n">config_properties</span>
+<span class="p">}</span>
+
+<span class="n">function</span> <span class="n">config_mysql</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">sql_datasource</span><span class="o">=</span><span class="s2">&quot;dataSource.url = jdbc:mysql://${MYSQL_ADDR:-mysql}/${MYSQL_DB:-rundeck}?autoReconnect=true&quot;</span>
+    <span class="n">sql_un</span><span class="o">=</span><span class="s2">&quot;dataSource.username = ${MYSQL_USER}&quot;</span>
+    <span class="n">sql_pw</span><span class="o">=</span><span class="s2">&quot;dataSource.password = ${MYSQL_PASSWORD}&quot;</span>
+    <span class="n">extra_crap_for_sql</span><span class="o">=</span><span class="s2">&quot;rundeck.projectsStorageType=db</span><span class="se">\n</span><span class="s2">rundeck.storage.provider.1.type=db</span><span class="se">\n</span><span class="s2">rundeck.storage.provider.1.path=keys&quot;</span>
+    <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s2">&quot;s,^dataSource\.url.*\$,${sql_datasource},&quot;</span> <span class="err">$</span><span class="n">config_properties</span>
+    <span class="n">echo</span> <span class="err">$</span><span class="n">sql_un</span> <span class="o">&gt;&gt;</span> <span class="err">$</span><span class="n">config_properties</span><span class="p">;</span> <span class="n">echo</span> <span class="err">$</span><span class="n">sql_pw</span> <span class="o">&gt;&gt;</span> <span class="err">$</span><span class="n">config_properties</span>
+    <span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="err">$</span><span class="n">extra_crap_for_sql</span> <span class="o">&gt;&gt;</span> <span class="err">$</span><span class="n">config_properties</span>
+<span class="p">}</span>
+
+<span class="n">install_rundeck</span>
+<span class="n">config_grails_url</span>
+
+<span class="k">if</span> <span class="err">!</span> <span class="p">[</span> <span class="o">-</span><span class="n">z</span> <span class="err">$</span><span class="p">{</span><span class="n">MYSQL_USER</span><span class="p">}</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="err">!</span> <span class="p">[</span> <span class="o">-</span><span class="n">z</span> <span class="err">$</span><span class="p">{</span><span class="n">MYSQL_PASSWORD</span><span class="p">}</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="n">config_mysql</span>
+<span class="n">fi</span>
+
+<span class="n">echo</span> <span class="s2">&quot;#################STARTING RUNDECK#######################&quot;</span>
+<span class="k">exec</span> <span class="n">java</span> <span class="o">-</span><span class="n">Xmx</span><span class="err">$</span><span class="p">{</span><span class="n">mem</span><span class="p">}</span><span class="n">m</span> \
+  <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="n">MaxPermSize</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">perm</span><span class="p">}</span><span class="n">m</span> \
+  <span class="o">-</span><span class="n">Drundeck</span><span class="o">.</span><span class="n">jetty</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">forwarded</span><span class="o">=</span><span class="n">true</span> \
+  <span class="o">-</span><span class="n">Dserver</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">host</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> \
+  <span class="o">-</span><span class="n">Dserver</span><span class="o">.</span><span class="n">hostname</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">hostname</span><span class="p">)</span> \
+  <span class="o">-</span><span class="n">Dserver</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="err">$</span><span class="p">{</span><span class="n">SERVER_PORT</span><span class="p">:</span><span class="o">-</span><span class="mi">4440</span><span class="p">}</span> \
+  <span class="o">-</span><span class="n">Dfile</span><span class="o">.</span><span class="n">encoding</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> \
+  <span class="o">-</span><span class="n">Duser</span><span class="o">.</span><span class="n">timezone</span><span class="o">=</span><span class="n">Asia</span><span class="o">/</span><span class="n">Shanghai</span> <span class="o">-</span><span class="n">jar</span> <span class="err">$</span><span class="n">RDECK_JAR</span> <span class="o">--</span><span class="n">skipinstall</span> <span class="o">&amp;</span>
+<span class="n">rd_pid</span><span class="o">=</span><span class="err">$!</span>
+<span class="n">wait</span> <span class="err">$</span><span class="n">rd_pid</span>
+<span class="n">echo</span> <span class="s2">&quot;##############RUNDECK HAS DIED :(#######################&quot;</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>如果时间还是不对,可能是容器的时间有问题<br/> 以下是Ubuntu系统更改时区的图解</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901073212924.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901073567384.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901073649882.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901073892175.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901074002681.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901074229123.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14901077423143.jpg"></p>
+</p>
+
+<h1>10.接口管理</h1>
+
+<h2>10.1 调用自带接口添加job</h2>
+<blockquote class="blockquote-normal">
+                <p>觉得在web上点点点输入配置,不如直接调用接口来的快速</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">add_job</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_type</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;rundeck添加job&quot;&quot;&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data_type</span><span class="p">),</span>
+        <span class="s1">&#39;charset&#39;</span><span class="p">:</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;X-Rundeck-Auth-Token&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span>  <span class="c1"># 特别注意这里的认证方式</span>
+    <span class="p">}</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span>
+
+<span class="k">def</span> <span class="nf">format_job_xml</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">exec_str</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;格式化添加jobxml字符串</span>
+
+<span class="sd">    :param: name: str: jod_id,英文标题</span>
+<span class="sd">    :param: group: str: job组别</span>
+<span class="sd">    :param: description: str: job描述</span>
+<span class="sd">    :param: exec_str: str: 执行命令</span>
+<span class="sd">    :param: args: list: 执行参数, 格式:[{&quot;name&quot;:name, &quot;value&quot;:value, &quot;desc&quot;:desc}]</span>
+<span class="sd">    :param: node: str: 执行节点</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 格式化输入参数</span>
+    <span class="n">option</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;option name=&#39;{}&#39; required=&#39;true&#39; value=&#39;{}&#39;&gt;</span>
+<span class="s2">                    &lt;description&gt;{}&lt;/description&gt;</span>
+<span class="s2">                &lt;/option&gt;&quot;&quot;&quot;</span> 
+    <span class="n">option_base</span> <span class="o">=</span> <span class="s2">&quot;${option.</span><span class="si">%s</span><span class="s2">}&quot;</span> 
+
+    <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">options_exec</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">option_str</span> <span class="o">=</span> <span class="n">option</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">arg</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="n">arg</span><span class="p">[</span><span class="s2">&quot;desc&quot;</span><span class="p">])</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">option_str</span><span class="p">)</span>
+
+        <span class="n">option_base_str</span> <span class="o">=</span> <span class="n">option_base</span> <span class="o">%</span> <span class="n">arg</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">options_exec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">option_base_str</span><span class="p">)</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">options_exec</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">options_exec</span><span class="p">)</span> 
+
+    <span class="n">job_xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;joblist&gt;</span>
+<span class="s2">      &lt;job&gt;</span>
+<span class="s2">        &lt;context&gt;</span>
+<span class="s2">          &lt;options preserveOrder=&#39;true&#39;&gt;</span>
+<span class="s2">            {options}</span>
+<span class="s2">          &lt;/options&gt;</span>
+<span class="s2">        &lt;/context&gt;</span>
+<span class="s2">        &lt;description&gt;{description}&lt;/description&gt;</span>
+<span class="s2">        &lt;executionEnabled&gt;true&lt;/executionEnabled&gt;</span>
+<span class="s2">        &lt;group&gt;{group}&lt;/group&gt;</span>
+<span class="s2">        &lt;id&gt;{name}&lt;/id&gt;</span>
+<span class="s2">        &lt;loglevel&gt;INFO&lt;/loglevel&gt;</span>
+<span class="s2">        &lt;name&gt;{name}&lt;/name&gt;</span>
+<span class="s2">        &lt;nodefilters&gt;</span>
+<span class="s2">            &lt;filter&gt;name: {node}&lt;/filter&gt;</span>
+<span class="s2">        &lt;/nodefilters&gt;</span>
+<span class="s2">        &lt;scheduleEnabled&gt;true&lt;/scheduleEnabled&gt;</span>
+<span class="s2">        &lt;sequence keepgoing=&#39;false&#39; strategy=&#39;node-first&#39;&gt;</span>
+<span class="s2">          &lt;command&gt;</span>
+<span class="s2">            &lt;description&gt;&lt;/description&gt;</span>
+<span class="s2">            &lt;exec&gt;{exec_str} {options_exec}&lt;/exec&gt;</span>
+<span class="s2">          &lt;/command&gt;</span>
+<span class="s2">        &lt;/sequence&gt;</span>
+<span class="s2">        &lt;uuid&gt;{name}&lt;/uuid&gt;</span>
+<span class="s2">      &lt;/job&gt;</span>
+<span class="s2">    &lt;/joblist&gt;&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">exec_str</span><span class="o">=</span><span class="n">exec_str</span><span class="p">,</span> <span class="n">options_exec</span><span class="o">=</span><span class="n">options_exec</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">job_xml</span>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">exec_str</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> 
+    <span class="c1">#name = &quot;rundeck_add_job&quot;   </span>
+    <span class="c1">#group = &quot;Rundeck&quot;</span>
+    <span class="c1">#description = &quot;Rundeck管理&quot;</span>
+    <span class="c1">#exec_str = &quot;&quot;&quot;cd /docker_data/rundeck/scripts;python 添加job.py&quot;&quot;&quot; </span>
+    <span class="c1">#args = eval(&quot;&quot;&quot;[</span>
+    <span class="c1">#    {&quot;name&quot;:&quot;name&quot;, &quot;value&quot;:None, &quot;desc&quot;:&quot;程序英文名称&quot;}, </span>
+    <span class="c1">#    {&quot;name&quot;:&quot;group&quot;, &quot;value&quot;:&quot;Rundeck管理&quot;, &quot;desc&quot;:&quot;程序归属组&quot;}, </span>
+    <span class="c1">#    {&quot;name&quot;:&quot;description&quot;, &quot;value&quot;:None, &quot;desc&quot;:&quot;程序功能描述&quot;}, </span>
+    <span class="c1">#    {&quot;name&quot;:&quot;exec_str&quot;, &quot;value&quot;:None, &quot;desc&quot;:&quot;程序执行命令&quot;},</span>
+    <span class="c1">#    {&quot;name&quot;:&quot;args&quot;, &quot;value&quot;:&quot;dx1426409836&quot;, &quot;desc&quot;:&quot;程序执行参数&quot;}</span>
+    <span class="c1">#    {&quot;name&quot;:&quot;node&quot;, &quot;value&quot;:&quot;OpsScripts&quot;, &quot;desc&quot;:&quot;程序执行节点&quot;}</span>
+    <span class="c1">#    ]&quot;&quot;&quot;)</span>
+    <span class="n">job_xml</span> <span class="o">=</span> <span class="n">format_job_xml</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">exec_str</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+    <span class="c1"># 注意:此处的token需要使用web界面登录管理员账号,然后,账号-Profile-Generate New Token</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">add_job</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://120.26.235.204:4440/api/18/project/xingzhe/jobs/import&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">job_xml</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>10.2 rundeckrun 一个好用的rundeck api工具库</h2>
+<blockquote class="blockquote-normal">
+                <p>附上作者github地址, 并给作者100个赞 </p></blockquote>
+<p><a href="https://github.com/marklap/rundeckrun">github链接</a></p>
+
+<h2>11.rundeck 备份</h2>
+
+<h3>11.1 备份project及jobs</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 备份project
+cp -r /apps/rundeck/project 备份路径
+
+# 备份jobs （比如备份apps项目）
+/app/rundeck/tools/bin/rd-jobs list -f ~/backup/jobs.xml -p apps
+
+# 备份data/logs （需要先停止rundeck）
+sh  server/sbin/rundeckd stop
+cp -r  /apps/rundeck/server/data/ ~/backup
+cp -r  /apps/rundeck/var/logs/ ~/backup
+sh  server/sbin/rundeckd start</pre></div></div>
+
+<h3>11.2 还原jobs</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>/apps/rundeck/tools/bin/rd-jobs load -f ~/backup/jobs.xml -p apps</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'rundeck-安装-使用-管理-docker化-接口管理',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

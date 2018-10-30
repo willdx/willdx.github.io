@@ -1,0 +1,506 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Python 简明语法总结 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Python 简明语法总结</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>1.简单输入输出</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>输出：print <span class="m">10</span> 
+    输入：name <span class="o">=</span> raw_input<span class="o">()</span>
+</pre></div>
+</div>
+<h2>2.数据类型和变量</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">2</span>.1常规类型：整形、浮点型、字符串<span class="o">(</span>以<span class="s1">&#39; 或者 &quot; 括起来)、布尔值(True, False 奇怪为什么用大写)。</span>
+<span class="s1">    </span>
+<span class="s1">    2.2转义使用\</span>
+<span class="s1">    </span>
+<span class="s1">    2.3多行请用&#39;&#39;&#39;</span>...<span class="s1">&#39;&#39;&#39;表示</span>
+<span class="s1">    </span>
+<span class="s1">    2.4布尔运算符：and or not</span>
+<span class="s1">    </span>
+<span class="s1">    2.5空值：None`(PS:python并无实质常量，只有约定常量，全大写表示)`</span>
+<span class="s1">    </span>
+<span class="s1">    2.6字符串和编码:编码问题很蛋疼</span>
+<span class="s1">    </span>
+<span class="s1">    2.7字符串格式化: &#39;</span>hello , %@<span class="s1">&#39; % &#39;</span>world!<span class="s1">&#39; 使用%s占位符， 使用 % 表示需要格式化字符串，后跟tuple变量</span>
+<span class="s1">    </span>
+<span class="s1">    2.8使用list和tuple：list是一种序列，定义：[&#39;</span><span class="m">1</span><span class="s1">&#39;, &#39;</span>hello<span class="err">&#39;</span><span class="o">]</span>，使用len<span class="o">(</span>list<span class="o">)</span>计算数组元素个数；使用（1, <span class="m">2</span>, <span class="m">3</span>）定义tuple，其实就是不可变的序列。
+</pre></div>
+</div>
+<h2>3.条件判断和循环</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.if condition : block <span class="k">elif</span> condition: block <span class="k">else</span> : block 代码段落需要严格缩进，不需要大括号。
+    
+    <span class="m">2</span>.for item in list: block
+    
+    <span class="m">3</span>.range<span class="o">(</span>number<span class="o">)</span>可以生成从0 到 number-1的list
+    
+    <span class="m">4</span>.while condition : block
+    
+    <span class="m">5</span>.可以使用int<span class="o">(</span><span class="s1">&#39;string&#39;</span><span class="o">)</span>或者float<span class="o">(</span><span class="s1">&#39;string&#39;</span><span class="o">)</span>获取对应值
+</pre></div>
+</div>
+<h2>4.使用dict和set</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.字典类型：dict <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;key&#39;</span> : value<span class="o">}</span>
+    
+    <span class="m">2</span>.dict<span class="o">[</span>key<span class="o">]</span> 等同于 dict.get<span class="o">(</span>key<span class="o">)</span>，如果没有值会返回None；使用pop<span class="o">(</span>key<span class="o">)</span>删除一个item
+    
+    <span class="m">3</span>.set可以看成是在帮你管理一个不可重复元素的列表，并提供一些高级功能，比如联合（<span class="se">\）</span>、交<span class="o">(</span><span class="p">&amp;</span><span class="o">)</span>、差<span class="o">(</span>-<span class="o">)</span>和对称差集<span class="o">(</span>^<span class="o">)</span>
+</pre></div>
+</div>
+<h2>5.定义函数</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.空函数：pass
+    
+    <span class="m">2</span>.类型检查，python是类型不安全的,可以通过isinstance<span class="o">(</span>var, <span class="o">(</span>type1, type2<span class="o">))</span>检查类型
+    
+    <span class="m">3</span>.返回多个值，使用tuple。不过可以省略括号，类似x, <span class="nv">y</span> <span class="o">=</span> <span class="m">3</span>, <span class="m">4</span>
+    
+    <span class="m">4</span>.默认值：def method<span class="o">(</span><span class="nv">arg1</span> <span class="o">=</span> <span class="s1">&#39;arg1&#39;</span><span class="o">)</span>，注意默认参数只能放到最后
+    
+    <span class="m">5</span>.可变参数：def method<span class="o">(</span>*var_arg<span class="o">)</span>:，其中var_arg是一个tuple，可以使用for in来遍历
+    
+    <span class="m">6</span>.关键字参数：def method<span class="o">(</span>**key<span class="o">)</span>:，关键字参数不限制传入的参数个数和类型，会在函数内部组合成一个dict
+    
+    <span class="m">7</span>.参数组合：当定义为def func<span class="o">(</span>a, b, <span class="nv">c</span><span class="o">=</span><span class="m">0</span>, *args, **kw<span class="o">)</span>:   可以这样调用：func<span class="o">(</span>*args, **kw<span class="o">)</span>其中，args为tuple， kw为字典
+    
+    <span class="m">8</span>.递归函数，注意递归函数的溢出崩溃问题。python并没有为尾递归做优化，所以还是会崩溃的。可以使用try: except语法来获取异常并进行处理；
+</pre></div>
+</div>
+<h2>6.切片</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>array<span class="o">[</span><span class="m">0</span>:3<span class="o">]</span>：表示从第0个元素开始，取3个
+    array<span class="o">[</span>-3:-1<span class="o">]</span>：表示取倒数第三，第二个元素，-1表示最后一个。
+    array<span class="o">[</span>::5<span class="o">]</span>：表示每5个取一个元素
+    字符串也可以切片
+</pre></div>
+</div>
+<h2>7.迭代，列表生成器，生成器</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>迭代即使用：for item in array，array既可以是数组，也可以是字典或者字符串
+    
+    判断是否可以迭代，isinstance<span class="o">(</span>object, Iterable<span class="o">)</span>，判断对象是否实现了Iterable接口
+    
+    迭代dict：for key in dict遍历key。for value in dict.itervalues<span class="o">()</span>遍历value。for k, v in dict.iteritems<span class="o">()</span>遍历key和value
+    
+    列表生成：使用range<span class="o">(</span>start, end<span class="o">)</span>函数
+    列表推导式：<span class="o">[</span>x * x <span class="k">for</span> x in range<span class="o">(</span><span class="m">1</span>, <span class="m">10</span><span class="o">)</span> <span class="k">if</span> x % <span class="nv">2</span> <span class="o">==</span> <span class="m">0</span><span class="o">]</span>；也可以使用两层循环，<span class="o">[</span>x * y <span class="k">for</span> x in range<span class="o">(</span><span class="m">1</span>, <span class="m">10</span><span class="o">)</span> <span class="k">for</span> y in range<span class="o">(</span><span class="m">20</span>, <span class="m">30</span><span class="o">)]</span>
+    
+    生成器：如果你需要一组序列，但是太大，占用内存过多。那么可以使用生成器，它是实时计算的列表。将列表生成表达式的<span class="o">[]</span>变为<span class="o">()</span>即可。
+    
+    可以将一个函数变成一个生成器，只需要添加yield item语句即可，生成器会在遇到yield的时候返回对应结果，下次next从上次yield之后开始执行。
+</pre></div>
+</div>
+<h2>8.函数式编程</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.函数可以赋值给变量，可以当成参数传递给函数
+        map：对每个列表中得元素作用一个函数，并返回。
+        reduce：将结果和下个元素传给函数，最终返回一个结果。
+        filter：过滤器，使用方法跟map差不多，是返回结果为true的元素
+        sorted：排序，跟map差不多
+        
+    <span class="m">2</span>.返回函数：可以在函数中定义函数，并返回。就像一个变量一样。
+        闭包：返回的函数可以使用定义函数内部的变量
+        匿名函数：匿名函数即lamdba表达式：lamdba 参数 : 表达式
+        装饰器：即在函数执行前后加一些逻辑不想管的代码，比如log
+        
+        def log<span class="o">(</span>func<span class="o">)</span>:
+            @functools.wraps<span class="o">(</span>func<span class="o">)</span>
+            def wrapper<span class="o">(</span>*args, **kw<span class="o">)</span>:
+                print <span class="s1">&#39;call %s():&#39;</span> % func.__name__
+                <span class="k">return</span> func<span class="o">(</span>*args, **kw<span class="o">)</span>
+            <span class="k">return</span> wrapper
+        @log
+        def now<span class="o">()</span>:
+            print <span class="s1">&#39;2013-12-25&#39;</span>
+    偏函数：简单的讲就是创建具有特定模式的函数别名，这个特定模式大概指的是设定好某些参数（默认参数），来达到简写的目的。
+    <span class="nv">int2</span> <span class="o">=</span> functools.partial<span class="o">(</span>int, <span class="nv">base</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>这样就创建了一个专门转化二进制的函数了。因为我们设定了默认参数 <span class="nv">base</span> <span class="o">=</span> <span class="m">2</span> 当参数太多需要简化的时候就是用偏函数
+    
+    一个py文件就是一个模块，一个有__init__.py<span class="o">(</span>该文件可为空<span class="o">)</span>文件的目录就是包名；
+
+    底层目录默认不能访问上层目录的函数,模块或者包,如果是实在需要使用则需要修改path: sys.path.insert<span class="o">(</span><span class="m">0</span>, <span class="s1">&#39;../&#39;</span><span class="o">)</span>添加上层目录到python path 中；
+</pre></div>
+</div>
+<h2>9.使用模块</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>这是一个标准的模块模板:
+    <span class="c1">#!/usr/bin/env python</span>
+    <span class="c1"># -*- coding: utf-8 -*-</span>
+    
+    <span class="s1">&#39; a test module &#39;</span>
+    
+    <span class="nv">__author__</span> <span class="o">=</span> <span class="s1">&#39;Michael Liao&#39;</span>
+    
+    import sys
+    
+    def test<span class="o">()</span>:
+        <span class="nv">args</span> <span class="o">=</span> sys.argv
+        <span class="k">if</span> len<span class="o">(</span>args<span class="o">)==</span><span class="m">1</span>:
+            print <span class="s1">&#39;Hello, world!&#39;</span>
+        <span class="k">elif</span> len<span class="o">(</span>args<span class="o">)==</span><span class="m">2</span>:
+            print <span class="s1">&#39;Hello, %s!&#39;</span> % args<span class="o">[</span><span class="m">1</span><span class="o">]</span>
+        <span class="k">else</span>:
+            print <span class="s1">&#39;Too many arguments!&#39;</span>
+    
+    <span class="k">if</span> <span class="nv">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span>:
+        test<span class="o">()</span>
+    模块内部的私有变量和函数一律使用_开头，且不要在外部进行引用。
+</pre></div>
+</div>
+<h2>10.安装第三方模块</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>安装第三方模块：pip install 模块名称
+    使用__future__：future可以把下个版本的新功能添加到当前版本
+</pre></div>
+</div>
+<h2>11.面向对象编程</h2>
+
+<p>类和实例</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>定义类  
+    class ClassName<span class="o">(</span>SuperClass<span class="o">)</span>:
+      pass
+      
+    构造方法def __init__<span class="o">(</span>self,args<span class="o">)</span><span class="sb">`</span>：
+        使用__双下划线开头可以让变量成为私有，外部无法访问。也可以通过添加getter、setter来控制访问操作。
+        
+    继承和多态：继承就在定义的时候写上父类的名称，多态就覆盖父类的方法。
+    
+    获取对象信息：
+    <span class="o">(</span><span class="m">1</span><span class="o">)</span>使用type<span class="o">()</span>判断类型信息；
+    <span class="o">(</span><span class="m">2</span><span class="o">)</span>使用isinstance<span class="o">()</span>判断继承关系使用
+    <span class="o">(</span><span class="m">3</span><span class="o">)</span>dir<span class="o">()</span>获取对象的所有方法和属性
+</pre></div>
+</div>
+<h2>12.面向对象高级编程</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.动态添加属性：instance.pro <span class="o">=</span> <span class="m">10</span>
+    
+    <span class="m">2</span>.限定能被修改的属性：默认类的属性能随意修改的，使用slots限定只能修改指定的属性值
+        class Student<span class="o">(</span>object<span class="o">)</span>:
+             <span class="nv">__slots__</span> <span class="o">=</span> <span class="o">(</span><span class="s1">&#39;name&#39;</span>, <span class="s1">&#39;age&#39;</span><span class="o">)</span> <span class="c1"># 用tuple定义允许绑定的属性名称</span>
+    
+    <span class="m">3</span>.动态添加方法:instance.newmethod <span class="o">=</span> MethodType<span class="o">(</span>method_name, instance, class_name<span class="o">)</span>
+    
+    
+    <span class="m">4</span>.使用@property把一个方法变成属性调用的
+    
+    如下，可以看成是定义了一个score的属性
+    <span class="o">(</span>PS:只定义getter方法，不定义setter方法就是一个只读属性<span class="o">)</span>
+    <span class="c1">#getter方法</span>
+    @property   
+      def score<span class="o">(</span>self<span class="o">)</span>:
+          <span class="k">return</span> self._score
+    <span class="c1">#setter方法</span>
+      @score.setter
+      def score<span class="o">(</span>self, value<span class="o">)</span>:
+          <span class="k">if</span> not isinstance<span class="o">(</span>value, int<span class="o">)</span>:
+              raise ValueError<span class="o">(</span><span class="s1">&#39;score must be an integer!&#39;</span><span class="o">)</span>
+          <span class="k">if</span> value &lt; <span class="m">0</span> or value &gt; <span class="m">100</span>:
+              raise ValueError<span class="o">(</span><span class="s1">&#39;score must between 0 ~ 100!&#39;</span><span class="o">)</span>
+          self._score <span class="o">=</span> value
+          
+    <span class="m">5</span>.最好不要用多重继承,用mixin:mixin其中概念，用类来提供一组相似功能。类似实现过的接口。
+    
+    <span class="m">6</span>.定制类
+        str 打印类时的信息
+        repr直接写打印出来的信息
+        iter 用于 <span class="k">for</span> ... in迭代，__iter__返回下一个迭代对象，next<span class="o">()</span>用于拿到循环的下一个值
+        getitem 提供下标访问
+        getattr 当找不到这个属性的时候会调用这个方法
+        call 当使用instance<span class="o">()</span>这样来把对象实例当成方法调用的时候，其实调用的就是__call__。可以使用callable<span class="o">(</span>thing<span class="o">)</span>来判断一个东西是否可以被当成方法调用
+    
+    <span class="m">7</span>.使用元类:定义操作class的方法
+        例子：给class添加一个原本不存在的add方法
+        <span class="c1"># metaclass是创建类，所以必须从`type`类型派生：</span>
+        class ListMetaclass<span class="o">(</span><span class="nb">type</span><span class="o">)</span>:
+            def __new__<span class="o">(</span>cls, name, bases, attrs<span class="o">)</span>:
+                attrs<span class="o">[</span><span class="s1">&#39;add&#39;</span><span class="o">]</span> <span class="o">=</span> lambda self, value: self.append<span class="o">(</span>value<span class="o">)</span>
+                <span class="k">return</span> type.__new__<span class="o">(</span>cls, name, bases, attrs<span class="o">)</span>
+
+        class MyList<span class="o">(</span>list<span class="o">)</span>:
+            <span class="nv">__metaclass__</span> <span class="o">=</span> ListMetaclass <span class="c1">#指示使用ListMetaclass来定制类</span>
+        
+        __new__<span class="o">()</span>方法接收到的参数依次是：当前准备创建的类的对象；类的名字；类继承的父类集合；类的方法集合。
+    
+    <span class="m">8</span>.types<span class="o">()</span>：使用它来动态构建类，方法是types<span class="o">(</span><span class="s1">&#39;ClassName&#39;</span>, <span class="o">(</span>SuperClass, <span class="o">)</span>, dict<span class="o">(</span><span class="nv">methodName</span> <span class="o">=</span> method<span class="o">))</span>
+    
+    <span class="m">9</span>.错误、调试和测试
+    
+    try...except...else...finally...
+    
+    错误基类是BaseException:
+    记录错误:logginglogging.exception<span class="o">(</span>exception instance<span class="o">)</span>可以将错误输出<span class="p">;</span>也可以自定义错误类型，方法是继承自某个Exception，然后使用raise语句<span class="p">;</span>直接写raise可以把当前exception抛出，让上层调用处理。
+</pre></div>
+</div>
+<h2>13.调试</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="o">(</span><span class="m">1</span><span class="o">)</span>print 
+    <span class="o">(</span><span class="m">2</span><span class="o">)</span>断言：assert is true? , <span class="s1">&#39;error message&#39;</span>
+    <span class="o">(</span><span class="m">3</span><span class="o">)</span>logging可以方便的输出日志，包括错误。
+    logging.info<span class="o">(</span><span class="s1">&#39;info&#39;</span><span class="o">)</span>。method可以是debug，info，warning，error中的一个。
+    可以指定当前输出的method，方法是指定当前输出级别logging.basicConfig<span class="o">(</span><span class="nv">level</span><span class="o">=</span>logging.INFO<span class="o">)</span>
+    <span class="o">(</span><span class="m">4</span><span class="o">)</span>pdb：python -m pdb err.py 开始调试 l 查看代码 n单步执行 p查看变量 q结束测试 c继续执行
+    程序内部设置断点：import pdb，在可能出错的地方放置pdb.set_trace<span class="o">()</span>
+    <span class="o">(</span><span class="m">5</span><span class="o">)</span>还是使用IDE吧pycharm，下载http://www.jetbrains.com/pycharm/
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python简明语法总结',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

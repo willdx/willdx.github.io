@@ -1,0 +1,460 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Linux常用命令 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Linux常用命令</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p>[TOC]</p>
+
+<h3>1.查看TCP连接数</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>netstat -n | awk '/^tcp/ {++y[$NF]} END {for(w in y) print w, y[w]}'</pre></div></div>
+
+<h3>2.显示PID，方便KILL</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># port替换成端口号，比如6379
+lsof -i tcp:port</pre></div></div>
+
+<h3>3.这种方式check你的配置文件</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>grep -e '^[\[a-z]' ansible.cfg</pre></div></div>
+
+<h3>4.Ubuntu下用这种方式找到命令位置</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>dpkg-query -L logstash | grep bin/logstash</pre></div></div>
+
+<h3>5.查看磁盘空间占用</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>## 1.磁盘占用
+fuser /home/will
+类似的输出:
+/home/will:           3044c  4865c  4923c 13026c 13082c 13524c 25687c 25737c 25741c 
+可以尝试kill这些进程: kill 4865
+
+## 2.大文件(注意隐藏文件夹)
+
+#查找100M以上的文件, 并排序
+find . -type f -size +100M  -print0 | xargs -0 du -h | sort -nr  
+
+# 查找当前目录下前20的大目录
+sudo du -hm --max-depth=2 | sort -nr | head -20</pre></div></div>
+
+<h2>6.免密码登陆</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>ssh-copy-id -i ~/.ssh/id_rsa.pub -p 2233 jacky007wang@120.26.235.204</pre></div></div>
+
+<h2>7.进程使用的内存</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 单位是KB
+top -d 2 -p  23284</pre></div></div>
+
+<h2>8.GIF 录屏</h2>
+<blockquote class="blockquote-normal">
+                <p><a href="http://www.jianshu.com/p/7c77a2a93ee2">gif录制链接</a> - 做简易教程必备利器</p></blockquote>
+<h2>9.tmux</h2>
+
+<p><a href="http://blog.jobbole.com/87278/">随便戳个入门链接</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>建立一个会话
+tmux new -s zs
+进入会话
+tmux attach -t zs
+离开会话
+Ctrl - b + d
+创建一个窗口
+Ctrl -b + c
+创建水平网格
+Ctrl -b + "
+关闭网格
+Ctrl -b + x</pre></div></div>
+
+<h2>10.httpstat</h2>
+
+<p><a href="https://github.com/davecheney/httpstat">github地址</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>pip install httpstat
+httpstat https://www.imxingzhe.com</pre></div></div>
+
+<h2>11.查看配置文件路径</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">dpkg</span> <span class="o">--</span><span class="n">listfiles</span> <span class="n">rabbitmq</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+<h2>12. 查看主机唯一标示</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15025281742045.jpg"></p>
+</p>
+
+<h2>13. 切换python版本</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">方法</span><span class="mi">1</span><span class="p">:</span> 
+
+<span class="n">ubuntu</span><span class="nd">@user</span><span class="o">~</span><span class="err">$</span><span class="p">:</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">Python</span> <span class="mf">2.7</span>
+<span class="n">ubuntu</span><span class="nd">@user</span><span class="o">~</span><span class="err">$</span><span class="p">:</span><span class="n">whereis</span> <span class="n">python3</span><span class="o">.</span><span class="mi">5</span>
+<span class="n">ubuntu</span><span class="nd">@user</span><span class="o">~</span><span class="p">:</span><span class="n">rm</span> <span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
+<span class="n">ubuntu</span><span class="nd">@user</span><span class="o">~</span><span class="p">:</span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">5</span> <span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
+<span class="c1"># 之后把路径/usr/bin/加入环境变量PATH中</span>
+<span class="n">ubuntu</span><span class="nd">@user</span><span class="o">~</span><span class="p">:</span><span class="n">PATH</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+<span class="c1"># 现在输入python --version你就会发现python默认版本变为Python3.5了</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">方法</span><span class="mi">2</span><span class="p">:</span> 
+<span class="n">root</span><span class="nd">@ee3860acdcb9</span><span class="p">:</span><span class="o">~</span><span class="c1"># update-alternatives --install /usr/bin/python python /usr/bin/python2 100</span>
+<span class="n">update</span><span class="o">-</span><span class="n">alternatives</span><span class="p">:</span> <span class="n">using</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python2</span> <span class="n">to</span> <span class="n">provide</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="p">(</span><span class="n">python</span><span class="p">)</span> <span class="ow">in</span> <span class="n">auto</span> <span class="n">mode</span>
+<span class="n">root</span><span class="nd">@ee3860acdcb9</span><span class="p">:</span><span class="o">~</span><span class="c1"># update-alternatives --install /usr/bin/python python /usr/bin/python3 150</span>
+<span class="n">update</span><span class="o">-</span><span class="n">alternatives</span><span class="p">:</span> <span class="n">using</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">to</span> <span class="n">provide</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="p">(</span><span class="n">python</span><span class="p">)</span> <span class="ow">in</span> <span class="n">auto</span> <span class="n">mode</span>
+<span class="n">root</span><span class="nd">@ee3860acdcb9</span><span class="p">:</span><span class="o">~</span><span class="c1"># python</span>
+<span class="n">Python</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">2</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Nov</span> <span class="mi">17</span> <span class="mi">2016</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">23</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">5.4</span><span class="o">.</span><span class="mi">0</span> <span class="mi">20160609</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<h2>14. 升级python3之后pip无法使用</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">pypa</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<h2>15. 清理一周前的日志</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 未测试
+find /hsbackup/ -type f -mtime +7  |xargs rm -f</pre></div></div>
+
+<h2>16. mysql分组归档</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>select elt(interval(p.`credits`, 0, 100, 500, 1000, 3000, 10000), 'less100', '100to500', '500to1000', '1000to3000', '3000to10000', 'more10000') as credits_level,
+       count(p.`user_id`)  as cnt
+  from `profile` p
+ group by elt(interval(p.`credits`, 0, 100, 500, 1000, 3000, 10000), 'less100', '100to500', '500to1000', '1000to3000', '3000to10000', 'more10000');</pre></div></div>
+
+<h2>17. pgsql内置函数转化</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>select id,
+       client_id,
+       user_id,
+       sport,
+       distance,
+       duration,
+       upload_time,
+       hidden,
+       title,
+       deleted,
+       avg_speed,
+       max_speed,
+       step,
+       calories,
+       is_valid,
+       point_counts,
+       elevation_gain,
+       elevation_loss,
+       source,
+       comment_count,
+       like_count,
+       credits,
+       is_segment,
+       cities,
+       equipment_data_source,
+       end_time - start_time as all_time,
+       start_time,
+       end_time,
+       extract(dow
+  from to_date(to_char(TO_TIMESTAMP(start_time / 1000), 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss')) ::int as week,
+       CASE WHEN to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int> 5
+   and to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int<= 12 THEN '上午' WHEN to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int> 12
+   and to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int<= 8 THEN '下午' WHEN to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int> 20
+   and to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int<= 24 THEN '晚上' WHEN to_char(TO_TIMESTAMP(start_time / 1000), 'hh') ::int<= 5 THEN '凌晨' ELSE '未知' END as "sport_habit"
+  from workout
+ where start_time> 1000000000000
+ limit 1;</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Linux常用命令',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

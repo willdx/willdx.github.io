@@ -1,0 +1,981 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> HashiCorp全家桶-Terraform </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>HashiCorp全家桶-Terraform</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="https://www.hashicorp.com/">HashiCorp官网</a></p>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>模块名称</th>
+<th>功能描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://www.terraform.io/">Terraform</a></td>
+<td>创建，结合，和管理多个服务提供商的基础设施,例如:管理阿里云服务</td>
+</tr>
+<tr>
+<td><a href="https://www.vaultproject.io/docs/">Vault</a></td>
+<td>集中存储，安全，和控制分布式秘密访问</td>
+</tr>
+<tr>
+<td><a href="https://www.consul.io/">Consul</a></td>
+<td>分布式的服务发现、配置高可用的工具和流程</td>
+</tr>
+<tr>
+<td><a href="https://www.nomadproject.io/docs/">Nomad</a></td>
+<td>集群管理和调度应用程序部署在任何基础设施</td>
+</tr>
+<tr>
+<td><a href="https://www.packer.io/">Packer</a></td>
+<td>自动构建镜像</td>
+</tr>
+<tr>
+<td><a href="https://www.vagrantup.com/docs/index.html">Vagrant</a></td>
+<td>环境管理使得开发环境一致</td>
+</tr>
+</tbody>
+</table></div>
+<h1>1. 安装terraform</h1>
+
+<p>下载对应系统的<a href="https://www.terraform.io/downloads.html">Terraform版本</a>, 并将其放到系统的PATH路径下, 以MAC为例子:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1.获取PATH环境变量
+➜  ~ echo $PATH
+/usr/local/Cellar/postgresql/9.5.1/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin:/usr/local/sbin
+
+# 2.下载并解压安装文件
+wget https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_darwin_amd64.zip
+unzip nomad_0.7.1_darwin_amd64.zip
+
+# 3.将二进制文件放到环境变量下
+mv terraform /Library/Frameworks/Python.framework/Versions/3.5/bin/</pre></div></div>
+
+<h1>2.建设基础设施</h1>
+
+<p>Hashicorp推荐使用<a href="https://github.com/hashicorp/hcl">HCL项目</a>管理配置文件(PS: 管理第三方云平台的), 同时, 也支持JSON语法; 参考<a href="https://www.terraform.io/docs/configuration/syntax.html">配置语法例子</a>;</p>
+
+<h2>2.1 获取AWS的IAM凭证凭证</h2>
+
+<p><a href="https://console.aws.amazon.com/iam/home?#/security_credential">AWS的安全凭证管理控制台</a>
+<p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15183307918069.jpg"></p>
+</p>
+
+<h2>2.2 创建一个配置文件</h2>
+
+<h3>2.1.1 创建一个terraform目录用于存放配置文件</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(PS: 注意确保当前目录下没有其他的tf结尾的文件, 因为默认Terraform会加载所有当前目录下的.tf结尾的文件)
+➜  terraform pwd
+/Users/daixiang/hashicorp/terraform
+➜  terraform ls
+example.tf</pre></div></div>
+
+<h3>2.1.2 写入配置文件内容</h3>
+
+<p>provider块用于配置使用的供应商的名字;
+resource块定义的基础设施中存在的资源;</p>
+
+<p>region表示区域, 在不同的平台有不同的表示, ami是和region对应的, 每一个区域都会有一个唯一的ami;
+instance_type表示实例类型, t2.micro 表示EC2 accounts, t1.micro 表示 EC2 Classic users;</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>provider "aws" {
+  access_key = "ACCESS_KEY_HERE"
+  secret_key = "SECRET_KEY_HERE"
+  region     = "us-east-1"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-2757f631"
+  instance_type = "t2.micro"
+}</pre></div></div>
+
+<h3>2.1.3 初始化terraform环境</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform terraform init
+
+Initializing provider plugins...
+- Checking for available provider plugins on https://releases.hashicorp.com...
+- Downloading plugin for provider "aws" (1.9.0)...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.aws: version = "~> 1.9"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+(PS: 一堆提示信息, 包括我们是第一次安装, 所以默认给安装了最新版本....)</pre></div></div>
+
+<h3>2.1.4 应用更改</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  + aws_instance.example
+      id:                           <computed>
+      ami:                          "ami-2757f631"
+      associate_public_ip_address:  <computed>
+      availability_zone:            <computed>
+      ebs_block_device.#:           <computed>
+      ephemeral_block_device.#:     <computed>
+      instance_state:               <computed>
+      instance_type:                "t2.micro"
+      ipv6_address_count:           <computed>
+      ipv6_addresses.#:             <computed>
+      key_name:                     <computed>
+      network_interface.#:          <computed>
+      network_interface_id:         <computed>
+      placement_group:              <computed>
+      primary_network_interface_id: <computed>
+      private_dns:                  <computed>
+      private_ip:                   <computed>
+      public_dns:                   <computed>
+      public_ip:                    <computed>
+      root_block_device.#:          <computed>
+      security_groups.#:            <computed>
+      source_dest_check:            "true"
+      subnet_id:                    <computed>
+      tenancy:                      <computed>
+      volume_tags.%:                <computed>
+      vpc_security_group_ids.#:     <computed>
+
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_instance.example: Creating...
+  ami:                          "" => "ami-2757f631"
+  associate_public_ip_address:  "" => "<computed>"
+  availability_zone:            "" => "<computed>"
+  ebs_block_device.#:           "" => "<computed>"
+  ephemeral_block_device.#:     "" => "<computed>"
+  instance_state:               "" => "<computed>"
+  instance_type:                "" => "t2.micro"
+  ipv6_address_count:           "" => "<computed>"
+  ipv6_addresses.#:             "" => "<computed>"
+  key_name:                     "" => "<computed>"
+  network_interface.#:          "" => "<computed>"
+  network_interface_id:         "" => "<computed>"
+  placement_group:              "" => "<computed>"
+  primary_network_interface_id: "" => "<computed>"
+  private_dns:                  "" => "<computed>"
+  private_ip:                   "" => "<computed>"
+  public_dns:                   "" => "<computed>"
+  public_ip:                    "" => "<computed>"
+  root_block_device.#:          "" => "<computed>"
+  security_groups.#:            "" => "<computed>"
+  source_dest_check:            "" => "true"
+  subnet_id:                    "" => "<computed>"
+  tenancy:                      "" => "<computed>"
+  volume_tags.%:                "" => "<computed>"
+  vpc_security_group_ids.#:     "" => "<computed>"
+aws_instance.example: Still creating... (10s elapsed)
+aws_instance.example: Still creating... (20s elapsed)
+aws_instance.example: Still creating... (30s elapsed)
+aws_instance.example: Creation complete after 38s (ID: i-0dc0b5ee43a90cadb)
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+PS: 
+在应用更改的时候, 告诉你有哪些更改, 并需要人工确认后才能执行
+差不多38s的时间我们得到了一台AWS的机器, 待我去查看一番....
+请确保你看这是在提供配置中配置相同的区域!
+
+PS:
+Terraform还将一些数据写入terraform.tfstate文件。这个状态文件非常重要。它会跟踪创建的资源的ID，以便Terraform知道它正在管理什么。这个文件必须保存并分发给任何可能运行Terraform的人。通常建议 在使用Terraform时设置远程状态，自动共享状态，但对于像本入门指南这样的简单情况，这不是必需的;</pre></div></div>
+
+<h3>2.1.5 检查当前的状态</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform terraform show
+aws_instance.example:
+  id = i-0dc0b5ee43a90cadb
+  ami = ami-2757f631
+  associate_public_ip_address = true
+  availability_zone = us-east-1b
+  disable_api_termination = false
+  ebs_block_device.# = 0
+  ebs_optimized = false
+  ephemeral_block_device.# = 0
+  iam_instance_profile =
+  instance_state = running
+  instance_type = t2.micro
+  ipv6_addresses.# = 0
+  key_name =
+  monitoring = false
+  network_interface.# = 0
+  network_interface_id = eni-ba516677
+  placement_group =
+  primary_network_interface_id = eni-ba516677
+  private_dns = ip-172-31-83-15.ec2.internal
+  private_ip = 172.31.83.15
+  public_dns = ec2-34-201-242-185.compute-1.amazonaws.com
+  public_ip = 34.201.242.185
+  root_block_device.# = 1
+  root_block_device.0.delete_on_termination = true
+  root_block_device.0.iops = 100
+  root_block_device.0.volume_id = vol-00f923af0cadc022a
+  root_block_device.0.volume_size = 8
+  root_block_device.0.volume_type = gp2
+  security_groups.# = 1
+  security_groups.3814588639 = default
+  source_dest_check = true
+  subnet_id = subnet-14c5863b
+  tags.% = 0
+  tenancy = default
+  volume_tags.% = 0
+  vpc_security_group_ids.# = 1
+  vpc_security_group_ids.436076155 = sg-6d1f771a
+  
+PS: 我们能查看创建的实例的信息, 也可以作为一种资产管理的规范</pre></div></div>
+
+<h1>3.改变基础设施</h1>
+
+<p>通过使用Terraform改变基础设施，就可以版本控制不仅是你的配置，也可以你的状态，所以你可以看到基础设施如何随着时间而演变;</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1. 更改ami配置为ami-b374d5a5
+resource "aws_instance" "example" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+}</pre></div></div>
+
+<p>前缀-/+是指Terraform会破坏并重新创建资源，而不是就地更新它;</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform terraform apply
+aws_instance.example: Refreshing state... (ID: i-0dc0b5ee43a90cadb)
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+-/+ aws_instance.example (new resource required)
+      id:                           "i-0dc0b5ee43a90cadb" => <computed> (forces new resource)
+      ami:                          "ami-2757f631" => "ami-b374d5a5" (forces new resource)
+      associate_public_ip_address:  "true" => <computed>
+      availability_zone:            "us-east-1b" => <computed>
+      ebs_block_device.#:           "0" => <computed>
+      ephemeral_block_device.#:     "0" => <computed>
+      instance_state:               "running" => <computed>
+      instance_type:                "t2.micro" => "t2.micro"
+      ipv6_address_count:           "" => <computed>
+      ipv6_addresses.#:             "0" => <computed>
+      key_name:                     "" => <computed>
+      network_interface.#:          "0" => <computed>
+      network_interface_id:         "eni-ba516677" => <computed>
+      placement_group:              "" => <computed>
+      primary_network_interface_id: "eni-ba516677" => <computed>
+      private_dns:                  "ip-172-31-83-15.ec2.internal" => <computed>
+      private_ip:                   "172.31.83.15" => <computed>
+      public_dns:                   "ec2-34-201-242-185.compute-1.amazonaws.com" => <computed>
+      public_ip:                    "34.201.242.185" => <computed>
+      root_block_device.#:          "1" => <computed>
+      security_groups.#:            "1" => <computed>
+      source_dest_check:            "true" => "true"
+      subnet_id:                    "subnet-14c5863b" => <computed>
+      tenancy:                      "default" => <computed>
+      volume_tags.%:                "0" => <computed>
+      vpc_security_group_ids.#:     "1" => <computed>
+
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_instance.example: Destroying... (ID: i-0dc0b5ee43a90cadb)
+aws_instance.example: Still destroying... (ID: i-0dc0b5ee43a90cadb, 10s elapsed)
+aws_instance.example: Still destroying... (ID: i-0dc0b5ee43a90cadb, 20s elapsed)
+aws_instance.example: Still destroying... (ID: i-0dc0b5ee43a90cadb, 30s elapsed)
+aws_instance.example: Still destroying... (ID: i-0dc0b5ee43a90cadb, 40s elapsed)
+aws_instance.example: Destruction complete after 49s
+aws_instance.example: Creating...
+  ami:                          "" => "ami-b374d5a5"
+  associate_public_ip_address:  "" => "<computed>"
+  availability_zone:            "" => "<computed>"
+  ebs_block_device.#:           "" => "<computed>"
+  ephemeral_block_device.#:     "" => "<computed>"
+  instance_state:               "" => "<computed>"
+  instance_type:                "" => "t2.micro"
+  ipv6_address_count:           "" => "<computed>"
+  ipv6_addresses.#:             "" => "<computed>"
+  key_name:                     "" => "<computed>"
+  network_interface.#:          "" => "<computed>"
+  network_interface_id:         "" => "<computed>"
+  placement_group:              "" => "<computed>"
+  primary_network_interface_id: "" => "<computed>"
+  private_dns:                  "" => "<computed>"
+  private_ip:                   "" => "<computed>"
+  public_dns:                   "" => "<computed>"
+  public_ip:                    "" => "<computed>"
+  root_block_device.#:          "" => "<computed>"
+  security_groups.#:            "" => "<computed>"
+  source_dest_check:            "" => "true"
+  subnet_id:                    "" => "<computed>"
+  tenancy:                      "" => "<computed>"
+  volume_tags.%:                "" => "<computed>"
+  vpc_security_group_ids.#:     "" => "<computed>"
+aws_instance.example: Still creating... (10s elapsed)
+^@aws_instance.example: Still creating... (20s elapsed)
+aws_instance.example: Still creating... (30s elapsed)
+aws_instance.example: Creation complete after 35s (ID: i-0c648bf865b52b8c1)
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15183374587980.jpg"></p>
+</p>
+
+<h1>4.摧毁基础设施</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform terraform destroy
+aws_instance.example: Refreshing state... (ID: i-0c648bf865b52b8c1)
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  - aws_instance.example
+
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Do you really want to destroy?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_instance.example: Destroying... (ID: i-0c648bf865b52b8c1)
+aws_instance.example: Still destroying... (ID: i-0c648bf865b52b8c1, 10s elapsed)
+aws_instance.example: Still destroying... (ID: i-0c648bf865b52b8c1, 20s elapsed)
+aws_instance.example: Still destroying... (ID: i-0c648bf865b52b8c1, 30s elapsed)
+aws_instance.example: Still destroying... (ID: i-0c648bf865b52b8c1, 40s elapsed)
+aws_instance.example: Destruction complete after 46s
+
+Destroy complete! Resources: 1 destroyed.</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15183376967356.jpg"></p>
+</p>
+
+<h1>5.资源依赖关系</h1>
+
+<h2>5.1 分配一个弹性IP</h2>
+
+<h3>5.1.1 添加配置</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>resource "aws_eip" "ip" {
+  instance = "${aws_instance.example.id}"
+}</pre></div></div>
+
+<h3>5.1.2 自动推断依赖</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 2. Terraform创建弹性IP地址之前创建的EC2实例。由于是通过EC2实例的弹性IP地址的ID的插值表达式，Terraform能够推断的依赖，并且知道它必须先创建实例
+➜  terraform  terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  + aws_eip.ip
+      id:                           <computed>
+      allocation_id:                <computed>
+      association_id:               <computed>
+      domain:                       <computed>
+      instance:                     "${aws_instance.example.id}"
+      network_interface:            <computed>
+      private_ip:                   <computed>
+      public_ip:                    <computed>
+      vpc:                          <computed>
+
+  + aws_instance.example
+      id:                           <computed>
+      ami:                          "ami-b374d5a5"
+      associate_public_ip_address:  <computed>
+      availability_zone:            <computed>
+      ebs_block_device.#:           <computed>
+      ephemeral_block_device.#:     <computed>
+      instance_state:               <computed>
+      instance_type:                "t2.micro"
+      ipv6_address_count:           <computed>
+      ipv6_addresses.#:             <computed>
+      key_name:                     <computed>
+      network_interface.#:          <computed>
+      network_interface_id:         <computed>
+      placement_group:              <computed>
+      primary_network_interface_id: <computed>
+      private_dns:                  <computed>
+      private_ip:                   <computed>
+      public_dns:                   <computed>
+      public_ip:                    <computed>
+      root_block_device.#:          <computed>
+      security_groups.#:            <computed>
+      source_dest_check:            "true"
+      subnet_id:                    <computed>
+      tenancy:                      <computed>
+      volume_tags.%:                <computed>
+      vpc_security_group_ids.#:     <computed>
+
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_instance.example: Creating...
+  ami:                          "" => "ami-b374d5a5"
+  associate_public_ip_address:  "" => "<computed>"
+  availability_zone:            "" => "<computed>"
+  ebs_block_device.#:           "" => "<computed>"
+  ephemeral_block_device.#:     "" => "<computed>"
+  instance_state:               "" => "<computed>"
+  instance_type:                "" => "t2.micro"
+  ipv6_address_count:           "" => "<computed>"
+  ipv6_addresses.#:             "" => "<computed>"
+  key_name:                     "" => "<computed>"
+  network_interface.#:          "" => "<computed>"
+  network_interface_id:         "" => "<computed>"
+  placement_group:              "" => "<computed>"
+  primary_network_interface_id: "" => "<computed>"
+  private_dns:                  "" => "<computed>"
+  private_ip:                   "" => "<computed>"
+  public_dns:                   "" => "<computed>"
+  public_ip:                    "" => "<computed>"
+  root_block_device.#:          "" => "<computed>"
+  security_groups.#:            "" => "<computed>"
+  source_dest_check:            "" => "true"
+  subnet_id:                    "" => "<computed>"
+  tenancy:                      "" => "<computed>"
+  volume_tags.%:                "" => "<computed>"
+  vpc_security_group_ids.#:     "" => "<computed>"
+aws_instance.example: Still creating... (10s elapsed)
+aws_instance.example: Still creating... (20s elapsed)
+aws_instance.example: Creation complete after 30s (ID: i-0ad92d379a747bd10)
+aws_eip.ip: Creating...
+  allocation_id:     "" => "<computed>"
+  association_id:    "" => "<computed>"
+  domain:            "" => "<computed>"
+  instance:          "" => "i-0ad92d379a747bd10"
+  network_interface: "" => "<computed>"
+  private_ip:        "" => "<computed>"
+  public_ip:         "" => "<computed>"
+  vpc:               "" => "<computed>"
+aws_eip.ip: Creation complete after 5s (ID: eipalloc-9f60e9a9)
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.</pre></div></div>
+
+<h3>5.1.3 隐式和显式依赖</h3>
+
+<h4>隐式依赖</h4>
+
+<p>通过插值表达式的隐式依赖关系是向Terraform通知这些关系的主要方式，应尽可能使用;</p>
+
+<p>在上面的例子中，表达式${aws<em>instance.example.id}创建了一个隐含的依赖关系的aws</em>instance命名example;</p>
+
+<h4>显示依赖</h4>
+
+<p>有时有资源之间的依赖关系对terraform是不可见的。depends_on参数是由任何资源接纳和接受的资源列表创建显式依赖的;</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># New resource for the S3 bucket our application will use.
+resource "aws_s3_bucket" "example" {
+  # NOTE: S3 bucket names must be unique across _all_ AWS accounts, so
+  # this name must be changed before applying this example to avoid naming
+  # conflicts.
+  bucket = "terraform_getting_started_guide"
+  acl    = "private"
+}
+
+# Change the aws_instance we declared earlier to now include "depends_on"
+resource "aws_instance" "example" {
+  ami           = "ami-2757f631"
+  instance_type = "t2.micro"
+
+  # Tells Terraform that this EC2 instance must be created only after the
+  # S3 bucket has been created.
+  depends_on = ["aws_s3_bucket.example"]
+}</pre></div></div>
+
+<h4>非依赖资源</h4>
+
+<p>我们可以继续通过添加另一个EC2实例建立这个配置：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>resource "aws_instance" "another" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+}</pre></div></div>
+
+<p>由于这种新情况下不依赖于任何其他资源，它可以并行创建与其他资源。如果可能的话，将Terraform执行操作，同时降低应用更改所花费的总时间。</p>
+
+<p>运行<code>terraform destroy</code>将之前创建的实例都关闭</p>
+
+<h1>6.初始化配置</h1>
+
+<p>此时,我们可以通过调用shell来执行一些环境的初始化</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>resource "aws_instance" "example" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
+  }
+}</pre></div></div>
+
+<p>对于配置管理，你应该使用Terraform配置来调用一个真正的配置管理解决方案, 例如: Packer的方式, 配置管理即代码;</p>
+
+<h1>7.输入变量</h1>
+
+<h2>7.1 新建变量文件</h2>
+
+<p>一个variables.tf文件用与存储默认变量</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform cat variables.tf
+variable "access_key" {
+    default = "AK7KNZQQKNPSQ"
+}
+variable "secret_key" {
+    default = "FGWDDkhUMIjjBZ59nOPEivW2e0tcwL"
+}
+variable "region" {
+  default = "us-east-1"
+}</pre></div></div>
+
+<h2>7.2 使用变量文件内变量</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform cat example.tf
+provider "aws" {
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
+  region     = "${var.region}"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+}
+
+resource "aws_eip" "ip" {
+  instance = "${aws_instance.example.id}"
+}
+
+resource "aws_instance" "another" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+}</pre></div></div>
+
+<h1>8.输出变量</h1>
+
+<h2>8.1 将在apply时输出变量的值</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>output "ip" {
+  value = "${aws_eip.ip.public_ip}"
+}</pre></div></div>
+
+<h2>8.2 输出变量要在refresh后才能生效</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>➜  terraform vim example.tf
+➜  terraform terraform output ip
+The state file either has no outputs defined, or all the defined
+outputs are empty. Please define an output in your configuration
+with the `output` keyword and run `terraform refresh` for it to
+become available. If you are using interpolation, please verify
+the interpolated value is not empty. You can use the
+`terraform console` command to assist.
+➜  terraform terraform apply
+aws_instance.another: Refreshing state... (ID: i-011bc4c0ce26999a0)
+aws_instance.example: Refreshing state... (ID: i-0839fdf19b568365e)
+aws_eip.ip: Refreshing state... (ID: eipalloc-6ec84058)
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ip = 35.171.130.63
+➜  terraform terraform output ip
+35.171.130.63</pre></div></div>
+
+<h1>9.模块module</h1>
+
+<ul>
+<li>创建一个consul集群</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>provider "aws" {
+  access_key = "AWS ACCESS KEY"
+  secret_key = "AWS SECRET KEY"
+  region     = "us-east-1"
+}
+
+module "consul" {
+  source = "hashicorp/consul/aws"
+
+  aws_region  = "us-east-1" # should match provider region
+  num_servers = "3"
+}</pre></div></div>
+
+<h1>10.远程后端</h1>
+
+<p>默认我们使用本地进行Terraform的状态, 但是在团队协作的时候容易冲突,所以在生产环境我们需要把状态存储到远程后端; 推荐使用<a href="https://www.consul.io/">Consul服务注册与发现</a></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># 1.将terraform指向consul: demo.consul.io
+terraform {
+  backend "consul" {
+    address = "demo.consul.io"
+    path    = "getting-started-RANDOMSTRING"
+    lock    = false
+  }
+}
+PS: 我们可以自建Consul然后把Consul指向到自建的地址</pre></div></div>
+
+<p>修改远程后端后需要 terraform init &amp;&amp; terraform apply</p>
+
+<h1>11.配置实例</h1>
+
+<p><a href="https://www.terraform.io/docs/providers/alicloud/index.html">供应商是阿里云文档</a></p>
+
+<p><a href="https://www.terraform.io/docs/providers/aws/index.html">供应商是AWS文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'HashiCorp全家桶-Terraform',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

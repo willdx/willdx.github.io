@@ -1,0 +1,708 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django runserver流程分析 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django runserver流程分析</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="https://yq.aliyun.com/articles/39030">文章转自01</a>
+<a href="https://segmentfault.com/a/1190000002435578">文章转自02</a></p>
+<blockquote class="blockquote-normal">
+                <p>进入project 目录-执行python manage.py runserver-程序启动</p><br/><p>那django是如何从一个命令就启动整个server,启动的流程是如何的呢</p><br/><p>打开manage.py</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;will.settings&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">django.core.management</span> <span class="kn">import</span> <span class="n">execute_from_command_line</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="c1"># The above import may fail for some other reason. Ensure that the</span>
+        <span class="c1"># issue is really that Django is missing to avoid masking other</span>
+        <span class="c1"># exceptions on Python 2.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">django</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;Couldn&#39;t import Django. Are you sure it&#39;s installed and &quot;</span>
+                <span class="s2">&quot;available on your PYTHONPATH environment variable? Did you &quot;</span>
+                <span class="s2">&quot;forget to activate a virtual environment?&quot;</span>
+            <span class="p">)</span>
+        <span class="k">raise</span>
+    <span class="n">execute_from_command_line</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>首先看os.environ.setdefault(),environ为类_Environ的一个实例,它继承自IterableUserDict,而IterableUserDict继承自UserDict,包括setdefault()这个方法也是UserDict的一个方法,看一下setdefault实现的功能</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># key是 DJANGO_SETTINGS_MODULE,这里的self是一个字典</span>
+<span class="c1"># 判断key是不是在里面,不在里面就做一个键值绑定,然后返回</span>
+  <span class="k">def</span> <span class="nf">setdefault</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">failobj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">failobj</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>接着可以看出实际上执行的是django.core.management.execute<em>from</em>command_line函数</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># vim django/core/management/__init__.py</span>
+<span class="k">def</span> <span class="nf">execute_from_command_line</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    A simple method that runs a ManagementUtility.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">utility</span> <span class="o">=</span> <span class="n">ManagementUtility</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">utility</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>其中ManagementUtility位一个类穿进去的参数列表会进入一个简单的初始化</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="c1">#将传入的参数赋值给argv</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">argv</span> <span class="o">=</span> <span class="n">argv</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[:]</span> 
+
+    <span class="c1">#将执行的文件名称,此时是manage.py传递给self.prog_name </span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prog_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings_exception</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>实例化之后执行utility.execute(),即ManagementUtility的execute()方法</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;获取命令行参数,此函数会找出需要运行的子命令,为子命令创建一个合适的解析器,接着运行命令&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subcommand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1">#获取子命令的名称,此时为manage.py</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">subcommand</span> <span class="o">=</span> <span class="s1">&#39;help&#39;</span>  <span class="c1">#若未输入子命令参数,则一律设定为help</span>
+
+        <span class="c1"># 预处理选项_设置_提取PYTHONPATH,这些选项可能会影响可用的命令,所以必须尽早处理</span>
+        <span class="c1"># 以下4行代码对输入的命令进行了预处理(django.core.management.base.CommandParser)</span>
+        <span class="c1"># CommandParser继承ArgumentParser,而ArgumentParser从from argparse导入</span>
+        <span class="c1"># ArgumentParser.__doc__中描述此类是用来改善错误消息以及预防在一些情况下的程序异常退出的情况</span>
+        <span class="c1"># argparse模块作为optparse的一个替代被添加到Python2.7,是一个全面的参数处理库</span>
+        <span class="c1"># argparse参数可以触发不同的动作,动作由 add_argument()方法的action参数指定,默认的动作是保存参数值</span>
+        <span class="c1"># [argparse参考文档](http://blog.xiayf.cn/2013/03/30/argparse/)</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">CommandParser</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(prog)s</span><span class="s2"> subcommand [options] [args]&quot;</span><span class="p">,</span> <span class="n">add_help</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;_settings&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;_pythonpath&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>  <span class="c1"># catch-all</span>
+
+    <span class="c1"># 将settings和pythonpath信息存储到options,把额外参数放入args</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">handle_default_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CommandError</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># Ignore any option errors at this point.</span>
+
+        <span class="n">no_settings_commands</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="s1">&#39;_help&#39;</span><span class="p">,</span> <span class="s1">&#39;_version&#39;</span><span class="p">,</span> <span class="s1">&#39;-h&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;compilemessages&#39;</span><span class="p">,</span> <span class="s1">&#39;makemessages&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;startapp&#39;</span><span class="p">,</span> <span class="s1">&#39;startproject&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+      <span class="c1"># 这块代码就可以解释我们执行python manage.py start project 时django在背后会调用settings.configure方法</span>
+        <span class="c1"># 这里的settings是django.conf.LazySettings的一个实例</span>
+        <span class="c1"># configure方法使用django.conf.global_settings.py中的默认设置创建一份新的配置文件,给新建的project</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span>
+        <span class="k">except</span> <span class="n">ImproperlyConfigured</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings_exception</span> <span class="o">=</span> <span class="n">exc</span>
+            <span class="c1"># A handful of built-in management commands work without settings</span>
+            <span class="c1"># Load the default settings _ where INSTALLED_APPS is empty</span>
+            <span class="k">if</span> <span class="n">subcommand</span> <span class="ow">in</span> <span class="n">no_settings_commands</span><span class="p">:</span>
+                <span class="n">settings</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">configured</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subcommand</span> <span class="o">==</span> <span class="s1">&#39;runserver&#39;</span> <span class="ow">and</span> <span class="s1">&#39;_noreload&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">autoreload</span><span class="o">.</span><span class="n">check_errors</span><span class="p">(</span><span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">)()</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">apps</span><span class="o">.</span><span class="n">all_models</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">)</span>
+                    <span class="n">apps</span><span class="o">.</span><span class="n">app_configs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+                    <span class="n">apps</span><span class="o">.</span><span class="n">apps_ready</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">models_ready</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="c1"># In all other cases, django.setup() is required to succeed.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># autoreload.check_errors(django.setup)()其实也是调用django.setup方法</span>
+                <span class="c1"># 而django.setup方法,负责初始化日志模块以及所有应用</span>
+                <span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">autocomplete</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">subcommand</span> <span class="o">==</span> <span class="s1">&#39;help&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;_commands&#39;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_help_text</span><span class="p">(</span><span class="n">commands_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_help_text</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fetch_command</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">print_help</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prog_name</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Special-cases: We want &#39;django-admin _version&#39; and</span>
+        <span class="c1"># &#39;django-admin _help&#39; to work, for backwards compatibility.</span>
+        <span class="k">elif</span> <span class="n">subcommand</span> <span class="o">==</span> <span class="s1">&#39;version&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;_version&#39;</span><span class="p">]:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">django</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="ow">in</span> <span class="p">([</span><span class="s1">&#39;_help&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;-h&#39;</span><span class="p">]):</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_help_text</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># fetch_command会根据subcommand(这是我们执行python manage.py rumserver时传入的</span>
+            <span class="c1"># 第二个参数:runserver)去django.core.management.commands中查找对应的command类</span>
+            <span class="c1"># 然后把所有命令行参数传给run_from_argv方法并执行,在runserver这个示例中,最终会调用</span>
+            <span class="c1"># django.utils.autoreload中的python_reloader或者jython_reloader新开一个线程</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fetch_command</span><span class="p">(</span><span class="n">subcommand</span><span class="p">)</span><span class="o">.</span><span class="n">run_from_argv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>进入runserver.py,Command这个类继承了BaseCommand这个类,BaseCommand在Base.py中,里面有run<em>from</em>arv这个方法,在其他的命令里<br/>有的重写了这个方法</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_from_argv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+    <span class="c1">#设置环境变量,然后运行这个命令</span>
+    <span class="c1">#如python  manage.py  runserver,manage.py就是argv[0],runserver是argv[1]</span>
+    <span class="c1">#create_parser直接调用OptionParser(prog=prog_name,usage=self.usage(subcommand),version=self.get_version(),option_list=self.option_list)</span>
+    <span class="c1">#将manage.py 和runserver加入参数列表</span>
+    <span class="c1">#接下来用parser.parse_args进行解析,argv[2]之后为默认参数,ip地址还有端口号,我们也可以显示的传进去,默认是127.0.0.1,端口号8000</span>
+    <span class="c1">#下面又到了handle_default_options函数</span>
+    <span class="c1">#接下来是执行execute函数,还有异常捕获</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_parser</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">handle_default_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">traceback</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">CommandError</span><span class="p">):</span>
+            <span class="k">raise</span>
+
+        <span class="c1"># self.stderr is not guaranteed to be set here</span>
+        <span class="n">stderr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;stderr&#39;</span><span class="p">,</span> <span class="n">OutputWrapper</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">ERROR</span><span class="p">))</span>
+        <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>下面进入execute函数,前边是一些设置和错误检查,最主要的是output=self.handle(*args, **options),可以发现handle在BaseCommand里是空的,每个命令对其进行了重写,runserver也是</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addrport</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="c1">#导入设置模块</span>
+    <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+    <span class="c1">#DEBUG和ALLOWED_HOSTS的设置</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">ALLOWED_HOSTS</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s1">&#39;You must set settings.ALLOWED_HOSTS if DEBUG is False.&#39;</span><span class="p">)</span>
+    <span class="c1">#ipv6的设置</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_ipv6&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">socket</span><span class="o">.</span><span class="n">has_ipv6</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s1">&#39;Your Python does not support IPv6.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s1">&#39;Usage is runserver </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_raw_ipv6</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">addrport</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">DEFAULT_PORT</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1">#如果设置了ip地址和端口号,用正则匹配出来</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">naiveip_re</span><span class="p">,</span> <span class="n">addrport</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot; is not a valid port number &#39;</span>
+                               <span class="s1">&#39;or address:port pair.&#39;</span> <span class="o">%</span> <span class="n">addrport</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="n">_ipv4</span><span class="p">,</span> <span class="n">_ipv6</span><span class="p">,</span> <span class="n">_fqdn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%r</span><span class="s2"> is not a valid port number.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_ipv6</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_raw_ipv6</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_fqdn</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot; is not a valid IPv6 address.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">:</span>
+        <span class="c1">#如果没有设置ip地址使用127.0.0.1代替</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addr</span> <span class="o">=</span> <span class="s1">&#39;::1&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span> <span class="k">else</span> <span class="s1">&#39;127.0.0.1&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_ipv6</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span><span class="p">)</span>
+     <span class="c1">#运行命令</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>runserver里的run方法主要时调用了inner_run(*args, **options)这个方法</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inner_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="c1">#省略了部分代码</span>
+        <span class="c1">#很熟悉吧,这就是我们开始运行时,终端上输出的信息啊 </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">((</span>
+            <span class="s2">&quot;</span><span class="si">%(started_at)s</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Django version </span><span class="si">%(version)s</span><span class="s2">, using settings </span><span class="si">%(settings)r</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Starting development server at http://</span><span class="si">%(addr)s</span><span class="s2">:</span><span class="si">%(port)s</span><span class="s2">/</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Quit the server with </span><span class="si">%(quit_command)s</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span> <span class="o">%</span> <span class="p">{</span>
+            <span class="s2">&quot;started_at&quot;</span><span class="p">:</span> <span class="n">now</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_version</span><span class="p">(),</span>
+            <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">SETTINGS_MODULE</span><span class="p">,</span>
+            <span class="s2">&quot;addr&quot;</span><span class="p">:</span> <span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_ipv6</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span>
+            <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
+            <span class="s2">&quot;quit_command&quot;</span><span class="p">:</span> <span class="n">quit_command</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="c1">#加载编码设置</span>
+        <span class="n">translation</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGE_CODE</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span> <span class="n">handler</span><span class="p">,</span>
+                <span class="n">ipv6</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_ipv6</span><span class="p">,</span> <span class="n">threading</span><span class="o">=</span><span class="n">threading</span><span class="p">)</span>
+
+          <span class="c1">#省略部分代码</span>
+
+    <span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the default WSGI handler for the runner.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">get_internal_wsgi_application</span><span class="p">()</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>get<em>internal</em>wsgi_application()和run()都在django.core.servers.basehttp中</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_internal_wsgi_application</span><span class="p">():</span>
+
+    <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+    <span class="c1">#在settings模块中并没有找到WSGI_APPLICATION这个环境变量,因此app_path位空</span>
+    <span class="n">app_path</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s1">&#39;WSGI_APPLICATION&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">app_path</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">get_wsgi_application</span><span class="p">()</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>在django/core下wsig.py中的文件如下</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">from</span> <span class="nn">django.core.handlers.wsgi</span> <span class="kn">import</span> <span class="n">WSGIHandler</span>
+
+
+<span class="k">def</span> <span class="nf">get_wsgi_application</span><span class="p">():</span>
+
+    <span class="c1">#setup是加载log和settings.INSTALLED_APPS</span>
+    <span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+    <span class="c1">#返回WSGIHhadler类的一个实例</span>
+    <span class="k">return</span> <span class="n">WSGIHandler</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">WSGIHandler</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">BaseHandler</span><span class="p">):</span>
+    <span class="c1">#初始化一个线程锁</span>
+    <span class="n">initLock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+    <span class="c1">#WSGIRequest为http.HttpRequest的一个子类,</span>
+    <span class="c1">#WSGIRequest实现了wsgi规范 </span>
+    <span class="n">request_class</span> <span class="o">=</span> <span class="n">WSGIRequest</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>下面我们进入django.core.servers.basehttp中的run方法</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">wsgi_handler</span><span class="p">,</span> <span class="n">ipv6</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">threading</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">threading</span><span class="p">:</span>
+        <span class="n">httpd_cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;WSGIServer&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">ThreadingMixIn</span><span class="p">,</span> <span class="n">WSGIServer</span><span class="p">),</span> <span class="p">{})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">httpd_cls</span> <span class="o">=</span> <span class="n">WSGIServer</span>
+    <span class="n">httpd</span> <span class="o">=</span> <span class="n">httpd_cls</span><span class="p">(</span><span class="n">server_address</span><span class="p">,</span> <span class="n">WSGIRequestHandler</span><span class="p">,</span> <span class="n">ipv6</span><span class="o">=</span><span class="n">ipv6</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">threading</span><span class="p">:</span>
+        <span class="c1"># ThreadingMixIn.daemon_threads indicates how threads will behave on an</span>
+        <span class="c1"># abrupt shutdown; like quitting the server by the user or restarting</span>
+        <span class="c1"># by the auto-reloader. True means the server will not wait for thread</span>
+        <span class="c1"># termination before it quits. This will make auto-reloader faster</span>
+        <span class="c1"># and will prevent the need to kill the server manually if a thread</span>
+        <span class="c1"># isn&#39;t terminating correctly.</span>
+        <span class="n">httpd</span><span class="o">.</span><span class="n">daemon_threads</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">set_app</span><span class="p">(</span><span class="n">wsgi_handler</span><span class="p">)</span>
+    <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>httpd<em>cls(server</em>address, WSGIRequestHandler, ipv6=ipv6)为实例化一个WSGIServer类</p><br/><p>最终的实例化方法在父类SocketServer中的TCPServer和BaseServer中<br/>包括初始化线程,初始化网络句柄,像下面的<strong>is<em>shut</em>down和</strong>shutdown_request都是在其中初始化的</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#处理一个http请求直到关闭</span>
+   <span class="k">def</span> <span class="nf">serve_forever</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="c1">#__is_shut_down为一个初始化的threading.Event()的句柄,用于线程间通信</span>
+        <span class="c1">#.clear()将标识设置为false</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_shut_down</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shutdown_request</span><span class="p">:</span>
+                <span class="c1">#下面的函数就是一个封装好了的select函数,后面的四个为传递给select函数的参数,分别表示输入对象列表,输出对象列表,错误对象列表以及超时时间</span>
+                <span class="c1">#返回值为三个列表,代表可写,可读,错误的事件的对象列表</span>
+                <span class="n">r</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">_eintr_retry</span><span class="p">(</span><span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> 
+                                       <span class="n">poll_interval</span><span class="p">)</span>
+                <span class="c1">#判断self事件是否在可读对象列表中,在就进入进行处理</span>
+                <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                    <span class="c1">#处理连接请求</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_request_noblock</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__shutdown_request</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="c1">#将标识设置为true</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__is_shut_down</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+   <span class="c1">#对select函数的封装        </span>
+   <span class="k">def</span> <span class="nf">_eintr_retry</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;restart a system call interrupted by EINTR&quot;&quot;&quot;</span>
+      <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">EINTR</span><span class="p">:</span>
+                <span class="k">raise</span>
+
+    <span class="k">def</span> <span class="nf">_handle_request_noblock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1">#返回请求句柄,客户端地址,get_request()中调用了self.socket.accept()来实现客户端的连接</span>
+            <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1">#真正的处理连接请求的地方,调用了self.finish_request(request, client_address)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process_request</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shutdown_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">finish_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finish one request by instantiating RequestHandlerClass.&quot;&quot;&quot;</span>
+        <span class="c1">#此处的RequestHandlerClass为初始化的时候传进来的WSGIRequestHandler,实现了回调</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RequestHandlerClass</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>在WSGIRequestHandler中实现下面的初始化函数</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">admin_static_prefix</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATIC_URL</span><span class="p">,</span> <span class="s1">&#39;admin/&#39;</span><span class="p">)</span>
+    <span class="c1"># We set self.path to avoid crashes in log_message() on unsupported</span>
+    <span class="c1"># requests (like &quot;OPTIONS&quot;).</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">color_style</span><span class="p">()</span>
+    <span class="c1">#调用父类的WSGIRequestHandler进行初始化,它的父类是simple_server.py里的WSGIRequestHandler,它里面没有__init__,继续找它的父类</span>
+    <span class="c1">#如此重复,在最终的基类中可以找到__init__方法,位于SocketServer.py中的 BaseRequestHandler类.</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">WSGIRequestHandler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_address</span> <span class="o">=</span> <span class="n">client_address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="c1">#setup函数</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">pass</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>可以看到里面的方法并没有实现,只是给出了定义,实现都在子类</p><br/><p>再回到WSGIRequestHandler类中,在simple_server.py中实现了handle函数,实现对请求的处理</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Handle a single HTTP request&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_requestline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_request</span><span class="p">():</span> <span class="c1"># An error code has been sent, just exit</span>
+            <span class="k">return</span>
+        <span class="c1">#传入的参数,读,写,错误,环境变量.在其父类SimpleHandler中进行了初始化,并且打开了多线程和多进程选项</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">ServerHandler</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stderr</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_environ</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">request_handler</span> <span class="o">=</span> <span class="bp">self</span>      <span class="c1"># backpointer for logging</span>
+        <span class="c1">#在SimpleHandler的父类BaseHandler中含实现了run方法.此处get_app()是上面的run方法中我们传进去的wsgi_handler,httpd.set_app(wsgi_handler)</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_app</span><span class="p">())</span>      
+
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">application</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1">#设置环境变量</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setup_environ</span><span class="p">()</span>
+            <span class="c1">#执行WSGIHandler(self.environ,self.start_response)</span>
+            <span class="c1">#因为类中实现了__call__方法,调用类的实例就相当于调用了__call__方法</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">application</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_response</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish_response</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_error</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="c1"># If we get an error handling an error, just give up already!</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">raise</span>   <span class="c1"># ...and let the actual server figure it out.</span>
+
+ <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="c1"># Set up middleware if needed. We couldn&#39;t do this earlier, because</span>
+    <span class="c1"># settings weren&#39;t available.</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_middleware</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">initLock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Check that middleware is still uninitialised.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_middleware</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c1">#尝试加载中间件</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">load_middleware</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="c1"># Unload whatever middleware we got</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_request_middleware</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="k">raise</span>
+    <span class="c1">#设置脚本路径</span>
+    <span class="n">set_script_prefix</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">get_script_name</span><span class="p">(</span><span class="n">environ</span><span class="p">))</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">request_started</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_class</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Bad Request (UnicodeDecodeError)&#39;</span><span class="p">,</span>
+            <span class="n">exc_info</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">(),</span>
+            <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;status_code&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">HttpResponseBadRequest</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">response</span><span class="o">.</span><span class="n">_handler_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">reason_phrase</span><span class="p">)</span>
+    <span class="n">response_headers</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">response_headers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;Set-Cookie&#39;</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))))</span>
+    <span class="n">start_response</span><span class="p">(</span><span class="n">force_str</span><span class="p">(</span><span class="n">status</span><span class="p">),</span> <span class="n">response_headers</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django-runserver流程分析',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

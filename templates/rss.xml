@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>Will Dx</title>
+    <link>http://willdx.github.io</link>
+    <description>willdx的在线博客</description>
+    {% for word in words %}
+    <item>
+        <title>{{ word.title }}</title>
+        <link>http://willdx.github.io/words/{{ word.filename }}.html</link>
+        <guid>http://willdx.github.io/words/{{ word.filename }}.html</guid>
+        <pubDate>{{ word.date.strftime('%B %m, %Y')}}</pubDate>
+        <description>{{ word.title }}</description>
+    </item>
+    {% endfor %}
+</channel>
+</rss>

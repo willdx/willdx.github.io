@@ -1,0 +1,406 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记06_中间件 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记06_中间件</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="http://python.usyiyi.cn/translate/django_182/topics/http/middleware.html">参考Django1.8的中文文档</a></p>
+
+<p><a href="http://code.ziqiangxuetang.com/django/django-middleware.html">参考自强学堂代码</a></p>
+
+<h1>1.须知</h1>
+
+<p>中间件是一个钩子框架，它们可以介入Django 的请求和响应处理过程。它是一个轻量级、底层的“插件”系统，用于在全局修改Django 的输入或输出。</p>
+
+<p>每个中间件组件负责完成某个特定的功能。例如，Django 包含的一个中间件组件AuthenticationMiddleware ，它使用会话将用户和请求关联起来。</p>
+
+<p>要激活一个中间件组件，需要把它添加到Django 配置文件中的MIDDLEWARE_CLASSES 元组中;</p>
+
+<p>在MIDDLEWARE_CLASSES中，每一个中间件组件用字符串的方式描述：一个完整的Python全路径加上中间件的类名称。例如，使用 django-admin startproject创建工程的时候生成的默认值：</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">MIDDLEWARE_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.sessions.middleware.SessionMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.common.CommonMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.csrf.CsrfViewMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth.middleware.SessionAuthenticationMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages.middleware.MessageMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.security.SecurityMiddleware&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>MIDDLEWARE_CLASSES中的顺序非常重要，因为一个中间件可能依赖于另外一个。例如，AuthenticationMiddleware在会话中储存已认证的用户。所以它必须在SessionMiddleware之后运行。一些关于Django中间件类的顺序的常见提示，请见<a href="http://python.usyiyi.cn/documents/django_182/ref/middleware.html#middleware-ordering">中间件排序</a></p>
+
+<h1>2. 钩子和应用的顺序</h1>
+
+<p>在请求阶段中，调用视图之前，Django会按照MIDDLEWARE_CLASSES中定义的顺序自顶向下应用中间件。会用到两个钩子：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>process_request()
+process_view()</pre></div></div>
+
+<p>在响应阶段中，调用视图之后，中间件会按照相反的顺序应用，自底向上。会用到三个钩子：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>process_exception()（仅当视图抛出异常的时候）
+process_template_response()（仅用于模板响应）
+process_response()</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15012546107573.jpg"></p>
+</p>
+
+<h1>3. 自定义中间件</h1>
+
+<p>编写自己的中间件很容易的。每个中间件组件是一个独立的Python 类，你可以定义下面这些方法中的一个或多个:</p>
+
+<ul>
+<li>指导原则</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>中间件的类不能是任何类的子类
+Django初始化你的中间件无需任何参数，因此不要定义一个有参数的__init__方法;</pre></div></div>
+
+<h2>3.1 process_request</h2>
+
+<p>process<em>request(request)
+request是一个HttpRequest 对象。
+在Django决定执行哪个视图之前，process</em>request()会在每个请求上调用。
+它应该返回一个None 或一个HttpResponse对象。如果返回None，Django会继续处理这个请求，执行其它process<em>request()中间件，然后process</em>view()中间件，最后是对应的视图。如果它返回一个HttpResponse对象，Django 就不用再去调用其它的request、view 或exception 中间件，或对应的视图；它将对HttpResponse 运用响应阶段的中间件，并返回结果。</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BlockedIpMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;BLOCKED_IPS&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="n">HttpResponseForbidden</span><span class="p">(</span><span class="s1">&#39;&lt;h1&gt;Forbidden&lt;/h1&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>3.2 process_view</h2>
+
+<p>process<em>view(request, view</em>func, view<em>args, view</em>kwargs)¶
+request是一个HttpRequest对象。view<em>func是 Django会调用的一个Python的函数。（它是一个真实的函数对象，不是函数的字符名称。) view</em>args是一个会被传递到视图的位置参数列表，而view<em>kwargs 是一个会被传递到视图的关键字参数字典。 view</em>args和 view_kwargs 都不包括第一个视图参数(request)。</p>
+
+<p>process_view()会在Django 调用视图之前被调用。</p>
+
+<p>它将返回None 或一个HttpResponse 对象。如果返回None，Django 将会继续处理这个请求，执行其它的process_view() 中间件，然后调用对应的视图。如果返回一个HttpResponse对象，Django 就不用再去调用其它的view 或exception 中间件，或对应的视图；它将对HttpResponse 运用响应阶段的中间件，并返回结果。</p>
+
+<p><strong>注意</strong></p>
+
+<p>在中间件内部，从process<em>request 或process</em>view 中访问request.POST 或request.REQUEST 将阻碍该中间件之后的所有视图无法修改请求的上传处理程序，一般情况下要避免这样使用。</p>
+
+<p>类CsrfViewMiddleware可以被认为是个例外，因为它提供csrf<em>exempt() 和csrf</em>protect()两个装饰器，允许视图显式控制在哪个点需要开启CSRF验证。</p>
+
+<h2>3.3 process<em>template</em>response</h2>
+
+<p>process<em>template</em>response(request, response)¶
+request是一个HttpRequest对象。response是一个TemplateResponse对象（或等价的对象），由Django视图或者中间件返回。</p>
+
+<p>如果响应的实例有render()方法，process<em>template</em>response()在视图刚好执行完毕之后被调用，这表明了它是一个TemplateResponse对象（或等价的对象）。</p>
+
+<p>这个方法必须返回一个实现了render方法的响应对象。它可以修改给定的response对象，通过修改 response.template<em>name和response.context</em>data或者它可以创建一个全新的 TemplateResponse或等价的对象。</p>
+
+<p>你不需要显式渲染响应 —— 一旦所有的模板响应中间件被调用，响应会自动被渲染。</p>
+
+<p>在一个响应的处理期间，中间件以相反的顺序运行，这包括process<em>template</em>response()。</p>
+
+<h2>3.4 process_exception</h2>
+
+<p>process_exception(request, exception)¶
+request是一个HttpRequest对象。exception是一个被视图中的方法抛出来的 Exception对象。</p>
+
+<p>当一个视图抛出异常时，Django会调用process<em>exception()来处理。process</em>exception()应该返回一个None 或者一个HttpResponse对象。如果它返回一个HttpResponse对象，模型响应和响应中间件会被应用，响应结果会返回给浏览器。否则， 默认的异常处理机制将会被触发。</p>
+
+<p>再次提醒，在处理响应期间，中间件的执行顺序是倒序执行的，这包括process_exception。如果一个异常处理的中间件返回了一个响应，那这个中间件上面的中间件都将不会被调用。</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">django.views.debug</span> <span class="kn">import</span> <span class="n">technical_500_response</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+ 
+<span class="k">class</span> <span class="nc">UserBasedExceptionMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">process_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INTERNAL_IPS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">technical_500_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span>
+</pre></div>
+</div>
+<h2>3.5 process_response</h2>
+
+<p>process_response(request, response)¶
+request是一个HttpRequest对象。response是Django视图或者中间件返回的HttpResponse或者StreamingHttpResponse对象。</p>
+
+<p>process_response()在所有响应返回浏览器之前被调用。</p>
+
+<p>这个方法必须返回HttpResponse或者StreamingHttpResponse对象。它可以改变已有的response，或者创建并返回新的HttpResponse或StreamingHttpResponse对象。</p>
+
+<p>不像 process<em>request()和process</em>view()方法，即使同一个中间件类中的process<em>request()和process</em>view()方法会因为前面的一个中间件返回HttpResponse而被跳过，process<em>response()方法总是会被调用。特别是，这意味着你的process</em>response()方法不能依赖于process_request()方法中的设置。</p>
+
+<p>最后，记住在响应阶段中，中间件以相反的顺序被应用，自底向上。意思是定义在MIDDLEWARE_CLASSES最底下的类会最先被运行。</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记06_中间件',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

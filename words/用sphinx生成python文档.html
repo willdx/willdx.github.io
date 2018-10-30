@@ -1,0 +1,464 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 用sphinx生成python文档 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>用sphinx生成python文档</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>0.项目目录结构</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># godbox项目目录下包含了一个程序目录godbox</span>
+<span class="err">➜</span>  <span class="n">mycode</span> <span class="n">tree</span> <span class="o">-</span><span class="n">L</span> <span class="mi">2</span> <span class="n">godbox</span>
+<span class="n">godbox</span>
+<span class="err">├──</span> <span class="n">LICENSE</span>
+<span class="err">├──</span> <span class="n">MANIFEST</span><span class="o">.</span><span class="ow">in</span>
+<span class="err">├──</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="err">├──</span> <span class="n">cmd</span><span class="o">.</span><span class="n">sh</span>
+<span class="err">├──</span> <span class="n">docs</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">Makefile</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">build</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">geo</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">term</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">make</span><span class="o">.</span><span class="n">bat</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">modules</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">└──</span> <span class="n">source</span>
+<span class="err">├──</span> <span class="n">docs_bak</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">Makefile</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">build</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">godbox</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">make</span><span class="o">.</span><span class="n">bat</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">modules</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">setup</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">source</span>
+<span class="err">│  </span> <span class="err">└──</span> <span class="n">tests</span><span class="o">.</span><span class="n">rst</span>
+<span class="err">├──</span> <span class="n">godbox</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">VERSION</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">core</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">options</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">options</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">requirements</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">script</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">settings</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">settings_coding</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">settings_coding</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">status</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">status</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│  </span> <span class="err">├──</span> <span class="n">tests</span>
+<span class="err">│  </span> <span class="err">└──</span> <span class="n">utils</span>
+<span class="err">├──</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">tests</span>
+    <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">example_polyline</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_cmns</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_concurrency</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_ggpx</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_proj</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_redis_helper</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_retry</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_send_email</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">test_timeout</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">test_trace</span><span class="o">.</span><span class="n">py</span>
+
+<span class="mi">13</span> <span class="n">directories</span><span class="p">,</span> <span class="mi">47</span> <span class="n">files</span>
+</pre></div>
+</div>
+<h2>1.运行命令,生成doc工程</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>sphinx-quickstart
+</pre></div>
+</div>
+<h2>2.美化主题</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx_rtd_theme</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="n">docs_bak</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">conf</span><span class="o">.</span><span class="n">py</span>
+<span class="err">将原有的</span><span class="p">:</span> <span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;alabaster&#39;</span> <span class="err">注释掉</span>
+<span class="err">然后添加如下行到任意位置</span><span class="p">:</span>
+<span class="kn">import</span> <span class="nn">sphinx_rtd_theme</span>
+<span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_rtd_theme&#39;</span>
+<span class="n">html_theme_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">sphinx_rtd_theme</span><span class="o">.</span><span class="n">get_html_theme_path</span><span class="p">()]</span>
+<span class="n">html_title</span> <span class="o">=</span> <span class="s2">&quot;Godbox Documentation&quot;</span>
+<span class="n">html_short_title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">html_show_copyright</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<h2>3.生成rst</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 进入setup.py文件目录,也就是项目根目录</span>
+<span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">godbox</span>
+</pre></div>
+</div>
+<h2>4.生成html</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docs</span>
+<span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<h2>5.本地测试</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 进入html文件所在目录</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">daixiang</span><span class="o">/</span><span class="n">mycode</span><span class="o">/</span><span class="n">godbox</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">html</span>
+
+<span class="c1"># 执行命令</span>
+<span class="err">➜</span>  <span class="n">html</span> <span class="n">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span>
+<span class="n">Serving</span> <span class="n">HTTP</span> <span class="n">on</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">port</span> <span class="mi">8000</span> <span class="o">...</span>
+
+<span class="c1"># 在浏览器上验证:</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span>
+</pre></div>
+</div>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/godbox_web.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>主页</p>
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/godbox_index.jpeg"></p>
+                    <p class="img-title"><span class="symbol">#</span>索引</p>
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/godbox_model_index.jpeg"></p>
+                    <p class="img-title"><span class="symbol">#</span>模块索引</p>
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/Godbox_search.jpeg"></p>
+                    <p class="img-title"><span class="symbol">#</span>搜索页面</p></p>
+
+<h2>6.功能扩展</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 我们可以在默认生成的页面中嵌入一些需要补充的内容</span>
+<span class="err">例如</span><span class="p">:</span>
+<span class="n">license</span><span class="err">页面</span>
+<span class="n">installation</span> <span class="err">安装说明页面</span>
+<span class="n">start</span> <span class="err">快速开始页面</span>
+<span class="n">tutorial</span> <span class="err">常用功能教程页面</span>
+<span class="n">configuration</span> <span class="err">配置页面</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 1.首先我们应该在index.rst文件添加相关页面</span>
+
+<span class="n">vim</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">rst</span>
+
+<span class="c1"># 更改如下:  </span>
+<span class="o">..</span> <span class="n">godbox</span> <span class="n">documentation</span> <span class="n">master</span> <span class="nb">file</span><span class="p">,</span> <span class="n">created</span> <span class="n">by</span>
+   <span class="n">sphinx</span><span class="o">-</span><span class="n">quickstart</span> <span class="n">on</span> <span class="n">Thu</span> <span class="n">Feb</span> <span class="mi">23</span> <span class="mi">11</span><span class="p">:</span><span class="mo">03</span><span class="p">:</span><span class="mo">04</span> <span class="mf">2017.</span>
+   <span class="n">You</span> <span class="n">can</span> <span class="n">adapt</span> <span class="n">this</span> <span class="nb">file</span> <span class="n">completely</span> <span class="n">to</span> <span class="n">your</span> <span class="n">liking</span><span class="p">,</span> <span class="n">but</span> <span class="n">it</span> <span class="n">should</span> <span class="n">at</span> <span class="n">least</span>
+   <span class="n">contain</span> <span class="n">the</span> <span class="n">root</span> <span class="sb">`toctree`</span> <span class="n">directive</span><span class="o">.</span>
+
+<span class="err">欢迎查看</span><span class="n">Godbox</span><span class="err">文档</span>
+<span class="o">==================================</span>
+
+
+<span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">7</span><span class="n">xj7fg</span><span class="o">.</span><span class="n">com1</span><span class="o">.</span><span class="n">z0</span><span class="o">.</span><span class="n">glb</span><span class="o">.</span><span class="n">clouddn</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">godbox_image</span><span class="o">.</span><span class="n">jpg</span>
+    <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">660</span>
+
+
+<span class="o">..</span> <span class="n">important</span><span class="p">::</span>
+
+    <span class="n">Godbox</span><span class="err">是一个通用的</span><span class="n">python</span><span class="err">开发基础库</span>
+
+<span class="o">*</span> <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="sb">`genindex`</span>
+<span class="o">*</span> <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="sb">`modindex`</span>
+<span class="o">*</span> <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="sb">`search`</span>
+
+
+<span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
+   <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">4</span>
+   <span class="p">:</span><span class="n">caption</span><span class="p">:</span> <span class="n">Contents</span><span class="p">:</span>
+
+   <span class="n">license</span>
+   <span class="n">installation</span>
+   <span class="n">start</span>
+   <span class="n">tutorial</span>
+   <span class="n">configuration</span>
+   <span class="n">modules</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 2. 然后我们需要在对应存储rst文件目录添加我们需要的文件</span>
+<span class="c1"># 目录: /Users/daixiang/mycode/godbox/docs/source</span>
+<span class="n">license</span><span class="o">.</span><span class="n">rst</span>
+<span class="n">installation</span><span class="o">.</span><span class="n">rst</span>
+<span class="n">start</span><span class="o">.</span><span class="n">rst</span>
+<span class="n">tutorial</span><span class="o">.</span><span class="n">rst</span>
+<span class="n">configuration</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 3. 重新生成页面</span>
+<span class="n">cd</span>  <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">daixiang</span><span class="o">/</span><span class="n">mycode</span><span class="o">/</span><span class="n">godbox</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span>
+<span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<h2>7.再次浏览器查看</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/godbox_show.jpeg"></p>
+                    <p class="img-title"><span class="symbol">#</span>最终效果</p></p>
+
+<h2>8.参考链接</h2>
+
+<p><a href="http://bondlee.github.io/2016/04/24/%E7%94%A8sphinx%E7%94%9F%E6%88%90python%E6%96%87%E6%A1%A3/">用sphinx生成python文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: '用sphinx生成python文档',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

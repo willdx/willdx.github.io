@@ -1,0 +1,417 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记02_安装虚拟开发环境 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记02_安装虚拟开发环境</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>1.安装pip</h2>
+
+<h3>1.1 linux</h3>
+
+<p>(PS：在root下安装,非root不能使用yum命令)
+<code>python
+yum -y install python-pip 
+pip install pip --upgrade  
+</code></p>
+
+<h3>1.2 ubuntu</h3>
+
+<p>(PS：在普通用户下也可以安装，但是要使用sudo)</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
+    <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pip</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+<h2>2.修改默认的pip源</h2>
+
+<p>(PS: 用户级别的修改,系统的每个用户可以不一样)</p>
+
+<h3>2.1 修改为douban</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">~/.</span><span class="n">pip</span><span class="o">/</span><span class="n">pip</span><span class="o">.</span><span class="n">conf</span>
+    <span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">doubanio</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span>
+    <span class="n">trusted</span><span class="o">-</span><span class="n">host</span> <span class="o">=</span> <span class="n">pypi</span><span class="o">.</span><span class="n">doubanio</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<h3>2.2 修改为内部pypi服务器</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">~/.</span><span class="n">pip</span><span class="o">/</span><span class="n">pip</span><span class="o">.</span><span class="n">conf</span> 
+    <span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="o">=</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">fenxibao</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span>
+</pre></div>
+</div>
+<h3>2.3 测试安装 simplejson</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#若我们是在普通用户下：</span>
+    <span class="n">pip</span> <span class="n">install</span> <span class="n">simplejson</span>  
+    
+    <span class="c1">#会产生报错：</span>
+    <span class="sb">`error: could not create &#39;/usr/lib/python2.7/site-packages/simplejson&#39;: Permission denied 普通用户没有在/usr/lib/python2.7/site-packages/目录下创建文件和目录的权限`</span>
+
+    <span class="c1">#分析原因：</span>
+    <span class="n">pip</span><span class="err">安装包的时候，需要将包中的文件放入</span><span class="n">python</span> <span class="n">PATH</span><span class="err">中，而此时的普通用户没有该权限</span>
+    <span class="c1">#查看python PATH：</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+    
+    <span class="err">解决办法：配置</span><span class="n">python</span><span class="err">虚拟环境</span><span class="p">,</span><span class="err">请继续查看后续步骤</span>
+</pre></div>
+</div>
+<h2>3.安装和配置 zsh</h2>
+
+<p>(PS:我个人喜欢用zsh,所以后续配置在zsh中进行)</p>
+
+<h3>3.1 安装zsh</h3>
+
+<p>在root用户下：
+```python
+ubuntu:
+apt-get install zsh </p>
+
+<p>linux:
+yum -y install zsh
+```</p>
+
+<h3>3.2 使用oh-my-zsh套件</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">在普通用户下：</span>
+<span class="n">clone</span><span class="err">项目</span><span class="p">:</span>  
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">robbyrussell</span><span class="o">/</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">.</span><span class="n">git</span> <span class="o">~/.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span>
+<span class="err">使用模板</span><span class="p">:</span>   
+<span class="n">cp</span> <span class="o">~/.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">zshrc</span><span class="o">.</span><span class="n">zsh</span><span class="o">-</span><span class="n">template</span>  <span class="o">~/.</span><span class="n">zshrc</span>
+<span class="err">设为默认：</span>
+<span class="n">chsh</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">zsh</span> 
+<span class="err">或者</span>
+<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">zsh</span> <span class="n">will</span>
+<span class="err">查看版本：</span>
+<span class="n">zsh</span> <span class="o">--</span><span class="n">verison</span> <span class="p">(</span><span class="n">PS</span><span class="err">：新开一个</span><span class="n">shell</span><span class="err">终端连接</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>4.虚拟环境安装配置和使用</h2>
+
+<h3>4.1 安装和配置</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">在</span><span class="n">root</span><span class="err">用户下：</span>
+    <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span> <span class="n">virtualenvwrapper</span>
+    <span class="n">find</span> <span class="o">/</span> <span class="o">|</span><span class="n">grep</span> <span class="n">virtualenvwrapper</span><span class="o">.</span><span class="n">sh</span> 
+    <span class="err">例如结果是：</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">virtualenvwrapper</span><span class="o">.</span><span class="n">sh</span>
+
+    <span class="err">在普通用户下：</span>
+    <span class="n">vim</span>  <span class="o">~/.</span><span class="n">zshrc</span>
+    <span class="err">在末尾添加：</span> <span class="n">source</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">virtualenvwrapper</span><span class="o">.</span><span class="n">sh</span>
+    <span class="err">运行命令使配置生效：</span> <span class="n">source</span> <span class="o">~/.</span><span class="n">zshrc</span>
+    <span class="err">运行命令：</span><span class="n">mkvirtualenv</span>  <span class="err">可以知道虚拟环境配置已生效</span>
+    <span class="p">(</span><span class="n">PS</span><span class="err">：默认的虚拟环境被创建在</span><span class="o">~/.</span><span class="n">virtualenvs</span><span class="o">/</span><span class="err">下</span><span class="p">,</span><span class="err">并且默认是</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="err">的不依赖系统中已经安装好的第三方包</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>4.2 mkvirtualenv常规用法</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>列出虚拟环境列表:     `workon` or `lsvirtualenv`
+新建虚拟环境:            ` mkvirtualenv [虚拟环境名称]`
+启动/切换虚拟环境:   ` workon [虚拟环境名称]`
+删除虚拟环境:            ` rmvirtualenv [虚拟环境名称]`
+离开虚拟环境:            `deactivate`</pre></div></div>
+
+<h3>4.3虚拟环境中一些有用的设置</h3>
+<blockquote class="blockquote-normal">
+                <p>设置1：设定不能直接在系统环境中安装python第3方包；必须在虚拟环境中进行</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">➜</span>  <span class="o">~</span>  <span class="n">vim</span> <span class="o">~/.</span><span class="n">zshrc</span> 
+    <span class="err">添加：</span> <span class="n">export</span> <span class="n">PIP_REQUIRE_VIRTUALENV</span><span class="o">=</span><span class="n">true</span>
+    <span class="err">➜</span>  <span class="o">~</span>  <span class="n">source</span> <span class="o">~/.</span><span class="n">zshrc</span>
+    <span class="err">➜</span>  <span class="o">~</span>  <span class="n">pip</span> <span class="n">install</span> <span class="n">simplejson</span>
+    <span class="err">报错：</span><span class="n">Could</span> <span class="ow">not</span> <span class="n">find</span> <span class="n">an</span> <span class="n">activated</span> <span class="n">virtualenv</span> <span class="p">(</span><span class="n">required</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>设置2：为虚拟环境配置高版本的python</p><br/><p>某些程序（例如godbox）必须使用高版本的Python：以下是我yw1077<em>deadlock</em>data_collection小程序升级python的例子：</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">zxvf</span> <span class="n">Python</span><span class="o">-</span><span class="mf">2.7</span><span class="o">.</span><span class="mf">9.</span><span class="n">tgz</span> 
+    <span class="n">cd</span> <span class="n">Python</span><span class="o">-</span><span class="mf">2.7</span><span class="o">.</span><span class="mi">9</span>
+    <span class="o">./</span><span class="n">configure</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="mf">2.7</span><span class="o">.</span><span class="mi">9</span><span class="o">&amp;&amp;</span><span class="n">make</span><span class="o">&amp;&amp;</span><span class="n">make</span> <span class="n">install</span>
+    <span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="mf">2.7</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span> <span class="n">yw1077_deadlock_data_collection</span>
+    <span class="n">cd</span> <span class="n">yw1077_deadlock_data_collection</span><span class="o">/</span>
+    <span class="n">pip</span> <span class="n">install</span>  <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<h3>4.4 python2和python3共存时有可能出现问题</h3>
+
+<p>在 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 文件的最下方加入下面语句：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+
+       export WORKON_HOME=$HOME/.virtualenvs
+
+       export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+
+       source /usr/local/bin/virtualenvwrapper.sh
+
+fi</pre></div></div>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>env LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib" pip install mysqlclient</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记02_安装虚拟开发环境',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

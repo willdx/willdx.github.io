@@ -1,0 +1,581 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> python魔法方法专题03-匿名函数-闭包-偏函数-装饰器 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>python魔法方法专题03-匿名函数-闭包-偏函数-装饰器</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>匿名函数</h2>
+
+<p>关键字lambda表示匿名函数，冒号前面的x表示函数参数</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+<h2>闭包</h2>
+
+<p>闭包(Closure),关键词:自由变量 和 函数;闭包是由函数和与其引用的自由变量组合而成的实体;</p>
+
+<p>-直白的表述: 函数A(自由变量) 里面嵌套一个函数B(自由变量), 函数B()返回值,函数A返回函数B;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">var1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">var2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;var1:</span><span class="si">%s</span><span class="s2">;var2:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span><span class="n">var2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">B</span>
+<span class="c1">#调用</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">obj</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">obj</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>nonlocal</h3>
+<blockquote class="blockquote-normal">
+                <p>在 python 的函数内可以直接引用外部变量,但不能改写外部变量,因此如果在闭包中直接改写父函数的变量,就会发生错误</p></blockquote>
+<p>在 python2.x 中使用global 语句解决这个问题(不提倡)
+在python 3.x 中使用nonlocal 语句解决这个问题</p>
+<blockquote class="blockquote-normal">
+                <p>Nonlocal 与 global 的区别在于 nonlocal 语句会去搜寻本地变量与全局变量之间的变量，其会优先寻找层级关系与闭包作用域最近的外部变量</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#python 3.x</span>
+<span class="k">def</span> <span class="nf">cnt</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span> 
+    <span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">count</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;I am&quot;</span><span class="p">,</span><span class="n">param</span><span class="p">,</span><span class="s2">&quot;No.&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">counter</span>
+<span class="c1">#调用</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">(</span><span class="s2">&quot;doubi&quot;</span><span class="p">)</span>
+<span class="n">db</span><span class="p">()</span>
+<span class="n">db</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我们为什么使用闭包? 或者说闭包的作用？</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>闭包的使用上有点想类实例化对象:
+闭包的最大特点是可以**将父函数的变量与内部函数绑定**，并返回绑定变量后的函数（也即闭包），此时即便生成闭包的环境（父函数）已经释放，闭包仍然存在，这个过程很像类（父函数）生成实例（闭包），不同的是**父函数只在调用时执行，执行完毕后其环境就会释放**，而类则在文件执行时创建，一般程序执行完毕后作用域才释放，因此对一些需要重用的功能且不足以定义为类的行为，使用闭包会比使用类占用更少的资源，且更轻巧灵活;
+
+闭包用于封装,有效的减少了函数参数的数目,这一点和偏函数()很像;</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="mf">1.</span><span class="err">闭包</span>
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">int2</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span><span class="n">base</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">int2</span>
+<span class="c1">#调用</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">obj</span><span class="p">(</span><span class="s2">&quot;1000000&quot;</span><span class="p">)</span> <span class="c1">#return 64</span>
+</pre></div>
+</div>
+<h2>偏函数</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="mf">2.</span><span class="err">偏函数</span>
+<span class="err">格式</span><span class="p">:</span><span class="n">partial</span><span class="p">(</span><span class="err">函数</span><span class="p">,</span> <span class="err">函数参数</span><span class="o">=</span><span class="err">参数值</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="n">int2</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">int2</span><span class="p">(</span><span class="s1">&#39;1000000&#39;</span><span class="p">)</span> <span class="err">＃</span><span class="k">return</span> <span class="mi">64</span>
+</pre></div>
+</div>
+<p>总结: <strong>偏函数是闭包的一种应用,它让封装函数,减少参数数量很有用</strong></p>
+
+<h2>装饰器</h2>
+
+<p><strong>装饰器就是一种的闭包的应用,只不过其传递的是函数;</strong></p>
+
+<p>在面向对象（OOP）的设计模式中，decorator被称为装饰模式。OOP的装饰模式需要通过继承和组合来实现，而Python除了能支持OOP的decorator外，直接从语法层次支持decorator。Python的decorator可以用函数实现，也可以用类实现;</p>
+
+<p><strong>@functools.wraps(func) 装饰器的作用是保证经过装饰器装饰的函数的func.<strong>name</strong>属性不被改变为装饰器中的函数名称</strong></p>
+
+<h3>简单装饰器</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">add_handle</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
+    <span class="s2">&quot;&quot;&quot;装饰器接收函数”””</span>
+<span class="s2">    @functools.wraps(func)</span>
+<span class="s2">    def handle():</span>
+<span class="s2">        res = fun()</span>
+<span class="s2">        return &quot; &quot;.join([res,&quot;handle&quot;]) </span>
+<span class="s2">    return handle</span>
+<span class="s2">    </span>
+<span class="s2">@add_handle  #python语法</span>
+<span class="s2">def make_cake():</span>
+<span class="s2">    return &quot;cake&quot;</span>
+<span class="s2">    </span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    print make_cake()</span>
+</pre></div>
+</div>
+<h3>对带参数的函数进行装饰</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="k">def</span> <span class="nf">add_arg</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;对带参数的函数进行装饰&quot;&quot;&quot;</span>
+    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">arg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">res</span><span class="p">,</span><span class="n">arg</span><span class="p">])</span> 
+    <span class="k">return</span> <span class="n">add</span>
+    
+<span class="nd">@add_arg</span>
+<span class="k">def</span> <span class="nf">make_cake</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;cake&quot;</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">make_cake</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>带参数的装饰器</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="k">def</span> <span class="nf">add_arg_foo</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;带参数的装饰器&quot;&quot;&quot;</span>
+    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">add_arg</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;对带参数的函数进行装饰&quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">fun</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">res</span><span class="p">,</span><span class="n">arg</span><span class="p">])</span> <span class="c1">#实际返回结果</span>
+        <span class="k">return</span> <span class="n">add</span>
+    <span class="k">return</span> <span class="n">add_arg</span>
+
+<span class="nd">@add_arg_foo</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_cake</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;cake&quot;</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">make_cake</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>对一个函数应用多个装饰器</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">add_arg_foo</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;带参数的装饰器&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_arg</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;对带参数的函数进行装饰&quot;&quot;&quot;</span>
+        <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">res</span><span class="p">,</span><span class="n">arg</span><span class="p">])</span> <span class="c1">#实际返回结果</span>
+        <span class="k">return</span> <span class="n">add</span>
+    <span class="k">return</span> <span class="n">add_arg</span>
+
+<span class="k">def</span> <span class="nf">add_hand_foo</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_hand</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">arg</span><span class="p">,</span><span class="n">res</span><span class="p">])</span> <span class="c1">#实际返回结果</span>
+        <span class="k">return</span> <span class="n">add</span>
+    <span class="k">return</span> <span class="n">add_hand</span>
+       
+<span class="nd">@add_hand_foo</span><span class="p">(</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span>
+<span class="nd">@add_arg_foo</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_cake</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;cake&quot;</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">make_cake</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>类装饰器 用<strong>init</strong>()和<strong>call</strong>()来实现</h3>
+
+<h4>简单类装饰器</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">class</span> <span class="nc">add_arg_foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    带参数的类装饰器：当装饰器有参数的时候，__init__() 成员就不能传入func了，而是在__call__中传入;</span>
+<span class="sd">    此时在__init__()函数中传递装饰器参数，在__call__中重新定义装饰器,并在wrapped()函数传递函数参数；</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;self.func.__name__:&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(),</span> <span class="s2">&quot;test&quot;</span><span class="p">])</span>    
+
+<span class="nd">@add_arg_foo</span>
+<span class="k">def</span> <span class="nf">make_cake</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;cake&quot;</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">make_cake</span><span class="p">()</span>
+</pre></div>
+</div>
+<h4>装饰器和被装饰的函数都带参数</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">class</span> <span class="nc">add_arg_foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    带参数的类装饰器：当装饰器有参数的时候，__init__() 成员就不能传入func了，而是在__call__中传入;</span>
+<span class="sd">    此时在__init__()函数中传递装饰器参数，在__call__中重新定义装饰器,并在wrapped()函数传递函数参数；</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parma</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parma</span> <span class="o">=</span> <span class="n">parma</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s2">&quot;func.__name__, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">res</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">parma</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">wrapped</span>
+    
+<span class="nd">@add_arg_foo</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+<span class="nd">@add_arg_foo</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_cake</span><span class="p">(</span><span class="n">parma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;cake&quot;</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">make_cake</span><span class="p">(</span><span class="s2">&quot;parma&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h4>装饰类</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#-*-coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 2016年6月28日</span>
+<span class="sd">@author: daixiang</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">class</span> <span class="nc">add_arg_foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    对类进行装饰，对类进行一系列的操作，最后可以return一个新的类，或者类的实例，或着其他</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parma</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parma</span> <span class="o">=</span> <span class="n">parma</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s2">&quot;cls.__name__, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">add_new_parma</span> <span class="o">=</span> <span class="s2">&quot;add_new_parma&quot;</span>
+            <span class="k">return</span> <span class="n">res</span> <span class="c1">#对类的属性进行增加操作，实例化，最后返回修改后的类的实例</span>
+        <span class="k">return</span> <span class="n">wrapped</span>
+    
+    
+<span class="nd">@add_arg_foo</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">make_cake</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parma</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parma</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;cake&quot;</span><span class="p">,</span><span class="n">parma</span><span class="p">])</span>
+    
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parma</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">make_cake</span><span class="p">(</span><span class="s2">&quot;parma&quot;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">parma</span>
+    <span class="k">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">add_new_parma</span>
+    <span class="k">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>装饰器打日志</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="k">def</span> <span class="nf">logger</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">te</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s2">&quot;function      = {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;    arguments = {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;    return    = {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;    time      = </span><span class="si">%.6f</span><span class="s2"> sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python魔法方法专题03-匿名函数-闭包-偏函数-装饰器',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

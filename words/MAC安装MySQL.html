@@ -1,0 +1,423 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> MAC安装MySQL </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>MAC安装MySQL</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1. install</h1>
+
+<p><a href="http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.7/mysql-5.7.18-macos10.12-x86_64.dmg">下载地址</a></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14930328649559.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14930329371248.jpg"></p>
+</p>
+<blockquote class="blockquote-normal">
+                <p>注意,请记录这个密码, 后续可以更改</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14930329946564.jpg"></p>
+</p>
+<blockquote class="blockquote-normal">
+                <p>一直下一步, 安装完成后进行额外配置</p></blockquote>
+<h1>2. 额外配置</h1>
+
+<h2>2.1 进入系统偏好设置,启动MySQL</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14930331860104.jpg"></p>
+</p>
+
+<h2>2.2 将mysql加入系统环境变量</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#1. 在~/.bash_profile 或者 ~/.bashrc 或者 ~/.zshrc配置mysql环境变量</span>
+    <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/mysql/bin
+<span class="c1">#2.  使配置生效 (我是~/.zshrc)</span>
+    <span class="nb">source</span>  ~/.zshrc
+</pre></div>
+</div>
+<h2>2.3 更改密码</h2>
+<blockquote class="blockquote-normal">
+                <p>安装时生成的密码复杂度太变态, 方便使用我们更改密码</p></blockquote><div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>mysql -uroot -p <span class="c1"># 输入安装时生成的密码 </span>
+SET PASSWORD FOR <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span> <span class="o">=</span> PASSWORD<span class="o">(</span><span class="s1">&#39;l&#39;</span><span class="o">)</span><span class="p">;</span> <span class="c1"># 执行命令修改为新密码</span>
+</pre></div>
+</div>
+<h2>2.4 命令行插件</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mycli</span>
+</pre></div>
+</div>
+<h2>2.5 修复字符集</h2>
+
+<p><p class="hassubimage"><img src="media/15076170467951.jpg"></p>
+</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">mysql</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">help</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">my</span><span class="o">.</span><span class="n">cnf</span>
+</pre></div>
+</div>
+<p>发现:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>Default options are read from the following files in the given order:
+/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf</pre></div></div>
+
+<p>也就是说:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>MySQL启动时会读取配置文件my.cnf，读取次序依次为:
+ 
+1. /etc/my.cnf
+2. /etc/mysql/my.cnf
+3. /usr/local/etc/my.cnf
+4. ~/.my.cnf</pre></div></div>
+
+<p>但是<a href="https://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html">官网</a>:</p>
+
+<p>提示5.7.18版本之后就不会把默认的my-default.cnf文件放到编译文件中去</p>
+
+<p><p class="hassubimage"><img src="media/15076210723741.jpg"></p>
+</p>
+
+<p>我的版本:</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">➜</span>  <span class="n">mysql</span> <span class="n">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">V</span>
+<span class="n">mysql</span>  <span class="n">Ver</span> <span class="mf">14.14</span> <span class="n">Distrib</span> <span class="mf">5.7</span><span class="o">.</span><span class="mi">11</span><span class="p">,</span> <span class="k">for</span> <span class="n">osx10</span><span class="o">.</span><span class="mi">11</span> <span class="p">(</span><span class="n">x86_64</span><span class="p">)</span> <span class="n">using</span>  <span class="n">EditLine</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>So: 我么发现本地的mysql是在特定的路径下</p>
+
+<p><p class="hassubimage"><img src="media/15076216030019.jpg"></p>
+</p>
+
+<p>sudo cp /usr/local/Cellar/mysql/5.7.11/support-files/ /etc/my.cnf</p>
+
+<p>更改后的文件的配置如下:</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># For advice on how to change settings please see</span>
+<span class="c1"># http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html</span>
+<span class="c1"># *** DO NOT EDIT THIS FILE. It&#39;s a template which will be copied to the</span>
+<span class="c1"># *** default location during install, and will be replaced if you</span>
+<span class="c1"># *** upgrade to a newer version of MySQL.</span>
+
+<span class="p">[</span><span class="n">client</span><span class="p">]</span>
+<span class="n">default</span><span class="o">-</span><span class="n">character</span><span class="o">-</span><span class="nb">set</span><span class="o">=</span><span class="n">utf8</span>
+
+<span class="p">[</span><span class="n">mysqld</span><span class="p">]</span>
+<span class="n">character</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">utf8</span>
+
+<span class="c1"># Remove leading # and set to the amount of RAM for the most important data</span>
+<span class="c1"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.</span>
+<span class="c1"># innodb_buffer_pool_size = 128M</span>
+
+<span class="c1"># Remove leading # to turn on a very important data integrity option: logging</span>
+<span class="c1"># changes to the binary log between backups.</span>
+<span class="c1"># log_bin</span>
+
+<span class="c1"># These are commonly set, remove the # and set as required.</span>
+<span class="c1"># basedir = .....</span>
+<span class="c1"># datadir = .....</span>
+<span class="c1"># port = .....</span>
+<span class="c1"># server_id = .....</span>
+<span class="c1"># socket = .....</span>
+
+<span class="c1"># Remove leading # to set options mainly useful for reporting servers.</span>
+<span class="c1"># The server defaults are faster for transactions and fast SELECTs.</span>
+<span class="c1"># Adjust sizes as needed, experiment to find the optimal values.</span>
+<span class="c1"># join_buffer_size = 128M</span>
+<span class="c1"># sort_buffer_size = 2M</span>
+<span class="c1"># read_rnd_buffer_size = 2M</span>
+
+<span class="n">sql_mode</span><span class="o">=</span><span class="n">NO_ENGINE_SUBSTITUTION</span><span class="p">,</span><span class="n">STRICT_TRANS_TABLES</span>
+</pre></div>
+</div>
+<p>再次查看结果:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>mysql> status
+--------------
+mysql  Ver 14.14 Distrib 5.7.11, for osx10.11 (x86_64) using  EditLine wrapper
+
+Connection id:      11
+Current database:
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      less
+Using outfile:      ''
+Using delimiter:    ;
+Server version:     5.7.18 MySQL Community Server (GPL)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /tmp/mysql.sock
+Uptime:         17 sec
+
+Threads: 1  Questions: 6  Slow queries: 0  Opens: 105  Flush tables: 1  Open tables: 98  Queries per second avg: 0.352</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'MAC安装MySQL',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

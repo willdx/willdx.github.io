@@ -1,0 +1,527 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Study_Fabric_执行模型 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Study_Fabric_执行模型</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>目录</h2>
+
+<p>1.默认执行模型</p>
+
+<p>2.定义主机列表</p>
+
+<p>3.定义角色</p>
+
+<p>4.执行任务execute</p>
+
+<p>5.获得结果</p>
+
+<p>6.动态定义主机列表</p>
+
+<p>7.故障处理</p>
+
+<p>8.连接/懒惰连接</p>
+
+<p>9.关闭连接</p>
+
+<p>10.多次尝试连接并跳过坏主机</p>
+
+<p>11.密码管理</p>
+
+<p>12.利用原生的SSH配置文件</p>
+
+<p>__</p>
+
+<h2>1.默认执行模型</h2>
+<blockquote class="blockquote-normal">
+                <p>说明：Fabric默认是单一的，串行执行</p></blockquote>
+<p><strong>例子</strong></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#代码部分</span>
+    from fabric.api import env, run
+
+    env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host1&#39;</span>, <span class="s1">&#39;host2&#39;</span><span class="o">]</span>
+    def mytask<span class="o">()</span>:
+        run<span class="o">(</span><span class="s1">&#39;ls /var/www&#39;</span><span class="o">)</span>
+    
+    <span class="c1">#命令行执行</span>
+    fab taskA taskB
+
+    <span class="c1">#执行过程</span>
+    taskA executed on host1
+    taskA executed on host2
+    taskB executed on host1
+    taskB executed on host2
+</pre></div>
+</div>
+<h2>2.定义主机列表</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>host定义形式: username@hostname:port
+        例子:admin@willdx.com:22
+
+    注释:也支持ipv6
+        例子:user@<span class="o">[</span><span class="m">2001</span>:db8::1<span class="o">]</span>:1222
+
+    设定主机列表:
+        <span class="o">(</span><span class="m">1</span><span class="o">)</span>在模块级别定义
+        <span class="c1">#执行fab mytask1 和 fab mytask2都将会直接在host1和host2上执行</span>
+        from fabric.api import env, run
+        env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host1&#39;</span>, <span class="s1">&#39;host2&#39;</span><span class="o">]</span>
+        def mytask1<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/test1&#39;</span><span class="o">)</span>
+        def mytask2<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/test2&#39;</span><span class="o">)</span>
+
+        <span class="o">(</span><span class="m">2</span><span class="o">)</span>在任务级别定义
+        <span class="c1">#执行fab set_host1 mytask1 会在host1上执行</span>
+        <span class="c1">#执行fab set_host2 mytask2 会在host2上执行</span>
+        from fabric.api import env, run
+        def set_host1<span class="o">()</span>:
+            env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host1&#39;</span><span class="o">]</span>
+        def set_host1<span class="o">()</span>:
+            env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host2&#39;</span><span class="o">]</span>
+        def mytask1<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/test1&#39;</span><span class="o">)</span>
+        def mytask2<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/test2&#39;</span><span class="o">)</span>
+
+        <span class="o">(</span><span class="m">3</span><span class="o">)</span>同时设定模块和任务级别
+        <span class="c1">#可以同时用以下2种定义方式,他们的值互相重写而不是合并</span>
+        from fabric.api import env, run
+        env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host1&#39;</span>, <span class="s1">&#39;host2&#39;</span><span class="o">]</span>
+        def set_host1<span class="o">()</span>:
+            env.hosts <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;host1&#39;</span><span class="o">]</span>
+        def mytask1<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/test1&#39;</span><span class="o">)</span>
+        <span class="c1">#若使用fab mytask1 那么会在host1和host2上执行</span>
+        <span class="c1">#若使用fab set_host1 mytask1 只会字在host1上执行</span>
+
+        <span class="o">(</span><span class="m">4</span><span class="o">)</span>在命令行使用<span class="sb">`</span>-H HOSTS, --hosts<span class="o">=</span>HOSTS<span class="sb">`</span>全局环境定义hosts
+        fab -H host1,host2 mytask
+        注：
+        在命令行使用<span class="sb">`</span>-R ROLES, --roles<span class="o">=</span>ROLES<span class="sb">`</span>在全局环境下定义角色
+        在命令行用<span class="sb">`</span>-x HOSTS, --exclude-hosts<span class="o">=</span>HOSTS<span class="sb">`</span> 定义排除的host
+        <span class="o">(</span>PS:更多fab设置请参见: fab --help<span class="o">)</span>
+
+    添加主机列表
+        from fabric.api import env, run
+        env.hosts.extend<span class="o">([</span><span class="s1">&#39;host3&#39;</span>, <span class="s1">&#39;host4&#39;</span><span class="o">])</span>
+        def mytask<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/www&#39;</span><span class="o">)</span>
+        run: fab -H host1,host2 mytask, env.hosts 
+        executed:将会在<span class="o">[</span><span class="s1">&#39;host1&#39;</span>, <span class="s1">&#39;host2&#39;</span>, <span class="s1">&#39;host3&#39;</span>, <span class="s1">&#39;host4&#39;</span><span class="o">]</span>上执行 
+        <span class="o">(</span>PS: env.hosts只是一个列表对象,所以也可以使用append方法<span class="o">)</span>
+
+    确保任务只在指定的host中执行
+        <span class="c1">#This will override any other host list and ensure mytask always runs on just those two hosts.</span>
+        方法1:fab mytask:hosts<span class="o">=</span><span class="s2">&quot;host1;host2&quot;</span>
+        方法2:装饰器
+        <span class="nv">my_hosts</span> <span class="o">=</span> <span class="o">(</span><span class="s1">&#39;host1&#39;</span>, <span class="s1">&#39;host2&#39;</span><span class="o">)</span>
+        @hosts<span class="o">(</span>my_hosts<span class="o">)</span>
+        def mytask<span class="o">()</span>:
+
+     主机列表合并
+        from fabric.api import env, hosts, roles, run
+        env.roledefs <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;role1&#39;</span>: <span class="o">[</span><span class="s1">&#39;b&#39;</span>, <span class="s1">&#39;c&#39;</span><span class="o">]}</span>
+        @hosts<span class="o">(</span><span class="s1">&#39;a&#39;</span>, <span class="s1">&#39;b&#39;</span><span class="o">)</span>
+        @roles<span class="o">(</span><span class="s1">&#39;role1&#39;</span><span class="o">)</span>
+        def mytask<span class="o">()</span>:
+            run<span class="o">(</span><span class="s1">&#39;ls /var/www&#39;</span><span class="o">)</span>
+        <span class="c1">#将会执行[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+
+    主机列表重复数据删除
+        默认情况下Fabric会将主机列表去重,env.dedupe_hosts <span class="o">=</span> True
+        如果要允许重复需要:env.dedupe_hosts <span class="o">=</span> False 关闭去重功能
+    
+    排除特定主机
+        fab -R myrole -x host2,host5 mytask
+        fab mytask:roles<span class="o">=</span>myrole,exclude_hosts<span class="o">=</span><span class="s2">&quot;host2;host5&quot;</span>
+        注：装饰器设定的主机列表能够排除
+        一个任务功能，装饰着@hosts<span class="o">(</span>host1,host2<span class="o">)</span><span class="nv">exclude_hosts</span><span class="o">=</span>host2将只能运行在host1
+</pre></div>
+</div>
+<h2>3.定义角色</h2>
+<blockquote class="blockquote-normal">
+                <p>roledefs可以用于将主机分组<br/>    #在env.roledefs中定义了role和host的对应关系,其中host存在于env.hosts,其中role存在于env.roles  </p></blockquote><div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>from fabric.api import env
+    <span class="c1">#定义roles</span>
+    env.roledefs <span class="o">=</span> <span class="o">{</span>
+    <span class="s1">&#39;web&#39;</span>: <span class="o">[</span><span class="s1">&#39;www1&#39;</span>, <span class="s1">&#39;www2&#39;</span>, <span class="s1">&#39;www3&#39;</span><span class="o">]</span>,
+    <span class="s1">&#39;dns&#39;</span>: <span class="o">[</span><span class="s1">&#39;ns1&#39;</span>, <span class="s1">&#39;ns2&#39;</span><span class="o">]</span>
+    <span class="o">}</span>
+    <span class="c1">#添加一个role</span>
+    env.roledefs<span class="o">[</span><span class="s1">&#39;webservers&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;www1&#39;</span>, <span class="s1">&#39;www2&#39;</span>, <span class="s1">&#39;www3&#39;</span><span class="o">]</span>
+    <span class="c1">#roledefs是一个字典,key用role名称表示,value既可以定义为主机的列表，也可以定义为一个字典(PS:主机列表为`hosts键`的值) </span>
+    <span class="c1">#例子</span>
+    env.roledefs <span class="o">=</span> <span class="o">{</span>
+    <span class="s1">&#39;web&#39;</span>: <span class="o">{</span>
+        <span class="s1">&#39;hosts&#39;</span>: <span class="o">[</span><span class="s1">&#39;www1&#39;</span>, <span class="s1">&#39;www2&#39;</span>, <span class="s1">&#39;www3&#39;</span><span class="o">]</span>,
+        <span class="s1">&#39;foo&#39;</span>: <span class="s1">&#39;bar&#39;</span>
+    <span class="o">}</span>,
+    <span class="s1">&#39;dns&#39;</span>: <span class="o">{</span>
+        <span class="s1">&#39;hosts&#39;</span>: <span class="o">[</span><span class="s1">&#39;ns1&#39;</span>, <span class="s1">&#39;ns2&#39;</span><span class="o">]</span>,
+        <span class="s1">&#39;foo&#39;</span>: <span class="s1">&#39;baz&#39;</span>
+    <span class="o">}}</span>
+</pre></div>
+</div>
+<h2>4.执行任务execute</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="m">1</span>.命令行下 fab  task
+    <span class="m">2</span>.execute<span class="o">(</span>函数名称<span class="o">)</span>
+
+    from fabric.api import run, roles
+
+    env.roledefs <span class="o">=</span> <span class="o">{</span>
+        <span class="s1">&#39;db&#39;</span>: <span class="o">[</span><span class="s1">&#39;db1&#39;</span>, <span class="s1">&#39;db2&#39;</span><span class="o">]</span>,
+        <span class="s1">&#39;web&#39;</span>: <span class="o">[</span><span class="s1">&#39;web1&#39;</span>, <span class="s1">&#39;web2&#39;</span>, <span class="s1">&#39;web3&#39;</span><span class="o">]</span>,
+    <span class="o">}</span>
+    
+    @roles<span class="o">(</span><span class="s1">&#39;db&#39;</span><span class="o">)</span>
+    def migrate<span class="o">()</span>:
+        <span class="c1"># Database stuff here.</span>
+        pass
+    
+    @roles<span class="o">(</span><span class="s1">&#39;web&#39;</span><span class="o">)</span>
+    def update<span class="o">()</span>:
+        <span class="c1"># Code updates here.</span>
+        pass
+
+    <span class="o">(</span><span class="m">1</span><span class="o">)</span>fab migrate update
+    <span class="o">(</span><span class="m">2</span><span class="o">)</span>在上述脚本中添加如下代码：
+    from fabric.api import run, roles, execute
+    def deploy<span class="o">()</span>:
+        execute<span class="o">(</span>migrate<span class="o">)</span>
+        execute<span class="o">(</span>update<span class="o">)</span>
+    然后在命令行:fab deploy
+</pre></div>
+</div>
+<h2>5.获得结果</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>from fabric.api import task, execute, run, runs_once
+
+    @task
+    def workhorse<span class="o">()</span>:
+        <span class="k">return</span> run<span class="o">(</span><span class="s2">&quot;get my infos&quot;</span><span class="o">)</span>
+    
+    @task
+    @runs_once
+    def go<span class="o">()</span>:
+        <span class="nv">results</span> <span class="o">=</span> execute<span class="o">(</span>workhorse<span class="o">)</span>
+        print results
+</pre></div>
+</div>
+<h2>6.动态定义主机列表</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="nv">result</span> <span class="o">=</span> execute<span class="o">(</span>do_work, <span class="nv">hosts</span><span class="o">=</span>host_list<span class="o">)</span>
+    或者
+    def set_hosts<span class="o">(</span>param<span class="o">)</span>:
+        env.hosts <span class="o">=</span> param
+    fab set_hosts:app do_work
+</pre></div>
+</div>
+<h2>7.故障处理</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>默认如果出现问题，如远程程序返回一个非零返回值，或者你fabfile的Python代码遇到一个例外，执行将立即停止
+但是，如果env.warn_only设置为真，在失败的时候-有，比方说，在设置上下文管理器-布会发出警告信息，但继续执行</pre></div></div>
+
+<h2>8.连接/懒惰连接</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(PS:看不太懂)</pre></div></div>
+
+<h2>9.关闭连接</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>在脚本的末尾调用disconnect_all</pre></div></div>
+
+<h2>10.多次尝试连接并跳过坏主机</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>env.connection_attempts
+    env.timeout
+    env.skip_bad_hosts
+</pre></div>
+</div>
+<h2>11.密码管理</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>env.password是一个简单的缺省或回退密码缓存,也可以在命令行--password or --initial-password-prompt 
+
+env.passwords : {host:pass}  用户名和密码的组合,其中用户名为:host@hostname:port
+例子：
+env.passwords = {"root@hostname:22": "XXX",}</pre></div></div>
+
+<h2>12.利用原生的SSH配置文件</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(PS:看不太懂)</pre></div></div>
+
+<p>~PS:<a href="http://fabric-chs.readthedocs.org/zh_CN/chs/usage/execution.html#closing-connections">原文连接</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Study_Fabric_执行模型',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

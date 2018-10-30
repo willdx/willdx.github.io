@@ -1,0 +1,474 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> elasticsearch破解与升级 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>elasticsearch破解与升级</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1. elasticsearch破解</h1>
+
+<p>声明：本文仅作为学习交流，请勿用于商业用途，否则后果自负。 <a href="https://my.oschina.net/guol/blog/1204258">文章来源</a></p>
+
+<h2>1.1 ES软件下载</h2>
+
+<p><a href="https://www.elastic.co/downloads">软件下载页面</a></p>
+
+<h2>1.2 准备工作</h2>
+
+<ul>
+<li>确保Java是1.8版本</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 目录 </span>
+    <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span>
+<span class="c1"># 软件</span>
+    <span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span>
+    <span class="n">kibana</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">darwin</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+    <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span>
+    
+<span class="c1"># 解压后的目录结构</span>
+<span class="err">➜</span>  <span class="o">~</span> <span class="n">tree</span> <span class="o">-</span><span class="n">L</span> <span class="mi">1</span> <span class="n">elk_stack</span>
+<span class="n">elk_stack</span>
+<span class="err">├──</span> <span class="n">LicenseVerifier</span><span class="o">.</span><span class="n">java</span>   <span class="c1"># 后续待替换文件</span>
+<span class="err">├──</span> <span class="n">dai</span><span class="o">-</span><span class="n">xiang</span><span class="o">-</span><span class="mi">174</span><span class="n">d190e</span><span class="o">-</span><span class="mi">429</span><span class="n">d</span><span class="o">-</span><span class="mi">4452</span><span class="o">-</span><span class="n">abd7</span><span class="o">-</span><span class="mf">3e081</span><span class="n">d5a4abd</span><span class="o">-</span><span class="n">v5</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># 后续申请的 license</span>
+<span class="err">├──</span> <span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span> 
+<span class="err">├──</span> <span class="n">kibana</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">darwin</span><span class="o">-</span><span class="n">x86_64</span>
+<span class="err">├──</span> <span class="n">packages</span> <span class="c1"># 将下载的压缩包都放到这个目录存档</span>
+<span class="err">└──</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span> <span class="c1"># 破解后的 x-park 关键文件</span>
+</pre></div>
+</div>
+<h2>1.3 安装X-Pack</h2>
+
+<h3>1.3.1 Elasticsearch安装X-Pack</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="n">plugin</span> <span class="n">install</span> <span class="nb">file</span><span class="p">:</span><span class="o">///</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<h3>1.3.2 Kibana安装X-Pack</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">kibana</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">darwin</span><span class="o">-</span><span class="n">x86_64</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">kibana</span><span class="o">-</span><span class="n">plugin</span> <span class="n">install</span> <span class="nb">file</span><span class="p">:</span><span class="o">///</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<h3>1.3.3 启动服务,并查看 license 信息</h3>
+
+<ul>
+<li>启动服务</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># kibana</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">kibana</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">darwin</span><span class="o">-</span><span class="n">x86_64</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">kibana</span>
+
+<span class="c1"># elasticsearch</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">elasticsearch</span> <span class="o">-</span><span class="n">d</span> <span class="c1"># -d表示后台运行</span>
+</pre></div>
+</div>
+<ul>
+<li>验证 elasticsearch正常运行</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009764927510.jpg"></p>
+</p>
+
+<ul>
+<li>登陆 kibana </li>
+</ul>
+
+<p><a href="http://localhost:5601/">浏览器访问:http://localhost:5601/</a></p>
+
+<p>注释: X-pack默认账户名/密码: <code>elastic/changeme</code></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009746097037.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>登陆页面</p></p>
+
+<h3>1.3.4 正式破解过程</h3>
+
+<ul>
+<li>创建文件, LicenseVerifier.java, 需编译此文件后替换x-pack的jar包中的对应文件</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">package</span> <span class="n">org</span><span class="o">.</span><span class="n">elasticsearch</span><span class="o">.</span><span class="n">license</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.nio.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.security.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.elasticsearch.common.xcontent.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.util.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.elasticsearch.common.io.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.</span><span class="o">*</span><span class="p">;</span>
+
+<span class="n">public</span> <span class="k">class</span> <span class="nc">LicenseVerifier</span>
+<span class="p">{</span>
+    <span class="n">public</span> <span class="n">static</span> <span class="n">boolean</span> <span class="n">verifyLicense</span><span class="p">(</span><span class="n">final</span> <span class="n">License</span> <span class="n">license</span><span class="p">,</span> <span class="n">final</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">encryptedPublicKeyData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">boolean</span> <span class="n">verifyLicense</span><span class="p">(</span><span class="n">final</span> <span class="n">License</span> <span class="n">license</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li>编译生成class文件</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">javac</span> <span class="o">-</span><span class="n">cp</span> <span class="s2">&quot;/Users/willdx/elk_stack/elasticsearch-5.5.0/lib/elasticsearch-5.5.0.jar:/Users/willdx/elk_stack/elasticsearch-5.5.0/lib/lucene-core-6.6.0.jar:/Users/willdx/elk_stack/elasticsearch-5.5.0/plugins/x-pack/x-pack-5.5.0.jar&quot;</span> <span class="n">LicenseVerifier</span><span class="o">.</span><span class="n">java</span>
+</pre></div>
+</div>
+<p><a href="https://www.elastic.co/guide/en/x-pack/current/installing-license.html">更新license</a></p>
+
+<ul>
+<li>替换 x-pack 中对应文件</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">/</span>
+<span class="n">mkdir</span> <span class="n">test</span>
+<span class="n">cd</span> <span class="n">test</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span> <span class="o">.</span>
+
+<span class="c1"># 解包</span>
+<span class="n">unzip</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.</span><span class="n">zip</span>
+<span class="n">cp</span> <span class="n">elasticsearch</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span> <span class="o">.</span>
+<span class="n">jar</span> <span class="n">xvf</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span>
+<span class="n">rm</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span>
+
+<span class="c1"># 替换</span>
+<span class="n">cd</span> <span class="n">org</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">/</span><span class="n">license</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">f</span> <span class="n">LicenseVerifier</span><span class="o">.</span><span class="k">class</span>
+<span class="nc">mv</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">LicenseVerifier</span><span class="o">.</span><span class="k">class</span> <span class="err">.</span>
+
+<span class="c1"># 重新打包</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">willdx</span><span class="o">/</span><span class="n">elk_stack</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">/</span><span class="n">test</span>
+<span class="n">jar</span> <span class="n">cvf</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="n">x</span><span class="o">-</span><span class="n">pack</span><span class="o">-</span><span class="mf">5.5</span><span class="o">.</span><span class="mf">0.j</span><span class="n">ar</span> <span class="o">../</span>
+</pre></div>
+</div>
+<ul>
+<li>申请license</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009747708828.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>已破解后的过期时间</p></p>
+
+<p>点击上图框选部分, 得到下图:(按照官方文档进行查询和更新 license)</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009749735037.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>申请 license</p></p>
+
+<ul>
+<li>修改license文件</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># vim dai-xiang-174d190e-429d-4452-abd7-3e081d5a4abd-v5.json</span>
+<span class="p">{</span><span class="n">license</span><span class="p">:{</span><span class="n">uid</span><span class="p">:</span><span class="mi">174</span><span class="n">d190e</span><span class="o">-</span><span class="mi">429</span><span class="n">d</span><span class="o">-</span><span class="mi">4452</span><span class="o">-</span><span class="n">abd7</span><span class="o">-</span><span class="mf">3e081</span><span class="n">d5a4abd</span><span class="p">,</span><span class="nb">type</span><span class="p">:</span><span class="n">platinum</span><span class="p">,</span><span class="n">issue_date_</span>               <span class="n">in_millis</span><span class="p">:</span><span class="mi">1500940800000</span><span class="p">,</span><span class="n">expiry_date_in_millis</span><span class="p">:</span><span class="mi">9532563199999</span><span class="p">,</span><span class="n">max_nodes</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="n">issued_</span>          <span class="n">to</span><span class="p">:</span><span class="n">dai</span> <span class="n">xiang</span> <span class="p">(</span><span class="n">xingzhe</span><span class="p">),</span><span class="n">issuer</span><span class="p">:</span><span class="n">Web</span> <span class="n">Form</span><span class="p">,</span><span class="n">signature</span><span class="p">:</span><span class="n">AAAAAwAAAA1XWQCMgFaiOyQkTQL2</span>              <span class="n">BmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXN</span>    <span class="n">PbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteW</span>    <span class="n">FNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFO</span>    <span class="n">HhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJ</span>    <span class="n">Ukk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGV</span>    <span class="n">ySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NT</span>    <span class="n">ltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQAq3BbqmitjNvcS7t11JZWEcpO2IN50Jge5tY</span><span class="o">+</span><span class="n">WXiS3LY</span><span class="o">/</span><span class="n">jFQirCCrKl</span>    <span class="n">unW</span><span class="o">+</span><span class="n">XHecdc</span><span class="o">/</span><span class="n">Po6WrEY6F5</span><span class="o">++</span><span class="n">nZtuUqaYPLGKq</span><span class="o">+</span><span class="n">wWUwSTM24OULtuW5OnNTGfYhPVS</span><span class="o">/</span><span class="n">OSNnHcbA</span><span class="o">/</span><span class="mi">5</span><span class="n">N5mwO8RPjqkl</span>    <span class="n">dilEVuSxy2sSu</span><span class="o">+</span><span class="n">da4oj3AJKQojy</span><span class="o">+</span><span class="n">ZeNvL2I41tChTwUM6TpHSTgdlVa5bUW5</span><span class="o">/</span><span class="n">A9k9tnMqiwmNQnJC1I2CcjgZRT</span>    <span class="n">B</span><span class="o">+</span><span class="n">BTjs7tfMZ</span><span class="o">+</span><span class="n">cnVTy3nvZurrUPP2uLaGzzOtrvKa76qpwQD2JZtogljSE</span><span class="o">+</span><span class="n">Zc2wkfkqvgEvTlVw</span><span class="o">+</span><span class="n">AjDaNQfdLxrO</span>    <span class="n">JGzUadwLUcjhWR2mOD6hIfXe7O</span><span class="p">,</span><span class="n">start_date_in_millis</span><span class="p">:</span><span class="mi">1500940800000</span><span class="p">}}</span>
+</pre></div>
+</div>
+<ul>
+<li>更新 license </li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">XPUT</span> <span class="o">-</span><span class="n">u</span> <span class="n">elastic</span> <span class="s1">&#39;http://127.0.0.1:9200/_xpack/license?acknowledge=true&#39;</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="nd">@dai</span><span class="o">-</span><span class="n">xiang</span><span class="o">-</span><span class="mi">174</span><span class="n">d190e</span><span class="o">-</span><span class="mi">429</span><span class="n">d</span><span class="o">-</span><span class="mi">4452</span><span class="o">-</span><span class="n">abd7</span><span class="o">-</span><span class="mf">3e081</span><span class="n">d5a4abd</span><span class="o">-</span><span class="n">v5</span><span class="o">.</span><span class="n">json</span>
+
+<span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="o">-</span><span class="n">u</span> <span class="n">elastic</span><span class="p">:</span><span class="n">changeme</span> <span class="s1">&#39;http://127.0.0.1:9200/_xpack/license&#39;</span>
+<span class="p">{</span>
+  <span class="s2">&quot;license&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;status&quot;</span> <span class="p">:</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uid&quot;</span> <span class="p">:</span> <span class="s2">&quot;174d190e-429d-4452-abd7-3e081d5a4abd&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;platinum&quot;</span><span class="p">,</span> <span class="c1"># 铂金级别账号认证</span>
+    <span class="s2">&quot;issue_date&quot;</span> <span class="p">:</span> <span class="s2">&quot;2017-07-25T00:00:00.000Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;issue_date_in_millis&quot;</span> <span class="p">:</span> <span class="mi">1500940800000</span><span class="p">,</span>
+    <span class="s2">&quot;expiry_date&quot;</span> <span class="p">:</span> <span class="s2">&quot;2272-01-28T14:13:19.999Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;expiry_date_in_millis&quot;</span> <span class="p">:</span> <span class="mi">9532563199999</span><span class="p">,</span>
+    <span class="s2">&quot;max_nodes&quot;</span> <span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;issued_to&quot;</span> <span class="p">:</span> <span class="s2">&quot;dai xiang (xxxx)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;issuer&quot;</span> <span class="p">:</span> <span class="s2">&quot;Web Form&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;start_date_in_millis&quot;</span> <span class="p">:</span> <span class="mi">1500940800000</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<h3>1.3.5 最终结果</h3>
+
+<p>可以看到多出来了几项: 机器学习, Graph, Monitor 功能</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009765319927.jpg"></p>
+</p>
+
+<p>可以看到管理功能也丰富了很多:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>Security 部分有用户和角色登陆;
+Elasticsearch 部分可以进行一些参数的监控, 记录相应日志; 
+Kibana 部分新增加了 Reporting</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/2017-07-25-15009796525257.jpg"></p>
+</p>
+
+<h1>2. elasticsearch升级</h1>
+
+<p><a href="https://jasonbian.gitbooks.io/elasticsearch/content/elasticsearchban_ben_sheng_ji.html">可以参考文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Elasticsearch 5.5.0破解',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

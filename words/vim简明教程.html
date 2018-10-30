@@ -1,0 +1,406 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 简明VIM </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>简明VIM</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>第一级  存活</h2>
+<blockquote class="blockquote-normal">
+                <p><code>i</code>Insert 模式，按 ESC 回到 Normal 模式.</p><br/><p><code>x</code>删当前光标所在的一个字符。</p><br/><p><code>:wq</code> 存盘 + 退出 (:w 存盘, :q 退出)   <code>注：:w 后可以跟文件名</code></p><br/><p><code>dd</code> 删除当前行，并把删除的行存到剪贴板里</p><br/><p><code>p</code>粘贴剪贴板</p></blockquote>
+<p>推荐:
+1. 使用<code>键盘hjkl</code>移动光标
+2. <code>:help &lt;command&gt;</code>显示相关命令的帮助。你也可以就输入 :help 而不跟命令。退出帮助需要输入:q</p>
+
+<h2>第二级  感觉良好</h2>
+
+<p><strong>1. 各种插入模式</strong></p>
+<blockquote class="blockquote-normal">
+                <p>a → 在光标后插入</p><br/><p><code>o</code> 在当前行后插入一个新行</p><br/><p><code>O</code>在当前行前插入一个新行</p><br/><p><code>cw</code>替换从光标所在位置后到一个单词结尾的字符</p></blockquote>
+<p><strong>2. 简单的移动光标</strong></p>
+<blockquote class="blockquote-normal">
+                <p>0 → 数字零，到行头</p><br/><p><code>^</code> 到本行第一个不是blank字符的位置  <code>注所谓blank字符就是空格，tab，换行，回车等</code></p><br/><p><code>$</code>到本行行尾</p><br/><p><code>g_</code>到本行最后一个不是blank字符的位置</p><br/><p><code>/pattern</code> 搜索 pattern 的字符串          <code>注：如果搜索出多个匹配，可按n键到下一个</code></p></blockquote>
+<p><strong>3. 拷贝/粘贴</strong> <code>注：p/P都可以，p是表示在当前位置之后，P表示在当前位置之前</code></p>
+<blockquote class="blockquote-normal">
+                <p><code>P</code> 粘贴</p><br/><p><code>yy</code> 拷贝当前行当行于 ddP</p></blockquote>
+<p><strong>4. Undo/Redo</strong></p>
+<blockquote class="blockquote-normal">
+                <p><code>u</code>  undo</p><br/><p><code>Ctrl键+r</code> redo</p></blockquote>
+<p><strong>5. 打开/保存/退出/改变文件</strong></p>
+<blockquote class="blockquote-normal">
+                <p><code>:e &lt;path/to/file&gt;</code>打开一个文件</p><br/><p><code>:w</code>存盘</p><br/><p><code>:saveas &lt;path/to/file&gt;</code>另存为 <path/to/file></p><br/><p><code>:x， ZZ 或 :wq</code>保存并退出  <code>注:x 表示仅在需要时保存，ZZ不需要输入冒号并回车</code></p><br/><p><code>:q!</code>  退出不保存 :qa! 强行退出所有的正在编辑的文件，就算别的文件有更改</p><br/><p><code>:bn 和 :bp</code>  你可以同时打开很多文件，使用这两个命令来切换下一个或上一个文件。<code>注：我喜欢使用:n到下一个文件</code></p></blockquote>
+<h2>第三级 更好，更强</h2>
+
+<p><strong>更好：重复上一次执行命令</strong></p>
+<blockquote class="blockquote-normal">
+                <p><code>. (小数点) 可以重复上一次的命令</code></p><br/><p><code>N&lt;command&gt;</code> → 重复某个命令N次 <code>例子： 2dd,3yy</code></p></blockquote>
+<p><strong>更强：光标跳转</strong></p>
+<blockquote class="blockquote-normal">
+                <p><code>NG</code>  到第 N 行  <code>注意命令中的G是大写的</code>  等同于 <code>: N</code>到第N行  </p><br/><p><code>gg</code>  到第一行。<code>注：相当于1G，或 :1</code></p><br/><p><code>G</code>  到最后一行</p><br/><p>按单词移动:</p><br/><p><code>w</code>到下一个单词的开头</p><br/><p><code>e</code>到下一个单词的结尾</p><br/><p>匹配括号移动:      <code>**程序员非常好用的功能**</code></p><br/><p><code>%</code>匹配括号移动，包括 <code>(, {, [.</code>     <code>注：你需要把光标先移到括号上</code></p><br/><p><code>* 和 #</code>  匹配光标当前所在的单词，移动光标到下一个（或上一个）匹配单词（#是上一个,*是下一个）</p><br/><p><code>Ctrl + O</code>向后回退你的光标移动</p><br/><p><code>Ctrl + I</code>向前追赶你的光标移动</p></blockquote>
+<h2>第四级 Vim 超能力</h2>
+
+<p>**当前行上移动光标: 0 ^ $ f F t T , **</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>0 → 到行头
+^ → 到本行的第一个非blank字符
+$ → 到行尾
+g_ → 到本行最后一个不是blank字符的位置。
+fa → 到下一个为a的字符处，你也可以fs到下一个为s的字符。
+t, → 到逗号前的第一个字符。逗号可以变成其它字符。
+3fa → 在当前行查找第三个出现的a。
+F 和 T → 和 f 和 t 一样，只不过是相反方向。
+`注:  dt 删除所有的内容，直到遇到-- `</pre></div></div>
+
+<p><strong>VIM在可视模式下的区域选择</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM可视模式的区域选择.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>VIM可视模式的区域选择</p></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>vi" → 会选择 foo.
+`va"`会选择 "foo".
+`vi)`会选择 "foo".
+`va)` 会选择("foo").
+`v2i)`会选择 map (+) ("foo")
+`v2a)` 会选择 (map (+) ("foo"))</pre></div></div>
+
+<p><strong>VIM在可视模式下的块操作</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM在可视模式下的块操作.gif"></p>
+                    <p class="img-title"><span class="symbol">#</span>VIM在可视模式下的块操作</p></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(1)`^`到行头
+(2)`Ctrl + v` 开始块操作
+(3)向下移动 (你也可以使用hjkl来移动光标，或是使用%，或是别的
+(4)`I-- [ESC] → I是插入，插入--` , 按`ESC键`来为每一行生效</pre></div></div>
+
+<p><strong>VIM在insert模式下的自动提示</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM在insert模式下的自动提示.gif"></p>
+                    <p class="img-title"><span class="symbol">#</span>VIM在insert模式下的自动提示</p>
+在 Insert 模式下，你可以输入一个词的开头，然后按<code>Ctrl + p</code>或是<code>Ctrl + p</code>自动补齐功能就出现了</p>
+
+<p><strong>VIM的宏录制</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM的宏录制.gif"></p>
+                    <p class="img-title"><span class="symbol">#</span>VIM的宏录制</p></p>
+<blockquote class="blockquote-normal">
+                <p>qa 把你的操作记录在寄存器 a。<br/>于是 @a 会replay被录制的宏。<br/>@@ 是一个快捷键用来replay最新录制的宏</p></blockquote>
+<p><strong>VIM的可视化选择与自动缩进</strong></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM的可视化选择与自动缩进.gif"></p>
+                    <p class="img-title"><span class="symbol">#</span>VIM的可视化选择与自动缩进</p></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>`Ctrl +v` 进入可视化模式
+`j` 把所有的行连接起来（变成一行）
+`< 或 > `左缩进，右缩进
+`=`自动缩进  `注：一直没有发现还有这么牛逼的功能funk`
+
+**例子**
+Ctrl +v 进入可视化模式
+选中相关的行 (可使用 j 或 <C-d> 或是 /pattern 或是 % 等……)
+$ 到行最后
+A, 输入字符串，按 ESC。</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM例子.gif"></p>
+                    <p class="img-title"><span class="symbol">#</span>iwillbVIM例子</p></p>
+
+<p><strong>分屏显示</strong></p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>分屏: :split 和 vsplit
+`:split`创建分屏 `注 :vsplit创建垂直分屏`
+`Ctrl + 方向键或者hjkl键` 来切换分屏
+`Ctrl + w + _    或 Ctrl + w + |`     `注 <C-w>| 垂直分屏`  最大化尺寸 
+`Ctrl 加 + 或者 Ctrl 加 -`   增加尺寸</pre></div></div>
+
+<p><strong>读取Shell命令相关</strong></p>
+
+<p><code>:r!date</code>插入日期</p>
+
+<hr>
+
+<h2>
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillbVIM速查卡.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>iwillbVIM速查卡</p></h2>
+
+<p>参考文章：<a href="http://coolshell.cn/articles/5426.html">http://coolshell.cn/articles/5426.html</a></p>
+
+<hr>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'vim简明教程',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

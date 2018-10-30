@@ -1,0 +1,780 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 个推-第三方消息推送 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>个推-第三方消息推送</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p>[TOC]</p>
+
+<h1>1.简介</h1>
+
+<p><a href="http://docs.getui.com/server/python/push_method/">个推官方文档地址</a></p>
+
+<h2>1.0 自带好用的管理后台</h2>
+
+<p><code>功能完备的管理后台</code>, 运营人员能方便的进行各种类型的推送;</p>
+
+<h2>1.1 客户端多平台SDK支持</h2>
+
+<p>1.支持Android和iOS两大平台</p>
+
+<h2>1.2 多种语言版本的服务端SDK支持</h2>
+
+<p>提供JAVA、C#、PHP、Python等多种语言版本的服务端API SDK</p>
+<blockquote class="blockquote-normal">
+                <p>如果要实现类似IM的点对点消息, 或者用户触发了什么操作, 发送一个推送消息, 需要在服务端进行集成;<br/>个推的推送设计是模块化的, 分为<code>消息推送模板</code> 和 <code>消息推送方式</code>, 通过模板和推送的组合来满足各种场景的推送需求;</p></blockquote>
+<h3>1.2.1 消息推送模板</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1.点击通知打开应用模板
+2.点击通知打开网页模板
+3.点击通知栏弹框下载模板
+4.透传消息模板</pre></div></div>
+
+<h3>1.2.2 消息推送方式:(只说最常用的3种)</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1.对单个用户推送接口
+2.对指定用户列表推送接口
+3.对指定应用群推接口</pre></div></div>
+<blockquote class="blockquote-normal">
+                <p>注意: 为了最大程度提高消息推送性能，第三方开发者需要根据业务需求合理选择消息推送形式。如果是针对每 个用户进行定制化的消息推送、或是实现类似IM的点对点消息，请采用单推消息形式（SingleMessage）；如果需要根据特定条件筛选出一批CID 后推送相同的内容，请选择批量推送形式（ListMessage）；如果希望针对省市或全量用户进行推送，请选择群推形式（AppMessage）</p></blockquote>
+<h1>2. 架构图解</h1>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14956888021038.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>个推架构图解</p></p>
+
+<p>安卓和IOS的系统不同, 所以推送实现的逻辑不太一样:</p>
+
+<h2>2.1 安卓推送实现逻辑</h2>
+
+<p>client后台与个推云服务器保持Socket常连接，当网络不稳定时，个推SDK服务处于离线状态，待网络条件恢复后，会立即重连上线，并且重新接收在离线期间服务端推送的消息;</p>
+
+<h2>2.2 IOS推送实现逻辑</h2>
+
+<p>受 iOS系统限制，个推SDK服务在iOS平台上无法长期后台运行。当应用在前台运行时，个推SDK服务可以正常运行，可以实时接收服务端的推送消息；当应 用在后台期间，个推服务端会自动借助Apple Push Notification Service (APNs)实现消息推送，用户启动应用后，个推SDK服务可以重新接收在应用停止期间服务端推送的离线消息;</p>
+
+<h1>3. Python服务端集成</h1>
+
+<p>由于主要实现APP内部的触发式的消息推送, 所以使用 <code>透传消息模板</code> + <code>单推 或 多推</code>, 又由于安卓和IOS的推送方式不同, 所以在给特定用户推送透传消息时, 需要知道客户端的系统类型, 如果没有获取到系统类型, 按默认的透传去发送;</p>
+
+<h2>3.1 简单代码</h2>
+
+<h3>3.1.1 功能封装</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File Name: core/gt.py</span>
+<span class="sd">Author: willdx</span>
+<span class="sd">mail: daixiang1992@gmail.com</span>
+<span class="sd">Created Time: Tue May 23 22:30:50 2017</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">godbox.options</span> <span class="kn">import</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igt_push</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template.igt_base_template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template.igt_transmission_template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template.igt_link_template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template.igt_notification_template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template.igt_notypopload_template</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.igt_message</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.igt_target</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">godbox.depend.gt.igetui.template</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">apn_body</span><span class="p">,</span> <span class="n">apn_image</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="s2">&quot;Android&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;透传模板动作内容</span>
+<span class="sd">    :param: os: str: iOS/Android, 用于区别是否推送APN消息(iOS)</span>
+<span class="sd">    :param: trans_type: int 透传/点击通知启动应用/点击通知打开网页等</span>
+<span class="sd">    :param: content: str: 透传的 json 字符串</span>
+<span class="sd">    :param: apn_body: str: 当ios离线状态,通知栏内容</span>
+<span class="sd">    :param: apn_image: str: 当ios离线状态,通知栏带的图片</span>
+<span class="sd">        例如:</span>
+<span class="sd">            content = &quot;{</span>
+<span class="sd">            &quot;type&quot;: 6000,</span>
+<span class="sd">            &quot;title&quot;: &quot;will&quot;,</span>
+<span class="sd">            &quot;content&quot;: &quot;will&quot;,</span>
+<span class="sd">            &quot;extra&quot;: {</span>
+<span class="sd">                &quot;event_type&quot;: 1100,</span>
+<span class="sd">                &quot;event_url&quot;: &quot;http://www.imxingzhe.com&quot;,</span>
+<span class="sd">                &quot;pic_url&quot;: &quot;http://www.imxingzhe.com/1.png&quot;</span>
+<span class="sd">                }</span>
+<span class="sd">            }&quot;</span>
+<span class="sd">    :return: object: TransmissionTemplate </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1.设定模板基础信息</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplate</span><span class="p">()</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appKey</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">transmissionType</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 1启动应用, 2等待用户启动</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">transmissionContent</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isRing</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isVibrate</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isClearable</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">if</span> <span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;iOS&quot;</span><span class="p">:</span>
+        <span class="c1"># 2.iOS 配置通知栏消息, 注意: i是小写  </span>
+        <span class="n">alertMsg</span> <span class="o">=</span> <span class="n">DictionaryAlertMsg</span><span class="p">()</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">apn_body</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">actionLocKey</span> <span class="o">=</span> <span class="s1">&#39;actionLockey&#39;</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">locKey</span> <span class="o">=</span> <span class="s1">&#39;lockey&#39;</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">locArgs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;loc-args&#39;</span><span class="p">]</span>
+        <span class="n">alertMsg</span><span class="o">.</span><span class="n">launchImage</span> <span class="o">=</span> <span class="n">apn_image</span>
+        <span class="n">apnpayload</span> <span class="o">=</span> <span class="n">APNPayload</span><span class="p">()</span>
+        <span class="n">apnpayload</span><span class="o">.</span><span class="n">badge</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">apnpayload</span><span class="o">.</span><span class="n">sound</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">apnpayload</span><span class="o">.</span><span class="n">contentAvailable</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">apnpayload</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;ACTIONABLE&quot;</span>
+        <span class="n">apnpayload</span><span class="o">.</span><span class="n">alertMsg</span> <span class="o">=</span> <span class="n">alertMsg</span>
+
+        <span class="c1"># 3.设定模板的APN属性</span>
+        <span class="n">template</span><span class="o">.</span><span class="n">setApnInfo</span><span class="p">(</span><span class="n">apnpayload</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">template</span>
+
+
+<span class="k">def</span> <span class="nf">LinkTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">logo</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">XING_URL</span><span class="p">,</span>
+                     <span class="n">isRing</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">isVibrate</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">isClearable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                     <span class="n">transmissionContent</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;点击确定,跳转网页</span>
+<span class="sd">    注意: 仅安卓有效, 如果是IOS系统还是会在APP内部打开,不建议在IOS系统上使用</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">LinkTemplate</span><span class="p">()</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appKey</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">logo</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isRing</span> <span class="o">=</span> <span class="n">isRing</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isVibrate</span> <span class="o">=</span> <span class="n">isVibrate</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isClearable</span> <span class="o">=</span> <span class="n">isClearable</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">transmissionContent</span> <span class="o">=</span> <span class="n">transmissionContent</span>
+    <span class="c1"># begin = &quot;2015-03-04 17:40:22&quot;;</span>
+    <span class="c1"># end = &quot;2015-03-04 17:47:24&quot;;</span>
+    <span class="c1"># template.setDuration(begin, end)</span>
+    <span class="k">return</span> <span class="n">template</span>
+
+
+<span class="k">def</span> <span class="nf">NotificationTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">logo</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">logoURL</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">XING_URL</span><span class="p">,</span>
+                             <span class="n">isRing</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">isVibrate</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">isClearable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">transmissionContent</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;点击通知启动应用</span>
+<span class="sd">    注意: 仅安卓有效,如果是IOS系统还是会在APP内部打开,不建议在IOS系统上使用</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">NotificationTemplate</span><span class="p">()</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appKey</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">transmissionType</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">logo</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">logoURL</span> <span class="o">=</span> <span class="n">logoURL</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isRing</span> <span class="o">=</span> <span class="n">isRing</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isVibrate</span> <span class="o">=</span> <span class="n">isVibrate</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isClearable</span> <span class="o">=</span> <span class="n">isClearable</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">transmissionContent</span> <span class="o">=</span> <span class="n">transmissionContent</span>
+    <span class="c1"># begin = &quot;2015-03-04 17:40:22&quot;;</span>
+    <span class="c1"># end = &quot;2015-03-04 17:47:24&quot;;</span>
+    <span class="c1"># template.setDuration(begin, end)</span>
+    <span class="k">return</span> <span class="n">template</span>
+
+
+<span class="k">def</span> <span class="nf">NotyPopLoadTemplateDemo</span><span class="p">(</span><span class="n">notyIcon</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">logoUrl</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">notyTitle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                            <span class="n">notyContent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">popTitle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">popContent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">popImage</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                            <span class="n">loadIcon</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">loadTitle</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">loadUrl</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;点击通知栏弹框下载模板</span>
+<span class="sd">    注意: 仅安卓有效, 如果是IOS系统还是会在APP内部打开,不建议在IOS系统上使用</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">NotyPopLoadTemplate</span><span class="p">()</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">appKey</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">notyIcon</span> <span class="o">=</span> <span class="n">notyIcon</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">logoUrl</span> <span class="o">=</span> <span class="n">logoUrl</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">notyTitle</span> <span class="o">=</span> <span class="n">notyTitle</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">notyContent</span> <span class="o">=</span> <span class="n">notyContent</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isRing</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isVibrate</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isClearable</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">popTitle</span> <span class="o">=</span> <span class="n">popTitle</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">popContent</span> <span class="o">=</span> <span class="n">popContent</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">popImage</span> <span class="o">=</span> <span class="n">popImage</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">popButton1</span> <span class="o">=</span> <span class="s2">&quot;下载&quot;</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">popButton2</span> <span class="o">=</span> <span class="s2">&quot;取消&quot;</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">loadIcon</span> <span class="o">=</span> <span class="n">loadIcon</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">loadTitle</span> <span class="o">=</span> <span class="n">loadTitle</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">loadUrl</span> <span class="o">=</span> <span class="n">loadUrl</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isAutoInstall</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">template</span><span class="o">.</span><span class="n">isActive</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="c1"># begin = &quot;2015-03-04 17:40:22&quot;;</span>
+    <span class="c1"># end = &quot;2015-03-04 17:47:24&quot;;</span>
+    <span class="c1"># template.setDuration(begin, end)</span>
+    <span class="k">return</span> <span class="n">template</span>
+
+
+<span class="k">class</span> <span class="nc">GtPush</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;个推推送类&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param: template: obj 模板类, 最常用TransmissionTemplateDemo</span>
+
+<span class="sd">        注释: TransmissionTemplateDemo, LinkTemplateDemo, </span>
+<span class="sd">        NotyPopLoadTemplateDemo, NotyPopLoadTemplateDemo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">GT_HOST</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_MASTERSECRET</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push</span> <span class="o">=</span> <span class="n">IGeTui</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">GT_HOST</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPKEY</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_MASTERSECRET</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">template</span>
+
+    <span class="k">def</span> <span class="nf">pushMessageToSingle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        对单个用户进行推送</span>
+<span class="sd">        :param: cid: str: 个推用户唯一标示</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 定义消息体属性</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">IGtSingleMessage</span><span class="p">()</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">isOffline</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">offlineExpireTime</span> <span class="o">=</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">pushNetWorkType</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># 定义推送目标</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">Target</span><span class="p">()</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">clientId</span> <span class="o">=</span> <span class="n">cid</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">alias</span> <span class="o">=</span> <span class="n">alias</span>
+
+        <span class="c1"># 推送方法</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="o">.</span><span class="n">pushMessageToSingle</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">RequestException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># 发生异常重新发送</span>
+            <span class="n">requstId</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">getRequestId</span><span class="p">()</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="o">.</span><span class="n">pushMessageToSingle</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">requstId</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">pushMessageToList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        对指定用户列表推送接口</span>
+
+<span class="sd">        :param: cids: list: cid组成的列表,建议不超过50个</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 设定消息模板</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">IGtListMessage</span><span class="p">()</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">isOffline</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">offlineExpireTime</span> <span class="o">=</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">7</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">pushNetWorkType</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># 组装推送消息体</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="n">cids</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">Target</span><span class="p">()</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">appId</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">clientId</span> <span class="o">=</span> <span class="n">cid</span>
+            <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+        <span class="c1"># 设定推送方式推送消息体</span>
+        <span class="n">contentId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="o">.</span><span class="n">getContentId</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="o">.</span><span class="n">pushMessageToList</span><span class="p">(</span><span class="n">contentId</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">push_Message_ToApp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oslist</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ANDROID&quot;</span><span class="p">,</span> <span class="s2">&quot;IOS&quot;</span><span class="p">],</span> <span class="n">plist</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;上海&quot;</span><span class="p">],</span> <span class="n">taglist</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        指定应用全推</span>
+
+<span class="sd">        :param: oslist: list: 推送平台, 默认[&quot;ANDROID&quot;, &quot;IOS&quot;]</span>
+<span class="sd">        :param: plist: list: 省份标识, 默认[&quot;上海&quot;]</span>
+<span class="sd">        :param: taglist: list: 标签列表, 默认为空</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span>
+        <span class="c1">#设置是否离线，离线有效时间，推送模板，推送速度等</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">IGtAppMessage</span><span class="p">()</span>
+        <span class="c1">#设置消息推送速度，单位为条/秒，例如填写100，则为100条/秒。仅支持对指定应用群推接口</span>
+        <span class="n">message</span> <span class="o">.</span><span class="n">setSpeed</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> 
+        <span class="n">message</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="c1">#设置是否根据WIFI推送消息，1为wifi推送，0为不限制推送</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">pushNetWorkType</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">isOffline</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">offlineExpireTime</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">12</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">appIdList</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">options</span><span class="o">.</span><span class="n">GT_APPID</span><span class="p">])</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">phoneTypeList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">oslist</span><span class="p">)</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">provinceList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">plist</span><span class="p">)</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">tagList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">taglist</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="o">.</span><span class="n">pushMessageToApp</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<h3>3.1.2 业务逻辑封装</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File Name: utils/gt.py</span>
+<span class="sd">Author: willdx</span>
+<span class="sd">mail: daixiang1992@gmail.com</span>
+<span class="sd">Created Time: Tue May 23 22:30:50 2017</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">godbox.core.gt</span> <span class="kn">import</span> <span class="n">TransmissionTemplateDemo</span><span class="p">,</span> <span class="n">LinkTemplateDemo</span><span class="p">,</span> \
+    <span class="n">NotyPopLoadTemplateDemo</span><span class="p">,</span> <span class="n">NotyPopLoadTemplateDemo</span><span class="p">,</span> <span class="n">NotificationTemplateDemo</span><span class="p">,</span> <span class="n">GtPush</span>
+<span class="kn">from</span> <span class="nn">godbox.exceptions</span> <span class="kn">import</span> <span class="n">KwargsParameterError</span>
+
+
+<span class="k">def</span> <span class="nf">gt_single_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    简单个推, 给单个用户推送</span>
+
+<span class="sd">    :param: template: obj: 个推模板</span>
+<span class="sd">    :param: cid: str: 个推唯一用户标识</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">GtPush</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">pushMessageToSingle</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+
+<span class="k">def</span> <span class="nf">gt_muti_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">cids</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    简单个推, 给多个用户推送</span>
+<span class="sd">    </span>
+<span class="sd">    :param: template: obj: 个推模板</span>
+<span class="sd">    :param: cids: list: 个推唯一用户标识组成的列表</span>
+<span class="sd">    :param: limit: int: 官方推荐列表推送值</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">limit</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">GtPush</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">pushMessageToList</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rg</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span> <span class="o">/</span> <span class="n">limit</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">rg</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span> <span class="o">%</span> <span class="n">limit</span> <span class="k">else</span> <span class="n">rg</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+            <span class="n">single_cids</span> <span class="o">=</span> <span class="n">cids</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">limit</span><span class="p">:</span><span class="n">i</span> <span class="o">*</span> <span class="n">limit</span> <span class="o">+</span> <span class="n">limit</span><span class="p">]</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">GtPush</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">pushMessageToList</span><span class="p">(</span><span class="n">single_cids</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">def</span> <span class="nf">push_message_toapp</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                       <span class="n">oslist</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ANDROID&quot;</span><span class="p">,</span> <span class="s2">&quot;IOS&quot;</span><span class="p">],</span> <span class="n">plist</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;上海&quot;</span><span class="p">],</span> <span class="n">taglist</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    按OS版本,区域,标签来进行推送</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">GtPush</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">push_Message_ToApp</span><span class="p">(</span><span class="n">oslist</span><span class="p">,</span> <span class="n">plist</span><span class="p">,</span> <span class="n">taglist</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot;OVER&quot;</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">def</span> <span class="nf">gt_trans_push</span><span class="p">(</span><span class="n">cid_dics</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    个推透传推送</span>
+
+<span class="sd">    :param: cid_dics: list: 个推唯一用户标识组成的列表, 里面包含字典数据</span>
+<span class="sd">        例如:</span>
+<span class="sd">            cid_dics = [{&quot;cid&quot;: &quot;xxx&quot;, &quot;os&quot;: &quot;iOS&quot;}, {&quot;cid&quot;: &quot;xxx&quot;, &quot;os&quot;: &quot;android&quot;}]</span>
+
+<span class="sd">    :param: title: str: 透传标题, 通知栏/透传标题一样</span>
+<span class="sd">    :param: content: str: 透传内容, 可以为json字符串</span>
+<span class="sd">        例如:</span>
+<span class="sd">            content = &quot;{</span>
+<span class="sd">            &quot;type&quot;: 6000,</span>
+<span class="sd">            &quot;title&quot;: &quot;will&quot;,</span>
+<span class="sd">            &quot;content&quot;: &quot;will&quot;,</span>
+<span class="sd">            &quot;extra&quot;: {</span>
+<span class="sd">                &quot;event_type&quot;: 1100,</span>
+<span class="sd">                &quot;event_url&quot;: &quot;http://www.imxingzhe.com&quot;,</span>
+<span class="sd">                &quot;pic_url&quot;: &quot;http://www.imxingzhe.com/1.png&quot;</span>
+<span class="sd">                }</span>
+<span class="sd">            }&quot;</span>
+<span class="sd">    :param: body: str: 通知栏推送的消息内容</span>
+<span class="sd">    :param: image: str: 通知栏消息图片, 默认没有</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">cid_dics</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cid_dics</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># 如果没有给或者没有拿到os版本, 那么默认为other</span>
+        <span class="c1"># 意味着不会推送APN消息, 这一点在TransmissionTemplateDemo模板中已过滤</span>
+        <span class="n">os</span> <span class="o">=</span> <span class="n">cid_dics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">)</span>
+        <span class="n">cid</span> <span class="o">=</span> <span class="n">cid_dics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cid&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;os:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="p">))</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">os</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">gt_single_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">cid</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;透传结果:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+        <span class="c1"># if os == &quot;android&quot;:</span>
+        <span class="c1">#    # android的通知栏推送要另外处理, 也就是做透传推送, 并且要做一个通知栏推送</span>
+        <span class="c1">#    notification_template = NotificationTemplateDemo(title, body)</span>
+        <span class="c1">#    res = gt_single_push(notification_template, cid)</span>
+        <span class="c1">#    print(&quot;安卓通知栏结果:{}&quot;.format(res))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 由于iOS和android的推送方式不一样, 所以分iOS和android推送</span>
+        <span class="c1"># 默认先推送IOS,再推送安卓,再推送其他</span>
+        <span class="n">ios_lis</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">android_lis</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">other_lis</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">cid_dics</span><span class="p">:</span>
+            <span class="n">os</span> <span class="o">=</span> <span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">)</span>
+            <span class="n">cid</span> <span class="o">=</span> <span class="n">dic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cid&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span> <span class="ow">and</span> <span class="n">cid</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;android&quot;</span><span class="p">:</span>
+                    <span class="n">android_lis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;iOS&quot;</span><span class="p">:</span>
+                    <span class="n">ios_lis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">other_lis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">KwargsParameterError</span><span class="p">(</span><span class="s1">&#39;cid&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ios_lis</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="s2">&quot;iOS&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">gt_muti_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">ios_lis</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;iOS推送完毕&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">android_lis</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="s2">&quot;android&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">gt_muti_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">android_lis</span><span class="p">)</span>
+            <span class="c1"># android的通知栏推送要另外处理</span>
+            <span class="c1"># template = NotificationTemplateDemo(title, body)</span>
+            <span class="c1"># res = gt_muti_push(template, android_lis)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;android推送完毕&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">other_lis</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">TransmissionTemplateDemo</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">gt_muti_push</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">other_lis</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;不知道版本机器推送完毕&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<h3>3.1.3 测试代码</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">个推测试</span>
+
+<span class="sd">支持 单推 和 多推</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">godbox.utils.decorators</span> <span class="kn">import</span> <span class="n">general_unittest</span>
+<span class="kn">from</span> <span class="nn">godbox.utils.gt</span> <span class="kn">import</span> <span class="n">gt_trans_push</span><span class="p">,</span> <span class="n">push_message_toapp</span>
+
+
+<span class="k">class</span> <span class="nc">TestGtTransPush</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;测试个推&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ios_dics</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="s2">&quot;4d17543570cdf2df36d91778333ff3bd&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="s2">&quot;iOS&quot;</span><span class="p">}]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">android_dics</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="s2">&quot;02a098b7ea239e0d26b9d911348e3880&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="s2">&quot;android&quot;</span><span class="p">}]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cid_dics</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="s2">&quot;4d17543570cdf2df36d91778333ff3bd&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="s2">&quot;iOS&quot;</span><span class="p">},</span>
+                         <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="s2">&quot;02a098b7ea239e0d26b9d911348e3880&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="s2">&quot;android&quot;</span><span class="p">}]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;{</span>
+<span class="s2">            &quot;type&quot;: 6000,</span>
+<span class="s2">            &quot;title&quot;: &quot;will&quot;,</span>
+<span class="s2">            &quot;content&quot;: &quot;content&quot;,</span>
+<span class="s2">            &quot;extra&quot;: {</span>
+<span class="s2">                &quot;event_type&quot;: 1100,</span>
+<span class="s2">                &quot;event_url&quot;: &quot;http://www.imxingzhe.com&quot;,</span>
+<span class="s2">                &quot;pic_url&quot;: &quot;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1495016014415&amp;di=faed39096e5b5bcd3e3abea9db404adf&amp;imgtype=0&amp;src=http%3A</span><span class="si">%2F%2F</span><span class="s2">www.1tong.com</span><span class="si">%2F</span><span class="s2">uploads</span><span class="si">%2F</span><span class="s2">wallpaper</span><span class="si">%2F</span><span class="s2">plants</span><span class="si">%2F</span><span class="s2">184-5-1024x768.jpg&quot;</span>
+<span class="s2">                }</span>
+<span class="s2">            }&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;will&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;ios&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="nd">@general_unittest</span>
+    <span class="k">def</span> <span class="nf">test_gt_trans_push</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;测试个推通用接口&quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;测试IOS推送&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">gt_trans_push</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ios_dics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;测试安卓推送&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">gt_trans_push</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">android_dics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;测试全平台一起推送&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">gt_trans_push</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cid_dics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="nd">@general_unittest</span>
+    <span class="k">def</span> <span class="nf">test_push_message_toapp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;测试OS推送接口&quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;测试全平台推送&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">push_message_toapp</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: '个推接入',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

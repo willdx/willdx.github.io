@@ -1,0 +1,415 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> python标准库-re使用 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>python标准库-re使用</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>常用的元字符</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">代码</span>    <span class="err">说明</span>
+    <span class="o">.</span>   <span class="err">匹配除换行符以外的任意字符</span>
+    \<span class="n">w</span>  <span class="err">匹配字母或数字或下划线或汉字</span>
+    \<span class="n">s</span>  <span class="err">匹配任意的空白符</span>
+    \<span class="n">d</span>  <span class="err">匹配数字</span>
+    \<span class="n">b</span>  <span class="err">匹配单词的开始或结束</span>
+    <span class="o">^</span>   <span class="err">匹配字符串的开始</span>
+    <span class="err">$</span>   <span class="err">匹配字符串的结束</span>
+</pre></div>
+</div>
+<h2>常用的限定符</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">代码</span><span class="o">/</span><span class="err">语法</span>   <span class="err">说明</span>
+    <span class="o">*</span>   <span class="err">重复零次或更多次</span>
+    <span class="o">+</span>   <span class="err">重复一次或更多次</span>
+    <span class="err">?</span>   <span class="err">重复零次或一次</span>
+    <span class="p">{</span><span class="n">n</span><span class="p">}</span> <span class="err">重复</span><span class="n">n</span><span class="err">次</span>
+    <span class="p">{</span><span class="n">n</span><span class="p">,}</span>    <span class="err">重复</span><span class="n">n</span><span class="err">次或更多次</span>
+    <span class="p">{</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">}</span>   <span class="err">重复</span><span class="n">n</span><span class="err">到</span><span class="n">m</span><span class="err">次</span>
+
+
+<span class="c1">## 常用的反义代码</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+    <span class="err">代码</span><span class="o">/</span><span class="err">语法</span>   <span class="err">说明</span>
+    \<span class="n">W</span>  <span class="err">匹配任意不是字母，数字，下划线，汉字的字符</span>
+    \<span class="n">S</span>  <span class="err">匹配任意不是空白符的字符</span>
+    \<span class="n">D</span>  <span class="err">匹配任意非数字的字符</span>
+    \<span class="n">B</span>  <span class="err">匹配不是单词开头或结束的位置</span>
+    <span class="p">[</span><span class="o">^</span><span class="n">x</span><span class="p">]</span>    <span class="err">匹配除了</span><span class="n">x</span><span class="err">以外的任意字符</span>
+    <span class="p">[</span><span class="o">^</span><span class="n">aeiou</span><span class="p">]</span>    <span class="err">匹配除了</span><span class="n">aeiou</span><span class="err">这几个字母以外的任意字符</span>
+    <span class="err">例子：</span>\<span class="n">S</span><span class="o">+</span><span class="err">匹配不包含空白符的字符串。</span>
+    <span class="o">&lt;</span><span class="n">a</span><span class="p">[</span><span class="o">^&gt;</span><span class="p">]</span><span class="o">+&gt;</span><span class="err">匹配用尖括号括起来的以</span><span class="n">a</span><span class="err">开头的字符串。</span>
+</pre></div>
+</div>
+<h2>常用分组语法</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">分类</span>    <span class="err">代码</span><span class="o">/</span><span class="err">语法</span>   <span class="err">说明</span>
+    <span class="err">捕获</span>    <span class="p">(</span><span class="n">exp</span><span class="p">)</span>   <span class="err">匹配</span><span class="n">exp</span><span class="p">,</span><span class="err">并捕获文本到自动命名的组里</span>
+    <span class="p">(</span><span class="err">?</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">exp</span><span class="p">)</span>    <span class="err">匹配</span><span class="n">exp</span><span class="p">,</span><span class="err">并捕获文本到名称为</span><span class="n">name</span><span class="err">的组里，也可以写成</span><span class="p">(</span><span class="err">?</span><span class="s1">&#39;name&#39;</span><span class="n">exp</span><span class="p">)</span>
+    <span class="p">(</span><span class="err">?</span><span class="p">:</span><span class="n">exp</span><span class="p">)</span> <span class="err">匹配</span><span class="n">exp</span><span class="p">,</span><span class="err">不捕获匹配的文本，也不给此分组分配组号</span>
+    <span class="err">零宽断言</span>    <span class="p">(</span><span class="err">?</span><span class="o">=</span><span class="n">exp</span><span class="p">)</span> <span class="err">匹配</span><span class="n">exp</span><span class="err">前面的位置</span>
+    <span class="p">(</span><span class="err">?</span><span class="o">&lt;=</span><span class="n">exp</span><span class="p">)</span>    <span class="err">匹配</span><span class="n">exp</span><span class="err">后面的位置</span>
+    <span class="p">(</span><span class="err">?!</span><span class="n">exp</span><span class="p">)</span> <span class="err">匹配后面跟的不是</span><span class="n">exp</span><span class="err">的位置</span>
+    <span class="p">(</span><span class="err">?</span><span class="o">&lt;</span><span class="err">!</span><span class="n">exp</span><span class="p">)</span>    <span class="err">匹配前面不是</span><span class="n">exp</span><span class="err">的位置</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>注释:(?#comment) 这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</p></blockquote>
+<h2>常用正则表达式</h2>
+
+<h3>0个或多个任意字符</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">.*</span>
+</pre></div>
+</div>
+<h3>邮箱</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">简易版</span><span class="p">:</span>   <span class="p">[</span>\<span class="n">w</span><span class="p">,</span><span class="o">-</span><span class="p">]</span><span class="o">+</span><span class="p">(</span>\<span class="o">.</span><span class="p">([</span>\<span class="n">w</span><span class="p">,</span><span class="o">-</span><span class="p">])</span><span class="o">+</span><span class="p">)</span><span class="o">*</span><span class="err">@</span><span class="p">[</span>\<span class="n">w</span><span class="p">,</span><span class="o">-</span><span class="p">]</span><span class="o">+</span><span class="p">(</span>\<span class="o">.</span><span class="p">[</span>\<span class="n">w</span><span class="p">,</span><span class="o">-</span><span class="p">]</span><span class="o">+</span><span class="p">)</span><span class="o">+</span>
+    <span class="err">通用版：</span><span class="p">[</span>\<span class="n">w</span><span class="err">!</span><span class="c1">#$%&amp;&#39;*+/=?^_`{|}~-]+(?:\.[\w!#$%&amp;&#39;*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?</span>
+</pre></div>
+</div>
+<h3>匹配中文字符</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">[</span>\<span class="n">u4e00</span><span class="o">-</span>\<span class="n">u9fa5</span><span class="p">]</span>
+</pre></div>
+</div>
+<h3>空白行</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span>\<span class="n">n</span>\<span class="n">s</span><span class="o">*</span>\<span class="n">r</span>
+</pre></div>
+</div>
+<h3>URL</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">z</span><span class="p">]</span><span class="o">+</span><span class="p">:</span><span class="o">//</span><span class="p">[</span><span class="o">^</span>\<span class="n">s</span><span class="p">]</span><span class="o">*</span>
+</pre></div>
+</div>
+<h3>18位的身份证号码</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">([</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">3</span><span class="p">}[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">2</span><span class="p">}[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">1</span><span class="p">}</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">1</span><span class="p">}[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">2</span><span class="p">}</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]{</span><span class="mi">3</span><span class="p">})</span><span class="o">-</span><span class="p">(((</span><span class="mi">0</span><span class="p">[</span><span class="mi">13578</span><span class="p">]</span><span class="o">|</span><span class="mi">1</span><span class="p">[</span><span class="mo">02</span><span class="p">])</span><span class="o">-</span><span class="p">(</span><span class="mi">0</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="p">[</span><span class="mi">12</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="mi">3</span><span class="p">[</span><span class="mo">01</span><span class="p">]))</span><span class="o">|</span><span class="p">((</span><span class="mi">0</span><span class="p">[</span><span class="mi">469</span><span class="p">]</span><span class="o">|</span><span class="mi">11</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="mi">0</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="p">[</span><span class="mi">12</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="mi">30</span><span class="p">))</span><span class="o">|</span><span class="p">(</span><span class="mo">02</span><span class="o">-</span><span class="p">(</span><span class="mi">0</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">|</span><span class="mi">2</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">8</span><span class="p">])))</span>
+</pre></div>
+</div>
+<h3>非负整数</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">^</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>\<span class="n">d</span><span class="o">*|</span><span class="mi">0</span><span class="err">$</span>
+</pre></div>
+</div>
+<h3>电话号码</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">((</span><span class="mi">13</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span><span class="o">|</span><span class="p">(</span><span class="mi">15</span><span class="p">[</span><span class="o">^</span><span class="mi">4</span><span class="p">,</span>\<span class="n">D</span><span class="p">])</span><span class="o">|</span><span class="p">(</span><span class="mi">18</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="o">-</span><span class="mi">9</span><span class="p">]))</span>\<span class="n">d</span><span class="p">{</span><span class="mi">8</span><span class="p">}</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>注意:</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">^</span> <span class="err">符号在</span><span class="p">[]</span><span class="err">内表示取反，在外则匹配开头</span>
+    <span class="err">?放在末尾</span><span class="p">:</span><span class="err">表示非贪婪模式</span><span class="p">,</span><span class="err">也就是尽可能少的匹配</span><span class="p">;</span><span class="err">放在字符中间匹配前一字符出现</span><span class="mi">0</span><span class="err">或</span><span class="mi">1</span><span class="err">次</span><span class="p">;</span><span class="err">在</span><span class="p">(</span><span class="err">?</span><span class="p">:)</span><span class="err">中表示取消分组；</span>
+</pre></div>
+</div>
+<h3>其他</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">$表示结尾</span>
+    <span class="o">|</span> <span class="err">表示或</span>
+    <span class="p">{</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">}</span> <span class="err">表示数量</span>
+    \ <span class="err">表示转义</span>
+    <span class="o">*</span><span class="err">表示</span><span class="mi">0</span><span class="o">-</span><span class="n">n</span>
+    <span class="o">+</span><span class="err">表示</span><span class="mi">1</span><span class="o">-</span><span class="n">n</span>
+    <span class="p">()</span><span class="err">用于限定范围</span>
+</pre></div>
+</div>
+<h2>re库</h2>
+
+<h3>re匹配模式</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span> <span class="err">忽略大小写</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">MULTILINE</span><span class="p">):</span> <span class="err">多行模式，改变</span><span class="s1">&#39;^&#39;</span><span class="err">和</span><span class="s1">&#39;$&#39;</span><span class="err">的行为</span> 
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="n">DOTALL</span><span class="p">):</span> <span class="err">点任意匹配模式，改变</span><span class="s1">&#39;.&#39;</span><span class="err">的行为</span> 
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">L</span><span class="p">(</span><span class="n">LOCALE</span><span class="p">):</span> <span class="err">使预定字符类</span> \<span class="n">w</span> \<span class="n">W</span> \<span class="n">b</span> \<span class="n">B</span> \<span class="n">s</span> \<span class="n">S</span> <span class="err">取决于当前区域设定</span> 
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">U</span><span class="p">(</span><span class="n">UNICODE</span><span class="p">):</span> <span class="err">使预定字符类</span> \<span class="n">w</span> \<span class="n">W</span> \<span class="n">b</span> \<span class="n">B</span> \<span class="n">s</span> \<span class="n">S</span> \<span class="n">d</span> \<span class="n">D</span> <span class="err">取决于</span><span class="nb">unicode</span><span class="err">定义的字符属性</span> 
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">re</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">):</span> <span class="err">详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释</span>
+</pre></div>
+</div>
+<h3>编译正则表达式:re.compile</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">str1</span> <span class="o">=</span> <span class="s1">&#39;asdfafafaw&#39;</span>
+<span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[a-z]+$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>查找和匹配: match search findall</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">str1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">str1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>将分组命名?P<name></h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;output\_(?P&lt;year&gt;\d{4})&quot;</span><span class="p">,</span> <span class="s2">&quot;output\_1986.txt&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<h3>字符串分离:split</h3>
+
+<h3>检索和替换: sub(pattern, repl, string, count=0)</h3>
+
+<h3>sub :返回替换后的字符串</h3>
+
+<h3>subn:返回元组，（替换后字符串,替换次数）</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+) (\w+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\2 \1&#39;</span><span class="p">,</span> <span class="s1">&#39;i say, hello world!&#39;</span><span class="p">)</span>
+<span class="n">say</span> <span class="n">i</span><span class="p">,</span> <span class="n">world</span> <span class="n">hello</span><span class="err">!</span>
+<span class="err">例子</span><span class="mo">02</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;m:&#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;, first:&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="s1">&#39;, second:&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> 
+<span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+) (\w+)&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="s1">&#39;i say, hello world!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python标准库-re使用',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

@@ -1,0 +1,531 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 爬取环法自行车赛的赔率信息 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>爬取环法自行车赛的赔率信息</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>1.1 install</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 注意: 环境使用Python2.7.x版本, 若使用Python3会有很多坑</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">Scrapy</span>
+</pre></div>
+</div>
+<h2>1.2 创建项目</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">startproject</span> <span class="n">huanfa</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(will_spiders) ➜  huanfa tree -L  3
+.
+├── huanfa
+│   ├── __init__.py
+│   ├── items.py
+│   ├── middlewares.py
+│   ├── pipelines.py
+│   ├── settings.py
+│   ├── spiders
+│   │   ├── __init__.py
+│   │   ├── france_spider.py  # 添加的爬虫脚本
+└── scrapy.cfg</pre></div></div>
+
+<h2>1.3 格式化cookies</h2>
+
+<ul>
+<li><p>获取cookies</p>
+
+<p>打开开发者工具, Cookies在很大程度上会依赖上一个页面, 所以先进到主页, 然后进入到赔率页面, 然后viewall-点击具体组别-Network-Headers-Cookies-使用Cookies格式化字典</p></li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14986229633303.jpg"></p>
+</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="k">class</span> <span class="nc">transCookie</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cookie</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cookie</span> <span class="o">=</span> <span class="n">cookie</span>
+
+    <span class="k">def</span> <span class="nf">stringToDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        将从浏览器上Copy来的cookie字符串转化为Scrapy能使用的Dict</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">itemDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cookie</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">itemDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">itemDict</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">trans</span> <span class="o">=</span> <span class="n">transCookie</span><span class="p">(</span><span class="n">cookie</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">trans</span><span class="o">.</span><span class="n">stringToDict</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>1.4 Scrapy爬虫代码</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1">#   Author  :   Rhapsodyzs</span>
+<span class="c1">#   E-mail  :   zs1213yh@gmail.com</span>
+<span class="c1">#   Date    :   16/06/20 14:27:09</span>
+<span class="c1">#   Desc    :   </span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">scrapy</span><span class="o">,</span> <span class="nn">MySQLdb</span><span class="o">,</span> <span class="nn">MySQLdb.cursors</span>
+<span class="kn">from</span> <span class="nn">france.items</span> <span class="kn">import</span> <span class="n">FranceItem</span>
+<span class="kn">from</span> <span class="nn">scrapy</span> <span class="kn">import</span> <span class="n">Request</span>
+
+<span class="kn">from</span> <span class="nn">godbox.utils.db</span> <span class="kn">import</span> <span class="n">my_get_dict_res</span>
+<span class="kn">from</span> <span class="nn">godbox.options</span> <span class="kn">import</span> <span class="n">define</span><span class="p">,</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">parse_qs</span>
+
+
+<span class="c1"># 测试数据库连接</span>
+<span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYSQL_CONN_LOCAL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">dbhost</span><span class="o">=</span><span class="s2">&quot;192.168.0.46&quot;</span><span class="p">,</span>
+    <span class="n">dbuser</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="n">dbpass</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
+    <span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;xingzhe&quot;</span><span class="p">,</span>
+    <span class="n">dbport</span><span class="o">=</span><span class="mi">3306</span>
+<span class="p">))</span>
+
+<span class="c1"># 线上数据库连接</span>
+<span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYSQL_CONN_ONLINE&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">dbhost</span><span class="o">=</span><span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+    <span class="n">dbuser</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span><span class="p">,</span>
+    <span class="n">dbpass</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span><span class="p">,</span>
+    <span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
+    <span class="n">dbport</span><span class="o">=</span><span class="mi">3306</span>
+<span class="p">))</span>
+
+<span class="c1"># 方便测试库和线上库的切换 </span>
+<span class="n">MYSQL_CONN</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">MYSQL_CONN_ONLINE</span>
+
+<span class="c1"># 环法组别</span>
+<span class="c1"># TODO: 目前统计到已有的项目, 后续分赛段的项目要填进来</span>
+<span class="n">france_group</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">#&quot;327979&quot;: {&quot;group_name&quot;: &quot;Stage Betting&quot;, &quot;xz_group_id&quot;: 100, &quot;zh_group_name&quot;: &quot;第一赛段(13km-ITT)&quot;},</span>
+    <span class="c1">#&quot;327921&quot;: {&quot;group_name&quot;: &quot;Outright Betting&quot;, &quot;xz_group_id&quot;: 96, &quot;zh_group_name&quot;: &quot;总冠军&quot;},</span>
+    <span class="c1">#&quot;1610187&quot;: {&quot;group_name&quot;: &quot;To Win Green Jersey&quot;, &quot;xz_group_id&quot;: 97, &quot;zh_group_name&quot;: &quot;最终绿衫获得者&quot;},</span>
+    <span class="c1">#&quot;629274&quot;: {&quot;group_name&quot;: &quot;Number of Finishers&quot;, &quot;xz_group_id&quot;: 98, &quot;zh_group_name&quot;: &quot;完赛人数&quot;},</span>
+    <span class="s2">&quot;629275&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;group_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of Yellow Jerseys&quot;</span><span class="p">,</span> <span class="s2">&quot;xz_group_id&quot;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span> <span class="s2">&quot;zh_group_name&quot;</span><span class="p">:</span> <span class="s2">&quot;黄衫获得人数&quot;</span><span class="p">}</span>
+    <span class="c1">#&quot;328205&quot;: {&quot;group_name&quot;: &quot;King of the Mountains&quot;, &quot;xz_group_id&quot;: 121, &quot;zh_group_name&quot;: &quot;爬坡王&quot;},</span>
+    <span class="c1">#&quot;328282&quot;: {&quot;group_name&quot;: &quot;Young Rider Classification&quot;, &quot;xz_group_id&quot;: 122, &quot;zh_group_name&quot;: &quot;最终白衫获得者&quot;}</span>
+<span class="p">}</span>
+
+<span class="n">competitor</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Stephen Cummings&quot;</span><span class="p">:</span> <span class="s2">&quot;史蒂芬·康明斯&quot;</span><span class="p">,</span> <span class="s2">&quot;Roman Kreuziger&quot;</span><span class="p">:</span> <span class="s2">&quot;罗曼·克罗伊齐格尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Alberto Contador&quot;</span><span class="p">:</span> <span class="s2">&quot;阿尔贝托·康塔多&quot;</span><span class="p">,</span> <span class="s2">&quot;Michael Matthews&quot;</span><span class="p">:</span> <span class="s2">&quot;迈克尔·马修斯&quot;</span><span class="p">,</span> <span class="s2">&quot;Tiago Machado&quot;</span><span class="p">:</span> <span class="s2">&quot;蒂亚戈·马查多&quot;</span><span class="p">,</span> <span class="s2">&quot;Tony Martin&quot;</span><span class="p">:</span> <span class="s2">&quot;托尼·马丁&quot;</span><span class="p">,</span> <span class="s2">&quot;Luke Durbridge&quot;</span><span class="p">:</span> <span class="s2">&quot;卢克·德布里奇&quot;</span><span class="p">,</span> <span class="s2">&quot;Jonathan Castroviejo&quot;</span><span class="p">:</span> <span class="s2">&quot;乔纳森·卡斯罗维也荷&quot;</span><span class="p">,</span> <span class="s2">&quot;Dylan Van Baarle&quot;</span><span class="p">:</span> <span class="s2">&quot;迪伦·凡·巴雷&quot;</span><span class="p">,</span> <span class="s2">&quot;Timo Roosen&quot;</span><span class="p">:</span> <span class="s2">&quot;蒂莫·罗森&quot;</span><span class="p">,</span> <span class="s2">&quot;Alejando Valverde&quot;</span><span class="p">:</span> <span class="s2">&quot;亚历杭德罗·巴尔韦德&quot;</span><span class="p">,</span> <span class="s2">&quot;Alex Dowsett&quot;</span><span class="p">:</span> <span class="s2">&quot;亚历克斯·多塞特&quot;</span><span class="p">,</span> <span class="s2">&quot;Andrew Talansky&quot;</span><span class="p">:</span> <span class="s2">&quot;安德鲁·塔兰斯基&quot;</span><span class="p">,</span> <span class="s2">&quot;Jurgen Roelandts&quot;</span><span class="p">:</span> <span class="s2">&quot;尤尔根·罗兰兹&quot;</span><span class="p">,</span> <span class="s2">&quot;Marcel Kittel&quot;</span><span class="p">:</span> <span class="s2">&quot;马塞尔·基特尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Greg Van Avermaet&quot;</span><span class="p">:</span> <span class="s2">&quot;格雷格·范阿维马&quot;</span><span class="p">,</span> <span class="s2">&quot;Nikias Arndt&quot;</span><span class="p">:</span> <span class="s2">&quot;尼凯亚斯·阿恩特&quot;</span><span class="p">,</span> <span class="s2">&quot;Alexander Kristoff&quot;</span><span class="p">:</span> <span class="s2">&quot;亚历山大·克里斯托夫&quot;</span><span class="p">,</span> <span class="s2">&quot;Philippe Gilbert&quot;</span><span class="p">:</span> <span class="s2">&quot;菲利普·吉尔伯特&quot;</span><span class="p">,</span> <span class="s2">&quot;Edvald Boasson Hagen&quot;</span><span class="p">:</span> <span class="s2">&quot;爱德华·博森·哈根&quot;</span><span class="p">,</span> <span class="s2">&quot;Sylvain Chavanel&quot;</span><span class="p">:</span> <span class="s2">&quot;西尔万·沙瓦内尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Jos Van Emden&quot;</span><span class="p">:</span> <span class="s2">&quot;乔斯·凡·埃姆登&quot;</span><span class="p">,</span> <span class="s2">&quot;Patrick Bevin&quot;</span><span class="p">:</span> <span class="s2">&quot;帕特里克·贝文&quot;</span><span class="p">,</span> <span class="s2">&quot;Damiano Caruso&quot;</span><span class="p">:</span> <span class="s2">&quot;达米亚诺·卡鲁索&quot;</span><span class="p">,</span> <span class="s2">&quot;Alexey Lutsenko&quot;</span><span class="p">:</span> <span class="s2">&quot;阿列克谢·卢岑科&quot;</span><span class="p">,</span> <span class="s2">&quot;Dmitry Gruzdev&quot;</span><span class="p">:</span> <span class="s2">&quot;德米特里·格鲁兹德夫&quot;</span><span class="p">,</span> <span class="s2">&quot;Fabio Felline&quot;</span><span class="p">:</span> <span class="s2">&quot;法比奥·费利内&quot;</span><span class="p">,</span> <span class="s2">&quot;Peter Sagan&quot;</span><span class="p">:</span> <span class="s2">&quot;彼得·萨甘&quot;</span><span class="p">,</span> <span class="s2">&quot;Primoz Roglic&quot;</span><span class="p">:</span> <span class="s2">&quot;普利莫泽·罗格里奇&quot;</span><span class="p">,</span> <span class="s2">&quot;Tony Gallopin&quot;</span><span class="p">:</span> <span class="s2">&quot;托尼·加洛潘&quot;</span><span class="p">,</span> <span class="s2">&quot;Jakob Fuglsang&quot;</span><span class="p">:</span> <span class="s2">&quot;雅各布·富格尔桑&quot;</span><span class="p">,</span> <span class="s2">&quot;Reto Hollenstein&quot;</span><span class="p">:</span> <span class="s2">&quot;雷托·霍伦斯坦&quot;</span><span class="p">,</span> <span class="s2">&quot;Rigoberto Uran&quot;</span><span class="p">:</span> <span class="s2">&quot;里戈贝托·乌兰&quot;</span><span class="p">,</span> <span class="s2">&quot;Michael Albasini&quot;</span><span class="p">:</span> <span class="s2">&quot;迈克尔·阿尔巴西尼&quot;</span><span class="p">,</span> <span class="s2">&quot;Geraint Thomas&quot;</span><span class="p">:</span> <span class="s2">&quot;杰兰特·托马斯&quot;</span><span class="p">,</span> <span class="s2">&quot;Jan Bakelants&quot;</span><span class="p">:</span> <span class="s2">&quot;贾恩·巴克兰茨&quot;</span><span class="p">,</span> <span class="s2">&quot;Andrey Amador&quot;</span><span class="p">:</span> <span class="s2">&quot;安德烈·阿马多尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Robert Gesink&quot;</span><span class="p">:</span> <span class="s2">&quot;罗伯特·格辛克&quot;</span><span class="p">,</span> <span class="s2">&quot;Nacer Bouhanni&quot;</span><span class="p">:</span> <span class="s2">&quot;纳赛尔·布阿尼&quot;</span><span class="p">,</span> <span class="s2">&quot;Maciej Bodanar&quot;</span><span class="p">:</span> <span class="s2">&quot;马切伊·博德纳尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Taylor Phinney&quot;</span><span class="p">:</span> <span class="s2">&quot;泰勒·菲尼&quot;</span><span class="p">,</span> <span class="s2">&quot;Niki Terpstra&quot;</span><span class="p">:</span> <span class="s2">&quot;尼基·特普斯特拉&quot;</span><span class="p">,</span> <span class="s2">&quot;Michal Kwiatkowski&quot;</span><span class="p">:</span> <span class="s2">&quot;米哈乌·科维亚特科夫斯基&quot;</span><span class="p">,</span> <span class="s2">&quot;Jens Keukeleire&quot;</span><span class="p">:</span> <span class="s2">&quot;延斯·凯克莱尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Yves Lampaert&quot;</span><span class="p">:</span> <span class="s2">&quot;伊夫·兰帕特&quot;</span><span class="p">,</span> <span class="s2">&quot;Guillaume Van Keirsbulck&quot;</span><span class="p">:</span> <span class="s2">&quot;纪尧姆·范凯尔斯布克&quot;</span><span class="p">,</span> <span class="s2">&quot;Tim Wellens&quot;</span><span class="p">:</span> <span class="s2">&quot;蒂姆·韦埃伦斯&quot;</span><span class="p">,</span> <span class="s2">&quot;Thomas De Gendt&quot;</span><span class="p">:</span> <span class="s2">&quot;托马斯·德·根特&quot;</span><span class="p">,</span> <span class="s2">&quot;Stefan Kung&quot;</span><span class="p">:</span> <span class="s2">&quot;斯特凡·库恩&quot;</span><span class="p">,</span> <span class="s2">&quot;Vasil Kiryienka&quot;</span><span class="p">:</span> <span class="s2">&quot;瓦西尔·基里连卡&quot;</span><span class="p">,</span> <span class="s2">&quot;Marcus Burghardt&quot;</span><span class="p">:</span> <span class="s2">&quot;马库斯·布尔加特&quot;</span><span class="p">,</span> <span class="s2">&quot;Pierre Latour&quot;</span><span class="p">:</span> <span class="s2">&quot;皮埃尔·拉图尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Thibaut Pinot&quot;</span><span class="p">:</span> <span class="s2">&quot;蒂博·皮诺&quot;</span><span class="p">,</span> <span class="s2">&quot;Matteo Trentin&quot;</span><span class="p">:</span> <span class="s2">&quot;马特奥·特伦丁&quot;</span><span class="p">,</span> <span class="s2">&quot;Nairo Quintana&quot;</span><span class="p">:</span> <span class="s2">&quot;奈罗·金塔纳&quot;</span><span class="p">,</span> <span class="s2">&quot;Damien Howson&quot;</span><span class="p">:</span> <span class="s2">&quot;达米安·豪森&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark Cavendish&quot;</span><span class="p">:</span> <span class="s2">&quot;马克·卡文迪什&quot;</span><span class="p">,</span> <span class="s2">&quot;Nelson Oliveira&quot;</span><span class="p">:</span> <span class="s2">&quot;尼尔森·奥利维拉&quot;</span><span class="p">,</span> <span class="s2">&quot;Andriy Grivko&quot;</span><span class="p">:</span> <span class="s2">&quot;安德里·格里夫科&quot;</span><span class="p">,</span> <span class="s2">&quot;Stephane Rossetto&quot;</span><span class="p">:</span> <span class="s2">&quot;斯蒂芬·罗塞托&quot;</span><span class="p">,</span> <span class="s2">&quot;Andre Greipel&quot;</span><span class="p">:</span> <span class="s2">&quot;安德烈·格雷佩尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Jon Izaguirre&quot;</span><span class="p">:</span> <span class="s2">&quot;约恩·伊萨吉雷&quot;</span><span class="p">,</span> <span class="s2">&quot;Richie Porte&quot;</span><span class="p">:</span> <span class="s2">&quot;里奇·波特&quot;</span><span class="p">,</span> <span class="s2">&quot;Nils Politt&quot;</span><span class="p">:</span> <span class="s2">&quot;尼尔斯·波利特&quot;</span><span class="p">,</span> <span class="s2">&quot;Arnaud Demare&quot;</span><span class="p">:</span> <span class="s2">&quot;阿诺·德玛尔&quot;</span><span class="p">,</span> <span class="s2">&quot;Chris Froome&quot;</span><span class="p">:</span> <span class="s2">&quot;克里斯·弗鲁姆&quot;</span><span class="p">}</span> 
+
+<span class="n">domain</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;http://www.sportsbet.com.au/betting/cycling/tour-de-france/outrights?&amp;ev_oc_grp_id={}&amp;is_ajax=1&amp;is_top_markets=&amp;ignore_linked=&quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">DmozSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;france&quot;</span>
+    <span class="n">start_urls</span> <span class="o">=</span>  <span class="p">[</span> <span class="n">domain</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">france_group</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="p">]</span>
+    <span class="n">cookies</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;price_all_dps_threshold&#39;</span><span class="p">:</span> <span class="s1">&#39;1.01&#39;</span><span class="p">,</span> <span class="s1">&#39;KP_UID&#39;</span><span class="p">:</span> <span class="s1">&#39;60070c3cf7dd50a23dc0f35c3a3eb611&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETPOOL&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;sbt_ssl_login&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;mvar&#39;</span><span class="p">:</span> <span class="s1">&#39;Carousel_Trial_R19&#39;</span><span class="p">,</span> <span class="s1">&#39;REMOTE_BS&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;sbt_login&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETLEG&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;cust_lang&#39;</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;price_dps_show_all&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;__qca&#39;</span><span class="p">:</span> <span class="s1">&#39;P0-1330082800-1498455850235&#39;</span><span class="p">,</span> <span class="s1">&#39;sbt_pref&#39;</span><span class="p">:</span> <span class="s1">&#39;bs_show_opts|yes|bs_minimized|min&#39;</span><span class="p">,</span> <span class="s1">&#39;RCVariant&#39;</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;BIR_REQ_ID&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_ga&#39;</span><span class="p">:</span> <span class="s1">&#39;GA1.3.874386321.1498455847&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETMULTI&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;POSSIBLE_PLACED_BET&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_uetsid&#39;</span><span class="p">:</span> <span class="s1">&#39;_uetd310101a&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETLEGFORMAT&#39;</span><span class="p">:</span> <span class="s1">&#39;leg_sort|leg_type|lp_num|lp_den|hcap_value|bir_index|banker|selns|ew_fac_num|ew_fac_den|ew_places|lp_plc_num|lp_plc_den|wp_places|prev_lp_num|prev_lp_den|prev_hcap_value|positions|alt_price_types|ocv_id|default_price_type|leg_desc|mkt_ver_date|enhanced_odds_active|orig_lp_num|orig_lp_den|price_type|multi_prices|cust_rules_control|leg_num|disporder|stake|ccy_stake|mult_incl|displayed_lp_num|displayed_lp_den|displayed_hcap|boxed|retain|enhanced_odds_avail|enhanced_odds_win_num|enhanced_odds_win_den&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL_SGL_STAKE&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETRECEIPT&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;utag_main&#39;</span><span class="p">:</span> <span class="s1">&#39;v_id:015ce2edac120015c92a7004261a04079004407100838:3:0:1498488375999:8%3Bexp-session:1498483001945%3Bexp-session&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETJOINTACCT&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;SBBETFREEBET&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;sb_partner_mid&#39;</span><span class="p">:</span> <span class="s1">&#39;qF3bS5LVKIbulQmTAVK722Nd7ZgqdRLk12921&#39;</span><span class="p">,</span> <span class="s1">&#39;_gid&#39;</span><span class="p">:</span> <span class="s1">&#39;GA1.3.1461306886.1498455847&#39;</span><span class="p">,</span> <span class="s1">&#39;aid&#39;</span><span class="p">:</span> <span class="s1">&#39;2249009751748745&#39;</span><span class="p">,</span> <span class="s1">&#39;dialog_message&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;timer_stop&#39;</span><span class="p">:</span> <span class="s1">&#39;1498493772871&#39;</span><span class="p">,</span> <span class="s1">&#39;timer_start&#39;</span><span class="p">:</span> <span class="s1">&#39;1498483001642&#39;</span><span class="p">}</span>  <span class="c1"># 带着Cookie向网页发请求</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Cookie&quot;</span><span class="p">:</span> <span class="n">cookies</span><span class="p">,</span> <span class="s2">&quot;Referer&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.sportsbet.com.au/betting/cycling/tour-de-france/outrights&quot;</span><span class="p">,</span> <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36&quot;</span><span class="p">}</span>
+
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;dont_redirect&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s1">&#39;handle_httpstatus_list&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">301</span><span class="p">,</span> <span class="mi">302</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="c1"># 爬虫的起点</span>
+    <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 带着cookie向网站服务器发请求，表明我们是一个已登录的用户</span>
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_urls</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cookies</span><span class="p">,</span>
+                          <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;######:start&quot;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">france_group_id</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">query</span><span class="p">,</span><span class="bp">True</span><span class="p">)[</span><span class="s2">&quot;ev_oc_grp_id&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">group_info</span> <span class="o">=</span> <span class="n">france_group</span><span class="p">[</span><span class="n">france_group_id</span><span class="p">]</span>
+        <span class="c1"># 行者组别</span>
+        <span class="n">en_group_name</span> <span class="o">=</span> <span class="n">group_info</span><span class="p">[</span><span class="s2">&quot;group_name&quot;</span><span class="p">]</span>  <span class="c1"># 英文组别名称</span>
+        <span class="n">xz_group_id</span> <span class="o">=</span> <span class="n">group_info</span><span class="p">[</span><span class="s2">&quot;xz_group_id&quot;</span><span class="p">]</span>   <span class="c1"># 对应行者组别ID</span>
+        <span class="n">zh_group_name</span> <span class="o">=</span> <span class="n">group_info</span><span class="p">[</span><span class="s2">&quot;zh_group_name&quot;</span><span class="p">]</span> <span class="c1"># 对应中文组别名称</span>
+
+        <span class="c1"># 1.归档历史数据</span>
+        <span class="n">updata_sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE lottery_options set is_expire=1 WHERE event_id={0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xz_group_id</span><span class="p">)</span>
+        <span class="n">my_get_dict_res</span><span class="p">(</span><span class="n">updata_sql</span><span class="p">,</span> <span class="n">MYSQL_CONN</span><span class="p">)</span>
+
+        <span class="c1"># 2.获取最新数据</span>
+        <span class="n">lis</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">zh_group_name</span> <span class="o">==</span> <span class="s2">&quot;黄衫获得人数&quot;</span><span class="p">:</span>
+            <span class="n">divs</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&quot;accordion-body-629275&quot;]&#39;</span><span class="p">)</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">divs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># 黄衫取第一部分</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># 网页的列数</span>
+            <span class="n">group_user_count</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 记录组别人数</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">lottery_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;div[1]/div[{}]/a/span[1]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">lottery_name</span> <span class="o">=</span> <span class="n">lottery_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Under&quot;</span><span class="p">,</span> <span class="s2">&quot;小于&quot;</span><span class="p">)</span>
+                <span class="n">lottery_name</span> <span class="o">=</span> <span class="n">lottery_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Over&quot;</span><span class="p">,</span> <span class="s2">&quot;大于&quot;</span><span class="p">)</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;div[1]/div[{}]/a/span[2]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;lottery_name:{}, price:{}, xz_group_id:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lottery_name</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">xz_group_id</span><span class="p">))</span>
+                <span class="n">lis</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">lottery_name</span><span class="p">,</span> <span class="n">lottery_name</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">xz_group_id</span><span class="p">])</span>
+                <span class="n">group_user_count</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">group_user_count</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 记录组别人数</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//div[contains(@class,&quot;market-buttons&quot;)]&#39;</span><span class="p">):</span>
+                <span class="n">column</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1">#网页的列数</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">en_username</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;div[{}]/a/span[1]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;div[{}]/a/span[2]/text()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">extract</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">zh_username</span> <span class="o">=</span> <span class="n">competitor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">en_username</span><span class="p">,</span> <span class="n">en_username</span><span class="p">)</span>  <span class="c1"># 如果获取不到中文名称, 那么就设置为英文名称</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;en_username:{},zh_username:{},price:{},xz_group_id:{}&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">en_username</span><span class="p">,</span> <span class="n">zh_username</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">xz_group_id</span><span class="p">))</span>
+                        <span class="n">lis</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">en_username</span><span class="p">,</span> <span class="n">zh_username</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">xz_group_id</span><span class="p">])</span>
+
+                        <span class="c1"># 统计组别人数</span>
+                        <span class="n">group_user_count</span><span class="o">+=</span><span class="mi">1</span>
+                    <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">pass</span>
+
+        <span class="c1"># 3.插入数据</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lis</span><span class="p">:</span>
+            <span class="c1"># 插入彩票选项表: 中文用户名名称, 英文名称, 赔率, 行者组别</span>
+            <span class="n">insert_sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO lottery_options (c_content, content, odds, event_id) values(&#39;{}&#39;, &#39;{}&#39;, {}, {})&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;insert_sql: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">insert_sql</span><span class="p">))</span>
+            <span class="n">my_get_dict_res</span><span class="p">(</span><span class="n">insert_sql</span><span class="p">,</span> <span class="n">MYSQL_CONN</span><span class="p">)</span>
+             
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;英文组别名称:{}, 行者组别ID:{}, 中文组别名称:{}, 人数:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">en_group_name</span><span class="p">,</span> <span class="n">xz_group_id</span><span class="p">,</span> <span class="n">zh_group_name</span><span class="p">,</span> <span class="n">group_user_count</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;######:end&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>1.5 爬取</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">france</span>
+</pre></div>
+</div>
+<h1>2018年环意</h1>
+
+<p>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=327924&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</p>
+
+<p><p class="hassubimage"><img src="media/15252481180063.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="media/15252489388143.jpg"></p>
+</p>
+
+<h2>组别</h2>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>英文名</th>
+<th>中文名</th>
+<th>组别</th>
+<th>链接</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Outright Betting</td>
+<td>总冠军</td>
+<td>327924</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=327924&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+<tr>
+<td>Points Classification</td>
+<td>冲刺王</td>
+<td>328201</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=328201&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+<tr>
+<td>King of the Mountains</td>
+<td>爬坡王</td>
+<td>328204</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=328204&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+<tr>
+<td>Team Classfication</td>
+<td>车队冠军</td>
+<td>328207</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=328207&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+<tr>
+<td>Young Rider Classification</td>
+<td>最佳年轻车手</td>
+<td>328283</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=328283&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+<tr>
+<td>Stage Betting</td>
+<td>赛段冠军</td>
+<td>327982</td>
+<td>https://www.sportsbet.com.au/betting/cycling/giro-ditalia/outrights?&amp;ev<em>oc</em>grp<em>id=327982&amp;is</em>ajax=1&amp;is<em>top</em>markets=&amp;ignore_linked=</td>
+</tr>
+</tbody>
+</table></div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: '爬取环法自行车赛的赔率信息',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

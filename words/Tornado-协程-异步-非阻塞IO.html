@@ -1,0 +1,528 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Tornado-协程/异步/非阻塞IO </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Tornado-协程/异步/非阻塞IO</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p><a href="http://tornadocn.readthedocs.io/zh/latest/guide/async.html">内容来源</a></p>
+
+<h1>基础知识</h1>
+
+<h2>1. 什么是阻塞</h2>
+
+<p>一个函数在return之前，等待其他事情发生（其他代码执行）的过程，称其为 阻塞 状态。一个函数可能会因为很多原因而阻塞：网络I/O, 磁盘I/O, 以及锁等等。事实上，每一个 函数运行中并使用CPU的时候至少都会发生一点点阻塞现象（为了说明相对于其他种类的阻塞，为什么需要将CPU的阻塞进行认真对待，这里举一个极端的例子，如 bcrypt 这样的密码hash函数,会使用几百毫秒的CPU时间，远远超过典型的网络或硬盘访问时延;</p>
+
+<p>一个函数可能在某些方面阻塞，而在其他方面却并不阻塞。比如，tornado.httpclient 类在默认的配置情况下，会在DNS解析上阻塞，而不会再其他的网络访问上阻塞（ 可以使用 ThreadedResolver 或者 基于正确配置的 libcurl 构建环境下的 tornado.curl_httpclient 类来减轻阻塞现象）。在Tornado中，我们通常讨论的是网络I/O上的阻塞，虽然各种情况的阻塞都应该被最小化</p>
+
+<h2>2. 什么是异步?</h2>
+
+<p>一个 异步 的函数会在它执行完成之后就先返回（Return），并且在触发一些即将发生的应用程序中的行为之前，通常会在后台进行一系列的工作（而对于正常的 同步 函数来说，任何工作都是在程序返回之前完成的）。 下面列举了几种不同的异步接口的开发方式：</p>
+
+<ul>
+<li>回调参数（Callback argument）</li>
+<li>返回一个占位符 (Future, Promise, Deferred)</li>
+<li>传送到队列</li>
+<li>回调注册表 (比如 POSIX 信号)</li>
+</ul>
+
+<p>无论使用哪种的接口开发方式， 顾名思义 异步函数都需要与调用方有不同的交互；不可能在对调用方透明的情况下使一个同步的函数异步化。（ gevent 系统使用轻量级的线程模式，能够达到一个可以与异步系统媲美的性能，但它们实际上并没有进行任何异步化。）</p>
+
+<h2>3.什么是异步非阻塞I/O?</h2>
+
+<p>实时的web功能需要为每一个用户保持一个长期存活的，大部分时候空闲的链接。在一个传统的同步web服务器端，这暗示着要为每一个用户奉献出一个线程，这将会带来很大的代价</p>
+
+<p>为了最大限度地减少并发连接的成本，Tornado使用单线程事件循环。这意味着，所有的应用程序代码应力求异步非阻塞的，因为在一个时间只有一个操作可是活动的;</p>
+
+<p>异步非阻塞的定义密切相关，而且经常互换使用，但它们并不完全是一回事。</p>
+
+<p>我们很容易<code>误解为</code>:<code>使用了异步的编程方式就不会有阻塞了</code>, 这是错误的; 比如<code>Tornado使用单线程事件循环</code>, 当你接口处理函数是阻塞的, 那么无论你怎么用异步的编程技巧, 这个接口就是阻塞的; </p>
+
+<p>那么如何<code>异步非阻塞</code>呢? </p>
+
+<p>1.接口处理函数都使用异步库: 但是可用的异步库并不完善, 有一些常用的<a href="https://github.com/tornadoweb/tornado/wiki/Links">异步库</a>, 但并不是所有你想要的功能都有异步库的支持;</p>
+
+<p>2.使用futures.ThreadPoolExecutor来让阻塞过程编程非阻塞, 其原理是在 Tornado 本身这个线程之外另外启动一个线程来执行阻塞的程序，从而让 Tornado 变得阻塞; 需要注意的是: 如果大量使用线程化的异步函数做一些高负载的活动，会导致该 Tornado 进程性能低下响应缓慢, 因为新开用于运行阻塞程序的线程也会占用资源, 并不是可以无限提升的, 过多的阻塞会影响性能;</p>
+
+<p>3.基于队列的异步编程, 我们可以使用Celery(分布式任务队列)+rabbitmq(推荐使用rabbitmq, 其它的队列系统比如redis也OK);  </p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">Celery</span><span class="err">和</span><span class="n">RabbitMQ</span><span class="err">的关系</span>
+
+    <span class="n">Celery</span><span class="p">:</span> <span class="err">分布式任务队列</span><span class="p">,</span> <span class="err">管理分配任务到不同的服务器，并且取得结果</span><span class="p">,</span> <span class="err">不负责处理服务器之间的通信任务</span><span class="p">;</span>
+    <span class="n">RabbitMQ</span><span class="p">:</span> <span class="err">作为一个消息队列管理工具被引入到和</span><span class="n">Celery</span><span class="err">集成，负责处理服务器之间的通信任务</span><span class="p">;</span>
+    <span class="err">我的理解</span><span class="p">(</span><span class="err">个人理解</span><span class="p">,</span> <span class="err">可能有误</span><span class="p">):</span> <span class="err">一个</span><span class="n">POST</span><span class="err">请求过来</span><span class="p">,</span> <span class="err">对应后台有一个</span><span class="n">view</span><span class="err">去执行一系列的计算</span><span class="p">,</span> <span class="err">这个调用是阻塞的</span><span class="p">;</span> <span class="err">此时</span><span class="p">,</span> <span class="err">我们将</span><span class="n">POST</span><span class="err">的数据放到队列中</span><span class="p">,</span> <span class="err">计算逻辑部分另外写消费者函数</span><span class="p">,</span> <span class="err">典型的生产者消费者模型</span><span class="p">,</span> <span class="err">但是</span><span class="p">,</span> <span class="err">这样的话</span><span class="p">,</span> <span class="n">web</span><span class="err">请求是对返回结果无感知的</span><span class="p">,</span> <span class="err">它并不知道这个计算任务是否真的正确完成了</span><span class="p">;</span>  
+    <span class="err">此时</span><span class="p">,</span> <span class="n">Celery</span><span class="err">的作用就显现出来了</span><span class="p">,</span> <span class="n">Django</span><span class="err">或者</span><span class="n">tornado</span><span class="err">框架在对接了</span><span class="n">Celery</span><span class="o">+</span><span class="n">MQ</span><span class="err">之后</span><span class="p">,</span> <span class="err">当</span><span class="n">Celery</span><span class="err">的</span><span class="n">worker</span><span class="err">执行完成之后</span><span class="p">,</span> <span class="err">会回调返回结果</span><span class="p">;</span> <span class="err">这样就实现了异步</span><span class="p">;</span>
+</pre></div>
+</div>
+<h1>2.图解</h1>
+
+<h2>2.1 阿里云的MQ功能图</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14971896922435.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>阿里云MQ功能图-支持异步</p></p>
+
+<h2>2.2 Celery异步编程模型架构图</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14971919848376.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>Celery异步编程模型架构图</p></p>
+<blockquote class="blockquote-normal">
+                <p>其实这也是典型的生产者-消费者模型, Celery Worker可以运行在任何机器, 甚至可以脱离于主项目而拆分出来一个子项目, 专门处理队列问题;</p></blockquote>
+<h1>3. 使用tornado的gen.coroutine异步编程</h1>
+
+<h2>3.1 基础</h2>
+
+<p>在 Tornado 中两个装饰器：</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>tornado.web.asynchronous: 让请求变成长连接的方式，必须手动调用 self.finish() 才会响应
+    tornado.gen.coroutine: 改请求为协程模式，说明白点就是能使用 yield 配合 Tornado 编写异步程序</pre></div></div>
+
+<p>Tornado 的协程异步函数有两个特点:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1.需要使用 coroutine 装饰器
+    2.返回值需要使用 raise gen.Return() 当做异常抛出
+    
+    注释: 返回值作为异常抛出是因为在 Python 3.2 之前生成器是不允许有返回值的</pre></div></div>
+
+<h2>3.1 基于Tornado异步库异步编程</h2>
+
+<p>函数内部使用的方法或库如果不支持协程,那么函数是阻塞的</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">tornado.options</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span>
+
+<span class="n">tornado</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">parse_command_line</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@tornado.web.asynchronous</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello, world&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">NoBlockingHnadler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@gen.coroutine</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">gen</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Blocking Request&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BlockingHnadler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Blocking Request&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/block&quot;</span><span class="p">,</span> <span class="n">BlockingHnadler</span><span class="p">),</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/noblock&quot;</span><span class="p">,</span> <span class="n">NoBlockingHnadler</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">autoreload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>当我们使用 yield gen.sleep(10) 这个异步的 sleep 时候其他请求是不阻塞的:</p>
+
+<p><p class="hassubimage"><img src="https://user-gold-cdn.xitu.io/2017/1/29/a0dc4c5bc7747117288bb83c1e906289"></p>
+</p>
+
+<p>当使用 time.sleep(10) 时候会阻塞其他的请求, 因为time.sleep方法并不支持Tornado的异步方式; 所以这种实现异步的方式有一定的局限性;</p>
+<blockquote class="blockquote-normal">
+                <p>注释:<br/>这里的异步非阻塞是针对另一请求来说的，本次的请求该是阻塞的仍然是阻塞的<br/>gen.coroutine 在 Tornado 3.1 后会自动调用 self.finish() 结束请求，可以不使用asynchronous 装饰器</p></blockquote>
+<h2>3.2 基于线程的方式异步编程</h2>
+
+<p>在 Tornado 中有个装饰器能使用 ThreadPoolExecutor 来让阻塞过程编程非阻塞，其原理是在 Tornado 本身这个线程之外另外启动一个线程来执行阻塞的程序，从而让 Tornado 变得阻塞;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">tornado.options</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span>
+<span class="kn">from</span> <span class="nn">tornado.concurrent</span> <span class="kn">import</span> <span class="n">run_on_executor</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+
+<span class="n">tornado</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">parse_command_line</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@tornado.web.asynchronous</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello, world&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">NoBlockingHnadler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="nd">@run_on_executor</span>
+    <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">second</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">second</span>
+
+    <span class="nd">@gen.coroutine</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;noBlocking Request: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">second</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/noblock&quot;</span><span class="p">,</span> <span class="n">NoBlockingHnadler</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">autoreload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>https://user-gold-cdn.xitu.io/2017/1/29/50e5aa511ff4dc4f6962849327a387e0</p>
+
+<h2>3.3 基于 Celery+MQ 异步编程</h2>
+<blockquote class="blockquote-normal">
+                <p>注释: 此例子依赖于RabbitMQ, <a href="http://docs.jinkan.org/docs/celery/getting-started/brokers/rabbitmq.html">安装文档</a></p></blockquote>
+<ul>
+<li>Celery-server程序</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">tornado.options</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span>
+
+<span class="kn">import</span> <span class="nn">tcelery</span><span class="o">,</span> <span class="nn">tasks</span>
+
+<span class="n">tornado</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">parse_command_line</span><span class="p">()</span>
+<span class="n">tcelery</span><span class="o">.</span><span class="n">setup_nonblocking_producer</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@tornado.web.asynchronous</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello, world&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CeleryHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@gen.coroutine</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">gen</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">tasks</span><span class="o">.</span><span class="n">sleep</span><span class="o">.</span><span class="n">apply_async</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;CeleryBlocking Request: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span> 
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+        <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;/celery-block&quot;</span><span class="p">,</span> <span class="n">CeleryHandler</span><span class="p">),</span>
+    <span class="p">],</span> <span class="n">autoreload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul>
+<li>Celery-Worker程序</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span>
+
+<span class="n">celery</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s2">&quot;amqp://guest:guest@localhost:5672//&quot;</span><span class="p">)</span>
+<span class="n">celery</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELERY_RESULT_BACKEND&#39;</span><span class="p">,</span> <span class="s1">&#39;amqp&#39;</span><span class="p">)</span>
+
+<span class="nd">@celery.task</span>
+<span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">seconds</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">seconds</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">celery</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><p class="hassubimage"><img src="https://user-gold-cdn.xitu.io/2017/1/29/d17673f5aaca2bf41f689fc79367593b"></p>
+</p>
+
+<h2>3.4 使用 python3的asyncio模式异步编程</h2>
+
+<p>(待测试)</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Tornado-协程-异步-非阻塞IO',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

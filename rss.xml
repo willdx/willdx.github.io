@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>Will Dx</title>
+    <link>http://willdx.github.io</link>
+    <description>willdx的在线博客</description>
+    
+    <item>
+        <title>Django学习笔记13_Django Session</title>
+        <link>http://willdx.github.io/words/Django学习笔记13_Django Session.html</link>
+        <guid>http://willdx.github.io/words/Django学习笔记13_Django Session.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django学习笔记13_Django Session</description>
+    </item>
+    
+    <item>
+        <title>Nginx日志格式</title>
+        <link>http://willdx.github.io/words/Nginx日志格式.html</link>
+        <guid>http://willdx.github.io/words/Nginx日志格式.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Nginx日志格式</description>
+    </item>
+    
+    <item>
+        <title>Mongodb教程-读书笔记</title>
+        <link>http://willdx.github.io/words/Mongodb教程-读书笔记.html</link>
+        <guid>http://willdx.github.io/words/Mongodb教程-读书笔记.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Mongodb教程-读书笔记</description>
+    </item>
+    
+    <item>
+        <title>pypiserver服务器搭建</title>
+        <link>http://willdx.github.io/words/自动化平台pypiserver服务器.html</link>
+        <guid>http://willdx.github.io/words/自动化平台pypiserver服务器.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>pypiserver服务器搭建</description>
+    </item>
+    
+    <item>
+        <title>Study_Fabric_执行模型</title>
+        <link>http://willdx.github.io/words/Study_Fabric_执行模型.html</link>
+        <guid>http://willdx.github.io/words/Study_Fabric_执行模型.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Study_Fabric_执行模型</description>
+    </item>
+    
+    <item>
+        <title>Django学习笔记02_安装虚拟开发环境</title>
+        <link>http://willdx.github.io/words/Django学习笔记02_安装虚拟开发环境.html</link>
+        <guid>http://willdx.github.io/words/Django学习笔记02_安装虚拟开发环境.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django学习笔记02_安装虚拟开发环境</description>
+    </item>
+    
+    <item>
+        <title>函数式编程-01-使用importlib简化if-else操作</title>
+        <link>http://willdx.github.io/words/函数式编程-01-使用importlib简化if-else操作.html</link>
+        <guid>http://willdx.github.io/words/函数式编程-01-使用importlib简化if-else操作.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>函数式编程-01-使用importlib简化if-else操作</description>
+    </item>
+    
+    <item>
+        <title>设计模式专题-03-装饰模式</title>
+        <link>http://willdx.github.io/words/设计模式专题-03-装饰模式.html</link>
+        <guid>http://willdx.github.io/words/设计模式专题-03-装饰模式.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>设计模式专题-03-装饰模式</description>
+    </item>
+    
+    <item>
+        <title>Django学习笔记19_Django+Docker+ansible+env</title>
+        <link>http://willdx.github.io/words/Django-Docker-Compose-Envfile集成实践.html</link>
+        <guid>http://willdx.github.io/words/Django-Docker-Compose-Envfile集成实践.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django学习笔记19_Django+Docker+ansible+env</description>
+    </item>
+    
+    <item>
+        <title>添加模块路径的3种方法</title>
+        <link>http://willdx.github.io/words/python小技巧03-添加模块路径的3种方法.html</link>
+        <guid>http://willdx.github.io/words/python小技巧03-添加模块路径的3种方法.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>添加模块路径的3种方法</description>
+    </item>
+    
+    <item>
+        <title>Django之查看执行的SQL操作</title>
+        <link>http://willdx.github.io/words/Django之查看执行的SQL语句.html</link>
+        <guid>http://willdx.github.io/words/Django之查看执行的SQL语句.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django之查看执行的SQL操作</description>
+    </item>
+    
+    <item>
+        <title>tablib导出特定格式数据文件模块封装</title>
+        <link>http://willdx.github.io/words/tablib导出特定格式数据文件模块封装.html</link>
+        <guid>http://willdx.github.io/words/tablib导出特定格式数据文件模块封装.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>tablib导出特定格式数据文件模块封装</description>
+    </item>
+    
+    <item>
+        <title>oh-my-zsh提高你的终端逼格</title>
+        <link>http://willdx.github.io/words/oh-my-zsh提高shell逼格.html</link>
+        <guid>http://willdx.github.io/words/oh-my-zsh提高shell逼格.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>oh-my-zsh提高你的终端逼格</description>
+    </item>
+    
+    <item>
+        <title>工作小技巧_一台主机配置多个SSH秘钥</title>
+        <link>http://willdx.github.io/words/一台主机上配置多个SSH秘钥.html</link>
+        <guid>http://willdx.github.io/words/一台主机上配置多个SSH秘钥.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>工作小技巧_一台主机配置多个SSH秘钥</description>
+    </item>
+    
+    <item>
+        <title>python3实现基于类的迭代器</title>
+        <link>http://willdx.github.io/words/python3实现基于类的迭代器.html</link>
+        <guid>http://willdx.github.io/words/python3实现基于类的迭代器.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>python3实现基于类的迭代器</description>
+    </item>
+    
+    <item>
+        <title>Study_Fabric_fabfile文件的结构和使用</title>
+        <link>http://willdx.github.io/words/Study_Fabric_fabfile文件的结构和使用.html</link>
+        <guid>http://willdx.github.io/words/Study_Fabric_fabfile文件的结构和使用.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Study_Fabric_fabfile文件的结构和使用</description>
+    </item>
+    
+    <item>
+        <title>python小脚本04-tk图形界面猜数字游戏</title>
+        <link>http://willdx.github.io/words/python小脚本04-tk图形界面猜数字游戏.html</link>
+        <guid>http://willdx.github.io/words/python小脚本04-tk图形界面猜数字游戏.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>python小脚本04-tk图形界面猜数字游戏</description>
+    </item>
+    
+    <item>
+        <title>Django学习笔记10_Django缓存系统</title>
+        <link>http://willdx.github.io/words/Django学习笔记10_Django缓存系统.html</link>
+        <guid>http://willdx.github.io/words/Django学习笔记10_Django缓存系统.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django学习笔记10_Django缓存系统</description>
+    </item>
+    
+    <item>
+        <title>自动化_Ansible简述</title>
+        <link>http://willdx.github.io/words/自动化_Ansible简述.html</link>
+        <guid>http://willdx.github.io/words/自动化_Ansible简述.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>自动化_Ansible简述</description>
+    </item>
+    
+    <item>
+        <title>Django学习笔记扩展01_自定义日志handle</title>
+        <link>http://willdx.github.io/words/Django学习笔记扩展01_自定义日志handle.html</link>
+        <guid>http://willdx.github.io/words/Django学习笔记扩展01_自定义日志handle.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>Django学习笔记扩展01_自定义日志handle</description>
+    </item>
+    
+    <item>
+        <title>MAC方向键使用提升效率</title>
+        <link>http://willdx.github.io/words/MAC方向键使用提升效率.html</link>
+        <guid>http://willdx.github.io/words/MAC方向键使用提升效率.html</guid>
+        <pubDate>April 04, 2017</pubDate>
+        <description>MAC方向键使用提升效率</description>
+    </item>
+    
+</channel>
+</rss>

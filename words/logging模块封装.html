@@ -1,0 +1,378 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> logging模块封装 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>logging模块封装</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1.初始化</h1>
+
+<p>logger = logging.getLogger(<q>endlesscode</q>)，getLogger()方法后面最好加上所要日志记录的模块名字，后面的日志格式中的%(name)s 对应的是这里的模块名字</p>
+
+<h1>2.设置级别</h1>
+
+<p>logger.setLevel(logging.DEBUG),Logging中有NOTSET &lt; DEBUG &lt; INFO &lt; WARNING &lt; ERROR &lt; CRITICAL这几种级别，日志会记录设置级别以上的日志</p>
+
+<h1>3.Handler</h1>
+
+<p>常用的是StreamHandler和FileHandler，windows下你可以简单理解为一个是console和文件日志，一个打印在CMD窗口上，一个记录在一个文件上</p>
+
+<h1>4.formatter，定义了最终log信息的顺序,结构和内容，</h1>
+
+<p>我喜欢用这样的格式 &#39;[%(asctime)s] [%(levelname)s] %(message)s&#39;, &#39;%Y-%m-%d %H:%M:%S&#39;，</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="c1">#formatter参数列表</span>
+    %<span class="o">(</span>name<span class="o">)</span>s Logger的名字
+    %<span class="o">(</span>levelname<span class="o">)</span>s 文本形式的日志级别
+    %<span class="o">(</span>message<span class="o">)</span>s 用户输出的消息
+    %<span class="o">(</span>asctime<span class="o">)</span>s 字符串形式的当前时间。默认格式是 “2003-07-08 <span class="m">16</span>:49:45,896”。逗号后面的是毫秒
+    %<span class="o">(</span>levelno<span class="o">)</span>s 数字形式的日志级别
+    %<span class="o">(</span>pathname<span class="o">)</span>s 调用日志输出函数的模块的完整路径名，可能没有
+    %<span class="o">(</span>filename<span class="o">)</span>s 调用日志输出函数的模块的文件名
+    %<span class="o">(</span>module<span class="o">)</span>s  调用日志输出函数的模块名
+    %<span class="o">(</span>funcName<span class="o">)</span>s 调用日志输出函数的函数名
+    %<span class="o">(</span>lineno<span class="o">)</span>d 调用日志输出函数的语句所在的代码行
+    %<span class="o">(</span>created<span class="o">)</span>f 当前时间，用UNIX标准的表示时间的浮 点数表示
+    %<span class="o">(</span>relativeCreated<span class="o">)</span>d 输出日志信息时的，自Logger创建以 来的毫秒数
+    %<span class="o">(</span>thread<span class="o">)</span>d 线程ID。可能没有
+    %<span class="o">(</span>threadName<span class="o">)</span>s 线程名。可能没有
+    %<span class="o">(</span>process<span class="o">)</span>d 进程ID。可能没有
+</pre></div>
+</div>
+<p><strong>实例01，在CMD窗口上只打出error以上级别的日志，但是在日志中打出debug以上的信息</strong></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>import logging
+    <span class="nv">logger</span> <span class="o">=</span> logging.getLogger<span class="o">(</span><span class="s2">&quot;simple_example&quot;</span><span class="o">)</span>
+    logger.setLevel<span class="o">(</span>logging.DEBUG<span class="o">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#建立一个filehandler来把日志记录在文件里，级别为debug以上</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="nv">fh</span> <span class="o">=</span> logging.FileHandler<span class="o">(</span><span class="s2">&quot;spam.log&quot;</span><span class="o">)</span>
+    fh.setLevel<span class="o">(</span>logging.DEBUG<span class="o">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#建立一个streamhandler来把日志打在CMD窗口上，级别为error以上</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="nv">ch</span> <span class="o">=</span> logging.StreamHandler<span class="o">()</span>
+    ch.setLevel<span class="o">(</span>logging.ERROR<span class="o">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#设置日志格式</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="nv">formatter</span> <span class="o">=</span> logging.Formatter<span class="o">(</span><span class="s2">&quot;%(asctime)s - %(name)s - %(levelname)s - %(message)s&quot;</span><span class="o">)</span>
+    ch.setFormatter<span class="o">(</span>formatter<span class="o">)</span>
+    fh.setFormatter<span class="o">(</span>formatter<span class="o">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#将相应的handler添加在logger对象中</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>logger.addHandler<span class="o">(</span>ch<span class="o">)</span>
+    logger.addHandler<span class="o">(</span>fh<span class="o">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#开始打日志</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>logger.debug<span class="o">(</span><span class="s2">&quot;debug message&quot;</span><span class="o">)</span>
+    logger.info<span class="o">(</span><span class="s2">&quot;info message&quot;</span><span class="o">)</span>
+    logger.warn<span class="o">(</span><span class="s2">&quot;warn message&quot;</span><span class="o">)</span>
+    logger.error<span class="o">(</span><span class="s2">&quot;error message&quot;</span><span class="o">)</span>
+    logger.critical<span class="o">(</span><span class="s2">&quot;critical message&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>运行一下将会看到CMD窗口只记录两条，spam.log中记录了五条日志</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/iwillblogging例子01.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>图片</p></p>
+
+<p><strong>实例02：将自定义的Logging模块封装为一个类来使用</strong></p>
+
+<p><a href="http://7xj7fg.com1.z0.glb.clouddn.com/iwillblog_rule.py">log_rule使用实例</a></p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>实例使用方法：
+    from log_rule import *  <span class="sb">`</span>导入自定义的log_rule模块<span class="sb">`</span>
+    <span class="nv">log_file</span> <span class="o">=</span> <span class="s2">&quot;dock_recode.log&quot;</span>     <span class="sb">`</span>定义日志文件名称<span class="sb">`</span>
+    <span class="nv">shop_dock_log</span> <span class="o">=</span> custom_docklog<span class="o">(</span>log_file<span class="o">)</span> <span class="sb">`</span>调用记录日志函数<span class="sb">`</span>
+
+    shop_dock_log.日志级别<span class="o">(</span><span class="s2">&quot;日志内容&quot;</span><span class="o">)</span>
+    <span class="sb">`</span>日志级别： <span class="o">(</span><span class="m">1</span><span class="o">)</span>debug <span class="o">(</span><span class="m">2</span><span class="o">)</span>info <span class="o">(</span><span class="m">3</span><span class="o">)</span>warn <span class="o">(</span><span class="m">4</span><span class="o">)</span>error <span class="o">(</span><span class="m">5</span><span class="o">)</span>critical<span class="sb">`</span>
+</pre></div>
+</div>
+<hr>
+
+<p>官网地址：<a href="http://docs.python.org/2/library/logging.html">http://docs.python.org/2/library/logging.html</a></p>
+
+<p>参考文章 <a href="http://my.oschina.net/yangyanxing/blog/176933">http://my.oschina.net/yangyanxing/blog/176933</a></p>
+
+<hr>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'logging模块封装',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

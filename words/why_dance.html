@@ -1,0 +1,329 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Why_dance </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Why_dance</h1>
+        <h4>Posted April 07, 2017</h4>
+        <blockquote class="blockquote-normal">
+                <p>前言：<br/><code>——跳舞能让我感觉到自由</code></p><br/><p>前言：<br/><code>——推开门之前 生活是个疑点 痛苦伺机而来 无以排遣 我想要个起点 浓浓的黑夜 闷头穿过世界</code></p></blockquote>
+<p>“为什么跳舞？”</p>
+
+<p><q>锻炼身体，增强人民体质</q>，我至今还记得我红着脸撒下的谎。</p>
+
+<p><q>为了泡妹子吧</q></p>
+
+<p>我也只有尴尬的笑笑了…….</p>
+
+<p>开个玩笑，进入正题。</p>
+
+<p>有一句话叫做“我知道那么多的道理，却依然过不好我这一生”，所以我也就不说道理神马的了，仅仅分享一下我的练舞经历以及感受，博君一笑，那便值了。</p>
+
+<p>先说说我吧。我是2013年7月毕的业，含着泪向学校我们自己创办的街舞社挥手道别。大学的我们，陪自己社团兄弟姐妹们练舞的时间比陪我女朋友的都多。说实话，舍不得。
+但没办法，日子要继续下去。一腔孤勇，几经辗转，我来到大上海！就职在一个软件公司，此时已经是2014年的5月份了！这样就算是，步入了社会。但很快，我被公司外包到某国企驻场，由于工作性质是驻场，所以，大家懂的，在连续加班了3个月后…….（此处省略1万字），后来，嘎嘎，后来就来到了数云，不得不说我是幸运的（煽情的话省略1万字），我终于做了我喜欢的工作，也能有时间过自己的想要的生活。</p>
+
+<p>于是，我重新收拾自己，打算重新开始锻炼身体，上海的舞蹈室健身房价格也是让我吃了一惊，所以我想起了一个我必须也不得不感谢的深度男，我们暂且叫他小明；小明同学也是一腔孤勇，来到大上海，后就职华为；恰好是他们公司街舞这一块的负责人，得知我可能由于工作原因放弃跳舞后，某个中午，他带我来到了舞蹈场地：那是中庭一块比较偏僻的地方，竖立摆放着三块玻璃镜，然后用手术室内的那种格挡布围起来的一个封闭场地。有灯光，音响，瓷砖地。就够了！</p>
+
+<p>当时的心情，是<code>无与伦比的美丽</code>！</p>
+
+<p>于是，机缘之下，我又开始了我的BK之旅。起初，人数不多。伙伴们表示十分惊讶，他们觉得踩着乐点又不可思议的动作我能轻松完成，有时状态好我还能面带微笑，amazing。我如获至宝，我就在最后面练power move，我知道我是“异类”，所以我默默的反复练习。久而久之，有了更多小伙伴的加入，他们饶有兴致地问我，这是啥舞啊？Breaking，我说。接着他们继续问，你不痛吗？这么高频率的摔倒又重来？我想了想，接着指着瓷砖地说，不要问我痛不痛，问它痛不痛！的确，有dancers就够了，哪里都是舞台。</p>
+
+<p>在此，我又认识了一个很带感的人，我们姑且叫他沈公子。沈公子是个很有才的闷骚男，breaking，locking都整的不错，还能来点简单的Bbox，有时候他也会做一些特效，也会把自己的工作和生活做成微电影;有时候也会整一些小程序，来改善自己的工作效率;还是蛮有创造力的一个人；至于为什么说他猥琐，不是因为他跳舞很有feel，而是因为他总会一本正经的做一件很猥琐的事情，他会一脸腼腆的说：<q>出来玩，就是为了开心罗！</q>，然后坏坏的笑笑。有一个笑对人生的朋友的确是一件很令人开心的事情啊；以舞会友，说的真不错啊。我们现在还经常交流。然后他的朋友，又迅速成了我们的朋友，大家也时常会有聚会，跳舞，吃饭，聊生活的悲欢，谈对未来的期盼。</p>
+
+<p>有时候，也会相约一起出去比赛。我想着出去比赛只有被虐的份，总是爽约了，想想都是有点愧疚，不过他们每次比完赛回来（虽然成绩令人蛋疼）总是和我形容比赛的精彩，说那是在视频上感受不上的，然后又让我看他们比赛视频的时候，就没啥好愧疚的了；哈哈，我们的关系依然很铁；可能是因为我个人的性格原因吧，我喜欢跳舞，但是不是很喜欢battle和比赛；不过这些都不重要，我在跳舞的自由和快乐已经足够我享受的了。</p>
+
+<p>接着，我们注意到不应该只顾着自己练习。舞蹈，更多的应该是交流。我和朋友们一拍即合，开始寻找住所附近的爱好者，找到同伴的过程也不是那么一帆风顺的，我加了很多群，打了很多电话，主要是在上海培训机构的费用是在是贵啊，直到后来我意外的从一个街舞群里得到了石林先生的电话，我战战兢兢拨通了他的电话，内容省略，总之结果是我可以去他们舞蹈室练舞，在听到免费2个字的时候，我不禁心花怒放。接下来我果然认识了一群风华正茂新潮的年轻舞者，石林先生，BBOY小何，BBOY青春，BBOY马子，还有我隔壁大学的BBOY飞…….我们存在于这个<q>魔都</q>的各个位置，有的是老师，有的是程序员，有的是销售，我们工作不一样，但是我们有共同的爱好，舞蹈让我们聚到了一起，我们互相交流学习，相互促进。找到同伴的乐趣，也令我欣喜不已；</p>
+
+<p>有时候我们会去为社区活动做表演，记得上次去彭浦镇和一群小朋友去参加演出，和小孩子们一块玩踢毽子，转铁圈，感觉自己也年轻了很多，和小孩子们在一起和已完全卸下防备，自己也笑的像个孩子；还有一次去华为的员工家属活动上给小孩子表演，也让我感觉到快乐，特别是听到下面的小朋友惊讶和自己的父母说“大哥哥好厉害的时候”，我感觉我自己是在做一件有意义的事情，小孩子们开心，我们几个也很开心。</p>
+
+<p>以前学校里的舞蹈班子，都已毕业，班子散了，但联系不散， 他们去哪里我们的交流圈就扩大到了哪里。总有机会会再聚一堂，探讨free style的奥妙。边上班边跳舞，虽然频率不固定，但大家对舞蹈早已是植入骨髓的爱，根本戒不掉，就这种情形下，他们都各自进了自己城市的牛掰俱乐部：老秋进了广东Rise Crew ，驰阳进了武汉九头鸟Junior等，我也认识了一群可爱的朋友。</p>
+
+<p>相信聪明如我的你肯定已经删繁就简知道我罗里吧嗦的中心思想了。</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="sb">`</span><span class="m">1</span>、 别说爱过。如果真心喜欢，请往下看（我是不会对你说，如果爱请深爱这种殿堂级心灵鸡汤的- -）<span class="sb">`</span>
+
+<span class="sb">`</span><span class="m">2</span>、 坚持自己的爱好是一种抉择。我们必须明白，不具备用爱好赚钱养家的能力，但明知如此还执意，那就是任性，真的是我们的抉择<span class="sb">`</span>
+
+<span class="sb">`</span><span class="m">3</span>、工作地点也不是问题。不可能累到每晚下班跨不开腿迈不了步子了，多出去走走，可能你就迈的动了<span class="sb">`</span>
+
+<span class="sb">`</span><span class="m">4</span>、重点逛逛周边学校。学校里基本都有bboy，学校bboy更显真诚<span class="sb">`</span>
+
+<span class="sb">`</span><span class="m">5</span>、有空就多参加一些活动。给大家一个认识你的机会<span class="sb">`</span>
+
+<span class="sb">`</span><span class="m">6</span>、Peace respect love 。常怀这三点，无论谁走到哪里做什么，都不会孤单<span class="sb">`</span>
+</pre></div>
+</div>
+<p>附上代表我几乎整个大学生活的照片：</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/X-crew.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>x街舞社</p></p>
+
+<p>以上几点对所有有自己的兴趣爱好的人都适用，永远对这个世界保持好奇，不断的充实和丰富自己</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'why_dance',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

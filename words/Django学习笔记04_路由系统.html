@@ -1,0 +1,451 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记04_路由系统 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记04_路由系统</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1. Django的路由系统</h1>
+
+<h2>1.1 目录结构</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">willdjango</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">willdjango</span> <span class="n">tree</span> <span class="o">-</span><span class="n">L</span> <span class="mi">3</span>
+<span class="o">.</span>
+<span class="err">├──</span> <span class="n">app</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">admin</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">migrations</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">models</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">tests</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">views</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span> <span class="n">db</span><span class="o">.</span><span class="n">sqlite3</span>
+<span class="err">├──</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">willdjango</span>
+    <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">urls</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">wsgi</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<h2>1.2 Django的路由系统的3种方式</h2>
+
+<h3>1.默认方式</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="n">willdjango</span><span class="o">/</span><span class="n">urls</span><span class="o">.</span><span class="n">py</span>
+
+<span class="err">写法</span><span class="mi">1</span><span class="p">:</span><span class="err">直接导入视图</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="c1">#指定URL访问对应的view函数处理，需要引用app中的函数</span>
+<span class="kn">from</span> <span class="nn">app.views</span> <span class="kn">import</span> <span class="n">index</span> <span class="c1">#ADD</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^index/&#39;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span> <span class="c1">#ADD</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="err">写法</span><span class="mi">2</span><span class="p">:</span><span class="err">直接把视图写到直接导入视图</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^index/&#39;</span><span class="p">,</span> <span class="s1">&#39;app.views.index&#39;</span><span class="p">),</span> <span class="c1">#ADD</span>
+<span class="p">]</span>
+
+<span class="err">写法</span><span class="mi">3</span><span class="p">:</span><span class="err">把模型与视图写在前缀里</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="err">前缀</span><span class="p">,</span>
+<span class="p">(</span><span class="err">正则表达式</span><span class="p">,</span> <span class="err">视图函数</span><span class="p">,</span> <span class="err">参数字典</span><span class="p">,</span> <span class="err">名称</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s1">&#39;blog.views&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^index/&#39;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<h3>2.include方式</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span><span class="n">include</span> <span class="c1">#ADD</span>
+ <span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+ <span class="kn">from</span> <span class="nn">app.views</span> <span class="kn">import</span> <span class="n">index</span>
+ 
+ <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+     <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+     <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^index/&#39;</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span>
+     <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^app/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;app.urls&#39;</span><span class="p">)),</span><span class="c1">#ADD</span>
+ <span class="p">]</span>
+ 
+ <span class="c1">#当浏览器访问http://XXXX/app/views/test_out时，转到app目录下的url路径做匹配</span>
+</pre></div>
+</div>
+<h3>3.反射方式</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#按URL后的目录个数分类，1个的写一个处理逻辑，2个的写一个处理逻辑；
+#URL为 $views/$test_out时，假设我设定匹配$views为模型名称，%test_out为函数名称</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="sb">`url.py`</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">views</span> <span class="kn">import</span> <span class="o">*</span> <span class="c1">#ADD</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?P&lt;filename&gt;.*)/(?P&lt;funcname&gt;.*)/$&#39;</span><span class="p">,</span> <span class="n">reflex</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="sb">`view.py`</span>
+<span class="c1">#-*- encoding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http.response</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">reflex</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;app.&#39;</span><span class="o">+</span><span class="n">filename</span><span class="p">)</span> <span class="c1">#以字符串的方式导入模块,&lt;module &#39;app&#39;&gt;</span>
+    <span class="n">modules</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>  <span class="c1">#view模块,&lt;module &#39;app.views&#39;&gt;</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">modules</span><span class="p">,</span> <span class="n">funcname</span><span class="p">)</span> <span class="c1">#函数&lt;function test_out at 0x10dce1320&gt;</span>
+    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">funcname</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_out</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">filename</span><span class="p">,</span><span class="n">funcname</span><span class="p">])</span>
+    <span class="k">return</span>  <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>> 使用反射的方式设定URL，可以减少URL的配置数量，但是具体处理函数的数量并没有减少</pre></div></div>
+
+<h2>1.3 Django的路由系统中的动态URL实现</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(个人理解)动态URL就是从URL上获取目录信息，然后传递给指定的view函数执行的过程
+
+使用正则表达式的方式配置URL（PS:`正则表达式使用圆括号从文本里提取数据的，例如，(\d{1,2})表示2位数的数字,用括号括起来表示将这个值作为参数传递给对应的view视图；`(r'^time/(\d{1,2})/$', hours)`,</pre></div></div>
+
+<h3>1.正则匹配URL</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="sb">`vim app/urls.py`</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">views</span> <span class="kn">import</span> <span class="n">add</span>
+    
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d{1,2})/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">add</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="sb">`vim app/views.py`</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http.response</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+    
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">num01</span><span class="p">,</span><span class="n">num02</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num01</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">num02</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="err">·</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#例子1,(\d{1,2})/(\d{1,2})表示会传递用户输入的URL中对应位置的2个值到add函数中，在浏览器中访问：http://127.0.0.1:8000/app/5/10/  返回值为15  ,返回值会随着用户输入而变化</pre></div></div>
+
+<h3>例子2: 优化-给实参定义名称</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>在上例中，只要匹配了正确的数字，都会传递给view中add函数2个参数，匹配的URL数字为实参，add函数任意定义2个行参进行处理即可，按顺序赋值；
+我们也可以给实参定义名称,add函数不变,url设置为：</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">views</span> <span class="kn">import</span> <span class="n">add</span>
+    
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?P&lt;num01&gt;\d{1,2})/(?P&lt;num02&gt;\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;num02&quot;</span><span class="p">:</span><span class="mi">20</span><span class="p">}),</span>
+    <span class="p">]</span>
+    <span class="c1">#其中{&quot;num02&quot;:20}设定默认值，默认值会覆盖浏览器上的值</span>
+</pre></div>
+</div>
+<h2>1.4 Django url name 详解</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^add/(\d+)/(\d+)/$&#39;</span><span class="p">,</span> <span class="n">calc_views</span><span class="o">.</span><span class="n">add2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;add2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这里的 name=&#39;add&#39; 是用来干什么的呢？</p>
+
+<p>是用来更好的使用URL, 在模板代码中我们根据name来表示指向某个URL的连接. 使用这种规范后, 当我们更改URL的名称的时候, 我们不需要去更改所有使用这个URL的链接;</p>
+
+<ul>
+<li>在view层或者其他需要获取URL信息的地方, 使用内置的reverse方法, 通过<code>URL name</code>和<code>对应参数</code>格式化为对应的URL</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">shell</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>  <span class="c1"># django 1.4.x - django 1.10.x</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>  <span class="c1"># django 1.10.x 新的，更加规范了</span>
+ 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;add2&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="sa">u</span><span class="s1">&#39;/add/4/5/&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;add2&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">444</span><span class="p">,</span><span class="mi">555</span><span class="p">))</span>
+<span class="sa">u</span><span class="s1">&#39;/add/444/555/&#39;</span>
+</pre></div>
+</div>
+<ul>
+<li>在template层中使用</li>
+</ul>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>{% url 'add2' 4 5 %} 获取到对应的网址 /add/4/5/</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记04_路由系统',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

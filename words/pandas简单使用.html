@@ -1,0 +1,371 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> pandas简单使用 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>pandas简单使用</h1>
+        <h4>Posted April 07, 2017</h4>
+        <blockquote class="blockquote-normal">
+                <p>pandas简化数据处理, 并优化了数据速度, 神器!</p></blockquote>
+<p><a href="https://www.dataquest.io/blog/images/cheat-sheets/pandas-cheat-sheet.pdf">PDF速查手册</a>
+<a href="http://pandas.pydata.org/pandas-docs/stable/10min.html">10分钟入门pandas</a></p>
+
+<h1>1. 导入数据</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：从</span><span class="n">CSV</span><span class="err">文件导入数据</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：从限定分隔符的文本文件导入数据</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：从</span><span class="n">Excel</span><span class="err">文件导入数据</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">connection_object</span><span class="p">)</span><span class="err">：从</span><span class="n">SQL</span><span class="err">表</span><span class="o">/</span><span class="err">库导入数据</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span><span class="err">：从</span><span class="n">JSON</span><span class="err">格式的字符串导入数据</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="err">：解析</span><span class="n">URL</span><span class="err">、字符串或者</span><span class="n">HTML</span><span class="err">文件，抽取其中的</span><span class="n">tables</span><span class="err">表格</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_clipboard</span><span class="p">()</span><span class="err">：从你的粘贴板获取内容，并传给</span><span class="n">read_table</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span><span class="err">：从字典对象导入数据，</span><span class="n">Key</span><span class="err">是列名，</span><span class="n">Value</span><span class="err">是数据</span>
+</pre></div>
+</div>
+<h1>2.导出数据</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：导出数据到</span><span class="n">CSV</span><span class="err">文件</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：导出数据到</span><span class="n">Excel</span><span class="err">文件</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">connection_object</span><span class="p">)</span><span class="err">：导出数据到</span><span class="n">SQL</span><span class="err">表</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="err">：以</span><span class="n">Json</span><span class="err">格式导出数据到文本文件</span>
+</pre></div>
+</div>
+<h1>3.创建测试对象</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="err">：创建</span><span class="mi">20</span><span class="err">行</span><span class="mi">5</span><span class="err">列的随机数组成的</span><span class="n">DataFrame</span><span class="err">对象</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span><span class="err">：从可迭代对象</span><span class="n">my_list</span><span class="err">创建一个</span><span class="n">Series</span><span class="err">对象</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;1900/1/30&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="err">：增加一个日期索引</span>
+</pre></div>
+</div>
+<h1>4.查看、检查数据</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="err">：查看</span><span class="n">DataFrame</span><span class="err">对象的前</span><span class="n">n</span><span class="err">行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="err">：查看</span><span class="n">DataFrame</span><span class="err">对象的最后</span><span class="n">n</span><span class="err">行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span><span class="err">：查看行数和列数</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span> <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span> <span class="err">：查看索引、数据类型和内存信息</span>
+<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="err">：查看数值型列的汇总统计</span>
+<span class="n">s</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="err">：查看</span><span class="n">Series</span><span class="err">对象的唯一值和计数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">)</span><span class="err">：查看</span><span class="n">DataFrame</span><span class="err">对象中每一列的唯一值和计数</span>
+</pre></div>
+</div>
+<h1>5.数据选取</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="err">：根据列名，并以</span><span class="n">Series</span><span class="err">的形式返回列</span>
+<span class="n">df</span><span class="p">[[</span><span class="n">col1</span><span class="p">,</span> <span class="n">col2</span><span class="p">]]</span><span class="err">：以</span><span class="n">DataFrame</span><span class="err">形式返回多列</span>
+<span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="err">：按位置选取数据</span>
+<span class="n">s</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;index_one&#39;</span><span class="p">]</span><span class="err">：按索引选取数据</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="err">：返回第一行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="err">：返回第一列的第一个元素</span>
+</pre></div>
+</div>
+<h1>6.数据清理</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="err">：重命名列名</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="err">：检查</span><span class="n">DataFrame</span><span class="err">对象中的空值，并返回一个</span><span class="n">Boolean</span><span class="err">数组</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="err">：检查</span><span class="n">DataFrame</span><span class="err">对象中的非空值，并返回一个</span><span class="n">Boolean</span><span class="err">数组</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="err">：删除所有包含空值的行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">：删除所有包含空值的列</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">thresh</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="err">：删除所有小于</span><span class="n">n</span><span class="err">个非空值的行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="err">：用</span><span class="n">x</span><span class="err">替换</span><span class="n">DataFrame</span><span class="err">对象中所有的空值</span>
+<span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="err">：将</span><span class="n">Series</span><span class="err">中的数据类型更改为</span><span class="nb">float</span><span class="err">类型</span>
+<span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">)</span><span class="err">：用‘</span><span class="n">one</span><span class="err">’代替所有等于</span><span class="mi">1</span><span class="err">的值</span>
+<span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span><span class="s1">&#39;three&#39;</span><span class="p">])</span><span class="err">：用</span><span class="s1">&#39;one&#39;</span><span class="err">代替</span><span class="mi">1</span><span class="err">，用</span><span class="s1">&#39;three&#39;</span><span class="err">代替</span><span class="mi">3</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="err">：批量更改列名</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;old_name&#39;</span><span class="p">:</span> <span class="s1">&#39;new_ name&#39;</span><span class="p">})</span><span class="err">：选择性更改列名</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;column_one&#39;</span><span class="p">)</span><span class="err">：更改索引列</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="err">：批量重命名索引</span>
+</pre></div>
+</div>
+<h1>7.数据处理：Filter、Sort和GroupBy</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span><span class="err">：选择</span><span class="n">col</span><span class="err">列的值大于</span><span class="mf">0.5</span><span class="err">的行</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">col1</span><span class="p">)</span><span class="err">：按照列</span><span class="n">col1</span><span class="err">排序数据，默认升序排列</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">col2</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="err">：按照列</span><span class="n">col1</span><span class="err">降序排列数据</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="bp">True</span><span class="p">,</span><span class="bp">False</span><span class="p">])</span><span class="err">：先按列</span><span class="n">col1</span><span class="err">升序排列，后按</span><span class="n">col2</span><span class="err">降序排列数据</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="err">：返回一个按列</span><span class="n">col</span><span class="err">进行分组的</span><span class="n">Groupby</span><span class="err">对象</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">])</span><span class="err">：返回一个按多列进行分组的</span><span class="n">Groupby</span><span class="err">对象</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col1</span><span class="p">)[</span><span class="n">col2</span><span class="p">]</span><span class="err">：返回按列</span><span class="n">col1</span><span class="err">进行分组后，列</span><span class="n">col2</span><span class="err">的均值</span>
+<span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">col2</span><span class="p">,</span><span class="n">col3</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="nb">max</span><span class="p">)</span><span class="err">：创建一个按列</span><span class="n">col1</span><span class="err">进行分组，并计算</span><span class="n">col2</span><span class="err">和</span><span class="n">col3</span><span class="err">的最大值的数据透视表</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col1</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span><span class="err">：返回按列</span><span class="n">col1</span><span class="err">分组的所有列的均值</span>
+<span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span><span class="err">：对</span><span class="n">DataFrame</span><span class="err">中的每一列应用函数</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span>
+<span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">：对</span><span class="n">DataFrame</span><span class="err">中的每一行应用函数</span><span class="n">np</span><span class="o">.</span><span class="n">max</span>
+</pre></div>
+</div>
+<h1>8. 数据合并</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span><span class="err">：将</span><span class="n">df2</span><span class="err">中的行添加到</span><span class="n">df1</span><span class="err">的尾部</span>
+<span class="n">df</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="err">：将</span><span class="n">df2</span><span class="err">中的列添加到</span><span class="n">df1</span><span class="err">的尾部</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span><span class="err">：对</span><span class="n">df1</span><span class="err">的列和</span><span class="n">df2</span><span class="err">的列执行</span><span class="n">SQL</span><span class="err">形式的</span><span class="n">join</span>
+</pre></div>
+</div>
+<h1>9.数据统计</h1>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="err">：查看数据值列的汇总统计</span>
+<span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="err">：返回所有列的均值</span>
+<span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="err">：返回列与列之间的相关系数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="err">：返回每一列中的非空值的个数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="err">：返回每一列的最大值</span>
+<span class="n">df</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="err">：返回每一列的最小值</span>
+<span class="n">df</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="err">：返回每一列的中位数</span>
+<span class="n">df</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="err">：返回每一列的标准差</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'pandas简单使用',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

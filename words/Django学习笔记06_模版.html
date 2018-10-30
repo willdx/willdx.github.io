@@ -1,0 +1,554 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记06_模版 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记06_模版</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h2>目录结构</h2>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span><span class="o">(</span>willdjango<span class="o">)</span> ➜  willdjango tree -L <span class="m">3</span>
+.
+├── app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── db.sqlite3
+├── manage.py
+└── willdjango
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</pre></div>
+</div>
+<h2>1.模版的执行</h2>
+
+<p>　　模版的创建过程，对于模版，其实就是读取模版（其中嵌套着模版标签），然后将 Model 中获取的数据插入到模版中，最后将信息返回给用户。</p>
+
+<p>Vserion01:返回一个带HTML标签的字符串到浏览器</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>def current_datetime<span class="o">(</span>request<span class="o">)</span>:
+<span class="nv">now</span> <span class="o">=</span> datetime.datetime.now<span class="o">()</span>
+<span class="nv">html</span> <span class="o">=</span> <span class="s2">&quot;&lt;html&gt;&lt;body&gt;It is now %s.&lt;/body&gt;&lt;/html&gt;&quot;</span> % now
+<span class="k">return</span> HttpResponse<span class="o">(</span>html<span class="o">)</span>
+</pre></div>
+</div>
+<p>Vsersion02:使用模版系统，将Context作为参数传递给template.Template最终返回到浏览器</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>from django import template
+<span class="nv">t</span> <span class="o">=</span> template.Template<span class="o">(</span><span class="s1">&#39;My name is {{ name }}.&#39;</span><span class="o">)</span>
+<span class="nv">c</span> <span class="o">=</span> template.Context<span class="o">({</span><span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Adrian&#39;</span><span class="o">})</span>
+print t.render<span class="o">(</span>c<span class="o">)</span>
+</pre></div>
+</div>
+<p>Vserion03:将HTML文件写入文件，读取文件到模版中，使用render方法将Context作为参数传递给template.Template最终返回到浏览器</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>import datetime
+from django import template
+import DjangoDemo.settings
+ 
+<span class="nv">now</span> <span class="o">=</span> datetime.datetime.now<span class="o">()</span>
+<span class="nv">fp</span> <span class="o">=</span> open<span class="o">(</span>settings.BASE_DIR+<span class="s1">&#39;/templates/Home/Index.html&#39;</span><span class="o">)</span>
+<span class="nv">t</span> <span class="o">=</span> template.Template<span class="o">(</span>fp.read<span class="o">())</span>
+fp.close<span class="o">()</span>
+<span class="nv">html</span> <span class="o">=</span> t.render<span class="o">(</span>template.Context<span class="o">({</span><span class="s1">&#39;current_date&#39;</span>: now<span class="o">}))</span>
+<span class="k">return</span> HttpResponse<span class="o">(</span>html<span class="o">)</span>
+</pre></div>
+</div>
+<p>Vsersion04:render<em>to</em>response方法，简化读取HTML文件模版过程，一条命令搞定</p>
+<div class="code-wrapper"><div class="lang-label">Bash</div><div class="highlight"><pre><span></span>from django.http.response import HttpResponse
+from django.shortcuts import render,render_to_response
+from django.template import RequestContext
+
+<span class="k">return</span> render_to_response<span class="o">(</span><span class="s1">&#39;user.html&#39;</span>,RequestContext<span class="o">(</span>request,<span class="o">{</span><span class="s1">&#39;info&#39;</span>:user_info<span class="o">}))</span>
+等同于：
+<span class="k">return</span> render_to_response<span class="o">(</span><span class="s1">&#39;user.html&#39;</span>,user_info,context_instance<span class="o">=</span>RequestContext<span class="o">(</span>request<span class="o">))</span>
+
+注意:解决跨站请求伪造报错问题,RequestContext
+</pre></div>
+</div>
+<h2>2.模版语言</h2>
+
+<h3>2.1 模板语法基础</h3>
+
+<ul>
+<li>模板中也有自己的语言，该语言可以实现数据展示</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">item</span> <span class="p">}}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_list</span> <span class="o">%</span><span class="p">}</span>  <span class="o">&lt;</span><span class="n">a</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">item</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>  <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">　　</span><span class="n">forloop</span><span class="o">.</span><span class="n">counter</span>
+<span class="err">　　</span><span class="n">forloop</span><span class="o">.</span><span class="n">first</span>
+<span class="err">　　</span><span class="n">forloop</span><span class="o">.</span><span class="n">last</span> 
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">ordered_warranty</span> <span class="o">%</span><span class="p">}</span>  <span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span> <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">母板：</span><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">title</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">子板：</span><span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">　　　</span><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">title</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">帮助方法：</span>
+<span class="p">{{</span> <span class="n">item</span><span class="o">.</span><span class="n">event_start</span><span class="o">|</span><span class="n">date</span><span class="p">:</span><span class="s2">&quot;Y-m-d H:i:s&quot;</span><span class="p">}}</span>
+<span class="p">{{</span> <span class="n">bio</span><span class="o">|</span><span class="n">truncatewords</span><span class="p">:</span><span class="s2">&quot;30&quot;</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">my_list</span><span class="o">|</span><span class="n">first</span><span class="o">|</span><span class="n">upper</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">name</span><span class="o">|</span><span class="n">lower</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<h3>2.2 在for循环中还有很多有用的东西, 如下:</h3>
+
+<p><p class="hassubimage"><img src="/media/14978946356341.jpg"></p>
+</p>
+
+<h3>2.3 当列表可能为空值, 使用 for empty</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">athlete</span> <span class="ow">in</span> <span class="n">athlete_list</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">athlete</span><span class="o">.</span><span class="n">name</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">empty</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="err">抱歉，列表为空</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<h3>2.4 模板中得到视图对应的网址</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># views.py</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+
+<span class="c1"># urls.py</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^add/(\d+)/(\d+)/$&#39;</span><span class="p">,</span> <span class="s1">&#39;app.views.add&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+ 
+<span class="c1"># template html</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">url</span> <span class="s1">&#39;add&#39;</span> <span class="mi">4</span> <span class="mi">5</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<h3>2.5 使用as给变量定义别名</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">url</span> <span class="s1">&#39;some-url-name&#39;</span> <span class="n">arg</span> <span class="n">arg2</span> <span class="k">as</span> <span class="n">the_url</span> <span class="o">%</span><span class="p">}</span>
+<span class="err">渲染得到</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ the_url }}&quot;</span><span class="o">&gt;</span><span class="err">链接到：</span><span class="p">{{</span> <span class="n">the_url</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<h3>2.6 模板中的逻辑操作</h3>
+<blockquote class="blockquote-normal">
+                <p>==, !=, &gt;=, &lt;=, &gt;, &lt; 这些比较都可以在模板中使用<br/>and, or, not, in, not in 也可以在模板中使用</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 注意：比较符号前后必须有至少一个空格</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">var</span> <span class="o">&gt;=</span> <span class="mi">90</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">成绩优秀</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">elif</span> <span class="n">var</span> <span class="o">&gt;=</span> <span class="mi">80</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">成绩良好</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">elif</span> <span class="n">var</span> <span class="o">&gt;=</span> <span class="mi">70</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">成绩一般</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">elif</span> <span class="n">var</span> <span class="o">&gt;=</span> <span class="mi">60</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">需要努力</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">不及格啊</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<h3>2.7 模板中获取request信息</h3>
+
+<ul>
+<li>当前网址,用户等信息</li>
+</ul>
+<blockquote class="blockquote-normal">
+                <p>如果不是在 views.py 中用的 render 函数，是 render<em>to</em>response 的话，需要将 request 加入到 上下文渲染器; Django 1.11 中新建的项目已经默认加上了;</p></blockquote>
+<p>Django 1.8 及以后 修改 settings.py;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.template.backends.django.DjangoTemplates&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DIRS&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;APP_DIRS&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;context_processors&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="o">...</span>
+                <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
+                <span class="o">...</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Django 1.7 及以前 修改 settings.py</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">TEMPLATE_CONTEXT_PROCESSORS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;django.contrib.auth.context_processors.auth&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.debug&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.i18n&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.media&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.static&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.tz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.messages.context_processors.messages&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.core.context_processors.request&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>然后我们在模板中就可以使用request了, 一般情况下推荐使用render, 而不是render<em>to</em>response;</p>
+
+<p><p class="hassubimage"><img src="/media/14978956915052.jpg"></p>
+</p>
+
+<ul>
+<li>获取当前用户</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span> <span class="p">}}</span>
+
+<span class="err">如果登陆就显示内容，不登陆就不显示内容：</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{{</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="p">}}</span><span class="err">，您好！</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+    <span class="err">请登陆，这里放登陆链接</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li>获取当前网址</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<ul>
+<li>获取当前GET参数</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">urlencode</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<h2>3.通过simple_tag自定义filter</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">a</span><span class="err">、在</span><span class="n">app</span><span class="err">中创建</span><span class="n">templatetags</span><span class="err">文件夹</span>
+
+<span class="n">b</span><span class="err">、创建任意</span> <span class="o">.</span><span class="n">py</span> <span class="err">文件，如：</span><span class="n">xx</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1">#!/usr/bin/env python</span>
+<span class="c1">#coding:utf-8</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.template.base</span> <span class="kn">import</span> <span class="n">resolve_variable</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">TemplateSyntaxError</span>
+ 
+<span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+ 
+<span class="nd">@register.simple_tag</span>
+<span class="k">def</span> <span class="nf">my_simple_time</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="n">v3</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span> <span class="o">+</span> <span class="n">v3</span>
+ 
+<span class="nd">@register.simple_tag</span>
+<span class="k">def</span> <span class="nf">my_input</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">arg</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&lt;input type=&#39;text&#39; id=&#39;</span><span class="si">%s</span><span class="s2">&#39; class=&#39;</span><span class="si">%s</span><span class="s2">&#39; /&gt;&quot;</span> <span class="o">%</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">arg</span><span class="p">,)</span>
+    <span class="k">return</span> <span class="n">mark_safe</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+<span class="n">c</span><span class="err">、在使用自定义</span><span class="n">simple_tag</span><span class="err">的</span><span class="n">html</span><span class="err">文件中导入之前创建的</span> <span class="n">xx</span><span class="o">.</span><span class="n">py</span> <span class="err">文件名</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">xxx</span> <span class="o">%</span><span class="p">}</span>
+<span class="c1">#注意:{% load xxx %} 必须放置在{% extends base.html %} 之后 </span>
+
+<span class="n">d</span><span class="err">、使用</span><span class="n">simple_tag</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">my_simple_time</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">my_input</span> <span class="s1">&#39;id_username&#39;</span> <span class="s1">&#39;hide&#39;</span><span class="o">%</span><span class="p">}</span>
+
+<span class="n">e</span><span class="err">、再</span><span class="n">settings</span><span class="err">中配置当前</span><span class="n">app</span><span class="err">，不然</span><span class="n">django</span><span class="err">无法找到自定义的</span><span class="n">simple_tag</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;app&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<h2>4.自定义模板标签</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>##TO Be Continue
+
+    ![文档地址](http://djangobook.py3k.cn/2.0/chapter09/)</pre></div></div>
+
+<h2>5.模板的位置</h2>
+
+<p>模板一般放在app下的templates中，Django会自动去这个文件夹中找; 在view.py文件中置顶模板路径的时候, 默认我们可以直接写:</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;home.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>但当有多个APP, 且每个APP的templates模块中都有相同的home.html文件的时候, 可能会查询到其他APP的同名文件; </p>
+
+<p>避免这个问题的方法是: </p>
+
+<ul>
+<li><p>第一步: 在每个APP的templates文件夹中建一个和app同名的目录, 将app相关的模板文件都放入到这个目录中;</p></li>
+<li><p>第二步: 在view.py文件中指定模板文件的时候加上APP的名称即可; 如下:</p></li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;accouting_app/home.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">})</span>
+</pre></div>
+</div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记06_模版',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

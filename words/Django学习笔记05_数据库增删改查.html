@@ -1,0 +1,916 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记05_数据库增删改查 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记05_数据库增删改查</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>数据库模型的Meta</h1>
+
+<p><a href="https://wizardforcel.gitbooks.io/django-chinese-docs-18/content/2_1_3_Meta%20options.html">创建数据库模型时常用meta字段</a></p>
+
+<p>Django 模型是与数据库相关的，与数据库相关的代码一般写在 models.py 中，Django 支持 sqlite3, MySQL, PostgreSQL等数据库，只需要在settings.py中配置即可，不用更改models.py中的代码</p>
+
+<ul>
+<li>新建项目和应用</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="o">.</span><span class="n">py</span> <span class="n">startproject</span> <span class="n">xxx_project</span>
+<span class="n">cd</span> <span class="n">xxx_project</span>
+
+<span class="c1"># 新建一个app</span>
+<span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="o">.</span><span class="n">py</span> <span class="n">startapp</span> <span class="n">xxx_app</span> 
+<span class="err">等同于</span> 
+<span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">startapp</span> <span class="n">xxx_app</span>
+</pre></div>
+</div>
+<p>那project和app什么关系呢？</p>
+
+<p><code>一个项目一般包含多个app，一个app也可以用在多个项目中</code>(但是, 一般都是一个项目包含多个app)</p>
+
+<h2>目录结构</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">willdjango</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">willdjango</span> <span class="n">tree</span> <span class="o">-</span><span class="n">L</span> <span class="mi">3</span>
+<span class="o">.</span>
+<span class="err">├──</span> <span class="n">app</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">admin</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">migrations</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">models</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">tests</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">views</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span> <span class="n">db</span><span class="o">.</span><span class="n">sqlite3</span>
+<span class="err">├──</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">willdjango</span>
+    <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">├──</span> <span class="n">urls</span><span class="o">.</span><span class="n">py</span>
+    <span class="err">└──</span> <span class="n">wsgi</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<h2>一般涉及到数据库操作我们的逻辑是</h2>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>创建数据库，设计表结构和字段
+使用 MySQLdb 来连接数据库，并编写数据访问层代码
+业务逻辑层去调用数据访问层执行数据库操作</pre></div></div>
+
+<h2>使用Django操作数据库</h2>
+
+<h3>1.设定model .py</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>2.修改settings.py文件</h3>
+
+<h4>2.1 将APP添加到install_apps选项中</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="s1">&#39;app&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<h4>2.2 默认使用SQLlite3数据库，测试时用默认的即可</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="n">willdjango</span><span class="o">/</span><span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;db.sqlite3&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>数据库信息可以自定义:<a href="https://docs.djangoproject.com/en/1.9/ref/settings/#databases">官方链接</a></p></blockquote>
+<p>若使用mysql 的话，如下配置：</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;mydatabase&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;mydatabaseuser&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;5432&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#若使用postgresql</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;mydatabaseuser&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;mydatabase&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TEST&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;mytestdatabase&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>Django默认不创建数据库，需要手动创建数据库，然后使用Django配置生成数据表</p></blockquote>
+<h4>2.3 执行命令</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">willdjango</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">willdjango</span> <span class="sb">`python manage.py makemigrations`</span>
+<span class="n">Migrations</span> <span class="k">for</span> <span class="s1">&#39;app&#39;</span><span class="p">:</span>
+  <span class="mo">0001</span><span class="n">_initial</span><span class="o">.</span><span class="n">py</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">Create</span> <span class="n">model</span> <span class="n">UserInfo</span>  <span class="sb">`＃创建Migrations`</span>
+<span class="p">(</span><span class="n">willdjango</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">willdjango</span> <span class="sb">`python manage.py  migrate`</span>
+<span class="n">Operations</span> <span class="n">to</span> <span class="n">perform</span><span class="p">:</span>
+  <span class="n">Synchronize</span> <span class="n">unmigrated</span> <span class="n">apps</span><span class="p">:</span> <span class="n">staticfiles</span><span class="p">,</span> <span class="n">messages</span>
+  <span class="n">Apply</span> <span class="nb">all</span> <span class="n">migrations</span><span class="p">:</span> <span class="n">admin</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">contenttypes</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">sessions</span>
+<span class="n">Synchronizing</span> <span class="n">apps</span> <span class="n">without</span> <span class="n">migrations</span><span class="p">:</span>
+  <span class="n">Creating</span> <span class="n">tables</span><span class="o">...</span>
+    <span class="n">Running</span> <span class="n">deferred</span> <span class="n">SQL</span><span class="o">...</span>
+  <span class="n">Installing</span> <span class="n">custom</span> <span class="n">SQL</span><span class="o">...</span>
+<span class="n">Running</span> <span class="n">migrations</span><span class="p">:</span>       <span class="sb">`＃执行Migrations`</span>
+  <span class="n">Rendering</span> <span class="n">model</span> <span class="n">states</span><span class="o">...</span> <span class="n">DONE</span>
+  <span class="n">Applying</span> <span class="n">contenttypes</span><span class="o">.</span><span class="mo">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">admin</span><span class="o">.</span><span class="mo">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">app</span><span class="o">.</span><span class="mo">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">contenttypes</span><span class="o">.</span><span class="mo">0002</span><span class="n">_remove_content_type_name</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0002</span><span class="n">_alter_permission_name_max_length</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0003</span><span class="n">_alter_user_email_max_length</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0004</span><span class="n">_alter_user_username_opts</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0005</span><span class="n">_alter_user_last_login_null</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">auth</span><span class="o">.</span><span class="mo">0006</span><span class="n">_require_contenttypes_0002</span><span class="o">...</span> <span class="n">OK</span>
+  <span class="n">Applying</span> <span class="n">sessions</span><span class="o">.</span><span class="mo">0001</span><span class="n">_initial</span><span class="o">...</span> <span class="n">OK</span>
+</pre></div>
+</div>
+<h4>2.5 修改model.py 文件之后只需要重新执行上面2条命令即可，就能使改变生效</h4>
+
+<h3>3.python manage shell 操作数据库数据</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">＃模型</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  
+    <span class="k">def</span>  <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+
+<span class="err">＃添加环境变量</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;willdjango.settings&quot;</span><span class="p">)</span>
+<span class="err">＃导入对应的模型类</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">UserInfo</span>
+
+<span class="c1">#创建数据</span>
+<span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;daixiang&quot;</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="s2">&quot;123456&quot;</span><span class="p">)</span>
+
+<span class="c1">#获取所有数据</span>
+<span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<span class="c1">#获取单条数据</span>
+    <span class="c1">#get方法：输出单条记录的时候使用，若返回结果有多条，则会触发异常</span>
+        <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span>
+
+<span class="err">＃数据过滤</span>
+    <span class="err">＃</span><span class="nb">filter</span><span class="err">方法：当输入结果为多条记录时使用</span>
+        <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span>
+
+<span class="c1"># 数据映射</span>
+    <span class="c1"># values(&quot;$arg1&quot;,&quot;$arg2&quot;) 获取指定的参数名称的值        </span>
+
+<span class="err">＃数据排序</span>
+    <span class="c1">#order_by(&quot;&quot;)方法,条件前加一个－号表示反向排序</span>
+        <span class="err">正向：</span><span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span> 
+        <span class="err">反向：</span><span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;daixiang&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;－username&quot;</span><span class="p">)</span> 
+
+<span class="err">＃数据切割</span>
+    <span class="c1">#切片的方式［0:1］</span>
+        <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;daixiang&#39;</span><span class="p">)</span><span class="err">［</span><span class="mi">0</span><span class="err">］</span>
+    <span class="err">＃不支持</span><span class="n">python</span><span class="err">的负索引，用类似方法替代</span>
+        <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;－daixiang&#39;</span><span class="p">)</span><span class="err">［</span><span class="mi">0</span><span class="err">］</span>
+
+<span class="err">＃数据更新</span>
+    <span class="err">＃</span><span class="n">update</span><span class="err">方法：</span><span class="n">update</span><span class="p">()</span><span class="err">方法会返回一个整型数值，表示受影响的记录条数</span>
+
+<span class="c1">#删除数据</span>
+    <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;daixiang&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span> <span class="c1">#Django出于安全性考虑，如果需要删除所有的数据需要加上all之后delete()</span>
+
+<span class="err">＃数据聚合</span>
+    <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Min</span><span class="p">,</span><span class="n">Max</span><span class="p">,</span><span class="n">Sum</span> 
+    <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Max</span><span class="p">(</span><span class="s1">&#39;guest_id&#39;</span><span class="p">))</span>
+
+<span class="c1"># 获取Django操作数据库命令的底层SQL语句</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+    <span class="k">print</span>  <span class="n">obj</span><span class="o">.</span><span class="n">query</span>
+</pre></div>
+</div>
+<h3>关于查询条件</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="n">__contains</span> <span class="err">类似</span><span class="n">mysql</span><span class="err">的</span><span class="n">like</span><span class="err">模糊查询：</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__contains</span><span class="o">=</span><span class="s1">&#39;daixiang&#39;</span><span class="err">）</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="n">__icontains</span> <span class="err">表示大小写无关的模糊查询：</span><span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__icontains</span><span class="o">=</span><span class="s1">&#39;daixiang&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="n">__startswith</span> <span class="err">，</span><span class="s1">&#39;istartswith&#39;</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="n">__endswith</span><span class="err">，</span><span class="s1">&#39;iendswith&#39;</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="n">__range</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="s1">&#39;gt&#39;</span><span class="p">,</span><span class="s1">&#39;lt&#39;</span> 
+<span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="s1">&#39;in&#39;</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="s1">&#39;isnull&#39;</span>
+</pre></div>
+</div>
+<h3>直接写SQL的方式操作数据库</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>/*注意参数传递的方法不能直接使用格式化字符串:"%s" % 参数 ,而是使用参数列表的方式传递*/</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">＃</span><span class="p">(</span><span class="err">推荐</span><span class="p">)</span><span class="err">方法</span><span class="mi">1</span><span class="p">:</span><span class="n">connection</span> 
+    <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;select * from userinfo where username=</span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span><span class="p">,[</span><span class="s2">&quot;daixiang&quot;</span><span class="p">])</span> <span class="c1">#[&quot;daixiang&quot;]为参数列表</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">row</span>
+    <span class="c1">#保证更改提交到数据库</span>
+    <span class="n">transaction</span><span class="o">.</span><span class="n">commit_unless_managed</span><span class="p">()</span>  
+        
+<span class="err">＃方法</span><span class="mi">2</span><span class="p">:</span><span class="n">raw</span><span class="p">()</span>
+    <span class="err">＃</span><span class="n">raw</span><span class="p">()</span><span class="err">方法有限制：</span><span class="n">UPDATE</span><span class="p">,</span> <span class="n">INSERT</span><span class="p">,</span> <span class="n">DELETE</span><span class="err">等方法不能实现</span>
+    <span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">UserInfo</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select * from userinfo where username=</span><span class="si">%s</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="n">sql</span><span class="p">,[</span><span class="s2">&quot;daixiang&quot;</span><span class="p">]):</span>
+        <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<h2>Django模型相关</h2>
+
+<h3>表设计基础知识</h3>
+
+<h3>1.Django模型的字段类型</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">AutoField</span><span class="err">　　</span>
+    <span class="err">＃自增列</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span><span class="err">如果没有的话，默认会生成一个名称为</span> <span class="nb">id</span> <span class="err">的列，如果要显示的自定义一个自增列，必须将该列设置为主键</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="err">　</span>
+    <span class="err">＃字符串字段，必须</span> <span class="n">max_length</span> <span class="err">参数</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="err">　　</span>
+    <span class="err">＃布尔类型</span><span class="o">=</span><span class="n">tinyint</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">，不能为空，</span><span class="n">Blank</span><span class="o">=</span><span class="bp">True</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">ComaSeparatedIntegerField</span><span class="err">　　</span>
+    <span class="err">＃用逗号分割的数字</span><span class="o">=</span><span class="n">varchar</span><span class="err">，继承</span><span class="n">CharField</span><span class="err">，所以必须</span> <span class="n">max_lenght</span> <span class="err">参数</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="err">　　</span>
+    <span class="err">＃日期类型</span> <span class="n">date</span><span class="err">，对于参数，</span><span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="err">，则每次更新都会更新这个时间；</span><span class="n">auto_now_add</span> <span class="err">则只是第一次创建添加，之后的更新不再改变。</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="err">　</span>
+    <span class="err">＃日期类型</span> <span class="n">datetime</span><span class="err">，同</span><span class="n">DateField</span><span class="err">的参数</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">Decimal</span><span class="err">　　</span>
+    <span class="err">＃十进制小数类型</span> <span class="o">=</span> <span class="n">decimal</span><span class="err">，必须指定整数位</span><span class="n">max_digits</span><span class="err">和小数位</span><span class="n">decimal_places</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">EmailField</span><span class="err">　　</span>
+    <span class="err">＃字符串类型（正则表达式邮箱）</span> <span class="o">=</span><span class="n">varchar</span> <span class="err">对字符串进行正则表达式</span>
+<span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="err">　</span>
+    <span class="err">＃浮点类型</span> <span class="o">=</span> <span class="n">double</span>
+<span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="err">　＃整形</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">BigIntegerField</span><span class="err">　＃长整形</span>
+<span class="err">　　</span><span class="n">integer_field_ranges</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">　　　　</span><span class="s1">&#39;SmallIntegerField&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">32768</span><span class="p">,</span> <span class="mi">32767</span><span class="p">),</span>
+<span class="err">　　　　</span><span class="s1">&#39;IntegerField&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">2147483648</span><span class="p">,</span> <span class="mi">2147483647</span><span class="p">),</span>
+<span class="err">　　　　</span><span class="s1">&#39;BigIntegerField&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">9223372036854775808</span><span class="p">,</span> <span class="mi">9223372036854775807</span><span class="p">),</span>
+<span class="err">　　　　</span><span class="s1">&#39;PositiveSmallIntegerField&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">32767</span><span class="p">),</span>
+<span class="err">　　　　</span><span class="s1">&#39;PositiveIntegerField&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2147483647</span><span class="p">),</span>
+<span class="err">　　</span><span class="p">}</span>
+<span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">IPAddressField</span><span class="err">　＃字符串类型（</span><span class="n">ip4</span><span class="err">正则表达式）</span>
+<span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">GenericIPAddressField</span><span class="err">　＃字符串类型（</span><span class="n">ip4</span><span class="err">和</span><span class="n">ip6</span><span class="err">是可选的）</span>
+<span class="err">　　参数</span><span class="n">protocol</span><span class="err">可以是：</span><span class="n">both</span><span class="err">、</span><span class="n">ipv4</span><span class="err">、</span><span class="n">ipv6</span><span class="err">；验证时，会根据设置报错</span>
+<span class="p">(</span><span class="mi">14</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">NullBooleanField</span><span class="err">　　＃允许为空的布尔类型</span>
+<span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerFiel</span><span class="err">　　＃正</span><span class="n">Integer</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveSmallIntegerField</span><span class="err">　　＃正</span><span class="n">smallInteger</span>
+<span class="p">(</span><span class="mi">17</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="err">　　＃减号、下划线、字母、数字</span>
+<span class="p">(</span><span class="mi">18</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">SmallIntegerField</span><span class="err">　　＃数字</span>
+<span class="err">　　数据库中的字段有：</span><span class="n">tinyint</span><span class="err">、</span><span class="n">smallint</span><span class="err">、</span><span class="nb">int</span><span class="err">、</span><span class="n">bigint</span>
+<span class="p">(</span><span class="mi">19</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="err">　　＃字符串</span><span class="o">=</span><span class="n">longtext</span>
+<span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">TimeField</span><span class="err">　　＃时间</span> <span class="n">HH</span><span class="p">:</span><span class="n">MM</span><span class="p">[:</span><span class="n">ss</span><span class="p">[</span><span class="o">.</span><span class="n">uuuuuu</span><span class="p">]]</span>
+<span class="p">(</span><span class="mi">21</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="err">　　＃字符串，地址正则表达式</span>
+<span class="p">(</span><span class="mi">22</span><span class="p">)</span> <span class="n">models</span><span class="o">.</span><span class="n">BinaryField</span><span class="err">　＃二进制</span><span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span><span class="mi">23</span><span class="err">、</span><span class="n">models</span><span class="o">.</span><span class="n">ImageField</span>   <span class="err">图片</span><span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span><span class="mi">24</span><span class="err">、</span><span class="n">models</span><span class="o">.</span><span class="n">FilePathField</span> <span class="err">文件</span>
+</pre></div>
+</div>
+<h3>2.Django模型的字段参数</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+<span class="err">　　数据库中字段是否可以为空</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
+<span class="err">　　</span><span class="n">django</span><span class="err">的</span> <span class="n">Admin</span> <span class="err">中添加数据时是否可允许空值</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="n">primary_key</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="err">　　主键，对</span><span class="n">AutoField</span><span class="err">设置主键后，就会代替原来的自增</span> <span class="nb">id</span> <span class="err">列</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="n">auto_now</span> <span class="err">和</span> <span class="n">auto_now_add</span>
+<span class="err">　　</span><span class="n">auto_now</span>      <span class="c1">#自动创建---无论添加或修改，都是当前操作的时间</span>
+<span class="err">　　</span><span class="n">auto_now_add</span>  <span class="c1">#自动创建---永远是创建时的时间</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="n">choices</span>
+    <span class="n">GENDER_CHOICE</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Male&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Female&#39;</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">choices</span> <span class="o">=</span> <span class="n">GENDER_CHOICE</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="n">max_length</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="n">default</span><span class="err">　</span>     <span class="err">　</span><span class="c1">#默认值</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="n">verbose_name</span><span class="err">　　</span><span class="c1">#Admin中字段的显示名称</span>
+<span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="n">name</span><span class="o">|</span><span class="n">db_column</span><span class="err">　</span><span class="c1">#数据库中的字段名称</span>
+<span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="err">　　</span><span class="c1">#不允许重复</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="n">db_index</span> <span class="o">=</span> <span class="bp">True</span><span class="err">　</span>   <span class="c1">#数据库索引</span>
+<span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="n">editable</span><span class="o">=</span><span class="bp">True</span><span class="err">　</span>   <span class="err">　</span><span class="c1">#在Admin里是否可编辑</span>
+<span class="p">(</span><span class="mi">13</span><span class="p">)</span><span class="n">error_messages</span><span class="o">=</span><span class="bp">None</span> <span class="c1">#错误提示,error_messges={&quot;invalid&quot;:&quot;数据日期错误&quot;} 修改form验证的错误提示</span>
+<span class="p">(</span><span class="mi">14</span><span class="p">)</span><span class="n">auto_created</span><span class="o">=</span><span class="bp">False</span><span class="err">　</span><span class="c1">#自动创建</span>
+<span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="n">help_text</span><span class="err">　　</span> <span class="c1">#在Admin中提示帮助信息</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="n">validators</span><span class="o">=</span><span class="p">[]</span> <span class="c1">#自定义正则 </span>
+<span class="p">(</span><span class="mi">17</span><span class="p">)</span><span class="n">upload</span><span class="o">-</span><span class="n">to</span>     <span class="c1">#上传文件简单方法 file = models.FileField(upload_to = &#39;./upload/&#39;)</span>
+</pre></div>
+</div>
+<h3>3.数据库中表与表之间的关系</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>一对一，models.OneToOneField(OneModel) :关联的2表的数据要一一对应,数据条目数量等同,并不要求内容一样,但是每在设定一对一关联的表中添加一条记录,那么同时需要在被关联的表中添加一条记录与此条记录对应；
+一对多，models.ForeignKey(ColorDic) :一张表的字段内容必须在另外一张表中存在
+多对多，authors = models.ManyToManyField(Author) :需要使用第3张表实现多对多关系,Django会自动为我们生成这张表
+
+应用场景：
+一对一：在某表中创建一行数据时，有一个单选的下拉框（下拉框中的内容被用过一次就消失了）
+例如：原有含10列数据的一张表保存相关信息，经过一段时间之后10列无法满足需求，需要为原来的表再添加5列数据
+一对多：当一张表中创建一行数据时，有一个单选的下拉框（可以被重复选择）
+例如：创建用户信息时候，需要选择一个用户类型【普通用户】【金牌用户】【铂金用户】等
+多对多：在某表中创建一行数据是，有一个可以多选的下拉框
+例如：创建用户信息，需要为用户指定多个爱好</pre></div></div>
+
+<h3>4.将Models加入到Admin中管理</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1.修改settings文件，将APP的名称加入INSTALL_APPS中
+2.修改每一个APP目录的admin.py文件
+    from django.contrib import admin
+    from app.models import UserInfo
+    admin.site.register(UserInfo)
+3.重新runserver
+    登录http://127.0.0.1:8000/admin/会看到多出来的UserInfo管理入口，接下来我们就可以直接通过Admin后来进行数据的增删改查了
+
+总而言之，在表结构设计之初就把表的关系考虑清楚，并应用到modles.py文件的创建中；这样使得我们在admin后台操作数据的时候更方便，我们可以直接点下拉菜单就好，也更安全，因为数据表间的关联关系设定后，用户不能随意输入；
+
+4. 创建后台管理员账号
+
+python manage.py createsuperuser</pre></div></div>
+
+<h2>四.Django模型修改及数据迁移</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">**</span><span class="mf">1.</span><span class="err">模型修改</span><span class="o">**</span>
+<span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="p">:</span>
+    <span class="n">syncdb</span> <span class="err">仅创建数据库里还没有的表，它并不对已存在的数据表进行同步修改</span><span class="p">,</span><span class="err">也不处理数据模型的删除</span>
+    <span class="n">makemigrations</span><span class="p">:</span> <span class="err">基于当前的</span><span class="n">model</span><span class="err">创建新的迁移策略文件</span>
+    <span class="n">migrate</span><span class="p">:</span> <span class="err">用于执行迁移动作，具有</span><span class="n">syncdb</span><span class="err">的功能</span>
+    <span class="n">sqlmigrate</span><span class="p">:</span> <span class="err">显示迁移的</span><span class="n">SQL</span><span class="err">语句，具有</span><span class="n">sqlall</span><span class="err">的功能</span>
+<span class="err">使用方法：</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="err">修改数据库表结构：修改模型－</span><span class="n">makemigrations</span><span class="err">创建新的迁移策略文件－</span><span class="n">migrate</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="err">使用</span><span class="n">migration</span><span class="err">的方式修改数据：</span>
+        <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">makemigrations</span> <span class="o">--</span><span class="n">empty</span> <span class="n">yourappname</span> <span class="err">＃建立一个空的</span><span class="n">migration</span><span class="err">文件</span>
+    <span class="err">［例子］</span>
+     <span class="c1"># -*- coding: utf-8 -*-</span>
+     <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">migrations</span>
+      
+     <span class="k">def</span> <span class="nf">combine_names</span><span class="p">(</span><span class="n">apps</span><span class="p">,</span> <span class="n">schema_editor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;自定义函数,修改数据库内容&quot;&quot;&quot;</span>
+         <span class="n">Person</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="s2">&quot;yourappname&quot;</span><span class="p">,</span> <span class="s2">&quot;Person&quot;</span><span class="p">)</span>
+         <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+             <span class="n">person</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span> <span class="n">person</span><span class="o">.</span><span class="n">last_name</span><span class="p">)</span>
+             <span class="n">person</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+      
+     <span class="k">class</span> <span class="nc">Migration</span><span class="p">(</span><span class="n">migrations</span><span class="o">.</span><span class="n">Migration</span><span class="p">):</span>
+      
+         <span class="n">dependencies</span> <span class="o">=</span> <span class="p">[</span>
+             <span class="p">(</span><span class="s1">&#39;yourappname&#39;</span><span class="p">,</span> <span class="s1">&#39;0001_initial&#39;</span><span class="p">),</span>
+         <span class="p">]</span>
+      
+         <span class="n">operations</span> <span class="o">=</span> <span class="p">[</span>
+             <span class="c1">#调用函数</span>
+             <span class="n">migrations</span><span class="o">.</span><span class="n">RunPython</span><span class="p">(</span><span class="n">combine_names</span><span class="p">),</span>
+         <span class="p">]</span>
+
+<span class="o">**</span><span class="mf">2.</span><span class="err">数据迁移</span><span class="o">**</span>
+    <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">dumpdata</span> <span class="n">myapp</span> <span class="o">&gt;</span> <span class="n">myapp</span><span class="o">.</span><span class="n">json</span> <span class="c1"># 数据导出</span>
+    <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">loaddata</span> <span class="n">myapp</span><span class="o">.</span><span class="n">json</span>  <span class="c1"># 数据导入</span>
+    <span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">dumpdata</span> <span class="n">auth</span> <span class="o">&gt;</span> <span class="n">auth</span><span class="o">.</span><span class="n">json</span>  <span class="err">＃导出用户数据</span>
+</pre></div>
+</div>
+<h2>测试样例</h2>
+
+<h3>1.Django数据库表设计</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#一对一，一对多，多对多</span>
+<span class="sb">`vim app/models.py`</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">UserBase</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_base&quot;</span>
+    <span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+
+<span class="k">class</span> <span class="nc">UserInterest</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="c1">#id = models.AutoField()·</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="err">·</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_interest&quot;</span>
+<span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+<span class="k">class</span> <span class="nc">UserGender</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="err">·</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_gender&quot;</span>
+<span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+<span class="k">class</span> <span class="nc">UserGroup</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="err">·</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_group&quot;</span>
+<span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">userpass</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">UserBase</span><span class="p">)</span>
+<span class="n">username</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">gender</span>   <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">UserGender</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">email</span>    <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">interest</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">UserInterest</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">group</span>    <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">UserGroup</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">created</span>  <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">updated</span>  <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">is_valid</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+    <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_info&quot;</span>
+<span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+
+<span class="sb">`vim  app/admin.py`</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">UserInfo</span><span class="p">,</span><span class="n">UserBase</span><span class="p">,</span><span class="n">UserInterest</span><span class="p">,</span><span class="n">UserGender</span><span class="p">,</span><span class="n">UserGroup</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">UserInfo</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">UserBase</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">UserInterest</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">UserGender</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">UserGroup</span><span class="p">)</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>#python manage runserver 登录admin后台管理界面，发现设定的表都可以被后台管理了，哈哈，赞！</pre></div></div>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/django_admin_modle_test.png"></p>
+                    <p class="img-title"><span class="symbol">#</span>admin后台管理界面</p></p>
+
+<h3>2. Django数据库操作</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#基于上面的例子做增删改查</span>
+ <span class="sb">`vim app/urls.py`</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">views</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1">#url(r&#39;uer_ser/$&#39;, uer_ser),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;uer_add/(?P&lt;username&gt;.*)/(?P&lt;password&gt;.*)/$&#39;</span><span class="p">,</span> <span class="n">user_add</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;uer_del/(?P&lt;username&gt;.*)/(?P&lt;password&gt;.*)/$&#39;</span><span class="p">,</span> <span class="n">user_del</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;uer_upd/(?P&lt;username&gt;.*)/(?P&lt;password&gt;.*)/$&#39;</span><span class="p">,</span> <span class="n">user_upd</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;uer_ser/(?P&lt;username&gt;.*)/(?P&lt;password&gt;.*)/$&#39;</span><span class="p">,</span> <span class="n">user_ser</span><span class="p">),</span>
+    <span class="c1">#url(r&#39;(?P&lt;filename&gt;.*)/(?P&lt;funcname&gt;.*)/$&#39;, reflex),</span>
+    <span class="c1">#url(r&#39;(\d{1,2})/(\d{1,2})/$&#39;, add),</span>
+    <span class="c1">#url(r&#39;(?P&lt;num01&gt;\d{1,2})/(?P&lt;num02&gt;\d{1,2})/$&#39;, add, {&quot;num02&quot;:20}),</span>
+<span class="p">]</span>    
+
+<span class="sb">`vim app/views.py`</span>
+<span class="k">def</span> <span class="nf">user_add</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+<span class="n">will</span> <span class="o">=</span> <span class="n">UserBase</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;14&quot;</span><span class="p">)</span><span class="err">·</span>
+<span class="n">gender</span> <span class="o">=</span> <span class="n">UserGender</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;boy&quot;</span><span class="p">)</span>
+<span class="n">interest</span> <span class="o">=</span> <span class="n">UserInterest</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;篮球&quot;</span><span class="p">)</span>
+<span class="c1">#group = UserGroup.objects.get(name=&quot;运维&quot;)</span>
+<span class="c1">#print group</span>
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;userpass&quot;</span><span class="p">:</span><span class="n">will</span><span class="p">,</span><span class="s2">&quot;username&quot;</span><span class="p">:</span><span class="n">username</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span><span class="n">password</span><span class="p">,</span><span class="s2">&quot;gender&quot;</span><span class="p">:</span><span class="n">gender</span><span class="p">,</span>
+        <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;xiang.dai@shuyun.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;interest&quot;</span><span class="p">:</span><span class="n">interest</span><span class="p">}</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">obj</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">user_del</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">user_upd</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;change&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">user_ser</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">user_info</span> <span class="o">=</span> <span class="n">UserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">user_info</span><span class="o">.</span><span class="n">query</span>
+    <span class="n">lis</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">user_info</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lis</span><span class="p">))</span>
+</pre></div>
+</div>
+<h3>3. Django上传文件</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="n">vim</span> <span class="n">app</span><span class="o">/</span><span class="n">urls</span><span class="o">.</span><span class="n">py</span>
+    <span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+    <span class="kn">from</span> <span class="nn">views</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;upload/$&#39;</span><span class="p">,</span><span class="n">uploadfile</span><span class="p">),</span>
+    <span class="p">]</span>        
+
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="n">vim</span> <span class="n">app</span><span class="o">/</span><span class="n">views</span><span class="o">.</span><span class="n">py</span>
+    <span class="kn">from</span> <span class="nn">form.forms</span> <span class="kn">import</span> <span class="o">*</span> <span class="err">＃表单</span>
+    <span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span> <span class="err">＃解决</span><span class="n">CSRF</span><span class="err">跨域报错</span>
+    
+    <span class="k">def</span> <span class="nf">uploadfile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+            <span class="n">ff</span> <span class="o">=</span> <span class="n">FileForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span><span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ff</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                <span class="c1">#写入数据库</span>
+                <span class="n">uf</span> <span class="o">=</span> <span class="n">UploadFile</span><span class="p">()</span>
+                <span class="n">uf</span><span class="o">.</span><span class="n">userid</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;userid&#39;</span><span class="p">]</span>
+                <span class="n">uf</span><span class="o">.</span><span class="n">filedir</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;filedir&#39;</span><span class="p">]</span>
+                <span class="n">uf</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">&#39;upload ok!&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ff</span> <span class="o">=</span> <span class="n">FileForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">,{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span><span class="n">ff</span><span class="p">}))</span>
+</pre></div>
+</div><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(3)模版设定</pre></div></div>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="sb">`vim app/templates/base.html`</span>
+
+<span class="o">&lt;</span><span class="err">!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">meta</span> <span class="n">http</span><span class="o">-</span><span class="n">equiv</span><span class="o">=</span><span class="s2">&quot;X-UA-Compatible&quot;</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;IE=edge,chrome=1&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">title</span> <span class="o">%</span><span class="p">}</span><span class="n">ShuYun</span><span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span><span class="o">-</span><span class="err">上传文件测试</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">meta</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;description&quot;</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">meta</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;keywords&quot;</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">link</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;http://7xj7fg.com1.z0.glb.clouddn.com/jquery-ui.css&quot;</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;https://dn-omem.qbox.me/reports/css/semantic.css&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">head_style</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">h1</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;ui center aligned header&quot;</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="o">&gt;</span><span class="n">o</span> <span class="p">(</span><span class="err">◡‿◡✿</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;ui top inverted fixed hidden menu&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="o">&gt;&lt;</span><span class="n">h3</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;ui green header&quot;</span><span class="o">&gt;</span><span class="err">上传文件表单测试</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;item&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/controller/&quot;</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Index</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;right menu&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;item&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/controller/admin/&quot;</span><span class="o">&gt;</span><span class="n">Admin</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="o">&gt;</span><span class="n">Help</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s1">&#39;nav.html&#39;</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">content</span> <span class="o">%</span><span class="p">}</span><span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span><span class="err">默认内容</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span><span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s1">&#39;bottom.html&#39;</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s1">&#39;count.html&#39;</span> <span class="o">%</span><span class="p">}</span>
+
+   <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://7xj7fg.com1.z0.glb.clouddn.com/jquery.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">script</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://7xj7fg.com1.z0.glb.clouddn.com/submit.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;http://7xj7fg.com1.z0.glb.clouddn.com/jquery-ui.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+   <span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">self_script</span> <span class="o">%</span><span class="p">}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+
+<span class="sb">`vim app/templates/index.html`</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s1">&#39;base.html&#39;</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">content</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">upload</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">form</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&quot;multipart/form-data&quot;</span> <span class="o">&gt;</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">csrf_token</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{{</span> <span class="n">form</span><span class="o">.</span><span class="n">as_p</span> <span class="p">}}</span>
+        <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;ok&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="n">vim</span> <span class="n">app</span><span class="o">/</span><span class="n">form</span><span class="o">/</span><span class="n">forms</span><span class="o">.</span><span class="n">py</span>
+    <span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+    <span class="k">class</span> <span class="nc">FileForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+        <span class="n">userid</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+        <span class="n">filedir</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">FileField</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="n">vim</span> <span class="n">app</span><span class="o">/</span><span class="n">models</span><span class="o">.</span><span class="n">py</span>
+    <span class="k">class</span> <span class="nc">UploadFile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">userid</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">filedir</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">upload_to</span> <span class="o">=</span> <span class="s1">&#39;./upload/&#39;</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s2">&quot;user_file&quot;</span>
+    <span class="k">def</span> <span class="fm">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userid</span>
+    <span class="c1">#在模型中我们设定了文件存放的路径./upload/,我们需要手动创建该目录</span>
+    <span class="p">(</span><span class="n">willdjango</span><span class="p">)</span> <span class="err">➜</span> <span class="n">pwd</span>
+    <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">daixiang</span><span class="o">/</span><span class="n">mycode</span><span class="o">/</span><span class="n">willdjang</span>
+    <span class="n">mkdir</span> <span class="n">upload</span>
+</pre></div>
+</div>
+<p>(6)python manage.py runserver 访问浏览器</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/Django%E5%AD%A6%E4%B9%A0_%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6.png"></p>
+</p>
+
+<h1>问题</h1>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre># Django Admin 后台 update的时候报错
+
+    1. 一个个字段改, 咳咳, 这样太傻
+    ALTER TABLE django_admin_log MODIFY COLUMN object_repr VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL; 
+
+    2.在创建数据库时, 设定utf8编码, 要不然后续会有很多编码的问题;
+    create database accounting default character set utf8;
+
+# Django migrate时 APP model并不生效
+
+    python manage.py makemigrations accouting_app
+    python manage.py migrate
+
+# 创建超级管理员账户
+
+    python manage.py createsuperuser
+
+# 在project/settings.py文件中设置语言 
+
+    LANGUAGE_CODE = 'zh-hans'</pre></div></div>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记05_数据库增删改查',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

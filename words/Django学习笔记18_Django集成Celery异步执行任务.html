@@ -1,0 +1,430 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Django学习笔记18_Django集成Celery异步执行任务 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Django学习笔记18_Django集成Celery异步执行任务</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1. 需求场景</h1>
+
+<p>1、在web应用中，用户触发一个操作，执行后台处理程序，这个程序需要执行很长时间才能返回结果。怎样才能不阻塞http请求，不让用户等待从而提高用户体验呢？
+2、定时任务脚本：生产环境经常会跑一些定时任务脚本，假如你有上千台的服务器、上千种任务，定时任务的管理很困难，如何对job进行有效的管理？
+3、异步需求：比如发送短信/邮件、推送消息、清理/设置缓存？</p>
+
+<h1>2. Celery - 分布式任务队列系统</h1>
+
+<p>Celery是一个可以处理大量消息的分布式任务系统，它凭借简单、灵活、可靠的特性被广泛使用。Celery聚焦于实时处理任务，同时也支持定时的任务调度</p>
+
+<h2>2.1 特性</h2>
+
+<ol>
+<li>查看定时任务的执行情况，比如执行是否成功、当前状态、执行任务花费的时间等。</li>
+<li>易于其他框架集成，如使用django管理后台添加、更新、删除任务。</li>
+<li>方便把任务和配置管理相关联。</li>
+<li>可选多进程、Eventlet和Gevent三种模式并发执行。</li>
+<li>提供错误处理机制</li>
+</ol>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15017333567498.jpg"></p>
+</p>
+
+<p>从上图中可以知道Celery包含如下组件：</p>
+
+<ol>
+<li>Producer：凡是调用了Celery API、函数或装饰器而产生任务并交给任务队列处理的都是任务生产者。</li>
+<li>任务调度组件：Beat进程会读取配置文件的内容，周期性地将配置中到期需要执行的任务发送给任务队列。</li>
+<li>Celery Worker：负责执行任务的线程，可以在多台服务器运行提高执行效率</li>
+<li>Broker：消息中间件，负责接受任务生产者的任务，并且转发work进行执行。Celery目前支持RabbitMQ、Redis、MongoDB、Beanstalk、SQLAlchemy、Zookeeper等作为消息中间件，官方推荐使用RabbitMQ。</li>
+<li>Result Backend：任务处理完后保存状态信息和结果，以供查询。Celery默认已支持Redis、RabbitMQ、MongoDB、Django ORM、SQLAlchemy等方式</li>
+</ol>
+
+<h2>2.2 一个简单例子</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 1. 在项目根目录创建tasks.py</span>
+
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">hello: 队列名称</span>
+<span class="sd">broker: 使用redis做消息中间件</span>
+<span class="sd">backend: 使用redis做结果存储</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;redis://localhost:6379/1&#39;</span><span class="p">)</span>
+
+<span class="nd">@app.task</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Worker程序&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;hello world&#39;</span>
+
+<span class="c1"># 2. 启动Hello Worker, 监听hello队列</span>
+
+<span class="n">celery</span> <span class="o">-</span><span class="n">A</span> <span class="n">tasks</span> <span class="n">worker</span> <span class="o">--</span><span class="n">loglevel</span><span class="o">=</span><span class="n">info</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="err">输出</span><span class="p">:</span> <span class="err">可以看到</span><span class="n">Worker</span><span class="err">已经在监听队列了</span>
+<span class="p">(</span><span class="n">accouting_server</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">accouting_server</span> <span class="n">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">celery</span> <span class="o">-</span><span class="n">A</span> <span class="n">tasks</span> <span class="n">worker</span> <span class="o">--</span><span class="n">loglevel</span><span class="o">=</span><span class="n">info</span>
+<span class="n">celery</span><span class="nd">@xiang.local</span> <span class="n">v4</span><span class="o">.</span><span class="mf">1.0</span> <span class="p">(</span><span class="n">latentcall</span><span class="p">)</span>
+
+<span class="n">Darwin</span><span class="o">-</span><span class="mf">16.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">i386</span><span class="o">-</span><span class="mi">64</span><span class="n">bit</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">33</span>
+
+<span class="p">[</span><span class="n">config</span><span class="p">]</span>
+<span class="o">.&gt;</span> <span class="n">app</span><span class="p">:</span>         <span class="n">hello</span><span class="p">:</span><span class="mh">0x103889b00</span>
+<span class="o">.&gt;</span> <span class="n">transport</span><span class="p">:</span>   <span class="n">redis</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">6379</span><span class="o">/</span><span class="mi">0</span>
+<span class="o">.&gt;</span> <span class="n">results</span><span class="p">:</span>     <span class="n">disabled</span><span class="p">:</span><span class="o">//</span>
+<span class="o">.&gt;</span> <span class="n">concurrency</span><span class="p">:</span> <span class="mi">4</span> <span class="p">(</span><span class="n">prefork</span><span class="p">)</span>
+<span class="o">.&gt;</span> <span class="n">task</span> <span class="n">events</span><span class="p">:</span> <span class="n">OFF</span> <span class="p">(</span><span class="n">enable</span> <span class="o">-</span><span class="n">E</span> <span class="n">to</span> <span class="n">monitor</span> <span class="n">tasks</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">worker</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">queues</span><span class="p">]</span>
+<span class="o">.&gt;</span> <span class="n">celery</span>           <span class="n">exchange</span><span class="o">=</span><span class="n">celery</span><span class="p">(</span><span class="n">direct</span><span class="p">)</span> <span class="n">key</span><span class="o">=</span><span class="n">celery</span>
+
+<span class="p">[</span><span class="n">tasks</span><span class="p">]</span>
+  <span class="o">.</span> <span class="n">tasks</span><span class="o">.</span><span class="n">hello</span>
+
+<span class="p">[</span><span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span><span class="mi">896</span><span class="p">:</span> <span class="n">INFO</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">Connected</span> <span class="n">to</span> <span class="n">redis</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">6379</span><span class="o">/</span><span class="mi">0</span>
+<span class="p">[</span><span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span><span class="mi">907</span><span class="p">:</span> <span class="n">INFO</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">mingle</span><span class="p">:</span> <span class="n">searching</span> <span class="k">for</span> <span class="n">neighbors</span>
+<span class="p">[</span><span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span><span class="mi">939</span><span class="p">:</span> <span class="n">INFO</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">mingle</span><span class="p">:</span> <span class="nb">all</span> <span class="n">alone</span>
+<span class="p">[</span><span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">34</span><span class="p">,</span><span class="mi">953</span><span class="p">:</span> <span class="n">INFO</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">celery</span><span class="nd">@xiang.local</span> <span class="n">ready</span><span class="o">.</span>
+
+<span class="c1"># 3. (生产者)同样目录下添加celery_producter_hello.py文件</span>
+
+<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">hello</span>
+
+<span class="n">hello</span><span class="o">.</span><span class="n">delay</span><span class="p">()</span>
+<span class="c1"># hello.delay().get() # 若需要返回结果</span>
+
+<span class="c1"># 4. 执行celery_producter_hello.py</span>
+
+<span class="n">python</span>  <span class="n">celery_producter_hello</span><span class="o">.</span><span class="n">py</span>
+<span class="err">结果</span><span class="p">:</span>
+<span class="p">[</span><span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">497</span><span class="p">:</span> <span class="n">INFO</span><span class="o">/</span><span class="n">ForkPoolWorker</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="n">Task</span> <span class="n">tasks</span><span class="o">.</span><span class="n">hello</span><span class="p">[</span><span class="mi">6390</span><span class="n">a950</span><span class="o">-</span><span class="mi">09</span><span class="n">ab</span><span class="o">-</span><span class="mi">4670</span><span class="o">-</span><span class="mi">8977</span><span class="o">-</span><span class="mi">36</span><span class="n">fd6737435e</span><span class="p">]</span> <span class="n">succeeded</span> <span class="ow">in</span> <span class="mf">0.0008197110000764951</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;hello world&#39;</span>
+</pre></div>
+</div>
+<h1>3. Django 集成Celery</h1>
+
+<h2>3.0 环境准备</h2>
+
+<ul>
+<li>安装redis</li>
+<li>安装celery及相关依赖: <code>pip install -U celery[redis]</code></li>
+<li>启动redis: redis-server</li>
+<li>检验redis已启动: redis-cli ping</li>
+</ul>
+
+<h2>3.1 touch celery.py</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*-coding:utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="c1"># set the default Django settings module for the &#39;celery&#39; program.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s1">&#39;accouting_project.settings&#39;</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;accouting_project&#39;</span><span class="p">)</span>
+
+<span class="c1"># Using a string here means the worker will not have to</span>
+<span class="c1"># pickle the object when using Windows.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config_from_object</span><span class="p">(</span><span class="s1">&#39;django.conf:settings&#39;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">autodiscover_tasks</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">)</span>
+
+
+<span class="nd">@app.task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">debug_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Request: {0!r}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+</pre></div>
+</div>
+<h2>3.2 vim settings.py</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># CELERY</span>
+<span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379&#39;</span> 
+<span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379&#39;</span> 
+<span class="n">CELERY_ACCEPT_CONTENT</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;application/json&#39;</span><span class="p">]</span> 
+<span class="n">CELERY_TASK_SERIALIZER</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span> 
+<span class="n">CELERY_RESULT_SERIALIZER</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span> 
+<span class="n">CELERY_TIMEZONE</span> <span class="o">=</span> <span class="n">TIME_ZONE</span>
+</pre></div>
+</div>
+<h2>3.3 监听Celery</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">cd</span>  <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">daixiang</span><span class="o">/</span><span class="n">mycode</span><span class="o">/</span><span class="n">accouting_server</span><span class="o">/</span><span class="n">accouting_project</span>
+<span class="n">celery</span> <span class="o">-</span><span class="n">A</span> <span class="n">accouting_project</span>  <span class="n">worker</span> <span class="o">-</span><span class="n">l</span> <span class="n">info</span>
+</pre></div>
+</div>
+<h2>3.4 测试Celery</h2>
+
+<p><a href="http://liuzxc.github.io/blog/celery/">参考文档</a></p>
+
+<h1>4. Celery最佳实践</h1>
+
+<p>~未完待续~</p>
+
+<p><a href="https://my.oschina.net/siddontang/blog/284107">参考Celery最佳实践</a>
+<a href="https://linpingta.github.io/blog/2016/03/19/celery-2/">褚桐 博客</a>
+<a href="http://docs.celeryproject.org/en/latest/userguide/routing.html">官方文档</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Django学习笔记18_Django集成Celery异步执行任务',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

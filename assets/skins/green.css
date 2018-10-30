@@ -1,0 +1,10 @@
+/* sk-green */
+.sk-green {
+  --main-bg: #80ac7b;
+  --main-cl: #605a56;
+}
+
+body.sk-green a {
+    text-decoration: none;
+    color: var(--main-cl);
+}

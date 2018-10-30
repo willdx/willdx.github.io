@@ -1,0 +1,561 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> python魔法方法专题02-python3.5协程原理 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>python魔法方法专题02-python3.5协程原理</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>python3.5协程原理笔记</h1>
+
+<h2>迭代器iterator</h2>
+
+<p>对于string、list、dict、tuple等这类容器对象,使用for循环遍历是很方便的;在后台for语句对容器对象调用iter()函数,iter()是python的内置函数;iter()会返回一个定义了next()方法的迭代器对象,它在容器中逐个访问容器内元素,next()也是python的内置函数;在没有后续元素时,next()会抛出一个StopIteration异常,通知for语句循环结束;</p>
+
+<p>python自带的容器对象,它们都实现了相应的迭代器方法,那如果是自定义类需要遍历怎么办？</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>1.实现一个__iter__(self)方法,返回self
+2.实现一个__next__(self)方法,返回对应的值
+3.结束时手动raise StopIteration 异常</pre></div></div>
+
+<p>一个经典的例子:  <strong>自定义迭代器</strong>类返回 斐波那契数列</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Fib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">max</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Fib</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+    
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;遍历时被iter()调用,返回一个迭代器&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;遍历时内置的next()数调用__next__(self)方法&quot;&quot;&quot;</span>        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span> <span class="c1">#手动抛一场</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Fib</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+<h2>生成器Generator</h2>
+<blockquote class="blockquote-normal">
+                <p>Python 2.2生成器产生<strong>生成器</strong>概念,生成器允许创建一个在计算下一个值时不会浪费内存空间的迭代器</p></blockquote>
+<p>生成器是一种更方便的创建迭代器的方式,每一次yield调用自动创建的<strong>iter</strong>()和 <strong>next</strong>()方法,返回当前的迭代值,自yield处暂停函数,下一次yield从其暂停处恢复运行;终结时,会自动抛出StopIteration异常;</p>
+
+<p>一个经典的例子:  <strong>生成器</strong>返回 斐波那契数列</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flb</span><span class="p">(</span><span class="nb">max</span><span class="p">):</span>
+    <span class="n">n</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">n</span><span class="o">&lt;</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">b</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span><span class="n">b</span><span class="o">+</span><span class="n">a</span>
+        <span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+<span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flb</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>python还提供了一个生成器表达式: </p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>为什么要使用生成器？因为创建方便,并节省 cpu 和 内存(ram)</p>
+
+<p>可以利用生成器“暂停”的部分,添加“将东西发送回生成器”的功能,那么 Python 突然就有了协程的概念,python2.5为生成器引入了send()方法,这让我们不仅可以暂停生成器,而且能够传递值到生成器暂停的地方;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jumping_range</span><span class="p">(</span><span class="n">up_to</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">up_to</span><span class="p">:</span>
+        <span class="n">jump</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">index</span>
+        <span class="k">if</span> <span class="n">jump</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">jump</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">jump</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">iterator</span> <span class="o">=</span> <span class="n">jumping_range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">))</span>  <span class="c1"># 0</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">iterator</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># 2</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">))</span>  <span class="c1"># 3</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">iterator</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># 2</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1">#3,4</span>
+</pre></div>
+</div>
+<h2>@types.coroutine/yield from</h2>
+<blockquote class="blockquote-normal">
+                <p>Python3.3中的<strong>yield from</strong> 语法使生成器之间可以串联起来,便于生成器的重构;</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="k">yield from</span> <span class="n">iterator</span>
+<span class="c1">#相当于</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+    <span class="k">yield</span> <span class="n">x</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#重构</span>
+<span class="k">def</span> <span class="nf">lazy_range</span><span class="p">(</span><span class="n">up_to</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">gratuitous_refactor</span><span class="p">():</span>
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">up_to</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">index</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">yield from</span> <span class="n">gratuitous_refactor</span><span class="p">()</span>
+</pre></div>
+</div><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1">#串联</span>
+<span class="k">def</span> <span class="nf">bottom</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">yield</span> <span class="mi">42</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">middle</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">yield from</span> <span class="n">bottom</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">top</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">yield from</span> <span class="n">middle</span><span class="p">())</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="n">top</span><span class="p">()</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># Prints &#39;42&#39;.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># Prints &#39;84&#39;</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+<h3>生成器总结</h3>
+
+<p>Python 2.2 中的生成器让代码执行过程可以暂停;Python 2.5 中可以将值返回给暂停的生成器, 这使得 Python 中协程的概念成为可能;加上 Python 3.3 中的 yield from,使得重构生成器与将它们串联起来都很简单;</p>
+
+<h2>asyncio</h2>
+<blockquote class="blockquote-normal">
+                <p>Python3.4中的<strong>@asyncio.coroutine</strong> 语法用来提供事件循环特性;</p></blockquote>
+<h3>什么是事件循环？</h3>
+
+<p>事件循环 “<strong>是一种等待程序分配事件或消息的编程架构</strong>”, 基本上来说事件循环就是,“当A发生时,执行B”;</p>
+
+<p>例如:每个浏览器中都存在的JavaScript事件循环;当你点击了某个东西（“当A发生时”）,这一点击动作会发送给JavaScript的事件循环,并检查是否存在注册过的 onclick 回调来处理这一点击（“执行B”）;只要有注册过的回调函数就会伴随点击动作的细节信息被执行;事件循环被认为是一种循环是因为它不停地收集事件并通过循环来决定如何应对这些事件;</p>
+
+<p>对Python 来说,用 asyncio 来提供事件循环,asyncio 重点解决网络服务中的问题,事件循环在这里将来自套接字（socket）的 I/O 已经准备好读和/或写作为“当A发生时”（通过selectors模块）</p>
+
+<p>事件循环提供一种循环机制,让你可以“在A发生时,执行B”;基本上来说事件循环就是监听当有什么发生时,同时事件循环也关心这件事并执行相应的代码;Python 3.4 以后通过标准库 asyncio 获得了事件循环的特性;</p>
+
+<p>Python 3.4 通过并发编程的形式已经对异步编程有了足够的支持;异步编程简单来说就是代码执行的顺序在程序运行前是未知的（因此才称为异步而非同步）;并发编程是代码的执行不依赖于其他部分,即便是全都在同一个线程内执行（并发不是并行);</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="nd">@asyncio.coroutine</span>
+<span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;T-minus&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;({})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">yield from</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="err">＃开启并发任务</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="p">]</span>
+<span class="c1"># 开启事件循环</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="err">＃</span> <span class="err">结果</span><span class="p">:</span><span class="err">多任务交替执行</span>
+<span class="n">T</span><span class="o">-</span><span class="n">minus</span> <span class="mi">2</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">T</span><span class="o">-</span><span class="n">minus</span> <span class="mi">3</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">T</span><span class="o">-</span><span class="n">minus</span> <span class="mi">1</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">T</span><span class="o">-</span><span class="n">minus</span> <span class="mi">2</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">T</span><span class="o">-</span><span class="n">minus</span> <span class="mi">1</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>//下面几段话copy而来, 暂时不是很理解
+Python 3.4 中,asyncio.coroutine 修饰器用来标记作为协程的函数,这里的协程是和asyncio及其事件循环一起使用的;这赋予了 Python 第一个对于协程的明确定义：实现了PEP 342添加到生成器中的这一方法的对象,并通过[collections.abc.Coroutine这一抽象基类]表征的对象;这意味着突然之间所有实现了协程接口的生成器,即便它们并不是要以协程方式应用,都符合这一定义;为了修正这一点,<strong>asyncio 要求所有要用作协程的生成器必须由asyncio.coroutine修饰</strong></p>
+
+<p>有了对协程明确的定义（能够匹配生成器所提供的API）,你可以对任何asyncio.Future对象使用 yield from,从而将其传递给事件循环,暂停协程的执行来等待某些事情的发生（ future 对象并不重要,只是asyncio细节的实现）;一旦 future 对象获取了事件循环,它会一直在那里监听,直到完成它需要做的一切;当 future 完成自己的任务之后,事件循环会察觉到,暂停并等待在那里的协程会通过send()方法获取future对象的返回值并开始继续执行；</p>
+
+<p>以上面的代码为例;事件循环启动每一个 countdown() 协程,一直执行到遇见其中一个协程的 yield from 和 asyncio.sleep() ;这样会返回一个 asyncio.Future对象并将其传递给事件循环,同时暂停这一协程的执行;事件循环会监控这一future对象,直到倒计时1秒钟之后（同时也会检查其它正在监控的对象,比如像其它协程）;1秒钟的时间一到,事件循环会选择刚刚传递了future对象并暂停了的 countdown() 协程,将future对象的结果返回给协程,然后协程可以继续执行;这一过程会一直持续到所有的 countdown() 协程执行完毕,事件循环也被清空;</p>
+
+<h2>async/await</h2>
+<blockquote class="blockquote-normal">
+                <p>Python 3.5中由<strong>yield from</strong> 和 <strong>asyncio</strong>的功能相结合得到 <strong>await/async</strong>这一新语法;</p></blockquote>
+<p>Python 3.5 添加了types.coroutine 修饰器,也可以像 asyncio.coroutine 一样将生成器标记为协程;你可以用 async def 来定义一个协程函数,虽然这个函数不能包含任何形式的 yield 语句；只有 return 和 await 可以从协程中返回值</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">py35_coro</span><span class="p">():</span>
+    <span class="n">await</span> <span class="n">stuff</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>虽然await的使用和yield from很像,但await可以接受的对象却是不同的;await 当然可以接受协程,因为协程的概念是所有这一切的基础;但是当你使用 await 时,其接受的对象必须是awaitable 对象：必须是定义了<strong>await</strong>()方法且这一方法必须返回一个不是协程的迭代器;协程本身也被认为是 awaitable 对象（这也是collections.abc.Coroutine 继承 collections.abc.Awaitable的原因）;这一定义遵循 Python 将大部分语法结构在底层转化成方法调用的传统,就像 a + b 实际上是a.<strong>add</strong>(b) 或者 b.<strong>radd</strong>(a);</p>
+
+<p>让我们用简单的话来总结一下;用async def可以定义得到协程;定义协程的另一种方式是通过types.coroutine修饰器 – 从技术实现的角度来说就是添加了 CO<em>ITERABLE</em>COROUTINE标记 – 或者是collections.abc.Coroutine的子类;你只能通过基于生成器的定义来实现协程的暂停;</p>
+
+<p>awaitable 对象要么是一个协程要么是一个定义了<strong>await</strong>()方法的对象 – 也就是collections.abc.Awaitable – 且<strong>await</strong>()必须返回一个不是协程的迭代器;await表达式基本上与yield from相同但只能接受awaitable对象（普通迭代器不行）;async定义的函数要么包含return语句 – 包括所有Python函数缺省的return None – 和/或者 await表达式（yield表达式不行）;async函数的限制确保你不会将基于生成器的协程与普通的生成器混合使用,因为对这两种生成器的期望是非常不同的;</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">heapq</span>
+<span class="kn">import</span> <span class="nn">types</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">Task</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;Represent how long a coroutine should before starting again.</span>
+
+<span class="sd">    Comparison operators are implemented for use by heapq. Two-item</span>
+<span class="sd">    tuples unfortunately don&#39;t work because when the datetime.datetime</span>
+<span class="sd">    instances are equal, comparison falls to the coroutine and they don&#39;t</span>
+<span class="sd">    implement comparison methods, triggering an exception.</span>
+
+<span class="sd">    Think of this as being like asyncio.Task/curio.Task.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait_until</span><span class="p">,</span> <span class="n">coro</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coro</span> <span class="o">=</span> <span class="n">coro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">waiting_until</span> <span class="o">=</span> <span class="n">wait_until</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">waiting_until</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">waiting_until</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">waiting_until</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">waiting_until</span>
+
+<span class="k">class</span> <span class="nc">SleepingLoop</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;An event loop focused on delaying execution of coroutines.</span>
+
+<span class="sd">    Think of this as being like asyncio.BaseEventLoop/curio.Kernel.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">coros</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new</span> <span class="o">=</span> <span class="n">coros</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_waiting</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">run_until_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Start all the coroutines.</span>
+        <span class="k">for</span> <span class="n">coro</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">:</span>
+            <span class="n">wait_for</span> <span class="o">=</span> <span class="n">coro</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_waiting</span><span class="p">,</span> <span class="n">Task</span><span class="p">(</span><span class="n">wait_for</span><span class="p">,</span> <span class="n">coro</span><span class="p">))</span>
+        <span class="c1"># Keep running until there is no more work to do.</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_waiting</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="c1"># Get the coroutine with the soonest resumption time.</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_waiting</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">task</span><span class="o">.</span><span class="n">waiting_until</span><span class="p">:</span>
+                <span class="c1"># We&#39;re ahead of schedule; wait until it&#39;s time to resume.</span>
+                <span class="n">delta</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">waiting_until</span> <span class="o">-</span> <span class="n">now</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+                <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># It&#39;s time to resume the coroutine.</span>
+                <span class="n">wait_until</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">coro</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+                <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_waiting</span><span class="p">,</span> <span class="n">Task</span><span class="p">(</span><span class="n">wait_until</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">coro</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+                <span class="c1"># The coroutine is done.</span>
+                <span class="k">pass</span>
+
+<span class="nd">@types.coroutine</span>
+<span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pause a coroutine for the specified number of seconds.</span>
+
+<span class="sd">    Think of this as being like asyncio.sleep()/curio.sleep().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">wait_until</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">)</span>
+    <span class="c1"># Make all coroutines on the call stack pause; the need to use `yield`</span>
+    <span class="c1"># necessitates this be generator-based and not an async-based coroutine.</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">wait_until</span>
+    <span class="c1"># Resume the execution stack, sending back how long we actually waited.</span>
+    <span class="k">return</span> <span class="n">actual</span> <span class="o">-</span> <span class="n">now</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Countdown a launch for `length` seconds, waiting `delay` seconds.</span>
+
+<span class="sd">    This is what a user would typically write.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;waiting&#39;</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="s1">&#39;seconds before starting countdown&#39;</span><span class="p">)</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">await</span> <span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;starting after waiting&#39;</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">length</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;T-minus&#39;</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="n">waited</span> <span class="o">=</span> <span class="n">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;lift-off!&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Start the event loop, counting down 3 separate launches.</span>
+
+<span class="sd">    This is what a user would typically write.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">SleepingLoop</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">countdown</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                        <span class="n">countdown</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Total elapsed time is&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>参考资料</h2>
+
+<p>-https://segmentfault.com/a/1190000002900850</p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python魔法方法专题02-python3-5协程原理',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

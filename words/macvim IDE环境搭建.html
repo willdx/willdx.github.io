@@ -1,0 +1,761 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> vim ide折腾记 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>vim ide折腾记</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>1.我的vim配置文件</h1>
+
+<p><a href="http://7xj7fg.com1.z0.glb.clouddn.com/vimrc">下载地址</a></p>
+<blockquote class="blockquote-normal">
+                <p>vim ~/.vimrc</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="s2">&quot;去掉vi的一致性&quot;</span>
+<span class="nb">set</span> <span class="n">nocompatible</span>
+
+<span class="s2">&quot;光标&quot;</span>
+<span class="k">if</span> <span class="err">$</span><span class="n">TERM_PROGRAM</span> <span class="o">=~</span> <span class="s2">&quot;iTerm&quot;</span>
+    <span class="n">let</span> <span class="o">&amp;</span><span class="n">t_SI</span> <span class="o">=</span> <span class="s2">&quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;&quot;Vertical bar in insert mode</span>
+    <span class="n">let</span> <span class="o">&amp;</span><span class="n">t_EI</span> <span class="o">=</span> <span class="s2">&quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;&quot;Block in normal mode</span>
+<span class="n">endif</span><span class="s2">&quot;</span>
+
+<span class="nb">set</span> <span class="n">clipboard</span><span class="o">+=</span><span class="n">unnamed</span>
+
+<span class="s2">&quot;定义快捷键的前缀，即&lt;Leader&gt;&quot;</span>
+<span class="n">let</span> <span class="n">mapleader</span><span class="o">=</span><span class="s2">&quot;;&quot;</span>
+
+<span class="s2">&quot;输入的命令显示出来,看的清楚些&quot;</span>
+<span class="nb">set</span> <span class="n">showcmd</span>
+
+<span class="s2">&quot;显示行号&quot;</span>
+<span class="nb">set</span> <span class="n">number</span>
+
+<span class="s2">&quot;允许复制&quot;</span>
+<span class="nb">set</span> <span class="n">paste</span>
+
+<span class="s2">&quot;隐藏滚动条&quot;</span>
+<span class="nb">set</span> <span class="n">guioptions</span><span class="o">-=</span><span class="n">r</span> 
+<span class="nb">set</span> <span class="n">guioptions</span><span class="o">-=</span><span class="n">L</span>
+<span class="nb">set</span> <span class="n">guioptions</span><span class="o">-=</span><span class="n">b</span>
+
+<span class="s2">&quot;隐藏顶部标签栏&quot;</span>
+<span class="nb">set</span> <span class="n">showtabline</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="s2">&quot;开启语法高亮&quot;</span>        
+<span class="n">syntax</span> <span class="n">on</span> 
+
+<span class="s2">&quot;配色方案&quot;</span>
+<span class="n">syntax</span> <span class="n">enable</span>
+<span class="s2">&quot;允许用指定语法高亮配色方案替换默认方案&quot;</span>
+<span class="n">syntax</span> <span class="n">on</span>
+<span class="s2">&quot;设置不折行&quot;</span>
+<span class="s2">&quot;set nowrap </span>
+
+
+<span class="s2">&quot;允许折叠&quot;</span>
+<span class="nb">set</span> <span class="n">nofoldenable</span>
+<span class="s2">&quot;手动折叠/基于缩进或语法进行代码折叠&quot;</span>
+<span class="s2">&quot;set foldmethod=manual  </span>
+<span class="nb">set</span> <span class="n">foldmethod</span><span class="o">=</span><span class="n">indent</span>
+<span class="s2">&quot;set foldmethod=syntax</span>
+<span class="nb">set</span> <span class="n">foldcolumn</span><span class="o">=</span><span class="mi">0</span>            <span class="s2">&quot; 设置折叠区域的宽度</span>
+<span class="n">setlocal</span> <span class="n">foldlevel</span><span class="o">=</span><span class="mi">3</span>        <span class="s2">&quot; 设置折叠层数为</span>
+<span class="nb">set</span> <span class="n">foldlevelstart</span><span class="o">=</span><span class="mi">99</span>       <span class="s2">&quot; 打开文件是默认不折叠代码</span>
+<span class="s2">&quot;set foldclose=all          &quot;</span> <span class="err">设置为自动关闭折叠</span>                
+<span class="s2">&quot;nnoremap &lt;space&gt; @=((foldclosed(line(&#39;.&#39;)) &lt; 0) ? &#39;zc&#39; : &#39;zo&#39;)&lt;CR&gt;</span>
+                            <span class="s2">&quot; 用空格键来开关折叠</span>
+
+
+<span class="s2">&quot;设置以unix的格式保存文件&quot;</span>  
+<span class="nb">set</span> <span class="n">fileformat</span><span class="o">=</span><span class="n">unix</span>   
+
+<span class="s2">&quot;设置C样式的缩进格式&quot;</span>
+<span class="nb">set</span> <span class="n">cindent</span> 
+
+<span class="s2">&quot;设置table长度&quot;</span>      
+<span class="nb">set</span> <span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>  
+<span class="s2">&quot;自适应不同语言的智能缩进&quot;</span>
+<span class="n">filetype</span> <span class="n">indent</span> <span class="n">on</span>
+<span class="s2">&quot;将制表符扩展为空格&quot;</span>
+<span class="nb">set</span> <span class="n">expandtab</span>
+<span class="s2">&quot;设置编辑时制表符占用空格数&quot;</span>
+<span class="nb">set</span> <span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span>
+<span class="s2">&quot;设置格式化时制表符占用空格数&quot;</span>
+<span class="nb">set</span> <span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>
+<span class="s2">&quot;让 vim 把连续数量的空格视为一个制表符&quot;</span>
+<span class="nb">set</span> <span class="n">softtabstop</span><span class="o">=</span><span class="mi">4</span>
+
+<span class="s2">&quot;显示匹配的括号&quot;</span>
+<span class="nb">set</span> <span class="n">showmatch</span> 
+
+<span class="s2">&quot;距离顶部和底部5行&quot;</span>  
+<span class="nb">set</span> <span class="n">scrolloff</span><span class="o">=</span><span class="mi">5</span> 
+
+<span class="s2">&quot;命令行为两行&quot;</span>      
+<span class="nb">set</span> <span class="n">laststatus</span><span class="o">=</span><span class="mi">2</span> 
+
+<span class="s2">&quot;文件编码&quot;</span>  
+<span class="nb">set</span> <span class="n">fenc</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>      
+
+<span class="s2">&quot;启用鼠标&quot;</span>
+<span class="s2">&quot;set mouse=v</span>
+<span class="nb">set</span> <span class="n">mouse</span><span class="o">=</span><span class="n">a</span>
+<span class="nb">set</span> <span class="n">selection</span><span class="o">=</span><span class="n">exclusive</span>
+<span class="nb">set</span> <span class="n">selectmode</span><span class="o">=</span><span class="n">mouse</span><span class="p">,</span><span class="n">key</span>
+<span class="nb">set</span> <span class="n">matchtime</span><span class="o">=</span><span class="mi">5</span>
+
+<span class="s2">&quot;普通模式下Ctrl+a跳转开头,Ctrl+e跳转结尾&quot;</span>
+<span class="s2">&quot;插入模式^开头,$结尾&quot;</span>
+<span class="s2">&quot;map &lt;C-a&gt; &lt;Esc&gt;^</span>
+<span class="s2">&quot;map &lt;C-e&gt; &lt;Esc&gt;$</span>
+<span class="s2">&quot;定义快捷键到行首和行尾&quot;</span>
+<span class="n">nmap</span> <span class="n">la</span> <span class="o">^</span>
+<span class="n">nmap</span> <span class="n">le</span> <span class="err">$</span>
+
+<span class="s2">&quot;设置快捷键遍历子窗口&quot;</span>
+<span class="s2">&quot;依次遍历&quot;</span>
+<span class="n">nnoremap</span> <span class="n">wn</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span>
+
+<span class="s2">&quot;跳转至左方的窗口&quot;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">wh</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">h</span>
+<span class="s2">&quot;跳转至下方的子窗口&quot;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">wj</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">j</span>
+<span class="s2">&quot;跳转至上方的子窗口&quot;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">wk</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">k</span>
+<span class="s2">&quot;跳转至右方的窗口&quot;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">wl</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">l</span>
+
+
+<span class="s2">&quot;set ignorecase&quot;</span> 
+
+<span class="s2">&quot;高亮搜索项&quot;</span>   
+<span class="nb">set</span> <span class="n">incsearch</span>
+<span class="nb">set</span> <span class="n">hlsearch</span> 
+
+<span class="s2">&quot;不允许扩展table&quot;</span>
+<span class="nb">set</span> <span class="n">noexpandtab</span>        
+<span class="nb">set</span> <span class="n">whichwrap</span><span class="o">+=&lt;</span><span class="p">,</span><span class="o">&gt;</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">l</span>
+<span class="nb">set</span> <span class="n">autoread</span>
+
+<span class="s2">&quot;突出显示当前行&quot;</span>
+<span class="s2">&quot;set cursorline  </span>
+
+<span class="s2">&quot;突出显示当前列&quot;</span>    
+<span class="s2">&quot;set cursorcolumn  </span>
+
+<span class="s2">&quot;delete键配置成增强模式&quot;</span>
+<span class="nb">set</span> <span class="n">backspace</span><span class="o">=</span><span class="mi">2</span> 
+
+<span class="s2">&quot;vundle 环境设置&quot;</span>
+<span class="n">filetype</span> <span class="n">off</span>
+<span class="nb">set</span> <span class="n">rtp</span><span class="o">+=~/.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span><span class="n">Vundle</span><span class="o">.</span><span class="n">vim</span>
+<span class="s2">&quot;vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间&quot;</span>
+<span class="n">call</span> <span class="n">vundle</span><span class="c1">#begin()</span>
+<span class="n">Plugin</span> <span class="s1">&#39;VundleVim/Vundle.vim&#39;</span>  <span class="s2">&quot;vim插件管理</span>
+<span class="n">Plugin</span> <span class="s1">&#39;altercation/vim-colors-solarized&#39;</span>
+<span class="n">Plugin</span> <span class="s1">&#39;dyng/ctrlsf.vim&#39;</span>   <span class="s2">&quot;快捷键快速查找光标处的代码并列表显示</span>
+<span class="n">Plugin</span> <span class="s1">&#39;SirVer/ultisnips&#39;</span>    <span class="s2">&quot;代码模板补全</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Valloric/YouCompleteMe&#39;</span>   <span class="s2">&quot;代码补全</span>
+<span class="n">Plugin</span> <span class="s1">&#39;majutsushi/tagbar&#39;</span>        <span class="s2">&quot;标签</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Lokaltog/vim-powerline&#39;</span>   <span class="s2">&quot;状态栏主题风格</span>
+<span class="n">Plugin</span> <span class="s1">&#39;scrooloose/nerdtree&#39;</span>      <span class="s2">&quot;代码树</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span>  <span class="s2">&quot;代码树git内容</span>
+<span class="n">Plugin</span> <span class="s1">&#39;Yggdroot/indentLine&#39;</span>        <span class="s2">&quot;缩进指示线</span>
+<span class="n">Plugin</span> <span class="s1">&#39;jiangmiao/auto-pairs&#39;</span>       <span class="s2">&quot;自动补全圆括号、花括号、引号，类似 delimitMate</span>
+<span class="n">Plugin</span> <span class="s1">&#39;tell-k/vim-autopep8&#39;</span>        <span class="s2">&quot;autopep8是一款自动格式化工具</span>
+<span class="n">Plugin</span> <span class="s1">&#39;scrooloose/nerdcommenter&#39;</span>   <span class="s2">&quot;强大的注释插件</span>
+<span class="n">Plugin</span> <span class="s1">&#39;easymotion/vim-easymotion&#39;</span>  <span class="s2">&quot;快捷键移动</span>
+<span class="n">Plugin</span> <span class="s1">&#39;fholgado/minibufexpl.vim&#39;</span>   <span class="s2">&quot;显示buffer</span>
+<span class="n">Plugin</span> <span class="s1">&#39;yonchu/accelerated-smooth-scroll&#39;</span> <span class="s2">&quot;平滑滚动</span>
+<span class="n">Plugin</span> <span class="s1">&#39;luochen1990/rainbow&#39;</span>   <span class="s2">&quot;彩虹括号</span>
+<span class="n">Plugin</span> <span class="s1">&#39;tpope/vim-fugitive.gitvim&#39;</span> <span class="s2">&quot;git插件</span>
+<span class="n">Plugin</span> <span class="s1">&#39;mileszs/ack.vim&#39;</span> <span class="s2">&quot;强大的代码搜索工具</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/DfrankUtil&#39;</span> <span class="s2">&quot;indexer.tar.gz 依赖</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/vimprj&#39;</span> <span class="s2">&quot;indexer.tar.gz 依赖</span>
+<span class="n">Plugin</span> <span class="s1">&#39;vim-scripts/indexer.tar.gz&#39;</span> <span class="s2">&quot;周期性针对这个工程自动生成标签文件，并通知 vim 引人该标签文件</span>
+<span class="n">Plugin</span> <span class="s1">&#39;suan/vim-instant-markdown&#39;</span> <span class="s2">&quot;makedown及时预览</span>
+<span class="n">Plugin</span> <span class="s1">&#39;lilydjwg/fcitx.vim&#39;</span> <span class="s2">&quot;平滑中英文输入</span>
+<span class="s2">&quot;插件列表结束&quot;</span>
+<span class="n">call</span> <span class="n">vundle</span><span class="c1">#end()</span>
+
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">rainbow_active</span> <span class="o">=</span> <span class="mi">1</span> <span class="s2">&quot;0 if you want to enable it later via :RainbowToggle</span>
+
+<span class="n">filetype</span> <span class="n">plugin</span> <span class="n">indent</span> <span class="n">on</span>
+
+<span class="s2">&quot;让配置变更立即生效&quot;</span>
+<span class="n">autocmd</span> <span class="n">BufWritePost</span> <span class="err">$</span><span class="n">MYVIMRC</span> <span class="n">source</span> <span class="err">$</span><span class="n">MYVIMRC</span>
+<span class="s2">&quot; 用浅色高亮当前行&quot;</span> 
+<span class="n">autocmd</span> <span class="n">InsertEnter</span> <span class="o">*</span> <span class="n">se</span> <span class="n">cul</span>   
+
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">Powerline_colorscheme</span><span class="o">=</span><span class="s1">&#39;solarized256&#39;</span><span class="s2">&quot;</span>
+<span class="nb">set</span> <span class="n">background</span><span class="o">=</span><span class="n">dark</span>
+<span class="n">colorscheme</span> <span class="n">solarized</span>
+<span class="s2">&quot;set guifont=YaHei\ Consolas\ Hybrid</span>
+<span class="nb">set</span> <span class="n">guifont</span><span class="o">=</span><span class="n">YaHei</span>\ <span class="n">Consolas</span>\ <span class="n">Hybrid</span>\ <span class="mi">14</span>
+
+
+<span class="s2">&quot;F1开启和关闭树&quot;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">fl</span> <span class="p">:</span><span class="n">NERDTreeToggle</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">let</span> <span class="n">NERDTreeChDirMode</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot;&quot;</span><span class="err">显示书签</span><span class="s2">&quot;</span>
+<span class="n">let</span> <span class="n">NERDTreeShowBookmarks</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot;设置忽略文件类型&quot;</span>
+<span class="n">let</span> <span class="n">NERDTreeIgnore</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;\~$&#39;</span><span class="p">,</span> <span class="s1">&#39;\.pyc$&#39;</span><span class="p">,</span> <span class="s1">&#39;\.swp$&#39;</span><span class="p">]</span>
+<span class="s2">&quot;&quot;</span><span class="err">窗口大小</span><span class="s2">&quot;</span>
+<span class="n">let</span> <span class="n">NERDTreeWinSize</span><span class="o">=</span><span class="mi">25</span>
+<span class="s2">&quot;设置NERDTree子窗口位置&quot;</span>
+<span class="n">let</span> <span class="n">NERDTreeWinPos</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="s2">&quot;显示隐藏文件&quot;</span>
+<span class="n">let</span> <span class="n">NERDTreeShowHidden</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="s2">&quot;显示/隐藏 MiniBufExplorer 窗口&quot;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">bl</span> <span class="p">:</span><span class="n">MBEToggle</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="s2">&quot;buffer 切换快捷键&quot;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">Tab</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">MBEbn</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">S</span><span class="o">-</span><span class="n">Tab</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">MBEbp</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+
+<span class="s2">&quot;缩进指示线&quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">indentLine_char</span><span class="o">=</span><span class="s1">&#39;┆&#39;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">indentLine_enabled</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="s2">&quot; 设置 tagbar 子窗口的位置出现在主编辑区的左边 &quot;</span>
+<span class="n">let</span> <span class="n">tagbar_left</span><span class="o">=</span><span class="mi">1</span> 
+<span class="s2">&quot; 设置显示／隐藏标签列表子窗口的快捷键。速记: tagbar&quot;</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">tb</span> <span class="p">:</span><span class="n">TagbarToggle</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span> 
+<span class="s2">&quot; 设置标签子窗口的宽度 &quot;</span>
+<span class="n">let</span> <span class="n">tagbar_width</span><span class="o">=</span><span class="mi">32</span> 
+<span class="s2">&quot; tagbar 子窗口中不显示冗余帮助信息 &quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">tagbar_compact</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 设置 ctags 对哪些代码标识符生成标签&quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">tagbar_type_cpp</span> <span class="o">=</span> <span class="p">{</span>
+    \ <span class="s1">&#39;kinds&#39;</span> <span class="p">:</span> <span class="p">[</span>
+         \ <span class="s1">&#39;c:classes:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;d:macros:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;e:enumerators:0:0&#39;</span><span class="p">,</span> 
+         \ <span class="s1">&#39;f:functions:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;g:enumeration:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;l:local:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;m:members:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;n:namespaces:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;p:functions_prototypes:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;s:structs:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;t:typedefs:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;u:unions:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;v:global:0:1&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;x:external:0:1&#39;</span>
+     \ <span class="p">],</span>
+     \ <span class="s1">&#39;sro&#39;</span>        <span class="p">:</span> <span class="s1">&#39;::&#39;</span><span class="p">,</span>
+     \ <span class="s1">&#39;kind2scope&#39;</span> <span class="p">:</span> <span class="p">{</span>
+         \ <span class="s1">&#39;g&#39;</span> <span class="p">:</span> <span class="s1">&#39;enum&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;n&#39;</span> <span class="p">:</span> <span class="s1">&#39;namespace&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;c&#39;</span> <span class="p">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;s&#39;</span> <span class="p">:</span> <span class="s1">&#39;struct&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;u&#39;</span> <span class="p">:</span> <span class="s1">&#39;union&#39;</span>
+     \ <span class="p">},</span>
+     \ <span class="s1">&#39;scope2kind&#39;</span> <span class="p">:</span> <span class="p">{</span>
+         \ <span class="s1">&#39;enum&#39;</span>      <span class="p">:</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;namespace&#39;</span> <span class="p">:</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;class&#39;</span>     <span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;struct&#39;</span>    <span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span>
+         \ <span class="s1">&#39;union&#39;</span>     <span class="p">:</span> <span class="s1">&#39;u&#39;</span>
+     \ <span class="p">}</span>
+\ <span class="p">}</span>
+
+<span class="s2">&quot; 设置插件 indexer 调用 ctags 的参数</span>
+<span class="s2">&quot; 默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v</span>
+<span class="s2">&quot; 默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">indexer_ctagsCommandLineOptions</span><span class="o">=</span><span class="s2">&quot;--c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q&quot;</span>
+<span class="s2">&quot;需先键入 ctrl-]，若没跳转至需要的标签，再键入 tn 往后或者 tp 往前遍历即可,用来查看开源项目或者跟踪源代码真是很爽啊</span>
+<span class="s2">&quot; 正向遍历同名标签</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">tn</span> <span class="p">:</span><span class="n">tnext</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="s2">&quot; 反向遍历同名标签</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">tp</span> <span class="p">:</span><span class="n">tprevious</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+
+<span class="s2">&quot;&quot;</span><span class="n">autopep8</span><span class="err">设置</span><span class="s2">&quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">autopep8_disable_show_diff</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F4</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">ci</span> <span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="s2">&quot;默认78字符</span>
+<span class="n">autocmd</span> <span class="n">FileType</span> <span class="n">text</span> <span class="n">setlocal</span> <span class="n">textwidth</span><span class="o">=</span><span class="mi">78</span>
+
+<span class="s2">&quot;func! RunPython()</span>
+<span class="s2">&quot;        exec &quot;</span><span class="err">!</span><span class="n">python</span> <span class="o">%</span><span class="s2">&quot;</span>
+<span class="s2">&quot;endfunc</span>
+
+<span class="s2">&quot;选中代码;8按照PEP8格式格式化代码&quot;</span>
+<span class="s2">&quot;map &lt;leader&gt;8 :Autopep8&lt;CR&gt; :w&lt;CR&gt; :call RunPython()&lt;CR&gt;</span>
+<span class="s2">&quot;按;8运行python&quot;</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="mi">8</span> <span class="p">:</span><span class="n">Autopep8</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">w</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">call</span> <span class="n">RunPython</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">function</span> <span class="n">RunPython</span><span class="p">()</span>
+  <span class="n">let</span> <span class="n">mp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">makeprg</span>
+  <span class="n">let</span> <span class="n">ef</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">errorformat</span>
+  <span class="n">let</span> <span class="n">exeFile</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="s2">&quot;%:t&quot;</span><span class="p">)</span>
+  <span class="n">setlocal</span> <span class="n">makeprg</span><span class="o">=</span><span class="n">python</span>\ <span class="o">-</span><span class="n">u</span>
+  <span class="nb">set</span> <span class="n">efm</span><span class="o">=%</span><span class="n">C</span>\ <span class="o">%.%</span><span class="c1">#,%A\ \ File\ \&quot;%f\&quot;\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m</span>
+  <span class="n">silent</span> <span class="n">make</span> <span class="o">%</span>
+  <span class="n">copen</span>
+  <span class="n">let</span> <span class="o">&amp;</span><span class="n">makeprg</span> <span class="o">=</span> <span class="n">mp</span>
+  <span class="n">let</span> <span class="o">&amp;</span><span class="n">errorformat</span> <span class="o">=</span> <span class="n">ef</span>
+<span class="n">endfunction</span>
+
+
+<span class="s2">&quot;新建.c,.h,.sh,.java文件，自动插入文件头</span>
+<span class="n">autocmd</span> <span class="n">BufNewFile</span> <span class="o">*.</span><span class="n">py</span><span class="p">,</span><span class="o">*.</span><span class="n">sh</span><span class="p">,</span><span class="o">*.</span><span class="n">md</span><span class="p">,</span><span class="o">*.</span><span class="n">cpp</span><span class="p">,</span><span class="o">*.</span><span class="p">[</span><span class="n">ch</span><span class="p">],</span><span class="o">*.</span><span class="n">java</span> <span class="k">exec</span> <span class="s2">&quot;:call SetTitle()&quot;</span>
+<span class="s2">&quot;&quot;</span><span class="err">定义函数</span><span class="n">SetTitle</span><span class="err">，自动插入文件头</span>
+<span class="n">func</span> <span class="n">SetTitle</span><span class="p">()</span>
+    <span class="s2">&quot;如果文件类型为.sh文件</span>
+    <span class="k">if</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;sh&#39;</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;\#!/bin/bash&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="s2">&quot;\# File Name: &quot;</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;\# Author: willdx&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;\# mail: daixiang1992@gmail.com&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;\# Created Time: &quot;</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;python&#39;</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;\# -*- coding: utf-8 -*-&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;File Name: &quot;</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Author: willdx&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;mail: daixiang1992@gmail.com&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Created Time: &quot;</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&#39;&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="s2">&quot; c相关</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;cpp&#39;</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;#include&lt;iostream&gt;&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;using namespace std;&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;#include&lt;stdio.h&gt;&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;title: &quot;</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;date: &quot;</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;tags: &quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;categories: &quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;---&quot;</span><span class="p">)</span>
+        <span class="n">call</span> <span class="n">setline</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">endif</span>
+<span class="n">endfunc</span>
+<span class="s2">&quot;新建文件后，自动定位到文件末尾</span>
+<span class="n">autocmd</span> <span class="n">BufNewFile</span> <span class="o">*</span> <span class="n">normal</span> <span class="n">G</span>
+
+<span class="s2">&quot;键盘命令</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">w</span> <span class="p">:</span><span class="n">w</span><span class="err">!</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">q</span> <span class="p">:</span><span class="n">q</span><span class="err">!</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">wq</span> <span class="p">:</span><span class="n">wq</span><span class="err">!</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+
+<span class="s2">&quot; 映射全选+复制 command+a</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">D</span><span class="o">-</span><span class="n">A</span><span class="o">&gt;</span> <span class="n">ggVGY</span>
+<span class="nb">map</span><span class="err">!</span> <span class="o">&lt;</span><span class="n">D</span><span class="o">-</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Esc</span><span class="o">&gt;</span><span class="n">ggVGY</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F12</span><span class="o">&gt;</span> <span class="n">gg</span><span class="o">=</span><span class="n">G</span>
+<span class="s2">&quot; 选中状态下 Command+c 复制</span>
+<span class="n">vmap</span> <span class="o">&lt;</span><span class="n">D</span><span class="o">-</span><span class="n">C</span><span class="o">&gt;</span> <span class="s2">&quot;+y</span>
+<span class="s2">&quot;去空行  </span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">F2</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">g</span><span class="o">/^</span>\<span class="n">s</span><span class="o">*</span><span class="err">$</span><span class="o">/</span><span class="n">d</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span> 
+<span class="s2">&quot;比较文件  </span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">D</span><span class="o">-</span><span class="n">F2</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">vert</span> <span class="n">diffsplit</span> 
+<span class="s2">&quot;新建标签  </span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">M</span><span class="o">-</span><span class="n">F2</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">tabnew</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>  
+<span class="s2">&quot;列出当前目录文件  </span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F3</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">tabnew</span> <span class="o">.&lt;</span><span class="n">CR</span><span class="o">&gt;</span>  
+<span class="s2">&quot;打开树状文件目录  </span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">F3</span><span class="o">&gt;</span> \<span class="n">be</span>  
+<span class="s2">&quot;C，C++ 按F5编译运行</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F5</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">call</span> <span class="n">CompileRunGcc</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">func</span><span class="err">!</span> <span class="n">CompileRunGcc</span><span class="p">()</span>
+    <span class="k">exec</span> <span class="s2">&quot;w&quot;</span>
+    <span class="k">if</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span>
+        <span class="k">exec</span> <span class="s2">&quot;!g++ </span><span class="si">% -o</span><span class="s2"> %&lt;&quot;</span>
+        <span class="k">exec</span> <span class="s2">&quot;! ./%&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;cpp&#39;</span>
+        <span class="k">exec</span> <span class="s2">&quot;!g++ </span><span class="si">% -o</span><span class="s2"> %&lt;&quot;</span>
+        <span class="k">exec</span> <span class="s2">&quot;! ./%&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;java&#39;</span> 
+        <span class="k">exec</span> <span class="s2">&quot;!javac %&quot;</span> 
+        <span class="k">exec</span> <span class="s2">&quot;!java %&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s1">&#39;sh&#39;</span>
+        <span class="p">:</span><span class="err">!</span><span class="o">./%</span>
+    <span class="n">endif</span>
+<span class="n">endfunc</span>
+<span class="s2">&quot;C,C++的调试</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">F8</span><span class="o">&gt;</span> <span class="p">:</span><span class="n">call</span> <span class="n">Rungdb</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">func</span><span class="err">!</span> <span class="n">Rungdb</span><span class="p">()</span>
+    <span class="k">exec</span> <span class="s2">&quot;w&quot;</span>
+    <span class="k">exec</span> <span class="s2">&quot;!g++ </span><span class="si">% -g</span><span class="s2"> -o %&lt;&quot;</span>
+    <span class="k">exec</span> <span class="s2">&quot;!gdb ./%&lt;&quot;</span>
+<span class="n">endfunc</span>
+
+
+<span class="s2">&quot;Turn on case insensitive feature</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">EasyMotion_smartcase</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="s2">&quot;JK motions: Line motions</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">j</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">easymotion</span><span class="o">-</span><span class="n">j</span><span class="p">)</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">easymotion</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>
+
+<span class="s2">&quot; 显示中文帮助</span>
+<span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">603</span>
+    <span class="nb">set</span> <span class="n">helplang</span><span class="o">=</span><span class="n">cn</span>
+    <span class="nb">set</span> <span class="n">encoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">endif</span>
+
+
+<span class="s2">&quot; UltiSnips 的 tab 键与 YCM 冲突，重新设定</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">UltiSnipsSnippetDirectories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mysnippets&quot;</span><span class="p">]</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">UltiSnipsExpandTrigger</span><span class="o">=</span><span class="s2">&quot;&lt;leader&gt;&lt;tab&gt;&quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">UltiSnipsJumpForwardTrigger</span><span class="o">=</span><span class="s2">&quot;&lt;leader&gt;&lt;tab&gt;&quot;</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">UltiSnipsJumpBackwardTrigger</span><span class="o">=</span><span class="s2">&quot;&lt;leader&gt;&lt;s-tab&gt;&quot;</span>
+
+
+<span class="s2">&quot; YCM 补全菜单配色</span>
+<span class="s2">&quot; 菜单</span>
+<span class="n">highlight</span> <span class="n">Pmenu</span> <span class="n">ctermfg</span><span class="o">=</span><span class="mi">2</span> <span class="n">ctermbg</span><span class="o">=</span><span class="mi">3</span> <span class="n">guifg</span><span class="o">=</span><span class="c1">#005f87 guibg=#EEE8D5</span>
+<span class="s2">&quot; 选中项</span>
+<span class="n">highlight</span> <span class="n">PmenuSel</span> <span class="n">ctermfg</span><span class="o">=</span><span class="mi">2</span> <span class="n">ctermbg</span><span class="o">=</span><span class="mi">3</span> <span class="n">guifg</span><span class="o">=</span><span class="c1">#AFD700 guibg=#106900</span>
+<span class="s2">&quot; 补全功能在注释中同样有效</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_complete_in_comments</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_confirm_extra_conf</span><span class="o">=</span><span class="mi">0</span>
+<span class="s2">&quot; 开启 YCM 标签补全引擎</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_collect_identifiers_from_tags_files</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 引入 C++ 标准库tags</span>
+<span class="nb">set</span> <span class="n">tags</span><span class="o">+=/</span><span class="n">data</span><span class="o">/</span><span class="n">misc</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">misc</span><span class="o">./</span><span class="n">vim</span><span class="o">/</span><span class="n">stdcpp</span><span class="o">.</span><span class="n">tags</span>
+<span class="s2">&quot; YCM 集成 OmniCppComplete 补全引擎，设置其快捷键</span>
+<span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="p">;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">x</span><span class="o">&gt;&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">o</span><span class="o">&gt;</span>
+<span class="s2">&quot; 补全内容不以分割子窗口形式出现，只显示补全列表</span>
+<span class="nb">set</span> <span class="n">completeopt</span><span class="o">-=</span><span class="n">preview</span>
+<span class="s2">&quot; 从第一个键入字符就开始罗列匹配项</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_min_num_of_chars_for_completion</span><span class="o">=</span><span class="mi">1</span>
+<span class="s2">&quot; 禁止缓存匹配项，每次都重新生成匹配项</span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_cache_omnifunc</span><span class="o">=</span><span class="mi">0</span>
+<span class="s2">&quot; 语法关键字补全           </span>
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">ycm_seed_identifiers_with_syntax</span><span class="o">=</span><span class="mi">1</span>
+
+
+<span class="s2">&quot; 基于语义的代码导航</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">jc</span> <span class="p">:</span><span class="n">YcmCompleter</span> <span class="n">GoToDeclaration</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="s2">&quot; 只能是 #include 或已打开的文件</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">jd</span> <span class="p">:</span><span class="n">YcmCompleter</span> <span class="n">GoToDefinition</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+
+<span class="s2">&quot; 查找</span>
+<span class="s2">&quot; 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字,设置快捷键。快捷键速记法：search in project</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">sp</span> <span class="p">:</span><span class="n">CtrlSF</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+
+<span class="s2">&quot; 启用:Man命令查看各类man信息</span>
+<span class="n">source</span> <span class="err">$</span><span class="n">VIMRUNTIME</span><span class="o">/</span><span class="n">ftplugin</span><span class="o">/</span><span class="n">man</span><span class="o">.</span><span class="n">vim</span>
+<span class="s2">&quot; 定义:Man命令查看各类man信息的快捷键</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">man</span> <span class="p">:</span><span class="n">Man</span> <span class="mi">3</span> <span class="o">&lt;</span><span class="n">cword</span><span class="o">&gt;&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<h1>2.常用快捷键</h1>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>内容</th>
+<th>快捷键及其描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1.快速移动</td>
+<td>;;f内容  <code>向下跳转某个字符</code> ;;ge内容  <code>向上跳转某个字符</code> ;j  <code>向下跳转某行</code> ;k  <code>向上跳转某行</code></td>
+</tr>
+<tr>
+<td>2.返回快捷键</td>
+<td>Ctrl+o  <code>返回光标上次停留位置</code>  Ctrl+i  <code>返回光标</code>  Ctrl+]  <code>标签入栈</code> ;tn  <code>下一个标签</code> ;tp  <code>上一个标签</code></td>
+</tr>
+<tr>
+<td>3. 常用面板</td>
+<td>;fl <code>显示当前目录文件</code>  ;bl <code>显示buffer文件</code> ;tb <code>显示tagbar</code></td>
+</tr>
+<tr>
+<td>4. 选择复制</td>
+<td><code>双击开始的行,鼠标向下滑动自动选中,Ctrl+c复制</code></td>
+</tr>
+<tr>
+<td>5. 快速注释与取消注释</td>
+<td>;cc <code>单行快速注释</code>  ;cu <code>单行快速取消注释</code> 数字键;cc <code>多行快速注释</code>  数字键;cu <code>多行快速取消注释</code></td>
+</tr>
+<tr>
+<td>6. pep8格式化代码并且执行 Python</td>
+<td>;8 <code>格式化代码,若有错误跳转到错误行</code></td>
+</tr>
+<tr>
+<td>7.代码折叠</td>
+<td>zc <code>折叠</code> zo <code>取消折叠</code></td>
+</tr>
+</tbody>
+</table></div>
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'macvim IDE环境搭建',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

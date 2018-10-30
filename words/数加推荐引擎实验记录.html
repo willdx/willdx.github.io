@@ -1,0 +1,464 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> 数加推荐引擎实验记录 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>数加推荐引擎实验记录</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>实验说明</h1>
+
+<p>某影视网站，提供在线观看电影的服务。为了提升用户体验，希望能精准的推荐电影给网站用户。初步计划在两种场景下分别实现个性化的推荐:</p>
+
+<p>第一，当用户进入网站首页时，推荐TA可能喜欢的电影，结合该用户的历史行为信息进行推荐；</p>
+
+<p>第二，当用户进入详情页时，根据当前页面展现的电影信息，结合用户的历史行为信息（注册用户）进行推荐；</p>
+
+<p>本实验将采用周知数据集 MovieLens ，利用阿里云数加平台的个性化推荐，经过简单的数据加工（ETL）和业务场景配置，完成基本的推荐功能。整个实验包含的步骤和主要的操作内容如下：</p>
+
+<h2>实验环境</h2>
+
+<ul>
+<li>数加平台</li>
+<li>推荐引擎</li>
+<li>大数据计算服务MaxCompute(原ODPS）</li>
+<li>大数据开发套件DataWorks</li>
+</ul>
+
+<h2>实验内容</h2>
+
+<p>本实验手册主要基于阿里云数加平台的推荐引擎，对周知的数据集 movielens 进行个性化推荐。包括以下内容：</p>
+
+<ul>
+<li><p>准备实验环境，包括注册数加平台账户、开通MaxCompute(原ODPS）服务、开通数加平台的推荐引擎。如果上述服务均已开通，可以忽略该节内容；</p></li>
+<li><p>准备实验数据，下载数据集movielens，并对该数据集进行说明，同时上传该数据到ODPS</p></li>
+<li><p>实验数据上传和加工，即将业务数据按照约定加载到基础数据模型中去</p></li>
+<li><p>配置推荐引擎，了解推荐引擎的基本功能，包括资源、业务、场景、启动计算任务以及调用推荐结果</p></li>
+</ul>
+
+<h2>实验过程</h2>
+
+<h3>1. 添加云计算资源</h3>
+
+<p>需要添加的资源有三类：大数据计算服务、表格存储服务以及云监控，其中大数据计算服务是存储数据和进行推荐算法计算的地方，表格存储是用来保存结果的，可以支持在线访问，云监控是用来监控整个处理过程的，有问题的时候可以报警。前一项是必选项，后两项是可选项，此处我们只配置必选项。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108233373314.jpg"></p>
+</p>
+
+<h3>2. 添加业务</h3>
+
+<h3>3. 为业务添加数据</h3>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108234032301.jpg"></p>
+</p>
+
+<p>在数据配置页面，物品属性维度表不需要填写数据表名称，其他都按要求输入表名:</p>
+
+<p>将我们在之前的实验中添加过的数据表名称，分别填写到对应的位置：</p>
+
+<p>“用户表”为movielens<em>user</em>meta,</p>
+
+<p>“用户属性维度表”为 movielens<em>user</em>meta_config</p>
+
+<p>“物品表”为movielens<em>item</em>meta</p>
+
+<p>“行为表”为 movielens<em>user</em>behavior</p>
+
+<p>信息填充完成后，点击保存，此时推荐引擎左侧菜单栏会显示“测试”和“线上”这两个菜单。点击“测试”菜单，可进入测试场景配置页面。点击“线上”按钮，可进入线上场景配置页面。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108244554445.jpg"></p>
+</p>
+
+<h3>4. 为业务创建推荐场景</h3>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108246790357.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108247321234.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108247162027.jpg"></p>
+</p>
+
+<h4>添加指标</h4>
+
+<p>指标是和将来场景上线后的统计报表有关，需要和行为表的数据相匹配。一般涉及的行为包括：浏览，点击和消费等。在使用MovieLens数据集中，由于行为都是打分(grade)，所以这里可以不设置。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108249797852.jpg"></p>
+</p>
+
+<h4>配置API参数</h4>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108251374596.jpg"></p>
+</p>
+
+<h4>设置算法策略</h4>
+
+<p>算法策略中系统内置了业界常见的推荐算法，部分算法策略同时包含了离线算法和近线算法。离线的计算发生在MaxCompute中，离线算法用于将MaxCompute中的数据进行算法计算，再将计算得到的推荐结果传输到在线存储中供在线/近线计算使用。近线和在线的计算都发生在在线服务中，区别在于近线计算的实时数据输入是来自于日志API上传的数据（例如看过的电影不需要再被推荐，看过的电影通过日志API上传行为数据，近线计算接收数据后会将离线推荐结果中看过的电影剔除掉）。离线计算的实时数据输入是来自于推荐API，典型例子就是通过推荐API输入一个用户ID，在线计算需要在毫秒级响应中立即做计算（过滤、排序）并返回推荐结果。</p>
+
+<p>此处我们选择默认推荐，添加策略后需要点击保存按钮。需要注意的是，不同的算法策略经过计算输出的推荐结果会不同，这些推荐结果将在后面的配置在线流程中进行使用。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108253145061.jpg"></p>
+</p>
+
+<p>由于我们的实验数据的主要行为是grade，所以点击ItemCF算法策略的参数设置，将行为权重设置为grade的行为，推荐列表返回的item数量也可以进行修改设置:</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108254062467.jpg"></p>
+</p>
+
+<h4>设置在线流程</h4>
+
+<p>在线流程可以设置ABtest，即多种推荐算法进行对比，当然这也需要在前面算法策略设定时选择多种算法。对于推荐结果设置，也可以选择多种方式生成推荐候选集。我们这里设置为用户对物品的推荐候选集。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108256487191.jpg"></p>
+</p>
+
+<h4>启动离线计算</h4>
+
+<p>算法配置完成后，在场景列表上点击“计算”，在弹出的页面中选择需要计算的数据的日期，再点击启动计算，即可触发离线计算。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108257094214.jpg"></p>
+</p>
+
+<p>点击右侧日志查看按钮，可查看所有计算的离线任务和LOG信息。 在日志列表页点击“查看”按钮，会显示算法计算的路程节点图，双击节点可查看详细的LOG内容:</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108257616977.jpg"></p>
+</p>
+
+<h4>上线场景</h4>
+
+<p>在推荐引擎中，测试场景用于进行测试，线上场景用于对接您的APP。测试场景中的算法配置好以后，可以将场景“上线”到线上，在线上场景里可以调用推荐API进行接口测试和对接。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108258261892.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108258116340.jpg"></p>
+</p>
+
+<p>上线完成后，点击“线上”即可看到上线的场景列表。此时可以在线上的场景列表中选择指定的场景进行离线计算、查看已配置的算法策略、调试推荐API等。</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108259011352.jpg"></p>
+</p>
+
+<h4>查看离线处理结果</h4>
+
+<p>离线处理的推荐结果，会保存在在线存储中。如果您使用的自己购买的“表格存储”云产品，则可以在表格存储中看到离线产出的结果数据。登录阿里云官网（www.aliyun.com），点击“管理控制台”，进入管理控制台首页，点击“表格存储”：</p>
+
+<p>(PS: 在第一步, 添加云计算资源步骤中, 如果没有添加表格存储那么就无法查询到)</p>
+
+<h4>使用API实现首页推荐</h4>
+
+<ul>
+<li>测试</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108290033563.jpg"></p>
+</p>
+
+<ul>
+<li>线上</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108288601659.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112583650096.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112583844037.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112584226685.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585261720.jpg"></p>
+
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585408983.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>分区字段</p></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585721600.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>物品属性维度表</p></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585976853.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>行为表01</p>
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586187915.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>行为表02</p>
+
+                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586294709.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>行为表03</p></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586537511.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>可推荐物品表</p></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586862792.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>朋友关系表</p></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: '数加推荐引擎实验记录',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

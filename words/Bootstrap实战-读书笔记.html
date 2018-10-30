@@ -1,0 +1,1228 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> Bootstrap实战-读书笔记 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>Bootstrap实战-读书笔记</h1>
+        <h4>Posted April 07, 2017</h4>
+        <h1>第一章: 初识Bootstrap</h1>
+
+<h2>1.1 CDN加速</h2>
+
+<p><a href="https://www.upyun.com/">又拍云</a>给Bootstrap做了免费的CDN支持:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script></pre></div></div>
+
+<p>注释: JS也使用Link引入</p>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;preload&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="k">as</span><span class="o">=</span><span class="s2">&quot;script&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><a href="http://www.bootcdn.cn/">BootCDN</a>对大量的前端开源工具提供了CDN加速服务:</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995147326063.jpg"></p>
+</p>
+
+<h2>1.2 Bootstrap-3.3.7文件结构</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995158991734.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995175395358.jpg"></p>
+</p>
+
+<h2>1.3 html5boilerplates使用</h2>
+
+<h3><a href="https://html5boilerplate.com/">下载</a>/解压, 重命名</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="n">html5</span><span class="o">-</span><span class="n">boilerplate_v5</span><span class="o">.</span><span class="mf">3.0</span> <span class="n">project_template_1</span>
+</pre></div>
+</div>
+<h3>更新必要的样板文件</h3>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>文件名称</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>humans.txt</td>
+<td>记录贡献者, H5BP/Bootstrap/other</td>
+</tr>
+<tr>
+<td>LICENSE.md</td>
+<td>在H5BP许可前面, 加上你基于该许可构建的网站的许可信息; 在在H5BP许可后面,加上Bootstrap以及其他站点中用到的重要的库的许可信息;</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>更新这个文件, 加上自己项目的说明信息</td>
+</tr>
+</tbody>
+</table></div>
+<h3>更新必要的图标文件</h3>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>文件名称</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>apple-touch-icon.png</td>
+<td>苹果触摸设备图标, 144px*144px</td>
+</tr>
+<tr>
+<td>favicon.ico</td>
+<td>浏览器显示图标, 32px*32px</td>
+</tr>
+</tbody>
+</table></div>
+<h3>加入Bootsrap文件</h3>
+
+<h4>1. 更新字体</h4>
+
+<ul>
+<li>复制Bootstrap的fonts文件夹到project<em>template</em>1</li>
+<li>在字体文件夹添加.htaccess文件, 并添加如下代码(PS: 为了解决某些浏览器不识别字体的问题)</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995215230474.jpg"></p>
+</p>
+
+<p>补充: <code>mac系统 commond+shift+. 显示隐藏文件夹</code></p>
+
+<h4>2. 更新js</h4>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995220893789.jpg"></p>
+</p>
+<blockquote class="blockquote-normal">
+                <p>H5BP将所有的插件代码都复制到一个plugins.js文件中, 这是结束开发后的最好做法, 这样可以减少网络请求, 进而加快网站访问速度(哈哈, 虽然肉眼不太可能感觉的出来!)</p></blockquote>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995228308027.jpg"></p>
+</p>
+
+<ul>
+<li>添加Bootsrap默认的js代码到plugins.html中</li>
+</ul>
+
+<h4>3. 更新CSS, 暂时不考虑</h4>
+
+<h4>4. 复制LESS文件</h4>
+
+<p>将<code>Bootstrap的less目录</code>copy到<code>project_template_1</code>项目中</p>
+
+<h4>5. 最终目录结构</h4>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995234010242.jpg"></p>
+</p>
+
+<h4>6. 构造html模板</h4>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>Hbuilder编辑器快捷格式化代码: command+shift+f 
+Hbuilder编辑器快键键列表: command+shift+l</pre></div></div>
+
+<p>找到模板文件中下面这个注释和段落:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><!-- Add your site or application content here -->
+<p>Hello world! This is HTML5 Boilerplate.</p></pre></div></div>
+
+<p>将它们替换成下面这样:</p>
+
+<p>注释: 最佳实践ARIA(Accessible Rich Internet Applications)可访问富英特网应用的role属性(即banner, navigation, main, contentinfo)</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><header role="banner">
+    <nav role="navigation">
+    </nav>
+</header>
+<main role="main">
+    <h1>Main Heading</h1>
+    <p>Content specific to this page goes here.</p>
+</main>
+<footer role="contentinfo">
+    <p><small>Copyright &copy; Company Name</small></p>
+</footer></pre></div></div>
+
+<h4>7.设定导航条</h4>
+<blockquote class="blockquote-normal">
+                <p>到目前为止, 我们还没有使用<code>Bootstrap预编译的CSS文件</code>, 现在的css目录中是H5BP的默认css内容; 稍后我们需要使用Less来编译自己的css;</p></blockquote>
+<ul>
+<li>设定导航条</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;no-js&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;x-ua-compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>使用LESS编译CSS<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;apple-touch-icon&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;apple-touch-icon.png&quot;</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- Place favicon.ico in the root directory --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;icon&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;image/png&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">sizes</span><span class="o">=</span><span class="s">&quot;32x32&quot;</span> <span class="p">/&gt;</span>
+
+
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;css/normalize.css&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;css/main.css&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/vendor/modernizr-2.8.3.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>  <span class="c">&lt;!--用于IE8识别HTML5的分区section元素--&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="c">&lt;!--[if lt IE 8]&gt;</span>
+<span class="c">            &lt;p class=&quot;browserupgrade&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;</span>
+<span class="c">        &lt;![endif]--&gt;</span>
+
+        <span class="c">&lt;!-- Add your site or application content here --&gt;</span>
+        <span class="c">&lt;!--</span>
+<span class="c">        &lt;header role=&quot;banner&quot;&gt;</span>
+<span class="c">            &lt;nav role=&quot;navigation&quot;&gt;</span>
+<span class="c">            &lt;/nav&gt;</span>
+<span class="c">        &lt;/header&gt;</span>
+<span class="c">        --&gt;</span>
+        <span class="c">&lt;!--navbar-static-top 导航条定位到窗口顶部, 但能随页面滚动而滚动--&gt;</span>
+        <span class="p">&lt;</span><span class="nt">header</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;banner&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;navigation&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-static-top navbar-default&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-header&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;</span>Project name<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="c">&lt;!--使用语义化的nav标签--&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">main</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Main Heading<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Content specific to this page goes here.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">footer</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;contentinfo&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">small</span><span class="p">&gt;</span>Copyright <span class="ni">&amp;copy;</span> Company Name<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+        
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.jquery.com/jquery-1.12.0.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;script src=&quot;js/vendor/jquery-1.12.0.min.js&quot;&gt;&lt;\/script&gt;&#39;</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/plugins.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> <span class="c">&lt;!-- Bootstrap插件代码 --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> <span class="c">&lt;!-- 自己写的JS代码 --&gt;</span>
+
+        <span class="c">&lt;!-- Google Analytics: change UA-XXXXX-X to be your site&#39;s ID. --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+            <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="nx">o</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">l</span><span class="p">,</span><span class="nx">e</span><span class="p">,</span><span class="nx">r</span><span class="p">){</span><span class="nx">b</span><span class="p">.</span><span class="nx">GoogleAnalyticsObject</span><span class="o">=</span><span class="nx">l</span><span class="p">;</span><span class="nx">b</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">||</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span><span class="o">=</span>
+            <span class="kd">function</span><span class="p">(){(</span><span class="nx">b</span><span class="p">[</span><span class="nx">l</span><span class="p">].</span><span class="nx">q</span><span class="o">=</span><span class="nx">b</span><span class="p">[</span><span class="nx">l</span><span class="p">].</span><span class="nx">q</span><span class="o">||</span><span class="p">[]).</span><span class="nx">push</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)});</span><span class="nx">b</span><span class="p">[</span><span class="nx">l</span><span class="p">].</span><span class="nx">l</span><span class="o">=+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">;</span>
+            <span class="nx">e</span><span class="o">=</span><span class="nx">o</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="nx">r</span><span class="o">=</span><span class="nx">o</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="nx">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s1">&#39;https://www.google-analytics.com/analytics.js&#39;</span><span class="p">;</span>
+            <span class="nx">r</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span><span class="nx">r</span><span class="p">)}(</span><span class="nb">window</span><span class="p">,</span><span class="nb">document</span><span class="p">,</span><span class="s1">&#39;script&#39;</span><span class="p">,</span><span class="s1">&#39;ga&#39;</span><span class="p">));</span>
+            <span class="nx">ga</span><span class="p">(</span><span class="s1">&#39;create&#39;</span><span class="p">,</span><span class="s1">&#39;UA-XXXXX-X&#39;</span><span class="p">,</span><span class="s1">&#39;auto&#39;</span><span class="p">);</span><span class="nx">ga</span><span class="p">(</span><span class="s1">&#39;send&#39;</span><span class="p">,</span><span class="s1">&#39;pageview&#39;</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>此时我们若使用Bootstrap默认的css文件, 立刻就能拥有一个漂亮的导航条; 但是为什么我们不这么做呢? 是因为网站是需要设计的, 不可能所有使用Bootstrap的网站都使用默认的CSS样式; 如果这样, 那就不可能有那么多漂亮但是又特色的网站了;</p></blockquote>
+<h4>8. 使用less编译Bootstrap css</h4>
+
+<p><a href="http://lesscss.org">Less官网</a></p>
+
+<ul>
+<li>下载安装编译器, <a href="http://crunchapp.net/">Crunch(免费)</a>; 我使用的是<a href="https://codekitapp.com/">CodeKit</a>(收费);</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995301105938.jpg"></p>
+</p>
+
+<ul>
+<li>点击Compile编译, 会在css目录生成一个bootstrap.css文件</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995302334950.jpg"></p>
+</p>
+
+<ul>
+<li><p>删除指向normailze.css的链接, 因为normailze.css文件在bootstrap.css文件中是第一个导入的</p></li>
+<li><p>cp bootstrap.css main.css</p></li>
+<li><p>刷新浏览器, 查看效果, 此时是Bootstrap的默认导航栏效果</p></li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995305654170.jpg"></p>
+</p>
+
+<h4>9.完成响应式导航条</h4>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="c">&lt;!--navbar-static-top 导航条定位到窗口顶部, 但能随页面滚动而滚动--&gt;</span>
+<span class="p">&lt;</span><span class="nt">header</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;banner&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;navigation&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-static-top navbar-default&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+            <span class="c">&lt;!--</span>
+<span class="c">            &lt;div class=&quot;navbar-header&quot;&gt;</span>
+<span class="c">                &lt;a class=&quot;navbar-brand&quot; href=&quot;index.html&quot;&gt;Project name&lt;/a&gt;</span>
+<span class="c">            &lt;/div&gt;</span>
+<span class="c">            --&gt;</span>
+            
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-header&quot;</span><span class="p">&gt;</span>
+                <span class="c">&lt;!--</span>
+<span class="c">                    1.按钮中的 navbar-toggle 类用于应用 CSS 样式;</span>
+<span class="c">                    2.后面的数据属性 data-toggle 和 data-target 是 Bootstrap 的 JavaScript 插件要用</span>
+<span class="c">的，分别表示预期行为和预期目标(即 collapse 和类名为 navbar-collapse 的元素，这个元素后面会添加)</span>
+<span class="c">                    3.类名为 icon-bar 的 span 元素是 CSS 用来创建按钮中的三道杠按钮用的</span>
+<span class="c">                --&gt;</span>
+                <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggle&quot;</span> <span class="na">data-toggle</span><span class="o">=</span><span class="s">&quot;collapse&quot;</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;.navbar-collapse&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-bar&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-bar&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-bar&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;</span>测试
+                <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-collapse collapse&quot;</span><span class="p">&gt;</span>
+                <span class="c">&lt;!--使用语义化的nav标签--&gt;</span>
+                <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="c">&lt;!--/.nav-collapse --&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995311537433.jpg"></p>
+</p>
+
+<h1>第二章: 作品展示站点</h1>
+
+<p><a href="http://www.ituring.com.cn/book/download/c9bc1e4a-ed87-463f-8861-324636f10747">整本书的源代码下载地址</a></p>
+
+<p>本章我们使用源代码中的<code>Chapter 2/02_Code_BEGIN</code>中的代码, 他已经给我们搭建好了站点基础框架, 需要我们做一些优化;</p>
+
+<h2>1. 搭建传送带</h2>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="c">&lt;!--</span>
+<span class="c">&lt;img src=&quot;img/okwu.jpg&quot; alt=&quot;OKWU.edu Homepage&quot;&gt;</span>
+<span class="c">&lt;img src=&quot;img/okwu-athletics.jpg&quot; alt=&quot;OKWU Athletics Homepage&quot;&gt;</span>
+<span class="c">&lt;img src=&quot;img/bartlesvillecf.jpg&quot; alt=&quot;Bartlesville Community Foundation&quot;&gt;</span>
+<span class="c">&lt;img src=&quot;img/emancipation.jpg&quot; alt=&quot;Emancipation Stories&quot;&gt;</span>
+<span class="c">--&gt;</span>
+<span class="c">&lt;!--传送带代码--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;homepage-feature&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;carousel slide&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ol</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;carousel-indicators&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide-to</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide-to</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide-to</span><span class="o">=</span><span class="s">&quot;2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide-to</span><span class="o">=</span><span class="s">&quot;3&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Wrapper for slides --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;carousel-inner&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;item active&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/okwu.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;OKWU.edu Homepage&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/okwu-athletics.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;OKWU Athletics Homepage&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/bartlesvillecf.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Bartlesville Community Foundation&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;img/emancipation.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Emancipation Stories&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- /.carousel-inner --&gt;</span>
+    
+    <span class="c">&lt;!-- Controls --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;left carousel-control&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide</span><span class="o">=</span><span class="s">&quot;prev&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-chevron-left&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;right carousel-control&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#homepage-feature&quot;</span> <span class="na">data-slide</span><span class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-chevron-right&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- /#homepage-feature.carousel --&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li>设定传送带切换时间</li>
+</ul>
+
+<p>打开 js/main.js, 添加代码: 默认是5秒切换一次</p>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>$( document ).ready(function() {
+  $(&#39;.carousel&#39;).carousel({
+    interval: 8000
+  });
+});
+</pre></div>
+</div>
+<h2>2. 创建响应式分栏</h2>
+
+<ul>
+<li>目前网站主体内容部分没有分栏操作, 目前是3个段落从上到下排列</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Welcome!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See our portfolio<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Recent Updates<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See what&#39;s new!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Our Team<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Meet the team!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li>接下来创建响应式分栏</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="c">&lt;!--</span>
+<span class="c">container 类用于约束内容的宽度，并使其在页面内居中;</span>
+<span class="c">row 类用于包装三个栏，并为栏间留出左右外边距;</span>
+<span class="c">container 类和 row 类都设定了清除，因而它们可以包含浮动元素，同时又清除之前</span>
+<span class="c">的浮动元素;</span>
+<span class="c">--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Welcome!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See our portfolio<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Recent Updates<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See what&#39;s new!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Our Team<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Meet the team!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- /.row --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- /.container --&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li>效果图, 现在变成了3个栏位</li>
+</ul>
+
+<p>在浏览器窗口宽度超过 768px 时，应该看到下图所示的三栏布局;
+把窗口缩小到 768px 以下，又会看到三栏变成了一栏;</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995778401610.jpg"></p>
+</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14995780645984.jpg"></p>
+</p>
+
+<h2>3. 把链接变成按钮</h2>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Welcome!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>    
+            <span class="c">&lt;!--</span>
+<span class="c">            &lt;p&gt;</span>
+<span class="c">                &lt;a href=&quot;#&quot;&gt;See our portfolio&lt;/a&gt;</span>
+<span class="c">            &lt;/p&gt;</span>
+<span class="c">            --&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary pull-right&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See our portfolio<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Recent Updates<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="c">&lt;!--</span>
+<span class="c">            &lt;p&gt;</span>
+<span class="c">                &lt;a href=&quot;#&quot;&gt;See what&#39;s new!&lt;/a&gt;</span>
+<span class="c">            &lt;/p&gt;</span>
+<span class="c">            --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary pull-right&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>See what&#39;s new!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-sm-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Our Team<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Suspendisse et arcu felis ...<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="c">&lt;!--</span>
+<span class="c">            &lt;p&gt;</span>
+<span class="c">                &lt;a href=&quot;#&quot;&gt;Meet the team!&lt;/a&gt;</span>
+<span class="c">        </span>
+<span class="c">            &lt;/p&gt;</span>
+<span class="c">            --&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary pull-right&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Meet the team!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- /.row --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- /.container --&gt;</span>
+</pre></div>
+</div>
+<h2>4. LESS的基本使用</h2>
+
+<p><a href="http://lesscss.org/#docs">Less文档</a></p>
+
+<p><a href="http://www.sitepoint.com/a-%0Acomprehensive-introduction-to-less/">Sitepoint 网站关于 LESS 的完整介绍</a></p>
+
+<h3>4.1 嵌套规则</h3>
+
+<p>嵌套规则极大提高了组合样式的效率。比如，CSS 中的选择符可能会多次重复出现:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.navbar-nav { ... }
+.navbar-nav > li { ... }
+.navbar-nav > li > a { ... }
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus { ... }</pre></div></div>
+
+<p>其中这些相同的选择符用 LESS 写会简洁很多，只要使用一个简单的嵌套即可:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.navbar-nav { ...
+    > li { ...
+    > a { ...
+    &:hover,
+    &:focus { ... }
+    }
+} }</pre></div></div>
+
+<p>编译后，这些规则会生成标准的 CSS。但 LESS 的嵌套规则更容易写，也更容易维护</p>
+
+<h3>4.2 变量使用</h3>
+
+<p>使用变量可以让我们只设定(或修改)一次，就能自动影响(更新)整个样式表中用到 该值的属性。比如，可以像下面这样使用颜色变量:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>@off-white:  #e5e5e5;
+@brand-primary:  #890000;</pre></div></div>
+
+<p>在这些变量的值变化后，可以自动将它们更新到整个站点。这是因为我们在 LESS 文件中 使用了这些变量:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>a{
+color: @brand-primary;
+}
+.navbar {
+     background-color: @brand-primary;
+     > li > a {
+     color: @off-white;
+     }
+}</pre></div></div>
+
+<h3>4.3 混入/盒模型</h3>
+
+<p>混入可以让生成整套规则更方便也更容易管理;</p>
+
+<p>比如，可以利用它简化为元素应用 border-box 属性的任务。在 CSS 中，要涵盖所有浏览器，需要用到每种浏览器的供应 商前缀，为此针对每个元素都要写三行相同的声明，而且还要记住每一种前缀的写法:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.box {
+-webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+      box-sizing: border-box;
+}</pre></div></div>
+
+<p>在 LESS 中，可以只写一个供混入的规则，后面则可以通过@boxmodel 参数来指定期望 的盒模型:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.box-sizing(@boxmodel) {
+-webkit-box-sizing: @boxmodel;
+    -moz-box-sizing: @boxmodel;
+        box-sizing: @boxmodel;
+}</pre></div></div>
+
+<p>然后就可以在需要的地方使用这个混入了:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.box {
+     .box-sizing(border-box);
+   }
+   .another-element {
+     .box-sizing(border-box);
+   }</pre></div></div>
+
+<p>编译之后，还会为每个元素生成三行 CSS;
+感觉混入就像函数功能, 定义一个函数, 内容定义了3个变量, 当传入一个实参给函数, 对应设定了3个变量的值;</p>
+
+<h3>4.4 运算式</h3>
+
+<p>通过运算式可以基于变量实现数学计算。比如，可以将一种颜色作为基准，对其进行加 亮和减暗处理:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>a:hover { darken(@link-color, 15%); }</pre></div></div>
+
+<p>还可以计算内边距的值，以适应导航条的高度。比如，以下 Bootstrap 的 navbar.less 文件 中的代码，就将导航项的内边距值设定为导航条高度减去行高之后剩余的高度值。然后， 把这个值一分为二，平均应用为顶部和底部内边距:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>.navbar > li > a {
+     padding-top: ((@navbar-height - @line-height-computed) / 2);
+     padding-bottom: ((@navbar-height - @line-height-computed) / 2);
+    }</pre></div></div>
+
+<h3>4.5 导入文件</h3>
+
+<p>LESS 编译器支持导入并组合多个文件，最终生成一个统一的 CSS 文件。我们可以指定导入的次序，按照需要的层叠关系精确组织结果样式表;</p>
+
+<p>Bootstrap 的导入文件 bootstrap.less 一开始导入了基本的变量和混入。然后，又导入了(代
+替 CSS 重置样式表的)normalize.css 的 LESS 版，之后是针对打印媒体的基本样式 (print.less)、基本的全局样式(scaffolding.less)和排版样式(type.less); 结果这个bootstrap.less 文件的开头几行就是这样的:</p>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>// Core variables and mixins
+@import &quot;variables.less&quot;;
+@import &quot;mixins.less&quot;;
+// Reset
+@import &quot;normalize.less&quot;;
+@import &quot;print.less&quot;;
+// Core CSS
+@import &quot;scaffolding.less&quot;;
+@import &quot;type.less&quot;;
+</pre></div>
+</div>
+<p>而最终得到的将是一个统一的 CSS 文件，其中的样式经过<code>从一般到特殊的层叠</code>，正是我们想要的。</p>
+
+<h3>4.6 模块化</h3>
+
+<p>把多个文件导入并输出成一个文件，可以让我们更方便地组织样式，对它们进行分组， 并在不同的文件中对它们进行维护。这也是 Bootstrap 会带有那么多 LESS 文件的原因， 导航条有一个，按钮有一个，警告框有一个，传送带有一个......，而所有这些都会被导 入到 bootstrap.less 文件。</p>
+
+<p>正因为上述原因，LESS 及其他 CSS 预编译器才会变得如此流行。它们已经成为专业 Web 开发不可或缺的一个重要部分。多数开发人员都认为这正是 CSS 的发展方向</p>
+
+<h2>5. 根据需要定制Bootstrap的LESS文件</h2>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996120186682.jpg"></p>
+</p>
+
+<p>接下来要做的事情:</p>
+
+<ol>
+<li>组织 less 文件夹，以便灵活、自由地实现需求，同时也让将来的维护者更方便; </li>
+<li>自定义 Bootstrap 提供的几个 LESS 文件;</li>
+<li>创建几个新的 LESS 文件;</li>
+<li>为站点整合一套较大的字体图标，数量翻倍，并将图标运用于社交媒体链接;</li>
+</ol>
+
+<h3>5.1 自定义变量</h3>
+
+<ul>
+<li>复制Bootstrap下less下的<code>variables.less</code> 到项目less文件夹下, 并重命名为 <code>_variables.less</code>, 更改其中less文件的路径为bootstrap下;</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>@import &quot;_variables.less&quot;;   //这里是需要自定义的less文件
+@import &quot;bootstrap/mixins.less&quot;;
+
+// Reset
+@import &quot;bootstrap/normalize.less&quot;;
+@import &quot;bootstrap/print.less&quot;;
+
+// Core CSS
+@import &quot;bootstrap/scaffolding.less&quot;;
+@import &quot;bootstrap/type.less&quot;;
+@import &quot;bootstrap/code.less&quot;;
+@import &quot;bootstrap/grid.less&quot;;
+@import &quot;bootstrap/tables.less&quot;;
+@import &quot;bootstrap/forms.less&quot;;
+@import &quot;bootstrap/buttons.less&quot;;
+
+// Components
+@import &quot;bootstrap/component-animations.less&quot;;
+@import &quot;bootstrap/glyphicons.less&quot;;
+@import &quot;bootstrap/dropdowns.less&quot;;
+@import &quot;bootstrap/button-groups.less&quot;;
+@import &quot;bootstrap/input-groups.less&quot;;
+@import &quot;bootstrap/navs.less&quot;;
+@import &quot;bootstrap/navbar.less&quot;;
+@import &quot;bootstrap/breadcrumbs.less&quot;;
+@import &quot;bootstrap/pagination.less&quot;;
+@import &quot;bootstrap/pager.less&quot;;
+@import &quot;bootstrap/labels.less&quot;;
+@import &quot;bootstrap/badges.less&quot;;
+@import &quot;bootstrap/jumbotron.less&quot;;
+@import &quot;bootstrap/thumbnails.less&quot;;
+@import &quot;bootstrap/alerts.less&quot;;
+@import &quot;bootstrap/progress-bars.less&quot;;
+@import &quot;bootstrap/media.less&quot;;
+@import &quot;bootstrap/list-group.less&quot;;
+@import &quot;bootstrap/panels.less&quot;;
+@import &quot;bootstrap/wells.less&quot;;
+@import &quot;bootstrap/close.less&quot;;
+
+// Components w/ JavaScript
+@import &quot;bootstrap/modals.less&quot;;
+@import &quot;bootstrap/tooltip.less&quot;;
+@import &quot;bootstrap/popovers.less&quot;;
+@import &quot;bootstrap/carousel.less&quot;;
+
+// Utility classes
+@import &quot;bootstrap/utilities.less&quot;;
+@import &quot;bootstrap/responsive-utilities.less&quot;;
+</pre></div>
+</div>
+<ul>
+<li>更改 <code>_variables.less</code> 的相关变量值</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>// 颜色相关
+// Grays
+// -------------------------
+
+//@gray-darker:            lighten(#000, 13.5%); // #222
+//@gray-dark:              lighten(#000, 20%);   // #333
+//@gray:                   lighten(#000, 33.5%); // #555
+//@gray-light:             lighten(#000, 60%);   // #999
+//@gray-lighter:           lighten(#000, 93.5%); // #eee
+
+@gray-darker: #222;
+@gray-dark: #454545;
+@gray: #777; 
+@gray-light: #aeaeae;
+@gray-lighter: #ccc;
+@gray-lightest: #ededed;
+@off-white: #fafafa;
+
+// Brand colors
+// -------------------------
+
+//@brand-primary:         #428bca;
+@brand-primary:         #c1ba62;
+@brand-success:         #5cb85c;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+@brand-info:            #5bc0de;
+
+// 导航条相关
+// 编辑设定导航条高度、颜色和悬停效果
+@navbar-height:
+@navbar-margin-bottom:
+...
+navbar-default-color:
+@navbar-default-bg:
+@navbar-default-border:
+...
+// Navbar links
+@navbar-default-link-color:
+@navbar-default-link-hover-color:    @link-hover-color;
+@navbar-default-link-hover-bg:       @off-white;
+@navbar-default-link-active-color:   @link-hover-color;
+@navbar-default-link-active-bg:      @gray-lightest;
+@navbar-default-link-disabled-color: @gray-lighter;
+@navbar-default-link-disabled-bg:    transparent;
+</pre></div>
+</div>
+<p>高度应该增加了 14px;
+背景应该变成了白色;
+底部边框稍微变暗了一些;
+导航项的背景应该在悬停时稍暗一点;
+导航项的背景应该在活动时稍暗一些;
+链接文本的颜色应该在悬停和活动时变成品牌色，如下图所示:</p>
+
+<ul>
+<li>刷新页面, 查看效果</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996129451361.jpg"></p>
+</p>
+
+<h2>6. 添加LOGO图片</h2>
+
+<p>(1) 在编辑器中打开 index.html
+(2) 搜索到导航条标记中这一行代码:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><a class="navbar-brand" href="index.html">Bootstrappin'</a></pre></div></div>
+
+<p>(3) 把这里的文本 Bootstrappin&#39;替换成 img 标签，并添加 alt 和 width 属性</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre><img src="img/logo.png" alt="Bootstrappin'" width="120"></pre></div></div>
+
+<p>注释: 做到这里遇到一个坑! 当改为<img>形式之后, 图片和LOGO无法保持对齐; 后续补充如何保持对齐;</p>
+
+<h2>7. 调整导航项内边距</h2>
+
+<p>(略)感觉调整这个没有什么用</p>
+
+<h2>8. 添加图标文件</h2>
+
+<p>先直接使用 Boostrap 自带的 Glyphicons，然后再尝试一下 Font Awesome 这个大型图标库:</p>
+
+<h3>8.1 使用 Glyphicons 图标</h3>
+
+<ul>
+<li>导航栏添加图标</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-collapse collapse&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-home&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-picture&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Portfolio<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-user&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Team<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glyphicon glyphicon-envelope&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Contact<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+ <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="c">&lt;!--/.nav-collapse --&gt;</span>
+</pre></div>
+</div>
+<ul>
+<li>加上字体后的效果</li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996151834092.jpg"></p>
+</p>
+
+<h3>8.2 添加 Font Awesome 图标</h3>
+
+<p><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome 的主页</a></p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996163221667.jpg"></p>
+                    <p class="img-title"><span class="symbol">#</span>复制字体文件</p></p>
+
+<ul>
+<li>复制 Font Awesome 的 less 文件到我们项目的 less 文件夹</li>
+</ul>
+
+<p>在项目的 less 文件夹中创建一个子文件夹，命名为 font-awesome，把 Font Awesome 的 less 文件复制过来:</p>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996164726626.jpg"></p>
+</p>
+
+<ul>
+<li>在__main.less文件中导入 font-awesome.less文件</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>//@import &quot;bootstrap/glyphicons.less&quot;;
+@import &quot;font-awesome/font-awesome.less&quot;;
+</pre></div>
+</div>
+<ul>
+<li>在index.html中更新Team导航项的图标</li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-collapse collapse&quot;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!--</span>
+<span class="c">     &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;index.html&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/span&gt; Home&lt;/a&gt;&lt;/li&gt;</span>
+<span class="c">     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-picture&quot;&gt;&lt;/span&gt; Portfolio&lt;/a&gt;&lt;/li&gt;</span>
+<span class="c">     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt; Team&lt;/a&gt;&lt;/li&gt;</span>
+<span class="c">     &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-envelope&quot;&gt;&lt;/span&gt; Contact&lt;/a&gt;&lt;/li&gt;</span>
+<span class="c">    --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon fa fa-home&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon fa fa-desktop&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Portfolio<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon fa fa-group&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Team<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon fa fa-envelope&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> Contact<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+ <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="c">&lt;!--/.nav-collapse --&gt;</span>
+</pre></div>
+</div>
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996168316069.jpg"></p>
+</p>
+
+<h3>8.3 调整传送带</h3>
+
+<ul>
+<li><p>同样的方式, 复制一份carousel.less 文件, 到less目录下, 并重命名_carousel.less:</p></li>
+<li><p>更新__main.less，用导入这个文件的代码代替导入 Bootstrap 中相应文件的代码</p></li>
+</ul>
+<div class="code-wrapper"><div class="lang-label">HTML</div><div class="highlight"><pre><span></span>@import &quot;_carousel.less&quot;;
+</pre></div>
+</div>
+<ul>
+<li><p>把_carousel.less 一开头的注释改成如下所示</p>
+
+<p>// Customized Carousel
+// --------------------------------------------------</p></li>
+<li><p>把控件改成Font Awesome图标</p></li>
+</ul>
+
+<p>(1) 首先，更新 index.html 中的图标标记。找到带有 carousel-control 和 left、right 类的链接:</p>
+
+<p><code>&lt;a class=&quot;left carousel-control&quot;&gt;</code></p>
+
+<p>(2) 将 span 标签中的类修改为通用的 icon 类，再加上 Font Awesome 图标类，如下所示:</p>
+
+<p><code>
+&lt;span class=&quot;icon fa fa-chevron-left&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;icon fa fa-chevron-right&quot;&gt;&lt;/span&gt;
+</code></p>
+
+<p>(3) 接下来，在_carousel.less 中添加新类选择符。先找到// Left/right controls for nav 注释下的.carousel-control 选择符，在其嵌套规则中找到注释// Toggles， 然后添加我们的.icon 类和注释:</p>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>// Toggles
+.icon-prev,
+.icon-next, 
+.glyphicon-chevron-left, 
+.glyphicon-chevron-right, 
+.icon { // added
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+} display: inline-block;
+.icon-prev, .glyphicon-chevron-left, &.left .icon { // added
+  left: 20%; // edited was 50%
+}
+.icon-next,
+.glyphicon-chevron-right,
+&.right .icon { // added
+    right: 20%; // edited was 50%
+}</pre></div></div>
+
+<ul>
+<li><p>添加上下内边距</p></li>
+<li><p>强制图片全宽</p></li>
+<li><p>约束传送带的高度</p></li>
+<li><p>重定位指示器</p></li>
+<li><p>调整指示器外观</p></li>
+<li><p>调整分栏及其内容</p></li>
+</ul>
+
+<h2>8.4 修饰页脚</h2>
+
+<ul>
+<li><p>在less目录下添加_footer.less文件, 并写入如下代码</p>
+
+<p>ul.social {
+    margin: 0;   // 去掉 ul 中默认的内、外边距
+    padding: 0;
+    width: 100%; //将容器宽度拉伸到百分之百
+    text-align: center; //内容居中;
+    &gt;li {
+        display: inline-block; //列表项显示为行内块，因此可以像文本一样居中;
+        &gt;a {
+            display: inline-block; //链接也显示为行内块，从而可以填满有效空间
+            font-size: 18px; //增大字号和行高
+            line-height: 30px;
+            .square(30px); // see bootstrap/mixins.less //使用 Boostrap 的混入，将宽度和高度设计为 30px 见方;
+            border-radius: 36px; //border-radius 属性的值设置得足够大，以便图标及其背景呈现圆形;
+            background-color: @gray-light; //设置背景色、前景色和外边距;
+            color: #fff;
+            margin: 0 3px 3px 0;
+            &amp;:hover {  //去掉悬停状态默认出来的下划线，同时把背景色改为浅灰色
+                text-decoration: none;
+                background-color: @link-hover-color;
+            }
+        }
+    }
+}</p></li>
+<li><p>在_<em>main.less文件导入</em>footer.less</p>
+
+<p>// Other custom files
+//@import <q>_page-contents.less</q>; 
+@import <q>_footer.less</q>;</p></li>
+<li><p>最终效果</p></li>
+</ul>
+
+<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/14996189421163.jpg"></p>
+</p>
+
+<h1>第三章: WordPress主题</h1>
+
+<h1>第四章: 企业网站</h1>
+
+<h1>第五章: 电子商务网站</h1>
+
+<h1>第六章: 单页营销网站</h1>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'Bootstrap实战-读书笔记',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

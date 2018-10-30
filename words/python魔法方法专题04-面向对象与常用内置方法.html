@@ -1,0 +1,1212 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+    
+        <title> python魔法方法专题04-面向对象与常用内置方法 </title>
+        <meta name="google-site-verification" content="xTBu05X0P9OJkoWvQWGdZimRp6nD6uqesWwTJ6v-BoA" />
+        <meta name="google-site-verification" content="7Obwo8u7tT_NKgyJiirEB1qRpINEnh9BtyBa1WtiVjU" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/global.css">
+        <link rel="stylesheet" href="/assets/theme.css">
+        <link rel="stylesheet" href="/assets/semantic/components/button.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/icon.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/card.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/list.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/container.min.css">
+        <link rel="stylesheet" href="/assets/semantic/components/input.min.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="128x128" href="/assets/images/favicon.ico">
+        <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="/assets/words.css">
+    <link rel="stylesheet" href="/assets/monokai.css">
+    <link rel="stylesheet" href="/assets/3rd/gitalk.css">
+    <link rel="stylesheet" href="/assets/semantic/components/table.min.css">
+
+
+        <style type="text/css"> 
+        </style>
+    </head>
+    
+    <body class="sk-default">
+        <div id="site-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <h3><span style="color: #fff;">主题选择</span></h3>
+                <table id="theme" style="width: 100%; color: #fff; margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="sk-mo" onclick="document.body.className = 'sk-mo'; localStorage.setItem('skin', 'sk-mo');">
+                                <td class="title">墨</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-green" onclick="document.body.className = 'sk-green'; localStorage.setItem('skin', 'sk-green');">
+                                <td class="title">绿</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-default" onclick="document.body.className = 'sk-default'; localStorage.setItem('skin', 'sk-default');">
+                                <td class="title">青</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg"></div></td>
+                            </tr>
+                            <tr class="sk-orange" onclick="document.body.className = 'sk-orange'; localStorage.setItem('skin', 'sk-orange');">
+                                <td class="title">橘</td>
+                                <td width="50%;"><div style="width: 100%;height: 25px; background: var(--main-bg);" class="bg ">
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <div id="cats-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container">
+                <table style="color: #fff;">
+                    <tbody>
+                        <tr>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-bn-avatar.jpeg" />
+                                <div class="name">波妞</div>
+                                <div class="time">2017年2月21号</div>
+                            </td>
+                            <td valign="middle" align="center" width="50%">
+                                <img src="/assets/cat-ss-avatar.png" />
+                                <div class="name">三三</div>
+                                <div class="time">2017年4月10号</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div id="donation-wrapper" style="display: none;" class="topwrapper">
+            <div class="ui container" style="text-align: center;">
+                <div class="description">
+                    <i class="teal quote left icon"></i>
+                    如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!
+                    <i class="teal quote right icon"></i>
+                </div>
+
+                <div class="ui buttons">
+                    <button onclick="useWechat()" id="wechat" class="ui active secondary icon button">
+                        微信
+                    </button>
+                    <button onclick="useAlipay()" id="alipay" class="ui secondary icon button">
+                        支付宝
+                    </button>
+                </div>
+
+                <div id="donation-qrcode">
+                    <img id="wechat-qrcode-image" src="/assets/images/wechat.png">
+                    <img id="alipay-qrcode-image" src="/assets/images/alipay.jpg">
+                    <!-- <img id="donation-qrcode-image" src="/assets/images/wechat.png"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="social-links-wrapper" style="display: none;" class="topwrapper">
+            <a href="mailto:1426409836@qq.com">
+                <button class="ui mini red circular icon button">
+                    <i class="mail icon"></i>
+                </button>
+            </a>
+            <a href="https://github.com/willdx">
+                <button class="ui mini grey circular github icon button">
+                  <i class="github icon"></i>
+                </button>
+            </a>
+            <a href="https://twitter.com/willdx">
+                <button class="ui mini circular twitter icon button">
+                  <i class="twitter icon"></i>
+                </button>
+            </a>
+            <button onclick="toggleWechat()" class="ui mini green circular icon button">
+                <i class="wechat icon"></i>
+            </button>
+            
+            <div id="wx" style="display: none;">
+                <img src="/assets/images/wx.jpeg" />
+            </div>
+        </div>
+
+        <div id="search-wrapper" style="display: none;" class="topwrapper">
+            <div id="search" class="ui container">
+              <input id="searchInput" onkeypress="return search(event)" type="search" placeholder="Search with google...">
+            </div>
+        </div>
+
+        <div id="topbar"></div>
+
+        <div id="triggers-wrapper">
+            <div class="ui black mini buttons">
+                <button onclick="toggleById(wrappers, 'site-wrapper')" class="ui secondary site-wrapper icon button">
+                    <i class="snowflake icon"></i>
+                </button>
+    
+                <button onclick="toggleById(wrappers, 'social-links-wrapper')" class="ui secondary social-links-wrapper icon button">
+                    <i class="linkify icon"></i>
+                </button>
+                <button onclick="toggleById(wrappers, 'search-wrapper')" class="ui secondary search-wrapper icon button">
+                    <i class="search icon"></i>
+                </button>
+                <!--
+                <button onclick="toggleById(wrappers, 'cats-wrapper')" class="ui secondary cats-wrapper icon button">
+                    🐱
+                </button>
+                -->
+                <button onclick="toggleById(wrappers, 'donation-wrapper')" class="ui secondary donation-wrapper icon button">
+                    <i class="heart icon"></i>
+                </button>
+            </div>
+        </div> 
+    
+        <div id="main">
+            <div class="me">
+                <div class="avatar">
+                    <img src="/assets/images/avatar.png">
+                </div>
+    
+                <h2 class="name">Will Dx</h2>
+
+                <span class="sign">人世一身霜雪, 归来仍是少年.</span>
+            </div>
+            
+            <div class="top menu">
+                <div class="ui horizontal bulleted link list">
+                    <a href="/" class="item">
+                        主页
+                    </a>
+                    <a href="/tweet.html" class="item">
+                        推特
+                    </a>
+                    <a href="/about.html" class="item">
+                        关于我
+                    </a>
+                    <a href="#social-links-wrapper" style="cursor: pointer;" class="item" onclick="toggleById(wrappers, 'social-links-wrapper')">
+                        联系
+                    </a>
+                    <a href="/rss.xml" class="item">
+                        RSS 
+                    </a>
+                </div>
+            </div>
+
+            
+<div id="content" class="typo ui container">
+    <div id="article">
+        <h1>python魔法方法专题04-面向对象与常用内置方法</h1>
+        <h4>Posted April 07, 2017</h4>
+        <p>python魔法方法专题04-面向对象与常用内置方法</p>
+
+<h2>面向对象基础</h2>
+
+<h3>面象对象编程特点</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>封装      多态 
+继承：子类可以继承父类的属性和方法
+多态：子类也可以自定义属性和方法；（鸭子类型：关注的不是对象类型本身，关注的是其属性和使用方法;）
+组合：一个类可以由其他的类组成</pre></div></div>
+
+<h3>实例化类的基本步骤</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>(1)调用__new__()方法来创建实例，__new__()方法继承自object;
+(2)调用__init__()方法来对实例进行初始化,若类中有__init__()方法，那么调用类的__init__()方法进行初始化;如果没有则默认调用object基类的__init__()方法来初始化类;</pre></div></div>
+
+<h3>类的说明</h3>
+<div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>class_name.__doc__ 或者 help(class_name)</pre></div></div>
+
+<h3>经典类／新式类</h3>
+
+<p>-python2.7版本下: 默认为经典类，继承object的类可转变为新式类；
+-python3.x版本下：都为新式类</p>
+
+<p>区别:</p>
+<blockquote class="blockquote-normal">
+                <p>写法不一样<br/>改变了多继承下方法的执行顺序：经典类－深度优先DFS／新式类－广度优先BFS</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 1.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 2016年07月05日 星期二 11时28分24秒</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">图解:</span>
+<span class="sd">  A</span>
+<span class="sd">B   C</span>
+<span class="sd">  D        </span>
+<span class="sd">D同时继承B,C;  B,C都继承A; 旧式类，深度优先，当调用属性或方法时,顺序为B-A-C;</span>
+<span class="sd">新式类, 广度优先，当调用属性或方法时,顺序为B-C-A</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span><span class="s2">&quot;A&quot;</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="c1">#name = &quot;B&quot;</span>
+    <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span>
+<span class="k">class</span> <span class="nc">D</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">):</span>
+    <span class="c1">#name = &quot;D&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">D</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s2">&quot;obj.name:&quot;</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>新式类更符合OOP编程思想，统一了python中的type机制</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">注释</span><span class="p">:</span><span class="n">a</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="err">查看对象类型方法</span>
+
+<span class="err">新式类</span><span class="p">:</span><span class="n">aa</span><span class="o">.</span><span class="vm">__class__</span><span class="err">和</span><span class="nb">type</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span><span class="err">一样</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;int&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;int&#39;</span><span class="o">&gt;</span>
+
+<span class="err">旧式类：</span> <span class="n">aa</span><span class="o">.</span><span class="vm">__class__</span><span class="err">和</span><span class="nb">type</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span><span class="err">却不一样</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">AA</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">pass</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">AA</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aa</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">AA</span> <span class="n">at</span> <span class="mh">0xb71f017c</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;instance&#39;</span><span class="o">&gt;</span>
+<span class="err">怎么让旧式类和新式类有一样的效果呢？</span>
+    <span class="err">在类前加一句</span> <span class="vm">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span> <span class="err">设定其元类为</span><span class="nb">type</span><span class="err">即可</span>
+</pre></div>
+</div><blockquote class="blockquote-normal">
+                <p>如果经典类被作为父类，子类调用父类的构造函数时会出错</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 新式类与旧式类的调用父类构造函数异常.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 13:08:39 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#基类（经典类）</span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;Hi, I am a person. &quot;</span>
+
+<span class="c1">#子类</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">student</span> <span class="o">=</span> <span class="n">Student</span><span class="p">()</span>
+    <span class="c1">#出错啦！TypeError: must be type, not classobj</span>
+
+<span class="c1">#使用新式类木有问题</span>
+
+<span class="c1">#基类（新式类）</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;Hi, I am a person.&quot;</span>
+
+<span class="c1">#子类</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">student</span> <span class="o">=</span> <span class="n">Student</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>类属性/实例属性/私有属性基础</h2>
+
+<h3>类属性</h3>
+<blockquote class="blockquote-normal">
+                <p>不需要实例化就存在的属性,在类外对类属性进行修改(要谨慎: 类属性更改，那么所有实例的属性都会更改)</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 类属性.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 13:13:15 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">类属性:</span>
+<span class="sd">不需要实例化就存在的属性,在类外对类属性进行修改(要谨慎: 类属性更改，那么所有实例的属性都会更改)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;daixiang&#39;</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="mi">24</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">myname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="c1">#或者 myname = Test.name</span>
+        <span class="k">return</span> <span class="n">myname</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">Test</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>实例属性</h3>
+
+<p>类被实例化之后, 一般在<strong>init</strong>(self,<em>arg,</em>*kwargs)方法中定义,当然也可以在类的方法中定义(self.属性名=xxx) ;不在<strong>init</strong>()方法中定义的实例属性，实例化的对象在调用前得确保运行了该实例属性所在的方法，只有在方法被调用后，该实例属性才会生效; </p>
+
+<h3>私有属性</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 私有属性.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 13:18:09 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#__标示,只有类对象自己可以访问，外部不能访问和修改</span>
+<span class="c1">#_标示，仅做标示,外部可以访问和修改</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ab</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#当我们定义私有属性时,python程序会自动将程序名称转化a._A__ab() 也可以访问私有属性</span>
+<span class="err">····</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ab</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">__ab</span> <span class="c1">#AttributeError:私有属性无法访问</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">__ab</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1">#手动设置实例属性,此时不时修改私有属性的值,而是新建一个名为__ab的实例属性,并没有修改  self.__ab</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">__ab</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>特殊属性</h3>
+<blockquote class="blockquote-normal">
+                <p>用于保存对象的元数据</p></blockquote><div class="code-wrapper">
+          <div class="lang-label">Raw</div>
+        
+<div class="highlight"><pre>__doc__     文档
+__name__    类名称
+__dict__    属性字典
+__module__  类所在模块名称
+__base__    类的父类</pre></div></div>
+
+<h3>实例的<strong>dict</strong>属性 和 类的<strong>dict</strong>属性</h3>
+<blockquote class="blockquote-normal">
+                <p>实例的<strong>dict</strong>属性:  存储实例化的对象本身的所有属性,它是一个字典;</p><br/><p>类的<strong>dict</strong>属性:  是类dictproxy的一个对象，类dictproxy是一个特殊的类，其对象看上去就像一个普通的字典，但和实例的<strong>dict</strong>属性不一样的是,包含了一些功能性的键值对，其中包括<strong>dict</strong>本身;  类属性不能通过类的<strong>dict</strong>的方式去变更,而直接以   类名.类属性名 的方式去更改</p></blockquote>
+<h2>深入类属性/实例属性/私有属性</h2>
+
+<h3>类属性和实例属性使用</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    demo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+    <span class="c1">##以实例名.属性名引用时，优先引用实例属性</span>
+    <span class="c1">##以类名.属性名引用时，只能引用类属性</span>
+    <span class="c1">#print a.a</span>
+    <span class="c1">#print A.a</span>
+    <span class="c1">#print a.b</span>
+    <span class="c1">#print A.b #异常</span>
+    <span class="c1">#自省/反射:以字符串的方式访问类的属性</span>
+    <span class="c1">#hasattr(obj_bame,&#39;属性名&#39;)</span>
+    <span class="c1">#setattr(obj_name,&#39;属性名&#39;,值）</span>
+    <span class="c1">#getattr(obj_name,&#39;属性名&#39;）</span>
+    <span class="c1">#print getattr(a,&quot;a&quot;)</span>
+    <span class="c1">#setattr(a,&quot;a&quot;,20)</span>
+    <span class="c1">#print  a.a</span>
+    <span class="c1">#print hasattr(a,&quot;a&quot;)</span>
+</pre></div>
+</div>
+<h3>使用<strong>属性签名</strong>将方法包装成属性</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 将方法包装成属性.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 14:22:29 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">Washer</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">scour</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">2010</span>
+
+    <span class="nd">@property</span>
+    <span class="c1">#属性包装:将方法包装成属性，以隐藏相关实现</span>
+    <span class="c1">#可读：@property</span>
+    <span class="c1">#可写：@&lt;property-name&gt;.setter</span>
+    <span class="c1">#可删：@&lt;property-name&gt;.deleter</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_water</span>
+
+    <span class="nd">@water.setter</span>
+    <span class="c1">#用于设定属性的范围, 可写</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">water</span> <span class="o">&lt;=</span><span class="mi">500</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;set Failure!&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2015</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span>
+
+    <span class="k">def</span> <span class="nf">set_water</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">water</span> <span class="o">=</span> <span class="n">water</span>
+
+    <span class="k">def</span> <span class="nf">set_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">scour</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+
+    <span class="k">def</span> <span class="nf">add_water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add water:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">water</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add scour:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">scour</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_wash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_water</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_scour</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Start wash...&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">Washer</span><span class="p">()</span>
+    <span class="c1">#类中定义了私有属性_water,私有实例属性只有类的内部能调用</span>
+    <span class="c1">#所以我们可以定义内部方法去调用私有属性;</span>
+    <span class="c1">#接着我们对方法进行属性封装,使方法对调用方式和属性的调用方式一样;</span>
+    <span class="c1">#属性包装分为读写删 3中模式,需要分别定义;这样做的目的在于我们能对属性值做判断或其他操作;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">water</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">water</span> <span class="o">=</span> <span class="o">-</span><span class="mi">123</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">water</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">total_year</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>属性描述符</h3>
+
+<p>属性描述符:描述符协议中“定义了<strong>get</strong>”、“<strong>set</strong>”或”<strong>delete</strong>” 这些特殊方法
+实现<strong>get</strong>方法的对象是非数据描述符，意味着在初始化之后它们只能被读取；
+而同时实现<strong>get</strong>和<strong>set</strong>的对象是数据描述符，意味着这种属性是可写的；</p>
+
+<p>说白了就是控制属性读写删</p>
+
+<h4>方法1:自定义描述符类</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: desc_01.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 四  7/21 15:12:19 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">TypedProperty</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;python2.7 必须是新式类&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span> <span class="k">if</span> <span class="n">default</span> <span class="k">else</span> <span class="nb">type</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+        <span class="k">print</span> <span class="bp">cls</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">instance</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Must be a </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> 
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__delete__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">instance</span><span class="p">):</span>
+        <span class="c1">#允许删除</span>
+        <span class="c1">#del  self.name</span>
+        <span class="c1">#print &quot;已删除self.name&quot;</span>
+        <span class="c1">#不允许删除</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t delete attribute&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1">#name = TypedProperty(&quot;name&quot;,str) </span>
+    <span class="c1">#num = TypedProperty(&quot;num&quot;,int,42)</span>
+
+    <span class="c1">#若是实例属性,则不能这样定义描述符号</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">TypedProperty</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">TypedProperty</span><span class="p">(</span><span class="s2">&quot;num&quot;</span><span class="p">,</span><span class="nb">int</span><span class="p">,</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">acct</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+    <span class="n">acct</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;daixiang&quot;</span>
+    <span class="n">acct</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">24</span>
+    <span class="k">print</span> <span class="n">acct</span><span class="o">.</span><span class="n">num</span>
+    <span class="k">print</span> <span class="n">acct</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="n">acct</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="s2">&quot;1234&quot;</span> <span class="c1">#提示必须为int类型</span>
+
+    <span class="c1">#del acct.num #提示无法删除</span>
+
+    <span class="c1">#del Foo.num #可以删除</span>
+    <span class="c1">#print acct.num #无法找到</span>
+
+    <span class="c1">#在__delete__方法中允许删除后</span>
+    <span class="c1">#del acct.num #提示已删除self.name </span>
+    <span class="c1">#print acct.num #提示没有该属性</span>
+</pre></div>
+</div>
+<h4>方法2:使用属性签名:property</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: desc_01.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 四  7/21 15:12:19 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;必须是新式类&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acct_num</span> <span class="o">=</span> <span class="n">num</span>
+
+    <span class="k">def</span> <span class="nf">get_acct_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;get_acct_num&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_acct_num</span>
+
+    <span class="k">def</span> <span class="nf">set_acct_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;set_acct_num&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acct_num</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">del_acct_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s2">&quot;del_acct_num&quot;</span>
+        <span class="c1">#del self._acct_num</span>
+        <span class="k">raise</span> <span class="n">AttrbuiteError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t delete attribute&quot;</span><span class="p">)</span>
+
+    <span class="n">acct_num</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_acct_num</span><span class="p">,</span> <span class="n">set_acct_num</span><span class="p">,</span> <span class="n">del_acct_num</span><span class="p">,</span> <span class="s2">&quot;Account number property.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="s2">&quot;24&quot;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">acc</span><span class="o">.</span><span class="n">acct_num</span>
+</pre></div>
+</div>
+<h4>方法3:使用内置装饰器方式(推荐)</h4>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># 注释: 设定属性的同名函数然后用描述符装饰器装饰 来控制属性的读写</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: desc_01.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 四  7/21 15:12:19 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;必须是新式类&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
+
+    <span class="nd">@x.setter</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@x.deleter</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="s2">&quot;24&quot;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">acc</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<h3>内置<strong>slots</strong>方法控制类属性范围</h3>
+<blockquote class="blockquote-normal">
+                <p>只有设定的属性可以进行增删改</p></blockquote><div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="err">注意</span><span class="vm">__slots__</span><span class="err">只对当前类生效</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span> <span class="c1"># 用tuple定义允许绑定的属性名称</span>
+</pre></div>
+</div>
+<h3>call方法使类的实例能够当作方法来使用</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: call方法使类的实例能够当作方法来使用.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 14:58:31 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="k">class</span> <span class="nc">Tst</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Call&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Tst</span><span class="p">()</span>
+    <span class="n">t</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>类方法／静态方法</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 静态方法和类方法.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 15:20:50 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">Washer</span><span class="p">:</span>
+    <span class="n">company</span> <span class="o">=</span> <span class="s2">&quot;Le Xi&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">scour</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">2010</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">spins_ml</span><span class="p">(</span><span class="n">spins</span><span class="p">):</span>
+        <span class="c1"># print(&quot;company:&quot;,Washer.company)</span>
+        <span class="c1"># print(&#39;year:&#39;,self.year)</span>
+        <span class="k">return</span> <span class="n">spins</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_washer</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">water</span><span class="p">,</span><span class="n">scour</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;company:&quot;</span><span class="p">,</span><span class="n">Washer</span><span class="o">.</span><span class="n">company</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;year:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">water</span><span class="p">,</span><span class="bp">cls</span><span class="o">.</span><span class="n">spins_ml</span><span class="p">(</span><span class="n">scour</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_water</span>
+
+    <span class="nd">@water.setter</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">water</span> <span class="o">&lt;=</span><span class="mi">500</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;set Failure!&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2015</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span>
+
+    <span class="k">def</span> <span class="nf">set_water</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">water</span> <span class="o">=</span> <span class="n">water</span>
+
+    <span class="k">def</span> <span class="nf">set_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">scour</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+
+    <span class="k">def</span> <span class="nf">add_water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add water:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">water</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add scour:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">scour</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_wash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_water</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_scour</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Start wash...&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    一般来说，要使用某个类的方法，需要先实例化一个对象再调用方法。</span>
+<span class="sd">    而使用@staticmethod或@classmethod，就可以不需要实例化，直接类名.方法名()来调用。</span>
+<span class="sd">    这有利于组织代码，把某些应该属于某个类的函数给放到那个类里去，同时有利于命名空间的整洁。</span>
+<span class="sd">    </span>
+<span class="sd">    既然@staticmethod和@classmethod都可以直接类名.方法名()来调用，那他们有什么区别呢</span>
+<span class="sd">    从它们的使用上来看,</span>
+<span class="sd">    @staticmethod不需要表示自身对象的self和自身类的cls参数，就跟使用函数一样。</span>
+<span class="sd">    @classmethod也不需要self参数，但第一个参数需要是表示自身类的cls参数。</span>
+<span class="sd">    如果在@staticmethod中要调用到这个类的一些属性方法，只能直接类名.属性名或类名.方法名。</span>
+<span class="sd">    而@classmethod因为持有cls参数，可以来调用类的属性，类的方法，实例化对象等，避免硬编码。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># print(Washer.spins_ml(8))</span>
+    <span class="c1"># w = Washer()</span>
+    <span class="c1"># print(w.spins_ml(8))</span>
+    <span class="c1"># w = Washer(200,Washer.spins_ml(9))</span>
+    <span class="c1"># w.start_wash()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">Washer</span><span class="o">.</span><span class="n">get_washer</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">start_wash</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>类的继承／重载</h2>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 类的继承和方法重载.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 15:48:15 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#类的继承实例</span>
+<span class="k">class</span> <span class="nc">Washer</span><span class="p">:</span>
+    <span class="n">company</span> <span class="o">=</span> <span class="s2">&quot;Le Xi&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">scour</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">spins_ml</span><span class="p">(</span><span class="n">spins</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">spins</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_washer</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">water</span><span class="p">,</span><span class="n">scour</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">water</span><span class="p">,</span><span class="bp">cls</span><span class="o">.</span><span class="n">spins_ml</span><span class="p">(</span><span class="n">scour</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_water</span>
+
+    <span class="nd">@water.setter</span>
+    <span class="k">def</span> <span class="nf">water</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">water</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">water</span> <span class="o">&lt;=</span><span class="mi">500</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_water</span> <span class="o">=</span> <span class="n">water</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;set Failure!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">scour</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scour</span> <span class="o">=</span> <span class="n">scour</span>
+
+    <span class="k">def</span> <span class="nf">add_water</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add water:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">water</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_scour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Add scour:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">scour</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_wash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_water</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_scour</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Start wash...&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WasherDry</span><span class="p">(</span><span class="n">Washer</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">dry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dry clothes...&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start_wash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;....&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start_wash</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;....&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">WasherDry</span><span class="p">()</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">start_wash</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">scour</span><span class="p">,</span><span class="n">w</span><span class="o">.</span><span class="n">company</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">dry</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>特殊的类</h2>
+
+<h3>元类</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 类的特殊方法.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 15:52:01 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#类也是一个对象，但具有创建其自身实例的能力。</span>
+<span class="c1">#类可以和一个变量进行绑定。</span>
+<span class="c1">#你可以为类增加属性。</span>
+<span class="c1">#你可以把它作为函数的参数传递。</span>
+<span class="c1">#类的创建和管理者(type),所有的类都是元类(type)的实例</span>
+<span class="c1">#类的实例化过程: __new__():创建类,__init__()实例化对象</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">class Custom:</span>
+<span class="sd">    def __init__(self):</span>
+<span class="sd">        print(&quot;Init&quot;)</span>
+
+<span class="sd">    def __new__(cls,*args,**kwargs):</span>
+<span class="sd">        print &quot;New&quot;</span>
+<span class="sd">        return object.__new__(cls,*args,**kwargs)</span>
+
+<span class="sd">if __name__==&quot;__main__&quot;:</span>
+<span class="sd">    Custom()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1">#使用type创建类</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Hello = type(&#39;Hello&#39;,(object,),dict(helo=lambda lf:print(&quot;Hello!!!&quot;)))</span>
+<span class="sd">h = Hello()</span>
+<span class="sd">h.helo()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1">#自定义元类:对创建的类进行预处理</span>
+<span class="c1">#继承type</span>
+<span class="c1">#自定义__new__(),__init__()方法</span>
+<span class="s1">&#39;&#39;&#39;</span>
+<span class="s1"># -*- coding: utf-8 -*-</span>
+<span class="s1">class MyMeta(type):</span>
+<span class="s1">    def __init__(self,name,bases,dicts):</span>
+<span class="s1">        print(&#39;Init Instance.&#39;)</span>
+
+<span class="s1">    def __new__(cls,name,bases,dicts):</span>
+<span class="s1">        print(&quot;cls:&quot;,type(cls))</span>
+<span class="s1">        print(&quot;name:{},type_name:{}&quot;.format(name,type(name)))</span>
+<span class="s1">        print(&quot;bases:{},type_bases:{}&quot;.format(bases,type(bases)))</span>
+<span class="s1">        dicts[&#39;info&#39;] = lambda self:print(&#39;Djx.&#39;)</span>
+<span class="s1">        res = type.__new__(cls,name,bases,dicts) </span>
+<span class="s1">        res.company = &#39;MaiZi&#39;</span>
+<span class="s1">        return res</span>
+
+<span class="s1">class custom(metaclass=MyMeta):</span>
+<span class="s1">    &quot;&quot;&quot;新式类调用元类方式&quot;&quot;</span>
+<span class="s1">    pass</span>
+
+<span class="s1">#class cus:</span>
+<span class="s1">#    &quot;&quot;&quot;旧式类调用元类方式&quot;&quot;</span>
+<span class="s1">#    __metaclass__ = MyMeta</span>
+<span class="s1">#    pass</span>
+
+<span class="s1">if __name__==&#39;__main__&#39;:</span>
+<span class="s1">    cus = custom()</span>
+<span class="s1">    cus.info()</span>
+<span class="s1">    print(cus.company)</span>
+</pre></div>
+</div>
+<h3>序列类</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 序列类.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 16:36:23 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1">#__len__(self)</span>
+<span class="c1">#__getitem__(self,key)</span>
+<span class="c1">#__setitem__(self,key,value)</span>
+<span class="c1">#__delitem__(self,key)</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">class</span> <span class="nc">MySeq</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lseq</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span><span class="s2">&quot;II&quot;</span><span class="p">,</span><span class="s2">&quot;III&quot;</span><span class="p">,</span><span class="s2">&quot;IV&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lseq</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lseq</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">MySeq</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">m</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">i</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+<h3>iter类</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 构造iter类.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 16:44:00 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#__iter__(self)</span>
+<span class="c1">#__next__(self)</span>
+
+<span class="k">class</span> <span class="nc">MyIter</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">end</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">r</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">MyIter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>比较类</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 比较类.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 16:48:08 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">oth</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">oth</span><span class="o">.</span><span class="n">x</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">oth</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">oth</span><span class="o">.</span><span class="n">y</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">pa</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pb</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pa</span> <span class="o">&lt;</span> <span class="n">pb</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pa</span> <span class="o">&gt;</span> <span class="n">pb</span><span class="p">)</span>
+</pre></div>
+</div>
+<h3>相加类</h3>
+<div class="code-wrapper"><div class="lang-label">Python</div><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">File Name: 相加类.py</span>
+<span class="sd">Author: WillDX</span>
+<span class="sd">mail: xiang.dai@shuyun.com</span>
+<span class="sd">Created Time: 三  7/ 6 16:51:18 2016</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">oth</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">oth</span><span class="o">.</span><span class="n">x</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">oth</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">pa</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">pb</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pc</span> <span class="o">=</span> <span class="n">pa</span> <span class="o">+</span> <span class="n">pb</span>
+    <span class="n">pc</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<h2>内置方法</h2>
+<div class="code table-wrapper"><table class="ui selectable celled table"><thead>
+<tr>
+<th>魔术方法</th>
+<th style="text-align: left">调用方式</th>
+<th style="text-align: left">解释</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>_<em>new</em>_(cls [,...])</td>
+<td style="text-align: left">instance = MyClass(arg1, arg2)</td>
+<td style="text-align: left"><strong>new</strong> 在创建实例的时候被调用</td>
+</tr>
+<tr>
+<td>_<em>init</em>_(self [,...])</td>
+<td style="text-align: left">instance = MyClass(arg1, arg2)  <strong>init</strong></td>
+<td style="text-align: left">在创建实例的时候被调用</td>
+</tr>
+<tr>
+<td>_<em>cmp</em>_(self, other)</td>
+<td style="text-align: left">self == other, self &gt; other, 等。</td>
+<td style="text-align: left">在比较的时候调用</td>
+</tr>
+<tr>
+<td>_<em>pos</em>_(self)</td>
+<td style="text-align: left">+self</td>
+<td style="text-align: left">一元加运算符</td>
+</tr>
+<tr>
+<td>_<em>neg</em>_(self)</td>
+<td style="text-align: left">-self</td>
+<td style="text-align: left">一元减运算符</td>
+</tr>
+<tr>
+<td>_<em>invert</em>_(self)</td>
+<td style="text-align: left">~self</td>
+<td style="text-align: left">取反运算符</td>
+</tr>
+<tr>
+<td>_<em>index</em>_(self)</td>
+<td style="text-align: left">x[self]</td>
+<td style="text-align: left">对象被作为索引使用的时候</td>
+</tr>
+<tr>
+<td>_<em>nonzero</em>_(self)</td>
+<td style="text-align: left">bool(self)</td>
+<td style="text-align: left">对象的布尔值</td>
+</tr>
+<tr>
+<td>_<em>getattr</em>_(self, name)</td>
+<td style="text-align: left">self.name # name 不存在</td>
+<td style="text-align: left">访问一个不存在的属性时</td>
+</tr>
+<tr>
+<td>_<em>setattr</em>_(self, name, val)</td>
+<td style="text-align: left">self.name = val</td>
+<td style="text-align: left">对一个属性赋值时</td>
+</tr>
+<tr>
+<td>_<em>delattr</em>_(self, name)</td>
+<td style="text-align: left">del self.name</td>
+<td style="text-align: left">删除一个属性时</td>
+</tr>
+<tr>
+<td>_<em>getattribute</em>_(self, name)</td>
+<td style="text-align: left">self.name</td>
+<td style="text-align: left">访问任何属性时</td>
+</tr>
+<tr>
+<td>_<em>getitem</em>_(self, key)</td>
+<td style="text-align: left">self[key]</td>
+<td style="text-align: left">使用索引访问元素时</td>
+</tr>
+<tr>
+<td>_<em>setitem</em>_(self, key, val)</td>
+<td style="text-align: left">self[key] = val</td>
+<td style="text-align: left">对某个索引值赋值时</td>
+</tr>
+<tr>
+<td>_<em>delitem</em>_(self, key)</td>
+<td style="text-align: left">del self[key]</td>
+<td style="text-align: left">删除某个索引值时</td>
+</tr>
+<tr>
+<td>_<em>iter</em>_(self)</td>
+<td style="text-align: left">for x in self</td>
+<td style="text-align: left">迭代时</td>
+</tr>
+<tr>
+<td>_<em>contains</em>_(self, value)</td>
+<td style="text-align: left">value in self, value not in self</td>
+<td style="text-align: left">使用 in 操作测试关系时</td>
+</tr>
+<tr>
+<td>_<em>concat</em>_(self, value)</td>
+<td style="text-align: left">self + other</td>
+<td style="text-align: left">连接两个对象时</td>
+</tr>
+<tr>
+<td>_<em>call</em>_(self [,...])</td>
+<td style="text-align: left">self(args)</td>
+<td style="text-align: left">“调用”对象时</td>
+</tr>
+<tr>
+<td>_<em>enter</em>_(self)</td>
+<td style="text-align: left">with self as x:   with</td>
+<td style="text-align: left">语句环境管理</td>
+</tr>
+<tr>
+<td>_<em>exit</em>_(self, exc, val, trace)</td>
+<td style="text-align: left">with self as x:   with</td>
+<td style="text-align: left">语句环境管理</td>
+</tr>
+<tr>
+<td>_<em>getstate</em>_(self)</td>
+<td style="text-align: left">pickle.dump(pkl_file, self)</td>
+<td style="text-align: left">序列化</td>
+</tr>
+<tr>
+<td>_<em>setstate</em>_(self)</td>
+<td style="text-align: left">data = pickle.load(pkl_file)</td>
+<td style="text-align: left">序列化</td>
+</tr>
+<tr>
+<td>_<em>instancecheck</em>_(self, instance)</td>
+<td style="text-align: left">-</td>
+<td style="text-align: left">检查一个实例是不是你定义的类的实例</td>
+</tr>
+<tr>
+<td>_<em>subclasscheck</em>_(self, subclass)</td>
+<td style="text-align: left">-</td>
+<td style="text-align: left">检查一个类是不是你定义的类的子类</td>
+</tr>
+<tr>
+<td>_<em>dict</em>_</td>
+<td style="text-align: left">obj.<strong>dict</strong></td>
+<td style="text-align: left">获取实例化对象的属性字典,参数传递时比较有用</td>
+</tr>
+</tbody>
+</table></div>
+<h2>参考资料</h2>
+
+<p><a href="http://pycoders-weekly-chinese.readthedocs.io/en/latest/issue6/a-guide-to-pythons-magic-methods.html">python魔法方法</a></p>
+
+    </div>
+    <div id="donate" style="text-align: center;">
+        <a href="#donation-wrapper"><div onclick="displayDonation()" class="ui basic green button">打赏 <i class="red heart icon"></i></div></a>
+    </div>
+    <div id="comments">
+    </div>
+    <div id="more-words">
+        <a href="/#entrys"><div id="more-words">MORE WORDS</div></a>
+    </div>
+</div>
+
+        </div>
+
+        <div id="footer" class="footer code">
+            <span>© 1994 - 2018 willdx</span><b>@</b><a class="code" href="https://willdx.github.io">willdx.github.io</a>
+            <br/>
+            <span class="notprint">
+                <span id="busuanzi_container_site_pv">
+                    <i class="eye icon"></i><span id="busuanzi_value_site_pv" class="orange text"></span> pv
+                </span>
+                <b> | </b>
+                <span id="busuanzi_container_site_uv">
+                    <i class="user icon"></i><span id="busuanzi_value_site_uv" class="orange text"></span> uv
+                </span>
+                <br/>
+            </span>
+            <span>Power by <i class="github alternate icon"></i><a href="https://github.com/willdx/willdx.github.io">Github Page</a></span>
+            <br/>
+            <i class="green superpowers icon"></i>
+        </div>
+    </body>
+    
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script src="/assets/js/web.js"></script>
+    <script>
+        // 统计代码
+        var skin = localStorage.getItem('skin');
+
+        if (skin) {
+            document.body.className = skin;
+        } else {
+            localStorage.setItem('skin', 'sk-default');
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93231524-1', 'auto');
+        ga('send', 'pageview');
+
+        var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]
+
+        window.onload = function () {
+            useWechat();
+        }
+    </script>
+    
+    <script src="/assets/3rd/gitalk.min.js"></script>
+    <script>
+    const gitalk = new Gitalk({
+        clientID: '177af99888a292531873',
+        clientSecret: '7c0927c7cdf0d94eed7dad0b238552c10ec6f53c',
+        repo: 'willdx.github.io',
+        owner: 'willdx',
+        admin: ['willdx'],
+        id: 'python魔法方法专题04-面向对象与常用内置方法',      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+        labels: ['gitment'],
+        pagerDirection: "last",
+    })
+      
+    gitalk.render('comments')
+    </script>
+
+
+</html>

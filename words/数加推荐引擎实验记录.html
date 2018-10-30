@@ -113,11 +113,11 @@
                   <i class="github icon"></i>
                 </button>
             </a>
-            <a href="https://twitter.com/willdx">
-                <button class="ui mini circular twitter icon button">
-                  <i class="twitter icon"></i>
-                </button>
-            </a>
+
+
+
+
+
             <button onclick="toggleWechat()" class="ui mini green circular icon button">
                 <i class="wechat icon"></i>
             </button>
@@ -230,14 +230,14 @@
 
 <p>需要添加的资源有三类：大数据计算服务、表格存储服务以及云监控，其中大数据计算服务是存储数据和进行推荐算法计算的地方，表格存储是用来保存结果的，可以支持在线访问，云监控是用来监控整个处理过程的，有问题的时候可以报警。前一项是必选项，后两项是可选项，此处我们只配置必选项。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108233373314.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108233373314.jpg"></p>
 </p>
 
 <h3>2. 添加业务</h3>
 
 <h3>3. 为业务添加数据</h3>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108234032301.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108234032301.jpg"></p>
 </p>
 
 <p>在数据配置页面，物品属性维度表不需要填写数据表名称，其他都按要求输入表名:</p>
@@ -254,30 +254,30 @@
 
 <p>信息填充完成后，点击保存，此时推荐引擎左侧菜单栏会显示“测试”和“线上”这两个菜单。点击“测试”菜单，可进入测试场景配置页面。点击“线上”按钮，可进入线上场景配置页面。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108244554445.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108244554445.jpg"></p>
 </p>
 
 <h3>4. 为业务创建推荐场景</h3>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108246790357.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108246790357.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108247321234.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108247321234.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108247162027.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108247162027.jpg"></p>
 </p>
 
 <h4>添加指标</h4>
 
 <p>指标是和将来场景上线后的统计报表有关，需要和行为表的数据相匹配。一般涉及的行为包括：浏览，点击和消费等。在使用MovieLens数据集中，由于行为都是打分(grade)，所以这里可以不设置。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108249797852.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108249797852.jpg"></p>
 </p>
 
 <h4>配置API参数</h4>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108251374596.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108251374596.jpg"></p>
 </p>
 
 <h4>设置算法策略</h4>
@@ -286,46 +286,46 @@
 
 <p>此处我们选择默认推荐，添加策略后需要点击保存按钮。需要注意的是，不同的算法策略经过计算输出的推荐结果会不同，这些推荐结果将在后面的配置在线流程中进行使用。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108253145061.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108253145061.jpg"></p>
 </p>
 
 <p>由于我们的实验数据的主要行为是grade，所以点击ItemCF算法策略的参数设置，将行为权重设置为grade的行为，推荐列表返回的item数量也可以进行修改设置:</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108254062467.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108254062467.jpg"></p>
 </p>
 
 <h4>设置在线流程</h4>
 
 <p>在线流程可以设置ABtest，即多种推荐算法进行对比，当然这也需要在前面算法策略设定时选择多种算法。对于推荐结果设置，也可以选择多种方式生成推荐候选集。我们这里设置为用户对物品的推荐候选集。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108256487191.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108256487191.jpg"></p>
 </p>
 
 <h4>启动离线计算</h4>
 
 <p>算法配置完成后，在场景列表上点击“计算”，在弹出的页面中选择需要计算的数据的日期，再点击启动计算，即可触发离线计算。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108257094214.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108257094214.jpg"></p>
 </p>
 
 <p>点击右侧日志查看按钮，可查看所有计算的离线任务和LOG信息。 在日志列表页点击“查看”按钮，会显示算法计算的路程节点图，双击节点可查看详细的LOG内容:</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108257616977.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108257616977.jpg"></p>
 </p>
 
 <h4>上线场景</h4>
 
 <p>在推荐引擎中，测试场景用于进行测试，线上场景用于对接您的APP。测试场景中的算法配置好以后，可以将场景“上线”到线上，在线上场景里可以调用推荐API进行接口测试和对接。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108258261892.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108258261892.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108258116340.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108258116340.jpg"></p>
 </p>
 
 <p>上线完成后，点击“线上”即可看到上线的场景列表。此时可以在线上的场景列表中选择指定的场景进行离线计算、查看已配置的算法策略、调试推荐API等。</p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108259011352.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108259011352.jpg"></p>
 </p>
 
 <h4>查看离线处理结果</h4>
@@ -340,47 +340,47 @@
 <li>测试</li>
 </ul>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108290033563.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108290033563.jpg"></p>
 </p>
 
 <ul>
 <li>线上</li>
 </ul>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15108288601659.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15108288601659.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112583650096.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112583650096.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112583844037.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112583844037.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112584226685.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112584226685.jpg"></p>
 </p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585261720.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112585261720.jpg"></p>
 
 
-                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585408983.jpg"></p>
+                    <p class="hassubimage"><img src="http://iwillb.imdancer.com/15112585408983.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>分区字段</p></p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585721600.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112585721600.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>物品属性维度表</p></p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112585976853.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112585976853.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>行为表01</p>
 
-                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586187915.jpg"></p>
+                    <p class="hassubimage"><img src="http://iwillb.imdancer.com/15112586187915.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>行为表02</p>
 
-                    <p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586294709.jpg"></p>
+                    <p class="hassubimage"><img src="http://iwillb.imdancer.com/15112586294709.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>行为表03</p></p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586537511.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112586537511.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>可推荐物品表</p></p>
 
-<p><p class="hassubimage"><img src="http://7xj7fg.com1.z0.glb.clouddn.com/15112586862792.jpg"></p>
+<p><p class="hassubimage"><img src="http://iwillb.imdancer.com/15112586862792.jpg"></p>
                     <p class="img-title"><span class="symbol">#</span>朋友关系表</p></p>
 
     </div>
@@ -433,7 +433,7 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-93231524-1', 'auto');
+        ga('create', 'UA-68394485-1', 'auto');
         ga('send', 'pageview');
 
         var wrappers = ["cats-wrapper", "donation-wrapper", "social-links-wrapper", "search-wrapper", "site-wrapper"]

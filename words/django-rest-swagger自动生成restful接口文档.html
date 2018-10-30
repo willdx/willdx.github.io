@@ -289,10 +289,11 @@ url(r'^swagger/$', schema_view),</pre></div></div>
         repo: 'willdx.github.io',
         owner: 'willdx',
         admin: ['willdx'],
-        id: '',      // Ensure uniqueness and length less than 50
+        id: 'django-rest-swagger自动生成restful接口文档', // Ensure uniqueness and length less than 50
         distractionFreeMode: false,  // Facebook-like distraction free mode
         labels: ['gitment'],
         pagerDirection: "last",
+	      proxy: 'https://gh-oauth.imsun.net'
     })
       
     gitalk.render('comments')

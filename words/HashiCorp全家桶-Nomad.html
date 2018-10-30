@@ -752,10 +752,11 @@ ansible-cmdb -f facts.d > 1.html</pre></div></div>
         repo: 'willdx.github.io',
         owner: 'willdx',
         admin: ['willdx'],
-        id: '',      // Ensure uniqueness and length less than 50
+        id: 'HashiCorp全家桶-Nomad', // Ensure uniqueness and length less than 50
         distractionFreeMode: false,  // Facebook-like distraction free mode
         labels: ['gitment'],
         pagerDirection: "last",
+	      proxy: 'https://gh-oauth.imsun.net'
     })
       
     gitalk.render('comments')

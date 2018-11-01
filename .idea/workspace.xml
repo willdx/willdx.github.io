@@ -3,150 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="afcf73ba-8383-4c09-b4f5-6f227dccea2b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/word.html" afterPath="$PROJECT_DIR$/templates/word.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Bootstrap实战-读书笔记.html" afterPath="$PROJECT_DIR$/words/Bootstrap实战-读书笔记.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Bootstrap栅格系统.html" afterPath="$PROJECT_DIR$/words/Bootstrap栅格系统.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/CSS布局.html" afterPath="$PROJECT_DIR$/words/CSS布局.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Chrales一个神奇的软件.html" afterPath="$PROJECT_DIR$/words/Chrales一个神奇的软件.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/ConfigParser模块封装.html" afterPath="$PROJECT_DIR$/words/ConfigParser模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django+Nginx日志+用户行为分析.html" afterPath="$PROJECT_DIR$/words/Django+Nginx日志+用户行为分析.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django-Docker-Compose-Envfile集成实践.html" afterPath="$PROJECT_DIR$/words/Django-Docker-Compose-Envfile集成实践.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django-runserver流程分析.html" afterPath="$PROJECT_DIR$/words/Django-runserver流程分析.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django之Model F.html" afterPath="$PROJECT_DIR$/words/Django之Model F.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django之Model ForeignKey、ManyToMany.html" afterPath="$PROJECT_DIR$/words/Django之Model ForeignKey、ManyToMany.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django之Model Q.html" afterPath="$PROJECT_DIR$/words/Django之Model Q.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django之Model基类与软删除.html" afterPath="$PROJECT_DIR$/words/Django之Model基类与软删除.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django之查看执行的SQL语句.html" afterPath="$PROJECT_DIR$/words/Django之查看执行的SQL语句.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记01_web框架基础.html" afterPath="$PROJECT_DIR$/words/Django学习笔记01_web框架基础.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记02_安装虚拟开发环境.html" afterPath="$PROJECT_DIR$/words/Django学习笔记02_安装虚拟开发环境.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记03_简单安装过程.html" afterPath="$PROJECT_DIR$/words/Django学习笔记03_简单安装过程.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记04_路由系统.html" afterPath="$PROJECT_DIR$/words/Django学习笔记04_路由系统.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记05_数据库增删改查.html" afterPath="$PROJECT_DIR$/words/Django学习笔记05_数据库增删改查.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记06_中间件.html" afterPath="$PROJECT_DIR$/words/Django学习笔记06_中间件.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记06_模版.html" afterPath="$PROJECT_DIR$/words/Django学习笔记06_模版.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记07_自定义Field.html" afterPath="$PROJECT_DIR$/words/Django学习笔记07_自定义Field.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记07_静态文件.html" afterPath="$PROJECT_DIR$/words/Django学习笔记07_静态文件.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记08_多数据库联用.html" afterPath="$PROJECT_DIR$/words/Django学习笔记08_多数据库联用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记09_Django中执行脚本.html" afterPath="$PROJECT_DIR$/words/Django学习笔记09_Django中执行脚本.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记10_Django缓存系统.html" afterPath="$PROJECT_DIR$/words/Django学习笔记10_Django缓存系统.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记11_用户注册系统.html" afterPath="$PROJECT_DIR$/words/Django学习笔记11_用户注册系统.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记12_Django国际化.html" afterPath="$PROJECT_DIR$/words/Django学习笔记12_Django国际化.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记13_Django Session.html" afterPath="$PROJECT_DIR$/words/Django学习笔记13_Django Session.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记13_Django传递数据给JS.html" afterPath="$PROJECT_DIR$/words/Django学习笔记13_Django传递数据给JS.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记14_Django Ajax使用及安全.html" afterPath="$PROJECT_DIR$/words/Django学习笔记14_Django Ajax使用及安全.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记15_Django 通用视图.html" afterPath="$PROJECT_DIR$/words/Django学习笔记15_Django 通用视图.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记16_Django 上下文渲染器.html" afterPath="$PROJECT_DIR$/words/Django学习笔记16_Django 上下文渲染器.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记17_Django项目微信公众平台开发.html" afterPath="$PROJECT_DIR$/words/Django学习笔记17_Django项目微信公众平台开发.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记18_Django的信号机制.html" afterPath="$PROJECT_DIR$/words/Django学习笔记18_Django的信号机制.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记18_Django集成Celery异步执行任务.html" afterPath="$PROJECT_DIR$/words/Django学习笔记18_Django集成Celery异步执行任务.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记扩展01_自定义日志handle.html" afterPath="$PROJECT_DIR$/words/Django学习笔记扩展01_自定义日志handle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Django学习笔记扩展02_python中new:init:call方法.html" afterPath="$PROJECT_DIR$/words/Django学习笔记扩展02_python中new:init:call方法.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Docker compose network笔记.html" afterPath="$PROJECT_DIR$/words/Docker compose network笔记.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/ELK设计与实现.html" afterPath="$PROJECT_DIR$/words/ELK设计与实现.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Elasticsearch 5.5.0破解.html" afterPath="$PROJECT_DIR$/words/Elasticsearch 5.5.0破解.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Elasticsearch DSL读书笔记.html" afterPath="$PROJECT_DIR$/words/Elasticsearch DSL读书笔记.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Elasticsearch权威指南读书笔记.html" afterPath="$PROJECT_DIR$/words/Elasticsearch权威指南读书笔记.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/HashiCorp全家桶-Nomad.html" afterPath="$PROJECT_DIR$/words/HashiCorp全家桶-Nomad.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/HashiCorp全家桶-Terraform.html" afterPath="$PROJECT_DIR$/words/HashiCorp全家桶-Terraform.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Homebrew 更新为清华大学源.html" afterPath="$PROJECT_DIR$/words/Homebrew 更新为清华大学源.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/JS之点击按钮复制文本.html" afterPath="$PROJECT_DIR$/words/JS之点击按钮复制文本.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/JavaScript  Ajax JSON数据处理.html" afterPath="$PROJECT_DIR$/words/JavaScript  Ajax JSON数据处理.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Kibana数据分析.html" afterPath="$PROJECT_DIR$/words/Kibana数据分析.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Linux常用命令.html" afterPath="$PROJECT_DIR$/words/Linux常用命令.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/MAC安装MySQL.html" afterPath="$PROJECT_DIR$/words/MAC安装MySQL.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/MAC方向键使用提升效率.html" afterPath="$PROJECT_DIR$/words/MAC方向键使用提升效率.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/MongoDB初级教程.html" afterPath="$PROJECT_DIR$/words/MongoDB初级教程.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/MongoDB进阶教程.html" afterPath="$PROJECT_DIR$/words/MongoDB进阶教程.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Mongodb教程-读书笔记.html" afterPath="$PROJECT_DIR$/words/Mongodb教程-读书笔记.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/MySQLdb模块封装.html" afterPath="$PROJECT_DIR$/words/MySQLdb模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Nginx日志格式.html" afterPath="$PROJECT_DIR$/words/Nginx日志格式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Python使用glom处理嵌套数据.html" afterPath="$PROJECT_DIR$/words/Python使用glom处理嵌套数据.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Python测试和持续集成.html" afterPath="$PROJECT_DIR$/words/Python测试和持续集成.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Study_Fabric_fabfile文件的结构和使用.html" afterPath="$PROJECT_DIR$/words/Study_Fabric_fabfile文件的结构和使用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Study_Fabric_fab选项和参数.html" afterPath="$PROJECT_DIR$/words/Study_Fabric_fab选项和参数.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Study_Fabric_执行模型.html" afterPath="$PROJECT_DIR$/words/Study_Fabric_执行模型.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Study_Fabric_概述.html" afterPath="$PROJECT_DIR$/words/Study_Fabric_概述.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Study_Fabric_环境字典env.html" afterPath="$PROJECT_DIR$/words/Study_Fabric_环境字典env.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/Tornado-协程-异步-非阻塞IO.html" afterPath="$PROJECT_DIR$/words/Tornado-协程-异步-非阻塞IO.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/chrome插件Vimium使用.html" afterPath="$PROJECT_DIR$/words/chrome插件Vimium使用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/django-rest-framework Tutorial.html" afterPath="$PROJECT_DIR$/words/django-rest-framework Tutorial.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/django-rest-swagger自动生成restful接口文档.html" afterPath="$PROJECT_DIR$/words/django-rest-swagger自动生成restful接口文档.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/fabric模块封装.html" afterPath="$PROJECT_DIR$/words/fabric模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/influxdb基本基本概念及其使用.html" afterPath="$PROJECT_DIR$/words/influxdb基本基本概念及其使用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/item2安装程序员字体.html" afterPath="$PROJECT_DIR$/words/item2安装程序员字体.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/js时间戳与日期格式之间的互转.html" afterPath="$PROJECT_DIR$/words/js时间戳与日期格式之间的互转.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/js语法之=&gt;函数.html" afterPath="$PROJECT_DIR$/words/js语法之=&gt;函数.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/ldap模块封装.html" afterPath="$PROJECT_DIR$/words/ldap模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/logging模块封装.html" afterPath="$PROJECT_DIR$/words/logging模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/mac_brew_vim_python2.7.13_bug.html" afterPath="$PROJECT_DIR$/words/mac_brew_vim_python2.7.13_bug.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/macvim IDE环境搭建.html" afterPath="$PROJECT_DIR$/words/macvim IDE环境搭建.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/mac下安装第三方包异常01-psycopg2.html" afterPath="$PROJECT_DIR$/words/mac下安装第三方包异常01-psycopg2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/mysql索引相关.html" afterPath="$PROJECT_DIR$/words/mysql索引相关.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/nginx使用 logrotate 切割日志.html" afterPath="$PROJECT_DIR$/words/nginx使用 logrotate 切割日志.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/oh-my-zsh提高shell逼格.html" afterPath="$PROJECT_DIR$/words/oh-my-zsh提高shell逼格.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/pandas简单使用.html" afterPath="$PROJECT_DIR$/words/pandas简单使用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/postman一个神奇的软件.html" afterPath="$PROJECT_DIR$/words/postman一个神奇的软件.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python setup.py install or develop.html" afterPath="$PROJECT_DIR$/words/python setup.py install or develop.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python web开发测试驱动开发方法.html" afterPath="$PROJECT_DIR$/words/python web开发测试驱动开发方法.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python-二分查询算法.html" afterPath="$PROJECT_DIR$/words/python-二分查询算法.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python3实现基于类的迭代器.html" afterPath="$PROJECT_DIR$/words/python3实现基于类的迭代器.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python_交集并集差集.html" afterPath="$PROJECT_DIR$/words/python_交集并集差集.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python_动态调用函数getattr.html" afterPath="$PROJECT_DIR$/words/python_动态调用函数getattr.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python_执行字符串表示的函数_并为该函数提供全局变量.html" afterPath="$PROJECT_DIR$/words/python_执行字符串表示的函数_并为该函数提供全局变量.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小技巧01-自定义异常.html" afterPath="$PROJECT_DIR$/words/python小技巧01-自定义异常.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小技巧02-python只有在需要时才去寻找变量的值.html" afterPath="$PROJECT_DIR$/words/python小技巧02-python只有在需要时才去寻找变量的值.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小技巧03-添加模块路径的3种方法.html" afterPath="$PROJECT_DIR$/words/python小技巧03-添加模块路径的3种方法.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本01-输入字符串分析.html" afterPath="$PROJECT_DIR$/words/python小脚本01-输入字符串分析.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本02-完数判断.html" afterPath="$PROJECT_DIR$/words/python小脚本02-完数判断.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本03-文件处理.html" afterPath="$PROJECT_DIR$/words/python小脚本03-文件处理.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本04-tk图形界面猜数字游戏.html" afterPath="$PROJECT_DIR$/words/python小脚本04-tk图形界面猜数字游戏.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本05-标准库lpthw建立简单web.html" afterPath="$PROJECT_DIR$/words/python小脚本05-标准库lpthw建立简单web.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python小脚本06-面向过程抓取糗事百科.html" afterPath="$PROJECT_DIR$/words/python小脚本06-面向过程抓取糗事百科.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python标准库-part01.html" afterPath="$PROJECT_DIR$/words/python标准库-part01.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python标准库-re使用.html" afterPath="$PROJECT_DIR$/words/python标准库-re使用.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python简明语法总结.html" afterPath="$PROJECT_DIR$/words/python简明语法总结.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python魔法方法专题01-GIL-多线程-多进程-协程-守护进程.html" afterPath="$PROJECT_DIR$/words/python魔法方法专题01-GIL-多线程-多进程-协程-守护进程.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python魔法方法专题02-python3-5协程原理.html" afterPath="$PROJECT_DIR$/words/python魔法方法专题02-python3-5协程原理.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python魔法方法专题03-匿名函数-闭包-偏函数-装饰器.html" afterPath="$PROJECT_DIR$/words/python魔法方法专题03-匿名函数-闭包-偏函数-装饰器.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python魔法方法专题04-面向对象与常用内置方法.html" afterPath="$PROJECT_DIR$/words/python魔法方法专题04-面向对象与常用内置方法.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/python魔法方法专题05-函数式编程-map-zip-reduce-filter-sorted-反射-各种推导式.html" afterPath="$PROJECT_DIR$/words/python魔法方法专题05-函数式编程-map-zip-reduce-filter-sorted-反射-各种推导式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/rundeck-安装-使用-管理-docker化-接口管理.html" afterPath="$PROJECT_DIR$/words/rundeck-安装-使用-管理-docker化-接口管理.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/sublime3配置python3调试环境.html" afterPath="$PROJECT_DIR$/words/sublime3配置python3调试环境.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/supervisor相关.html" afterPath="$PROJECT_DIR$/words/supervisor相关.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/tablib导出特定格式数据文件模块封装.html" afterPath="$PROJECT_DIR$/words/tablib导出特定格式数据文件模块封装.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/vim简明教程.html" afterPath="$PROJECT_DIR$/words/vim简明教程.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/vue实例-grid表格02.html" afterPath="$PROJECT_DIR$/words/vue实例-grid表格02.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/vue实例-简单markdown编辑器.html" afterPath="$PROJECT_DIR$/words/vue实例-简单markdown编辑器.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/why_dance.html" afterPath="$PROJECT_DIR$/words/why_dance.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/zerorpc.html" afterPath="$PROJECT_DIR$/words/zerorpc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/一台主机上配置多个SSH秘钥.html" afterPath="$PROJECT_DIR$/words/一台主机上配置多个SSH秘钥.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/上传文件到七牛云.html" afterPath="$PROJECT_DIR$/words/上传文件到七牛云.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/个推接入.html" afterPath="$PROJECT_DIR$/words/个推接入.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/使用DUET将ipad设定为扩展屏幕.html" afterPath="$PROJECT_DIR$/words/使用DUET将ipad设定为扩展屏幕.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/函数式编程-01-使用importlib简化if-else操作.html" afterPath="$PROJECT_DIR$/words/函数式编程-01-使用importlib简化if-else操作.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/在数据库中存储层级结构.html" afterPath="$PROJECT_DIR$/words/在数据库中存储层级结构.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/基于consul实现nginx的动态upstream.html" afterPath="$PROJECT_DIR$/words/基于consul实现nginx的动态upstream.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/基于用户位置的实时优惠券推送实现 .html" afterPath="$PROJECT_DIR$/words/基于用户位置的实时优惠券推送实现 .html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/工作小技巧_Mac快速从Finder进入命令行.html" afterPath="$PROJECT_DIR$/words/工作小技巧_Mac快速从Finder进入命令行.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/工作小技巧_Mac键盘图标与对应快捷键按键标志.html" afterPath="$PROJECT_DIR$/words/工作小技巧_Mac键盘图标与对应快捷键按键标志.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/工作小技巧_expect免密登录自动校验和输入密码.html" afterPath="$PROJECT_DIR$/words/工作小技巧_expect免密登录自动校验和输入密码.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/工作小技巧_rundeck添加节点小工具.html" afterPath="$PROJECT_DIR$/words/工作小技巧_rundeck添加节点小工具.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/工作小技巧_rundeck清除日志.html" afterPath="$PROJECT_DIR$/words/工作小技巧_rundeck清除日志.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/心之所安.html" afterPath="$PROJECT_DIR$/words/心之所安.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/我收藏的配色网站-你应该有需要.html" afterPath="$PROJECT_DIR$/words/我收藏的配色网站-你应该有需要.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/数加推荐引擎实验记录.html" afterPath="$PROJECT_DIR$/words/数加推荐引擎实验记录.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/爬取环法自行车赛的赔率信息.html" afterPath="$PROJECT_DIR$/words/爬取环法自行车赛的赔率信息.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/环境搭建01_mac下多版本python管理.html" afterPath="$PROJECT_DIR$/words/环境搭建01_mac下多版本python管理.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/用sphinx生成python文档.html" afterPath="$PROJECT_DIR$/words/用sphinx生成python文档.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/自动化_Ansible简述.html" afterPath="$PROJECT_DIR$/words/自动化_Ansible简述.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/自动化平台pypiserver服务器.html" afterPath="$PROJECT_DIR$/words/自动化平台pypiserver服务器.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-01-单例模式.html" afterPath="$PROJECT_DIR$/words/设计模式专题-01-单例模式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-02-工厂模式-策略模式.html" afterPath="$PROJECT_DIR$/words/设计模式专题-02-工厂模式-策略模式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-03-装饰模式.html" afterPath="$PROJECT_DIR$/words/设计模式专题-03-装饰模式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-04-观察者模式.html" afterPath="$PROJECT_DIR$/words/设计模式专题-04-观察者模式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-05-生产者消费者模式.html" afterPath="$PROJECT_DIR$/words/设计模式专题-05-生产者消费者模式.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/设计模式专题-06-MethodsAreObjects.html" afterPath="$PROJECT_DIR$/words/设计模式专题-06-MethodsAreObjects.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/words/阮一峰老师-git使用系列.html" afterPath="$PROJECT_DIR$/words/阮一峰老师-git使用系列.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/about.html" afterPath="$PROJECT_DIR$/about.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/about.html" afterPath="$PROJECT_DIR$/templates/about.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -160,19 +18,41 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2775">
-              <caret line="185" column="45" lean-forward="false" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="45" />
+            <state relative-caret-position="300">
+              <caret line="204" column="13" lean-forward="false" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="word.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/word.html">
+      <file leaf-file-name="about.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/about.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="382">
+              <caret line="29" column="60" lean-forward="false" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="about.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/about.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="218" column="14" lean-forward="false" selection-start-line="218" selection-start-column="14" selection-end-line="218" selection-end-column="14" />
+              <folding>
+                <marker date="1541062322349" expanded="true" signature="9531:10151" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="10651:10731" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="10801:11663" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="10993:11439" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="11048:11181" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="11263:11397" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="11831:12691" ph="..." />
+                <marker date="1541062322349" expanded="true" signature="11917:11972" ph="{...}" />
+                <marker date="1541062322349" expanded="true" signature="11978:12045" ph="{...}" />
+                <marker date="1541062322349" expanded="true" signature="12079:12324" ph="{...}" />
+                <marker date="1541062322349" expanded="true" signature="12642:12678" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -215,6 +95,7 @@
       <find>github.com/login/oauth</find>
       <find>access token</find>
       <find>accessToken</find>
+      <find>我的工作台</find>
     </findStrings>
     <replaceStrings>
       <replace>Will Dx</replace>
@@ -247,12 +128,12 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/CNAME" />
         <option value="$PROJECT_DIR$/rss.xml" />
-        <option value="$PROJECT_DIR$/templates/about.html" />
         <option value="$PROJECT_DIR$/assets/js/web.js" />
-        <option value="$PROJECT_DIR$/about.html" />
         <option value="$PROJECT_DIR$/markdown/Bootstrap实战-读书笔记.md" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/word.html" />
+        <option value="$PROJECT_DIR$/templates/about.html" />
+        <option value="$PROJECT_DIR$/about.html" />
       </list>
     </option>
   </component>
@@ -264,10 +145,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="992" />
-    <option name="y" value="-742" />
+    <option name="x" value="1177" />
+    <option name="y" value="-967" />
     <option name="width" value="1280" />
-    <option name="height" value="719" />
+    <option name="height" value="905" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -284,8 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="NBKnowledgePane" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -316,6 +195,8 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="NBKnowledgePane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -441,19 +322,19 @@
       <updated>1540882105908</updated>
       <workItem from="1540882109130" duration="6214000" />
       <workItem from="1540889915197" duration="3018000" />
-      <workItem from="1540898349062" duration="292000" />
+      <workItem from="1540898349062" duration="585000" />
+      <workItem from="1541062249103" duration="85000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9524000" />
+    <option name="totallyTimeSpent" value="9902000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="992" y="-742" width="1280" height="719" extended-state="0" />
-    <editor active="true" />
+    <frame x="1177" y="-967" width="1280" height="905" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32909784" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -470,12 +351,13 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32909784" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="FAQ Robot" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25767368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26171243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -483,7 +365,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,6 +378,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/3rd/gitment.browser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49935">
+          <caret line="3329" column="20" lean-forward="false" selection-start-line="3329" selection-start-column="20" selection-end-line="3329" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2775">
@@ -629,21 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="241" column="34" lean-forward="false" selection-start-line="241" selection-start-column="34" selection-end-line="241" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/favicon.ico">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -653,13 +535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="607">
           <caret line="79" column="33" lean-forward="false" selection-start-line="79" selection-start-column="33" selection-end-line="79" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2775">
-          <caret line="185" column="45" lean-forward="false" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -668,7 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="109">
           <caret line="7" column="9892" lean-forward="true" selection-start-line="7" selection-start-column="9892" selection-end-line="7" selection-end-column="9892" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -682,9 +556,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/word.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="74">
+          <caret line="24" column="42" lean-forward="false" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="204" column="13" lean-forward="false" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="29" column="60" lean-forward="false" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="218" column="14" lean-forward="false" selection-start-line="218" selection-start-column="14" selection-end-line="218" selection-end-column="14" />
+          <folding>
+            <marker date="1541062322349" expanded="true" signature="9531:10151" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="10651:10731" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="10801:11663" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="10993:11439" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="11048:11181" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="11263:11397" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="11831:12691" ph="..." />
+            <marker date="1541062322349" expanded="true" signature="11917:11972" ph="{...}" />
+            <marker date="1541062322349" expanded="true" signature="11978:12045" ph="{...}" />
+            <marker date="1541062322349" expanded="true" signature="12079:12324" ph="{...}" />
+            <marker date="1541062322349" expanded="true" signature="12642:12678" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
